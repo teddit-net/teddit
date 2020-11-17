@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    title search results for #{q}
+    include includes/head.pug
+  body
+    include includes/topbar.pug
+    #search
+      form(action="/r/" + subreddit + "/search", method="GET")
+        input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
+        div
+          label(for="restrict_sr") limit my search to r/#{subreddit}
+            if restrict_sr === 'on'
+              input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
+            else
+              input(type="checkbox", name="restrict_sr", id="restrict_sr")
+        div
+          label(for="nsfw") include NSFW results
+            if nsfw === 'on'
+              input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+            else
+              input(type="checkbox", name="nsfw", id="nsfw")
+        input(type="submit", value="search")
+      small sort by: #{sortby}
+      br
+      small past: #{past}
+    #links.search
+      each post in json.posts
+        .link
+          .upvotes
+            div.arrow
+            span #{kFormatter(post.ups)}
+            div.arrow.down
+          .image
+            a(href="" + post.permalink + "")
+              div.no-image
+          .title
+            a(href="" + post.permalink + "") #{post.title}
+          .meta
+            p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+              a(href="/u/" + post.author + "") #{post.author}
+              | to
+              a(href="/r/" + post.subreddit + "", class="subreddit") r/#{post.subreddit}
+            a.comments(href="" + post.permalink + "") #{post.num_comments} comments
+    if json.before || json.after
+      p view more:
+    if json.before && !json.search_firstpage
+      a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
+    if json.after
+      a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&after=" + json.after + "") next ›

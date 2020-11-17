@@ -1,0 +1,24 @@
+{
+  "name": "teddit",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "helmet": "^4.2.0",
+    "minizlib": "^2.1.2",
+    "node-fetch": "^2.6.1",
+    "postman-request": "^2.88.1-postman.27",
+    "pug": "^3.0.0",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": ""
+}

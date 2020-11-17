@@ -1,0 +1,115 @@
+doctype html
+html
+  head
+    title teddit
+    include includes/head.pug
+  body
+    include includes/topbar.pug
+    if json === null
+      h2 error
+      p #{JSON.stringify(http_status_code)}
+      p #{JSON.stringify(http_statustext)}
+    else
+      header
+        a(href="/", class="main")
+          h1 teddit
+        .bottom
+          a(href="/", class="subreddit")
+            h2 #{subreddit}
+          ul.tabmenu
+            li(class=!sortby || sortby == 'hot' ? 'active' : '')
+              a(href="/") hot
+            li(class=sortby === 'new' ? 'active' : '')
+              a(href="/new") new
+            li(class=sortby === 'rising' ? 'active' : '')
+              a(href="/rising") rising
+            li(class=sortby === 'controversial' ? 'active' : '')
+              a(href="/controversial") controversial
+            li(class=sortby === 'top' ? 'active' : '')
+              a(href="/top") top
+      #links
+        if sortby === 'top' || sortby === 'controversial'
+          details
+            summary
+              if past === 'day'
+                span links from: past 24 hours
+              if past === 'hour'
+                span links from: past hour
+              if past === 'week'
+                span links from: past week
+              if past === 'month'
+                span links from: past month
+              if past === 'year'
+                span links from: past year
+              if past === 'all'
+                span links from: all time
+            ul
+              li(class=past === 'day' ? 'active' : '')
+                a(href="?t=day") past 24 hours
+              li(class=past === 'hour' ? 'active' : '')
+                a(href="?t=hour") past hour
+              li(class=past === 'week' ? 'active' : '')
+                a(href="?t=week") past week
+              li(class=past === 'month' ? 'active' : '')
+                a(href="?t=month") past month
+              li(class=past === 'year' ? 'active' : '')
+                a(href="?t=year") past year
+              li(class=past === 'all' ? 'active' : '')
+                a(href="?t=all") all time
+      if !before && !after && sortby === 'hot'
+        #intro
+          h1 Welcome to teddit
+          h2 the alternative, privacy respecting, front page of internet.
+      #links.sr
+        each link in json.links
+          .link
+            .upvotes
+              div.arrow
+              span #{kFormatter(link.ups)}
+              div.arrow.down
+            .image
+              if(link.images)
+                if link.is_self_link
+                  a(href="" + link.permalink + "")
+                    img(src=""+ link.images.thumb +"", target="_blank", alt="")
+                else
+                  a(href="" + link.url + "")
+                    img(src=""+ link.images.thumb +"", target="_blank", alt="")
+              else
+                a(href="" + link.permalink + "")
+                  .no-image
+            .entry
+              .title
+                if link.is_self_link
+                  a(href="" + link.permalink + "")
+                    h2 #{link.title}
+                  span (#{link.domain})
+                else
+                  a(href="" + link.url + "")
+                    h2 #{link.title}
+                  span (#{link.domain})
+              .meta
+                p.submitted submitted
+                  span(title="" + toUTCString(link.created) + "") #{timeDifference(link.created)} by
+                  a(href="/u/" + link.author + "")
+                    | #{link.author}
+                  span(class="to") to
+                    a(href="/r/" + link.subreddit + "")
+                      | #{link.subreddit}
+                p.comments
+                  a(href="" + link.permalink + "", class="comments")
+                    | comments #{link.num_comments}
+      #search.sr
+        p search
+        form(action="/r/all/search", method="GET")
+          input(type="text", name="q", id="q", placeholder="search")
+          div
+            label(for="nsfw") include NSFW results
+              input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+          input(type="submit", value="search")
+      if json.info.before || json.info.after
+        .view-more-inks
+          if json.info.before && !subreddit_front
+            a(href="/r/all/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
+          if json.info.after
+            a(href="/r/all/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›     

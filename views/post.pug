@@ -1,0 +1,127 @@
+doctype html
+html
+  head
+    title #{post.title} : #{subreddit}
+    include includes/head.pug
+  body
+    include includes/topbar.pug
+    if post === null
+      h1 Error occured
+      p #{JSON.stringify(error_data)}
+    else
+      #post
+        header
+          div
+            p subreddit: 
+            a(href="/r/" + subreddit + "")
+              p /r/#{subreddit}
+        .info
+          .score
+            div.arrow
+            span #{kFormatter(post.ups)}
+            div.arrow.down
+          .title
+            a(href="" + localize(post.url) + "")
+              h2 #{post.title}
+          p.submitted
+            span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+            a(href="/u/" + post.author + "")
+              | #{post.author}
+        if post.crosspost.is_crosspost === true
+          .crosspost
+            .title
+              a(href="" + localize(post.crosspost.permalink) + "")
+                h2 #{post.crosspost.title}
+            .num_comments
+              | #{post.crosspost.num_comments} comments
+            .score
+              div.arrow
+              span #{kFormatter(post.crosspost.ups)}
+              div.arrow.down
+            p.submitted
+              span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by
+              a(href="/u/" + post.crosspost.author + "")
+                | #{post.crosspost.author}
+            p.to to
+              a(href="/r/" + post.crosspost.subreddit + "")
+                | #{post.crosspost.subreddit}
+            if !post.has_media
+              if post.images
+                .image
+                  a(href="" + post.images.source + "")
+                    img(src="" + post.images.source + "", alt="")
+            else
+              if post.media.not_hosted_in_reddit
+                .video
+                  a(href="" + post.media.source + "")
+                    img(src=""+ post.media.source +"")
+                p Embed URL:
+                a(href="" + post.media.embed_src + "", target="_blank")
+                  p #{post.media.embed_src}
+              else
+                .video
+                  video(controls="controls", autoplay="autoplay", loop="loop")
+                    source(src="" + post.media.source + "", type="video/mp4")
+                    |  Your browser does not support the video element.
+                  a(href="" + post.media.source + "") [media]
+        else
+          if !post.has_media
+            if post.gallery
+              .gallery
+                each item in post.gallery_items
+                  .item
+                    div
+                      a(href="" + item.large + "", target="_blank")
+                        img(src=""+ item.thumbnail +"", alt="")
+                    a(href="" + item.source + "", target="_blank", class="source-link")
+                      small source
+            if post.images
+              .image
+                a(href="" + post.images.source + "")
+                  img(src="" + post.images.source + "", alt="")
+          else
+            if post.media.not_hosted_in_reddit
+              if post.media.source === 'YouTube'
+                .video
+                  .title
+                    a(href="" + post.media.embed_src + "", target="_blank")
+                      p #{post.media.title}
+                  .video-holder
+                    a(href="" + post.media.embed_src + "", target="_blank")
+                      img(src="" + post.media.thumbnail + "")
+                  div(class="youtube-info")
+                    p YouTube video info:
+                    p #{post.media.title} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
+                    p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
+                      p 
+              else
+                if post.media.source === 'external'
+                  if post.images
+                    .image
+                      a(href="" + post.media.embed_src + "", target="_blank")
+                        img(src="" + post.images.source + "", alt="")
+                    if !post.media.embed_src.startsWith("https://twitter.com")
+                      p
+                        | source:
+                        a(href="" + post.media.embed_src + "", target="_blank")
+                          p #{post.media.embed_src}
+                else
+                  .video
+                    a(href="" + post.media.source + "")
+                      img(src="" + post.media.source + "")
+                  p Embed URL:
+                  a(href="" + post.media.embed_src + "", target="_blank")
+                    p #{post.media.embed_src}
+            else
+              .video
+                video(controls="controls", autoplay="autoplay", loop="loop")
+                  source(src="" + post.media.source + "", type="video/mp4")
+                  |  Your browser does not support the video element.
+                a(href="" + post.media.source + "") [media]
+        if post.selftext        
+          div.usertext-body !{post.selftext}        
+        if viewing_comment
+          .infobar
+            p you are viewing a single comment's thread.
+            a(href="" + post_url + "") view the rest of the comments →
+        != comments

@@ -1,0 +1,94 @@
+link(rel="stylesheet", type="text/css", href="/css/fontello.css")
+link(rel="stylesheet", type="text/css", href="/css/styles.css")
+link(rel="icon", type="image/png", sizes="32x32", href="/favicon.png")
+meta(name="viewport", content="width=device-width, initial-scale=1.0")
+-
+  function kFormatter(num) {
+      return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
+  }
+  
+  function timeDifference(time) {
+    time = parseInt(time) * 1000
+    let ms_per_minute = 60 * 1000
+    let ms_per_hour = ms_per_minute * 60
+    let ms_per_day = ms_per_hour * 24
+    let ms_per_month = ms_per_day * 30
+    let ms_per_year = ms_per_day * 365
+    let current = + new Date()
+
+    let elapsed = Math.abs(time - current)
+    let r = ''
+    let e
+
+    if (elapsed < ms_per_minute) {
+      e = Math.round(elapsed/1000)
+      r = `${e} seconds ago`
+      if(e === 1)
+        r = 'just now'
+      return r
+    }
+
+    else if (elapsed < ms_per_hour) {
+      e = Math.round(elapsed/ms_per_minute)
+      r = `${e} minutes ago`
+      if(r === 1)
+        r = 'a minute ago'
+      return r
+    }
+
+    else if (elapsed < ms_per_day ) {
+      e = Math.round(elapsed/ms_per_hour)
+      r = `${e} hours ago`
+      if(e === 1)
+        r = 'an hour ago'
+      return r
+    }
+
+    else if (elapsed < ms_per_month) {
+      e = Math.round(elapsed/ms_per_day)
+      r = `${e} days ago`
+      if(e === 1)
+        r = '1 day ago'
+      return r
+    }
+
+    else if (elapsed < ms_per_year) {
+      e = Math.round(elapsed/ms_per_month)
+      r = `${e} months ago`
+      if(e === 1)
+        r = '1 month ago'
+      return r
+    }
+
+    else {
+      e = Math.round(elapsed/ms_per_year)
+      r = `${e} years ago`
+      if(e === 1)
+        r = '1 year ago'
+      return r
+    }
+  }
+  
+  function localize(url) {
+    let u = new URL(url)
+    if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
+      url = url.replace(u.host, 'teddit.net')
+    }
+    return url
+  }
+  
+  function toDateString(time) {
+    let d = new Date();
+    d.setTime(time*1000);
+    return d.toDateString();
+  }
+  
+  function toUTCString(time) {
+    let d = new Date();
+    d.setTime(time*1000);
+    return d.toUTCString();
+  }
+  
+  function secondsToMMSS(time) {
+    return new Date(time * 1000).toISOString().substr(14,5)
+  }

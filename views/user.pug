@@ -1,0 +1,152 @@
+doctype html
+html
+  head
+    title overview for #{data.username}
+    include includes/head.pug
+  body
+    include includes/topbar.pug
+    if user === null
+      h1 Error occured
+      p #{JSON.stringify(error_data)}
+    else
+      #user
+        #links
+          details
+            summary
+              if !sortby || sortby === 'new'
+                span sorted by: new
+              if sortby === 'hot'
+                span sorted by: hot
+              if sortby === 'top'
+                span sorted by: top
+              if sortby === 'controversial'
+                span sorted by: controversial
+            ul
+              li(class=!sortby || sortby == 'new' ? 'active' : '')
+                a(href="/u/" + data.username) new
+              li(class=sortby === 'hot' ? 'active' : '')
+                a(href="/u/" + data.username + "?sort=hot") hot
+              li(class=sortby === 'top' ? 'active' : '')
+                a(href="/u/" + data.username + "?sort=top&t=" + past + "") top
+              li(class=sortby === 'controversial' ? 'active' : '')
+                a(href="/u/" + data.username + "?sort=controversial&t=" + past + "") controversial
+          if sortby === 'top' || sortby === 'controversial'
+            details
+              summary
+                if past === 'all'
+                  span links and comments from: all time
+                if past === 'hour'
+                  span links and comments from: past hour
+                if past === 'day'
+                  span links and comments from: past 24 hours
+                if past === 'week'
+                  span links and comments from: past week
+                if past === 'month'
+                  span links and comments from: past month
+                if past === 'year'
+                  span links and comments from: past year
+              ul
+                li(class=past === 'hour' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=hour") past hour
+                li(class=past === 'day' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=day") past 24 hours
+                li(class=past === 'week' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=week") past week
+                li(class=past === 'month' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=month") past month
+                li(class=past === 'year' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=year") past year
+                li(class=past === 'all' ? 'active' : '')
+                  a(href="?sort=" + sortby + "&t=all") all time
+        .entries
+          each post in data.posts
+            if post.type === 't3'
+              .entry.t3
+                .upvotes
+                  div.arrow
+                  span #{kFormatter(post.ups)}
+                  div.arrow.down
+                .image
+                  if post.thumbnail !== 'self'
+                    a(href="" + post.permalink + "")
+                      img(src="" + post.thumbnail + "", alt="")
+                      if post.duration
+                        span #{secondsToMMSS(post.duration)}
+                  else
+                    a(href="" + post.permalink + "")
+                      div.no-image
+                .title
+                  a(href="" + post.permalink + "") #{post.title}
+                  .meta
+                    p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+                      a(href="/u/" + data.username + "") #{data.username}
+                      | to
+                      a(href="/r/" + post.subreddit + "", class="subreddit") #{post.subreddit}
+                    a.comments(href="" + post.permalink + "") #{post.num_comments} comments
+            if post.type === 't1'
+              .entry
+                .meta
+                  .title
+                    a(href="" + post.url + "") #{post.link_title}
+                  .author
+                    p by
+                      if post.link_author !== '[deleted]'
+                        a(href="/u/" + post.link_author + "") #{post.link_author}
+                      else
+                        | [deleted]
+                  .subreddit
+                    p in
+                      a(href="/r/" + post.subreddit + "") #{post.subreddit} 
+                .comment
+                  details(open="")
+                    summary
+                      a(href="/u/" + data.username + "") #{data.username}
+                      p.ups #{post.ups} points
+                      p.created(title="" + toUTCString(post.created) + "") #{timeDifference(post.created)}
+                    .meta
+                      p.author
+                        a(href="/u/" + data.username + "") #{data.username}
+                      p.ups #{post.ups} points
+                      p.created(title="" + toUTCString(post.created) + "") #{timeDifference(post.created)}
+                    .body
+                      div !{post.body_html} 
+                    a.context(href="" + post.permalink + "?context=10") context
+                    a.comments.t1(href="" + post.url + "") full comments (#{post.num_comments})
+          if data.before || data.after
+            p view more:
+          if data.before && !data.user_front
+            a(href="/u/" + data.username + "?before=" + data.before + "") ‹ prev
+          if data.after
+            a(href="/u/" + data.username + "?after=" + data.after + "") next ›
+        .info
+          h1 #{data.username}
+          p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
+          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> post karma
+          br
+          p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
+          p verified: #{(data.verified) ? "yes" : "no" }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
