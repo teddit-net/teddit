@@ -17,7 +17,7 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 
 ## Installation
-This is a quick guide how to run teddit on your own server with domain teddit.net. Change teddit.net to your own domain in the following steps. Tested on fresh install of Debian 10. Run as root:
+This is a quick guide how to run teddit on your own server. Change teddit.net to your own domain in the following steps. Tested on fresh install of Debian 10. Run as root:
 
 `# apt update && apt upgrade`
 
