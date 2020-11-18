@@ -16,8 +16,31 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 
+## TODO
+
+* Subreddit sidebars
+* Finish search functionality (atm no sorting)
+* Sort comments in post
+* User attributes
+* Comment and post attributes (e.g. stickies)
+* Subreddit flairs
+* User trophies
+* "other discussions" feature
+* ... and lot of other small stuff
+
+## Roadmap
+
+* Unofficial reddit API through teddit
+* Themes
+* User settings
+* HLS video streaming? (Would require browser JavaScript)
+* Onion site
+* User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
+
 ## Installation
-This is a quick guide how to run teddit on your own server. Change teddit.net to your own domain in the following steps. Tested on fresh install of Debian 10. Run as root:
+This is a quick guide how to run teddit on your own server. Tested on fresh install of Debian 10. You can install teddit also locally without certificates and so on, but there's no guide for it (not yet).
+
+Run as root:
 
 `# apt update && apt upgrade`
 
@@ -27,13 +50,7 @@ This is a quick guide how to run teddit on your own server. Change teddit.net to
 
 `# adduser teddit`
 
-`# mkdir -p /home/teddit/letsencrypt/`
-
-`# mkdir -p /home/teddit/letsencrypt/`
-
-`# mkdir -p /home/teddit/letsencrypt/logs/`
-
-`# mkdir -p /home/teddit/letsencrypt/lib/`
+`# mkdir -p /home/teddit/letsencrypt/ /home/teddit/letsencrypt/logs/ /home/teddit/letsencrypt/lib/`
 
 `# chown teddit:teddit -R /home/teddit/letsencrypt/`
 
@@ -75,7 +92,7 @@ Let's obtain certificates. Run HTTP server:
 
 `$ nohup node setup_server.js </dev/null &>/dev/null &`
 
-Then run certbot. Change your email ("ADD_YOUR_EMAIL_ADDRESS@SOMETHING.ORG") and domain.
+Then run certbot. Change "teddit.net" to your domain, and also change the "ADD_YOUR_EMAIL_ADDRESS@SOMETHING.ORG" email.
 
 `$ certbot certonly --webroot -w /home/teddit/teddit/dist/ -d teddit.net --agree-tos --no-eff-email --manual-public-ip-logging-ok --config-dir /home/teddit/letsencrypt/ --logs-dir /home/teddit/letsencrypt/logs/ --work-dir /home/teddit/letsencrypt/lib/ --email ADD_YOUR_EMAIL_ADDRESS@SOMETHING.ORG`
 
@@ -85,7 +102,7 @@ Kill the node HTTP server:
 
 `$ kill -9 [PID HERE]`
 
-Change config variables in app.js, domain and Reddit app ID. Note: It's recommended that you get your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: [https://old.reddit.com/prefs/apps/](https://old.reddit.com/prefs/apps/) and update its ID to the app.js. Make sure to create an "installed app" type of app.
+Change config variables in app.js for domain and Reddit app ID. Note: It's recommended that you get your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: [https://old.reddit.com/prefs/apps/](https://old.reddit.com/prefs/apps/). Make sure to create an "installed app" type of app.
 
 `$ nano app.js`
 
@@ -96,7 +113,7 @@ Now let's start teddit:
 `$ nohup node app.js > output.log &`
 
 If everything went okay, you should have teddit instance running on your domain with a valid SSL certificate.
-If you see the output.log:
+Tailing output.log:
 
 `$ tail -f output.log`
 
