@@ -20,28 +20,98 @@ html
               input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
             else
               input(type="checkbox", name="nsfw", id="nsfw")
+        div
+          //- Let me know if there's a better way to add selected attribute!
+          label(for="sort") sorted by: 
+            select(name="sort",  id="sort")
+              if sortby === 'relevance' || !sortby
+                option(value="relevance", selected="selected") relevance
+                option(value="top") top
+                option(value="new") new
+                option(value="comments") comments
+              if sortby === 'top'
+                option(value="relevance") relevance
+                option(value="top", selected="selected") top
+                option(value="new") new
+                option(value="comments") comments
+              if sortby === 'new'
+                option(value="relevance") relevance
+                option(value="top") top
+                option(value="new", selected="selected") new
+                option(value="comments") comments
+              if sortby === 'comments'
+                option(value="relevance") relevance
+                option(value="top") top
+                option(value="new") new
+                option(value="comments", selected="selected") comments
+        div
+          //- Let me know if there's a better way to add selected attribute!
+          label(for="t") links from: 
+            select(name="t",  id="t")
+              if past === 'hour'
+                option(value="hour", selected="selected") hour
+                option(value="day") 24 hours
+                option(value="week") week
+                option(value="month") month
+                option(value="year") year
+                option(value="all") all time
+              if past === 'day'
+                option(value="hour") hour
+                option(value="day", selected="selected") 24 hours
+                option(value="week") week
+                option(value="month") month
+                option(value="year") year
+                option(value="all") all time
+              if past === 'week'
+                option(value="hour") hour
+                option(value="day") 24 hours
+                option(value="week", selected="selected") week
+                option(value="month") month
+                option(value="year") year
+                option(value="all") all time
+              if past === 'month'
+                option(value="hour") hour
+                option(value="day") 24 hours
+                option(value="week") week
+                option(value="month", selected="selected") month
+                option(value="year") year
+                option(value="all") all time
+              if past === 'year'
+                option(value="hour") hour
+                option(value="day") 24 hours
+                option(value="week") week
+                option(value="month") month
+                option(value="year", selected="selected") year
+                option(value="all") all time
+              if past === 'all' || !past
+                option(value="hour") hour
+                option(value="day") 24 hours
+                option(value="week") week
+                option(value="month") month
+                option(value="year") year
+                option(value="all", selected="selected") all time
         input(type="submit", value="search")
-      small sort by: #{sortby}
-      br
-      small past: #{past}
     #links.search
-      each post in json.posts
-        .link
-          .upvotes
-            div.arrow
-            span #{kFormatter(post.ups)}
-            div.arrow.down
-          .image
-            a(href="" + post.permalink + "")
-              div.no-image
-          .title
-            a(href="" + post.permalink + "") #{post.title}
-          .meta
-            p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-              a(href="/u/" + post.author + "") #{post.author}
-              | to
-              a(href="/r/" + post.subreddit + "", class="subreddit") r/#{post.subreddit}
-            a.comments(href="" + post.permalink + "") #{post.num_comments} comments
+      if json.posts.length <= 0
+        h1 no results
+      else
+        each post in json.posts
+          .link
+            .upvotes
+              div.arrow
+              span #{kFormatter(post.ups)}
+              div.arrow.down
+            .image
+              a(href="" + post.permalink + "")
+                div.no-image
+            .title
+              a(href="" + post.permalink + "") #{post.title}
+            .meta
+              p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+                a(href="/u/" + post.author + "") #{post.author}
+                | to
+                a(href="/r/" + post.subreddit + "", class="subreddit") r/#{post.subreddit}
+              a.comments(href="" + post.permalink + "") #{post.num_comments} comments
     if json.before || json.after
       p view more:
     if json.before && !json.search_firstpage

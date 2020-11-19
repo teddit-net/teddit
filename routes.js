@@ -83,6 +83,34 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.get('/preferences', (req, res, next) => {
     return res.render('preferences')
   })
+  
+  app.get('/search', (req, res, next) => {
+    let q = req.query.q
+    let restrict_sr = req.query.restrict_sr
+    let nsfw = req.query.nsfw
+    let sortby = req.query.sort
+    let past = req.query.t
+    let after = req.query.after
+    let before = req.query.before
+    if(!after) {
+      after = ''
+    }
+    if(!before) {
+      before = ''
+    }
+    if(restrict_sr !== 'on') {
+      restrict_sr = 'off'
+    }
+    
+    if(nsfw !== 'on') {
+      nsfw = 'off'
+    }
+    let d = `&after=${after}`
+    if(before) {
+      d = `&before=${before}`
+    }
+    return res.redirect(`/r/all/search?q=${q}&restrict_sr=${restrict_sr}&nsfw=${nsfw}&sort=${sortby}&t=${past}${d}`)
+  })
 
   app.get('/:sort', (req, res, next) => {
     let sortby = req.params.sort
@@ -169,15 +197,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
   
-  
-  
   app.get('/r/:subreddit/search', (req, res, next) => {
     let subreddit = req.params.subreddit
     let q = req.query.q
     let restrict_sr = req.query.restrict_sr
     let nsfw = req.query.nsfw
-    let sortby = 'relevance'
-    let past = 'all'
+    let sortby = req.query.sort
+    let past = req.query.t
     let after = req.query.after
     let before = req.query.before
     if(!after) {
