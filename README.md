@@ -12,6 +12,10 @@ Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
 * Prevents Reddit from tracking your IP or JavaScript fingerprint
 * Lightweight (teddit frontpage: ~30 HTTP requests with ~270 KB of data downloaded vs. Reddit frontpage: ~190 requests with ~24 MB)
 
+
+** teddit is still in an alpha version, so expect runtime errors and downtimes **
+
+
 XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
 
 BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
