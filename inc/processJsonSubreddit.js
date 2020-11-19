@@ -45,8 +45,10 @@ module.exports = function() {
                   thumb: await downloadAndSave(data.thumbnail, 'thumb_')
                 }
               } else {
-                images = {
-                  thumb: await downloadAndSave(data.preview.images[0].resolutions[0].url, 'thumb_')
+                if(data.preview.images[0].resolutions[0]) {
+                  images = {
+                    thumb: await downloadAndSave(data.preview.images[0].resolutions[0].url, 'thumb_')
+                  }
                 }
               }
             }
