@@ -127,3 +127,9 @@ Teddit running on https://teddit.net
 Teddit running on http://teddit.net
 Successfully obtained a reddit API key.
 ```
+
+
+### Other
+
+* Using nohup for starting and killing node process might be a bit of a hassle, but this project aims to be as minimalistic as possible. If you want to use process managers like [pm2](https://www.npmjs.com/package/pm2) its perfectly fine.
+* Teddit doesn't have any fancy logging built in. There's no IP address or even timestamp logging.
