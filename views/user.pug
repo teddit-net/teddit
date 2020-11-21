@@ -59,6 +59,8 @@ html
                 li(class=past === 'all' ? 'active' : '')
                   a(href="?sort=" + sortby + "&t=all") all time
         .entries
+          if !data.posts || data.posts.length <= 0
+            h3 no posts/comments
           each post in data.posts
             if post.type === 't3'
               .entry.t3

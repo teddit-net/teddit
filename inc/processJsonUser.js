@@ -22,8 +22,14 @@ module.exports = function() {
           user_front = true
         }
         
-        after = json.overview.data.children[posts_limit - 1].data.name
-        before = json.overview.data.children[0].data.name
+        if(json.overview.data.children) {
+          if(json.overview.data.children[posts_limit - 1]) {
+            after = json.overview.data.children[posts_limit - 1].data.name
+          }
+          if(json.overview.data.children[0]) {
+            before = json.overview.data.children[0].data.name
+          }
+        }
         
         for(var i = 0; i < posts_limit; i++) {
           let post = json.overview.data.children[i].data
