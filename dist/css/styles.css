@@ -207,6 +207,9 @@ body.dark .btn {
 	background: black;
 	color: white;
 }
+body.dark #post .crosspost {
+	background: var(--darkbg);
+}
 a {
 	color: var(--linkcolor);
 	text-decoration: none;
