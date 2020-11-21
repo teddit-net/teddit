@@ -2,13 +2,210 @@
 	--sm-font: 0.666rem;
 	--lightgray: #f5f5f5;
 	--whitebg: #ffffff;
+	--darkbg: #0F0F0F;
+	--darkbglight: #252525;
 	--linkcolor: #000bac;
+	--darklinkcolor: #599bff;
 	--graytext: #6f6f6f;
 }
 * {
 	padding: 0;
 	margin: 0;
 	font-family: sans-serif;
+}
+/* Move themes to the beginning of the file to avoid themes flickering. */
+/* DARK THEME */
+body.dark {
+	background: var(--darkbg);
+	color: #cacaca;
+}
+body.dark nav {
+	background: #1f1f1f;
+}
+body.dark .top-links a {
+	background: var(--darkbg);
+	color: #bfbfbf;
+}
+body.dark header {
+	background: var(--darkbglight);
+	color: #f1f1f1;
+}
+body.dark #post header div a {
+	color: var(--darklinkcolor);
+	text-decoration: none;
+}
+body.dark a {
+	color: #f5f5f5;
+}
+body.dark a:hover, body.dark a:focus {
+	color: #3d8aff;
+	text-decoration: underline;
+}
+body.dark #post header div a:hover,
+body.dark #post header div a:focus {
+	text-decoration: underline;
+}
+body.dark input[type="submit"]:hover,
+body.dark input[type="submit"]:focus,
+body.dark .btn:hover,
+body.dark .btn:focus {
+	background: white;
+	color: black;
+	text-decoration: none;
+}
+body.dark form legend {
+	border-bottom: 1px solid #353535;
+}
+body.dark #post .title a {
+	color: var(--darklinkcolor);
+}
+body.dark #post .submitted {
+	color: #a5a5a5;
+}
+body.dark #post .usertext-body {
+	background: #0a0a0a;
+	border: 1px solid #404040;
+}
+body.dark #post .infobar {
+	background-color: #d2d2d2;
+	color: #2f2f2f;
+}
+body.dark #post .infobar a {
+	color: #0356d4;
+}
+body.dark header .tabmenu li a {
+	background: #3e3e3e;
+}
+body.dark header .tabmenu li a:hover, body.dark header .tabmenu li a:focus {
+	text-decoration: underline;
+	color: white;
+}
+body.dark #search {
+	color: #d2d2d2;
+}
+body.dark .md {
+	color: #dadada;
+}
+body.dark .md blockquote, body.dark .md del {
+	color: #777777;
+}
+body.dark .md code, body.dark .md pre {
+	background: black;
+	color: white;
+}
+body.dark .comment .body blockquote {
+	background: #313131;
+	color: #afafaf;
+	border-color: #464646;
+}
+body.dark .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment {
+	background: var(--darkbglight);
+	border-left: 1px solid #545454;
+}
+body.dark .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+/* Is there any better way to do this??? send help naow */
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbglight);
+}
+body.dark .comment .meta .created a {
+	color: #7b7b7b;
+}
+body.dark .comment details summary {
+	color: #868686;
+}
+body.dark .comment details summary::-webkit-details-marker,
+body.dark .comment details summary::marker {
+	color: #868686;
+}
+body.dark #links .link .entry .title a h2 {
+	color: #f0f0f0;
+}
+body.dark #links .link .image .no-image,
+body.dark #user .entry .image .no-image {
+	filter: opacity(0.5);
+}
+body.dark #links .link .upvotes {
+	color: #858585;
+}
+body.dark .upvotes .arrow,
+body.dark .score .arrow {
+	filter: opacity(0.5);
+}
+body.dark #links .link .entry .meta a {
+	color: #c7c7c7;
+}
+body.dark .content .bottom img {
+	filter: invert(1);
+}
+body.dark .container .content {
+	border: 1px solid #5e5e5e;
+}
+body.dark input[type="submit"],
+body.dark .btn {
+	background: black;
+	color: white;
 }
 a {
 	color: var(--linkcolor);
@@ -33,7 +230,7 @@ a:hover, a:focus {
 	background: url(/css/sprite.png?v=1);
 	background-position: -84px -1654px;
 	background-repeat: no-repeat;
-	margin: 4px 0px 0px 0px;
+	margin: 2px 0px 2px 0px;
 	width: 100%;
 	height: 14px;
 	display: block;
@@ -121,6 +318,15 @@ nav .settings a:hover,nav .settings a:focus {
 	line-height: 1.4;
 	padding-bottom: 5px;
 }
+form legend {
+  border-bottom: 1px solid #e3e3e3;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.container .content p.notice {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 .container .content p.version {
 	text-align: right;
 	color: #4f4f4f;
@@ -137,7 +343,7 @@ header {
 	width: 100%;
 	padding-top: 15px;
 	margin-bottom: 21px;
-	margin-top: 14px;
+	margin-top: 2px;
 	background: gainsboro;
 }
 header a {
@@ -196,7 +402,27 @@ header .tabmenu li.active a {
 	border-radius: 3px;
 	font-weight: bold;
 }
-/*SUBREDDIT LINKS*/
+input[type="submit"],
+.btn {
+	padding: 3px;
+	margin-top: 7px;
+	margin-right: 10px;
+	border-radius: 0px;
+	border: 1px solid #a5a5a5;
+	background: white;
+	color: #464646;
+	font-size: 13px;
+}
+input[type="submit"]:focus,
+input[type="submit"]:hover,
+.btn:focus,
+.btn:hover {
+	background: #4c4c4c;
+	color: white;
+	cursor: pointer;
+	text-decoration: none;
+}
+/* SUBREDDIT LINKS */
 #links {
 	float: left;
 	width: 100%;
@@ -327,7 +553,7 @@ header .tabmenu li.active a {
 #links.search .link .meta a.comments {
 	margin-left: 0px;
 }
-/*COMMENTS*/
+/* COMMENTS */
 .comment {
 	font-size: 0.83rem;
 }
@@ -473,7 +699,7 @@ header .tabmenu li.active a {
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background: var(--lightgray);
 }
-/*POST*/
+/* POST */
 #post .info {
 	float: left;
 	width: 100%;
@@ -635,7 +861,7 @@ header .tabmenu li.active a {
 #post .gallery .item small {
 	font-size: 10px;
 }
-/*USER*/
+/* USER */
 #user .entries {
 	float: left;
 	width: 80%;
@@ -804,7 +1030,7 @@ header .tabmenu li.active a {
 #user .entries .entry a.context {
 	margin-right: 10px;
 }
-/*SEARCH*/
+/* SEARCH */
 #search {
 	margin-left: 30px;
 	margin-bottom: 50px;
@@ -841,20 +1067,7 @@ header .tabmenu li.active a {
 	border-radius: 0px;
 	margin-bottom: 11px;
 }
-#search input[type="submit"] {
-	padding: 3px;
-	margin-top: 7px;
-	border-radius: 0px;
-	border: 1px solid #a5a5a5;
-	background: white;
-	color: #464646;
-}
-#search input[type="submit"]:focus, #search input[type="submit"]:hover {
-	background: #4c4c4c;
-	color: white;
-	cursor: pointer;
-}
-/*REDDIT STYLES*/
+/* REDDIT STYLES */
 .md .md-spoiler-text {
 	border-radius:2px;
 	transition:background ease-out 1s;
@@ -1065,7 +1278,7 @@ code {
 	font-size:1em;
 	line-height:1.25em;
 }
-/*Fix spoiler texts not showing without JS*/
+/* Fix spoiler texts not showing without JS */
 .md .md-spoiler-text:not(.revealed):active,.md .md-spoiler-text:not(.revealed):focus,.md .md-spoiler-text:not(.revealed):hover {
 	color: black;
 	background: #fff0;

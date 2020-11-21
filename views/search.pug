@@ -3,7 +3,7 @@ html
   head
     title search results for #{q}
     include includes/head.pug
-  body
+  body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
     #search
       form(action="/r/" + subreddit + "/search", method="GET")

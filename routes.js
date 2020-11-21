@@ -29,7 +29,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the frontpage key from redis.', error)
-        return res.render('index', { json: null })
+        return res.render('index', { json: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log('Got frontpage key from redis.');
@@ -38,7 +38,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           return res.render('index', {
             json: processed_json,
             sortby: 'hot',
-            past: past
+            past: past,
+            user_preferences: req.cookies
           })
         })()
       } else {
@@ -50,7 +51,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               redis.setex(key, setexs.frontpage, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the frontpage key to redis.', error)
-                  return res.render('index', { json: null })
+                  return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log('Fetched the frontpage from reddit API.');
                   (async () => {
@@ -58,7 +59,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     return res.render('index', {
                       json: processed_json,
                       sortby: 'hot',
-                      past: past
+                      past: past,
+                      user_preferences: req.cookies
                     })
                   })()
                 }
@@ -67,7 +69,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
             console.error(reddit_api_error_text)
-            return res.render('index', { json: null, http_status_code: result.status })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error('Error fetching the frontpage JSON file.', error)
@@ -77,11 +83,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   })
 
   app.get('/about', (req, res, next) => {
-    return res.render('about')
+    return res.render('about', { user_preferences: req.cookies })
   })
 
   app.get('/preferences', (req, res, next) => {
-    return res.render('preferences')
+    return res.render('preferences', { user_preferences: req.cookies })
+  })
+
+  app.get('/resetprefs', (req, res, next) => {
+    res.clearCookie('theme')
+    return res.redirect('/preferences')
   })
   
   app.get('/search', (req, res, next) => {
@@ -150,7 +161,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the frontpage with sortby key from redis.', error)
-        return res.render('index', { json: null })
+        return res.render('index', { json: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log('Got frontpage with sortyby key from redis.');
@@ -159,7 +170,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           return res.render('index', {
             json: processed_json,
             sortby: sortby,
-            past: past
+            past: past,
+            user_preferences: req.cookies
           })
         })()
       } else {
@@ -171,7 +183,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               redis.setex(key, setexs.frontpage, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the frontpage with sortby key to redis.', error)
-                  return res.render('index', { json: null })
+                  return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log('Fetched the frontpage with sortby from reddit API.');
                   (async () => {
@@ -179,7 +191,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     return res.render('index', {
                       json: processed_json,
                       sortby: sortby,
-                      past: past
+                      past: past,
+                      user_preferences: req.cookies
                     })
                   })()
                 }
@@ -188,7 +201,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
             console.error(reddit_api_error_text)
-            return res.render('index', { json: null, http_status_code: result.status })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error('Error fetching the frontpage with sortby JSON file.', error)
@@ -229,7 +246,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the search key from redis.', error)
-        return res.render('index', { json: null })
+        return res.render('index', { json: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log('Got search key from redis.');
@@ -242,7 +259,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             nsfw: nsfw,
             subreddit: subreddit,
             sortby: sortby,
-            past: past
+            past: past,
+            user_preferences: req.cookies
           })
         })()
       } else {
@@ -254,7 +272,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               redis.setex(key, setexs.searches, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the searches key to redis.', error)
-                  return res.render('index', { json: null })
+                  return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log('Fetched search results from reddit API.');
                   (async () => {
@@ -266,7 +284,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       nsfw: nsfw,
                       subreddit: subreddit,
                       sortby: sortby,
-                      past: past
+                      past: past,
+                      user_preferences: req.cookies
                     })
                   })()
                 }
@@ -275,7 +294,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
             console.error(reddit_api_error_text)
-            return res.render('index', { json: null, http_status_code: result.status })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error('Error fetching the frontpage JSON file.', error)
@@ -323,7 +346,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the ${subreddit} key from redis.`, error)
-        return res.render('index', { json: null })
+        return res.render('index', { json: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log(`Got /r/${subreddit} key from redis.`);
@@ -335,10 +358,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               subreddit: subreddit,
               subreddit_front: (!before && !after) ? true : false,
               sortby: sortby,
-              past: past
+              past: past,
+              user_preferences: req.cookies
             })
           } else {
-            return res.render('subreddit', { json: null, error: true, data: processed_json })
+            return res.render('subreddit', {
+              json: null,
+              error: true,
+              data: processed_json,
+              user_preferences: req.cookies
+            })
           }
         })()
       } else {
@@ -350,7 +379,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               redis.setex(key, setexs.subreddit, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error(`Error setting the ${subreddit} key to redis.`, error)
-                  return res.render('subreddit', { json: null })
+                  return res.render('subreddit', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log(`Fetched the JSON from reddit.com/r/${subreddit}.`);
                   (async () => {
@@ -360,7 +389,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       subreddit: subreddit,
                       subreddit_front: (!before && !after) ? true : false,
                       sortby: sortby,
-                      past: past
+                      past: past,
+                      user_preferences: req.cookies
                     })
                   })()
                 }
@@ -373,7 +403,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
               console.error(reddit_api_error_text)
             }
-            return res.render('index', { json: null, http_status_code: result.status })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error(`Error fetching the JSON file from reddit.com/r/${subreddit}.`, error)
@@ -402,7 +436,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(comments_url, (error, json) => {
       if(error) {
         console.error(`Error getting the ${comments_url} key from redis.`, error)
-        return res.render('index', { post: null })
+        return res.render('index', { post: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log(`Got ${comments_url} key from redis.`);
@@ -415,21 +449,22 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               comments: finalized_json.comments,
               viewing_comment: viewing_comment,
               post_url: post_url,
-              subreddit: subreddit
+              subreddit: subreddit,
+              user_preferences: req.cookies
             })
           } else {
               let key = `morechildren:${post_url};1`
               redis.get(key, (error, json) => {
                 if(error) {
                   console.error(`Error getting the ${key} key from redis.`, error)
-                  return res.render('index', { json: null })
+                  return res.render('index', { json: null, user_preferences: req.cookies })
                 }
                 if(json) {
                   console.log(`Got ${key} key from redis.`);
                   redis.get(post_url, (error, post_json) => {
                     if(error) {
                       console.error(`Error getting the ${post_url} key from redis.`, error)
-                      return res.render('index', { json: null })
+                      return res.render('index', { json: null, user_preferences: req.cookies })
                     }
                     if(post_json) {
                       redis.get(`morechildren_ids:${post_url}`, (error, morechildren_ids) => {
@@ -446,7 +481,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                             viewing_comment: false,
                             post_url: post_url,
                             subreddit: req.params.subreddit,
-                            more_comments_page: 1
+                            more_comments_page: 1,
+                            user_preferences: req.cookies
                           })
                         })()
                       })
@@ -465,7 +501,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               redis.setex(comments_url, setexs.posts, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error(`Error setting the ${comments_url} key to redis.`, error)
-                  return res.render('post', { post: null })
+                  return res.render('post', { post: null, user_preferences: req.cookies })
                 } else {
                   console.log(`Fetched the JSON from reddit.com${comments_url}.`);
                   (async () => {
@@ -476,7 +512,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       comments: finalized_json.comments,
                       viewing_comment: viewing_comment,
                       post_url: post_url,
-                      subreddit: subreddit
+                      subreddit: subreddit,
+                      user_preferences: req.cookies
                     })
                   })()
                 }
@@ -489,7 +526,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
               console.error(reddit_api_error_text)
             }
-            return res.render('index', { json: null, http_status_code: result.status, http_statustext: result.statusText })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              http_statustext: result.statusText,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error(`Error fetching the JSON file from reddit.com${comments_url}.`, error)
@@ -551,7 +593,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the user ${key} key from redis.`, error)
-        return res.render('index', { json: null })
+        return res.render('index', { json: null, user_preferences: req.cookies })
       }
       if(json) {
         console.log(`Got user ${user} key from redis.`);
@@ -560,7 +602,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           return res.render('user', {
             data: processed_json,
             sortby: sortby,
-            past: past
+            past: past,
+            user_preferences: req.cookies
           })
         })()
       } else {
@@ -579,14 +622,15 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     redis.setex(key, setexs.user, JSON.stringify(user_data), (error) => {
                       if(error) {
                         console.error(`Error setting the user ${key} key to redis.`, error)
-                        return res.render('index', { post: null })
+                        return res.render('index', { post: null, user_preferences: req.cookies })
                       } else {
                         (async () => {
                           let processed_json = await processJsonUser(user_data, true, after, before)
                           return res.render('user', {
                             data: processed_json,
                             sortby: sortby,
-                            past: past
+                            past: past,
+                            user_preferences: req.cookies
                           })
                         })()
                       }
@@ -595,11 +639,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
                   console.error(reddit_api_error_text)
-                  return res.render('index', { json: null, http_status_code: result.status })
+                  return res.render('index', {
+                    json: null,
+                    http_status_code: result.status,
+                    user_preferences: req.cookies
+                  })
                 }
               }).catch(error => {
                 console.error(`Error fetching the overview JSON file from reddit.com/u/${user}`, error)
-                return res.render('index', { json: null, http_status_code: result.status })
+                return res.render('index', {
+                  json: null,
+                  http_status_code: result.status,
+                  user_preferences: req.cookies
+                })
               })
             })
           } else {
@@ -609,7 +661,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
               console.error(reddit_api_error_text)
             }
-            return res.render('index', { json: null, http_status_code: result.status, http_statustext: result.statusText })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              http_statustext: result.statusText,
+              user_preferences: req.cookies
+            })
           }
         }).catch(error => {
           console.error(`Error fetching the about JSON file from reddit.com/u/${user}`, error)
@@ -622,6 +679,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   /**
   * POSTS
   */
+  
+  app.post('/saveprefs', (req, res, next) => {
+    let theme = req.body.theme
+    res.cookie('theme', theme, { maxAge: 900000, httpOnly: true })
+    return res.redirect('/preferences')
+  })
 
   app.post('/r/:subreddit/comments/:id/:snippet', (req, res, next) => {
     /* morechildren route */
@@ -629,7 +692,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let post_url = req.body.url
     
     if(!all_ids || !post_url || !post_url.startsWith('/r/')) {
-      return res.render('index', null)
+      return res.render('index', { json: null, user_preferences: req.cookies })
     } else {
       let post_id = post_url.split('/')[4]
       let ids_to_show = ''
@@ -645,7 +708,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       redis.get(key, (error, json) => {
         if(error) {
           console.error(`Error getting the ${key} key from redis.`, error)
-          return res.render('index', { json: null })
+          return res.render('index', { json: null, user_preferences: req.cookies })
         }
         if(json) {
           console.log(`Redirecting to ${post_url} with cursor...`);
@@ -661,11 +724,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 redis.setex(key, setexs.posts, JSON.stringify(comments), (error) => {
                   if(error) {
                     console.error(`Error setting the ${key} key to redis.`, error)
-                    return res.render('post', { post: null })
+                    return res.render('post', { post: null, user_preferences: req.cookies })
                   } else {
                     redis.setex(`morechildren_ids:${post_url}`, setexs.posts, JSON.stringify(all_ids))
-                    console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`);
-                    console.log(`Redirecting to ${post_url} with cursor...`);
+                    console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`)
+                    console.log(`Redirecting to ${post_url} with cursor...`)
                     return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
                   }
                 })
@@ -673,11 +736,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
               console.error(reddit_api_error_text)
-              return res.render('index', { json: null, http_status_code: result.status })
+              return res.render('index', {
+                json: null,
+                http_status_code: result.status,
+                user_preferences: req.cookies
+              })
             }
           }).catch(error => {
             console.log(`Error fetching the JSON from reddit API (endpoint "morechildren") with url: ${url}.`, error)
-            return res.render('index', { json: null, http_status_code: result.status })
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
           })
         }
       })

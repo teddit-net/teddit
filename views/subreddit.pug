@@ -3,7 +3,7 @@ html
   head
     title /r/#{subreddit}
     include includes/head.pug
-  body
+  body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
     if json === null
       h1 Error occured

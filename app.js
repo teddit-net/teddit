@@ -42,6 +42,7 @@ const pug = require('pug')
 const path = require('path')
 const compression = require('compression')
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const r = require('redis')
 const redis = r.createClient()
 const helmet = require('helmet')
@@ -85,6 +86,8 @@ if(use_helmet && https_enabled) {
 if(use_compression) {
   app.use(compression())
 }
+
+app.use(cookieParser())
 
 if(use_view_cache) {
   app.set('view cache', true)
