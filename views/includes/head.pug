@@ -70,10 +70,12 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
   }
   
   function localize(url) {
-    let u = new URL(url)
-    if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
-      url = url.replace(u.host, 'teddit.net')
-    }
+    try {
+      let u = new URL(url)
+      if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
+        url = url.replace(u.host, 'teddit.net')
+      }
+    } catch(e) { }
     return url
   }
   
