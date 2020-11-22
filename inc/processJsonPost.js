@@ -138,6 +138,7 @@ module.exports = function(fetch) {
               permalink: comment.permalink,
               stickied: comment.stickied,
               distinguished: comment.distinguished,
+              score_hidden: comment.score_hidden,
               replies: []
             }
           } else {
@@ -212,6 +213,7 @@ module.exports = function(fetch) {
           permalink: reply.permalink,
           stickied: reply.stickied,
           distinguished: reply.distinguished,
+          score_hidden: reply.score_hidden,
           replies: []
         }
       } else {
@@ -243,6 +245,8 @@ module.exports = function(fetch) {
                 ups: comment.ups,
                 id: comment.id,
                 permalink: comment.permalink,
+                score_hidden: comment.score_hidden,
+                distinguished: comment.distinguished,
                 replies: []
               }
             } else {

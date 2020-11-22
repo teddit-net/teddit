@@ -19,18 +19,23 @@ module.exports = function() {
             moderator_badge = ` <span class="green" title="moderator of this subreddit">[M]</span>`
             moderator = true
           }
+          if(comments.score_hidden) {
+            ups = `<span class="score-hidden">[score hidden]</span>`
+          } else {
+            ups = `${kFormatter(comments.ups)} points`
+          }
           comments_html = `
             <div class="comment" id="${comments.id}">
               <details open>
                 <summary>
                   <a href="/u/${comments.author}">${comments.author}${moderator ? moderator_badge : ''}</a>
-                  <p class="ups">${kFormatter(comments.ups)} points</p>
+                  <p class="ups">${ups}</p>
                   <p class="created" title="${toUTCString(comments.created)}">${timeDifference(comments.created)}</p>
                   <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
                 </summary>
               <div class="meta">
                 <p class="author"><a href="/u/${comments.author}" class="${classlist.join(' ')}">${comments.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
-                <p class="ups">${kFormatter(comments.ups)} points</p>
+                <p class="ups">${ups}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
                    <a href="${comments.permalink}">${timeDifference(comments.created)}</a>
                 </p>
@@ -84,29 +89,35 @@ module.exports = function() {
               let submitter_link = ''
               let moderator = false
               let submitter = false
-
+              let ups = ''
+              
               if(post_author === comment.author) {
                 classlist.push('submitter')
                 submitter_link = `<a href="${post_url}" title="submitter">[S]</a>`
                 submitter = true
               }
-              if(comments.distinguished === 'moderator') {
+              if(comment.distinguished === 'moderator') {
                 classlist.push('green')
                 moderator_badge = ` <span class="green" title="moderator of this subreddit">[M]</span>`
                 moderator = true
+              }
+              if(comment.score_hidden) {
+                ups = `<span class="score-hidden">[score hidden]</span>`
+              } else {
+                ups = `${kFormatter(comment.ups)} points`
               }
               comments_html += `
                 <div class="comment" id="${comment.id}">
                 <details open>
                   <summary>
                     <a href="/u/${comment.author}">${comment.author}${moderator ? moderator_badge : ''}</a>
-                    <p class="ups">${kFormatter(comment.ups)} points</p>
+                    <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">${timeDifference(comment.created)}</p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </summary>
                   <div class="meta">
                     <p class="author"><a href="/u/${comment.author}" class="${classlist.join(' ')}">${comment.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
-                    <p class="ups">${kFormatter(comment.ups)} points</p>
+                    <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
                       <a href="${comment.permalink}">${timeDifference(comment.created)}</a>
                     </p>

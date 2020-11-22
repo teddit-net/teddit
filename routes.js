@@ -342,7 +342,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
     }
     
-    let key = `${subreddit}:${after}:${before}:sort:${sortby}:past:${past}`
+    let key = `${subreddit.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the ${subreddit} key from redis.`, error)
