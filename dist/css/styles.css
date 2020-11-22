@@ -210,6 +210,10 @@ body.dark .btn {
 body.dark #post .crosspost {
 	background: var(--darkbg);
 }
+body.dark .view-more-inks a {
+	background: black;
+	color: white;
+}
 a {
 	color: var(--linkcolor);
 	text-decoration: none;
