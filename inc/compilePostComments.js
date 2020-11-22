@@ -8,6 +8,7 @@ module.exports = function() {
           let submitter_link = ''
           let moderator = false
           let submitter = false
+          let edited_span = ''
           
           if(post_author === comments.author) {
             classlist.push('submitter')
@@ -24,20 +25,23 @@ module.exports = function() {
           } else {
             ups = `${kFormatter(comments.ups)} points`
           }
+          if(comments.edited) {
+            edited_span = `<span title="this comment is edited">*</span>`
+          }
           comments_html = `
             <div class="comment" id="${comments.id}">
               <details open>
                 <summary>
                   <a href="/u/${comments.author}">${comments.author}${moderator ? moderator_badge : ''}</a>
                   <p class="ups">${ups}</p>
-                  <p class="created" title="${toUTCString(comments.created)}">${timeDifference(comments.created)}</p>
+                  <p class="created" title="${toUTCString(comments.created)}">${timeDifference(comments.created)}${edited_span}</p>
                   <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
                 </summary>
               <div class="meta">
                 <p class="author"><a href="/u/${comments.author}" class="${classlist.join(' ')}">${comments.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
                 <p class="ups">${ups}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
-                   <a href="${comments.permalink}">${timeDifference(comments.created)}</a>
+                   <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
                 </p>
                 <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
               </div>
@@ -90,6 +94,7 @@ module.exports = function() {
               let moderator = false
               let submitter = false
               let ups = ''
+              let edited_span = ''
               
               if(post_author === comment.author) {
                 classlist.push('submitter')
@@ -106,20 +111,23 @@ module.exports = function() {
               } else {
                 ups = `${kFormatter(comment.ups)} points`
               }
+              if(comment.edited) {
+                edited_span = `<span title="this comment is edited">*</span>`
+              }
               comments_html += `
                 <div class="comment" id="${comment.id}">
                 <details open>
                   <summary>
                     <a href="/u/${comment.author}">${comment.author}${moderator ? moderator_badge : ''}</a>
                     <p class="ups">${ups}</p>
-                    <p class="created" title="${toUTCString(comment.created)}">${timeDifference(comment.created)}</p>
+                    <p class="created" title="${toUTCString(comment.created)}">${timeDifference(comment.created)}${edited_span}</p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </summary>
                   <div class="meta">
                     <p class="author"><a href="/u/${comment.author}" class="${classlist.join(' ')}">${comment.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
                     <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
-                      <a href="${comment.permalink}">${timeDifference(comment.created)}</a>
+                      <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>
                     </p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </div>
