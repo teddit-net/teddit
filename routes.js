@@ -682,7 +682,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   
   app.post('/saveprefs', (req, res, next) => {
     let theme = req.body.theme
-    res.cookie('theme', theme, { maxAge: 900000, httpOnly: true })
+    res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     return res.redirect('/preferences')
   })
 
