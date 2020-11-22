@@ -767,6 +767,9 @@ input[type="submit"]:hover,
 	float: left;
 	width: 100%;
 }
+#post .comment .meta p.stickied {
+	color: green;
+}
 #post .comment .meta p.author a {
 	font-weight: initial;
 	margin-left: 10px;
