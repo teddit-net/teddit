@@ -214,6 +214,15 @@ body.dark .view-more-inks a {
 	background: black;
 	color: white;
 }
+body.dark .md .md-spoiler-text:not(.revealed):active,
+body.dark .md .md-spoiler-text:not(.revealed):focus,
+body.dark .md .md-spoiler-text:not(.revealed):hover {
+	background: white;
+	color: black;
+}
+body.dark .comment .body a {
+	color: #3d99fb;
+}
 a {
 	color: var(--linkcolor);
 	text-decoration: none;
@@ -789,6 +798,8 @@ input[type="submit"]:hover,
 	float: left;
 	margin-bottom: 11px;
 	margin-top: 11px;
+	font-weight: bold;
+	font-size: 11px;
 }
 #post .image {
 	padding-left: 60px;
