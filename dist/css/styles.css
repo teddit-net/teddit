@@ -224,12 +224,12 @@ body.dark .comment .body a {
 	color: #3d99fb;
 }
 body.dark header .tabmenu li.active a {
-    background: #acacac;
-    color: #151515;
+  background: #acacac;
+  color: #151515;
 }
 body.dark #search form input[type="text"] {
-    background: #0f0f0f;
-    color: white;
+  background: #0f0f0f;
+  color: white;
 }
 a {
 	color: var(--linkcolor);

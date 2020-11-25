@@ -37,6 +37,7 @@ global.reddit_access_token = null
 global.reddit_refresh_token = null
 global.valid_media_domains = ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com']
 global.reddit_api_error_text = `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
+global.redirect_www = true
 
 const pug = require('pug')
 const path = require('path')
@@ -75,6 +76,18 @@ if(https_enabled) {
 }
 
 const http = require('http').Server(app)
+
+if(redirect_www) {
+  app.use((req, res, next) => {
+    if(req.headers.host) {
+      if(req.headers.host.slice(0, 4) === 'www.') {
+        let newhost = req.headers.host.slice(4)
+        return res.redirect(301, req.protocol + '://' + newhost + req.originalUrl)
+      }
+    }
+    next()
+  })
+}
 
 if(use_helmet && https_enabled) {
   app.use(helmet())
