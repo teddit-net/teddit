@@ -13,8 +13,6 @@ Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
 * Lightweight (teddit frontpage: ~30 HTTP requests with ~270 KB of data downloaded vs. Reddit frontpage: ~190 requests with ~24 MB)
 
 
-** teddit is still in an alpha version, so expect runtime errors and downtimes **
-
 
 XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
 
@@ -75,7 +73,7 @@ Also add maxmemory-policy:
 
 `maxmemory-policy volatile-ttl`
 
-Save and exit the file.
+Save and exit.
 
 Restart redis:
 
