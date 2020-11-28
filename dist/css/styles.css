@@ -1324,5 +1324,8 @@ code {
 	#links.sr {
 		width: calc(100% - 10px);
 	}
+	#search form {
+		width: 240px;
+  }
 }
 
