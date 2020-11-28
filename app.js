@@ -82,7 +82,7 @@ if(redirect_www) {
     if(req.headers.host) {
       if(req.headers.host.slice(0, 4) === 'www.') {
         let newhost = req.headers.host.slice(4)
-        return res.redirect(301, req.protocol + '://' + newhost + req.originalUrl)
+        return res.redirect(301, `${req.protocol}://${newhost}${req.originalUrl}`)
       }
     }
     next()

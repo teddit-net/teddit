@@ -17,7 +17,7 @@ module.exports = function(tools) {
     * https://teddit.net/vids/f3lcdk4ydcl51.mp4
     */
     let valid_video_extensions = ['mp4', 'webm', 'ogg']
-    let invalid_urls = ['self', 'default', 'nsfw', 'image', 'spoiler']
+    let invalid_urls = ['self', 'default', 'nsfw', 'image', 'spoiler', 'undefined', undefined, null, '']
     return new Promise((resolve, reject) => {
       if(!invalid_urls.includes(url)) {
         (async () => {
