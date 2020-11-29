@@ -12,7 +12,7 @@ Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
 * Prevents Reddit from tracking your IP or JavaScript fingerprint
 * Lightweight (teddit frontpage: ~30 HTTP requests with ~270 KB of data downloaded vs. Reddit frontpage: ~190 requests with ~24 MB)
 
-
+Join the teddit discussion room on Matrix: [#teddit:matrix.org](https://matrix.to/#/#teddit:matrix.org)
 
 XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
 
