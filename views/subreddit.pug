@@ -118,13 +118,14 @@ html
                 input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
             input(type="submit", value="search")
         if sidebar_data
-          .content
-            p subscribers: #{sidebar_data.subscribers.toLocaleString()}
-            p users here right now: #{sidebar_data.active_user_count.toLocaleString()}
-            br
-            .heading
-              p.title #{sidebar_data.title}
-              .short-description
-                != unescape(sidebar_data.public_description_html)
-            .description
-              != unescape(sidebar_data.description_html)
+          if sidebar_data.subscribers
+            .content
+              p subscribers: #{sidebar_data.subscribers.toLocaleString()}
+              p users here right now: #{sidebar_data.active_user_count.toLocaleString()}
+              br
+              .heading
+                p.title #{sidebar_data.title}
+                .short-description
+                  != unescape(sidebar_data.public_description_html)
+              .description
+                != unescape(sidebar_data.description_html)
