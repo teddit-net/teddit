@@ -1066,17 +1066,29 @@ input[type="submit"]:hover,
 #user .entries .entry a.context {
 	margin-right: 10px;
 }
+/* SIDEBAR */
+#sidebar {
+	float: left;
+	width: 25%;
+}
+#sidebar .content {
+	float: left;
+	font-size: smaller;
+	padding-right: 15px;
+}
+#sidebar .content .description {
+	margin-top: 38px;
+}
 /* SEARCH */
 #search {
-	margin-left: 30px;
 	margin-bottom: 50px;
 	margin-top: 30px;
 	float: left;
 	width: calc(100% - 30px);
 }
 #search.sr {
-	width: 20%;
-	margin-top: 00px;
+	width: calc(100% - 60px);
+	margin-top: 0px;
 }
 #search form {
 	max-width: 600px;
@@ -1321,6 +1333,13 @@ code {
 	transition: none;
 }
 @media only screen and (max-width: 600px) {
+	#sidebar {
+		width: 100%;
+	}
+	#sidebar .content {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 	#search.sr {
 		width: 100%;
 	}

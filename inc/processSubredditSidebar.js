@@ -1,0 +1,64 @@
+module.exports = function() {
+  this.processSubredditSidebar = (subreddit, redis, fetch, RedditAPI) => {
+    return new Promise(resolve => {
+      (async () => {
+        let key = `${subreddit}:sidebar`
+        redis.get(key, (error, json) => {
+          if(error) {
+            console.error(`Error getting the ${subreddit}:sidebar key from redis.`, error)
+            resolve(null)
+          }
+          if(json) {
+            json = JSON.parse(json)
+            let obj = {
+              title: json.data.title,
+              public_description_html: json.data.public_description_html,
+              active_user_count: json.data.active_user_count,
+              subscribers: json.data.subscribers,
+              created_utc: json.data.created_utc,
+              over18: json.data.over18,
+              description_html: json.data.description_html
+            }
+            resolve(obj)
+          } else {
+            fetch(`https://oauth.reddit.com/r/${subreddit}/about`, redditApiGETHeaders())
+            .then(result => {
+              if(result.status === 200) {
+                result.json()
+                .then(json => {
+                  redis.setex(key, setexs.sidebar, JSON.stringify(json), (error) => {
+                    if(error) {
+                      console.error('Error setting the sidebar key to redis.', error)
+                      return res.render('index', { json: null, user_preferences: req.cookies })
+                    } else {
+                      console.log('Fetched the sidebar from reddit API.');
+                      (async () => {
+                        let obj = {
+                          title: json.data.title,
+                          public_description_html: json.data.public_description_html,
+                          active_user_count: json.data.active_user_count,
+                          subscribers: json.data.subscribers,
+                          created_utc: json.data.created_utc,
+                          over18: json.data.over18,
+                          description_html: json.data.description_html
+                        }
+                        resolve(obj)
+                      })()
+                    }
+                  })
+                })
+              } else {
+              console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+              console.error(reddit_api_error_text)
+              resolve(null)
+              }
+            }).catch(error => {
+              console.error('Error fetching the sidebar.', error)
+              resolve(null)
+            })
+          }
+        })
+      })()
+    })
+  }
+}

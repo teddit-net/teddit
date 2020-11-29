@@ -99,20 +99,31 @@ html
                   p.comments
                     a(href="" + link.permalink + "", class="comments")
                       | comments #{link.num_comments}
-      #search.sr
-        p search
-        form(action="/r/" + subreddit + "/search", method="GET")
-          input(type="text", name="q", id="q", placeholder="search")
-          div
-            label(for="restrict_sr") limit my search to r/#{subreddit}
-              input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
-          div
-            label(for="nsfw") include NSFW results
-              input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
-          input(type="submit", value="search")
-      if json.info.before || json.info.after
-        .view-more-inks
-          if json.info.before && !subreddit_front
-            a(href="/r/" + subreddit + "/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
-          if json.info.after
-            a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+        if json.info.before || json.info.after
+          .view-more-inks
+            if json.info.before && !subreddit_front
+              a(href="/r/" + subreddit + "/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
+            if json.info.after
+              a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+      #sidebar
+        #search.sr
+          p search
+          form(action="/r/" + subreddit + "/search", method="GET")
+            input(type="text", name="q", id="q", placeholder="search")
+            div
+              label(for="restrict_sr") limit my search to r/#{subreddit}
+                input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
+            div
+              label(for="nsfw") include NSFW results
+                input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+            input(type="submit", value="search")
+        .content
+          p subscribers: #{sidebar_data.subscribers.toLocaleString()}
+          p users here right now: #{sidebar_data.active_user_count.toLocaleString()}
+          br
+          .heading
+            p.title #{sidebar_data.title}
+            .short-description
+              != unescape(sidebar_data.public_description_html)
+          .description
+            != unescape(sidebar_data.description_html)

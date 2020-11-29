@@ -6,6 +6,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processPost = require('./inc/processJsonPost.js')();
   let processUser = require('./inc/processJsonUser.js')();
   let processSearches = require('./inc/processSearchResults.js')();
+  let processSidebar = require('./inc/processSubredditSidebar.js')();
 
   app.get('/', (req, res, next) => {
     let past = req.query.t
@@ -356,10 +357,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         console.log(`Got /r/${subreddit} key from redis.`);
         (async () => {
           let processed_json = await processJsonSubreddit(json, 'redis')
+          let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
           if(!processed_json.error) {
             return res.render('subreddit', {
               json: processed_json,
               subreddit: subreddit,
+              sidebar_data: sidebar_data,
               subreddit_front: (!before && !after) ? true : false,
               sortby: sortby,
               past: past,
@@ -388,9 +391,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   console.log(`Fetched the JSON from reddit.com/r/${subreddit}.`);
                   (async () => {
                     let processed_json = await processJsonSubreddit(json, 'from_online')
+                    let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
                     return res.render('subreddit', {
                       json: processed_json,
                       subreddit: subreddit,
+                      sidebar_data: sidebar_data,
                       subreddit_front: (!before && !after) ? true : false,
                       sortby: sortby,
                       past: past,

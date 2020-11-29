@@ -30,7 +30,8 @@ global.setexs = {
   subreddit: 600,
   posts: 600,
   user: 600,
-  searches: 600
+  searches: 600,
+  sidebar: 60 * 60 * 24 * 7 // 7 days
 }
 global.client_id_b64 = Buffer.from(`${reddit_app_id}:`).toString('base64')
 global.reddit_access_token = null
