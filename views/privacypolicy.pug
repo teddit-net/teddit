@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    title privacy policy - teddit
+    include includes/head.pug
+  body
+    include includes/topbar.pug
+    .container
+      .content
+        h1 Privacy policy
+        p This document concerns what data you provide to this website, the purpose of the data, how the data is stored, and how the data can be removed.
+        h2 Data you directly provide
+        p None.
+        h2 Data you passively provide
+        p By default teddit logs fetched subreddit or post URL for debugging reasons.
+        p No identifying information is logged, such as the visitor's cookie, timestamp, user-agent, or IP address. Here are a couple lines to serve as an example how the debug log looks like:
+        code
+          | Got frontpage key from redis.
+          br
+          | Fetched the JSON from reddit.com/r/privacytoolsIO.
+          br
+          | Got frontpage key from redis.
+          br
+          | Fetched the JSON from reddit.com/r/OTMemes/comments/k311hu/we_all_know_sequels_refers_to_the_sequel_trilogy/.
+          br
+          | Got frontpage key from redis.
+          br
+          | Fetched the JSON from reddit.com/r/aww/comments/k31ddb/a_lot_of_request_to_see_the_dry_cat_here_she_is/.
+        h2 Data stored in your browser
+        p This website provides an option to store site preferences, such as the theme without an account. Using this feature will store a cookie in the visitor's browser containing their preferences. This cookie is sent on every request and does not contain any identifying information.
+        p You can remove this data from your browser by using your browser's cookie-related controls to delete the data.

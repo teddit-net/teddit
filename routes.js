@@ -94,6 +94,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('theme')
     return res.redirect('/preferences')
   })
+
+  app.get('/privacy', (req, res, next) => {
+    return res.render('privacypolicy', { user_preferences: req.cookies })
+  })
   
   app.get('/search', (req, res, next) => {
     let q = req.query.q
