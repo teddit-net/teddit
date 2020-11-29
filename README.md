@@ -20,7 +20,6 @@ BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 
 ## TODO
 
-* Subreddit sidebars
 * Sort comments in post
 * User attributes
 * Comment and post attributes (e.g. stickies)
