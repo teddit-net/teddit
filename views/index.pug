@@ -31,10 +31,10 @@ html
         if sortby === 'top' || sortby === 'controversial'
           details
             summary
-              if past === 'day'
-                span links from: past 24 hours
               if past === 'hour'
                 span links from: past hour
+              if past === 'day'
+                span links from: past 24 hours
               if past === 'week'
                 span links from: past week
               if past === 'month'
@@ -44,10 +44,10 @@ html
               if past === 'all'
                 span links from: all time
             ul
-              li(class=past === 'day' ? 'active' : '')
-                a(href="?t=day") past 24 hours
               li(class=past === 'hour' ? 'active' : '')
                 a(href="?t=hour") past hour
+              li(class=past === 'day' ? 'active' : '')
+                a(href="?t=day") past 24 hours
               li(class=past === 'week' ? 'active' : '')
                 a(href="?t=week") past week
               li(class=past === 'month' ? 'active' : '')
