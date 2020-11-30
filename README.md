@@ -23,7 +23,7 @@ BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 * Sort comments in post
 * User attributes
 * Comment and post attributes (e.g. stickies)
-* Subreddit flairs
+* Subreddit flairs and wikis
 * User trophies
 * "other discussions" feature
 * ... and lot of other small stuff
