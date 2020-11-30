@@ -1349,5 +1349,8 @@ code {
 	#search form {
 		width: 240px;
   }
+  .comment details summary::-webkit-details-marker,.comment details summary::marker {
+		font-size: 1.25rem;
+  }
 }
 
