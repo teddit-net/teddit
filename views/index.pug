@@ -98,7 +98,7 @@ html
                       | #{link.subreddit}
                 p.comments
                   a(href="" + link.permalink + "", class="comments")
-                    | comments #{link.num_comments}
+                    | #{link.num_comments} comments
       #search.sr
         p search
         form(action="/r/all/search", method="GET")

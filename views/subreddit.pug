@@ -98,7 +98,7 @@ html
                       | #{link.subreddit}
                   p.comments
                     a(href="" + link.permalink + "", class="comments")
-                      | comments #{link.num_comments}
+                      | #{link.num_comments} comments
         if json.info.before || json.info.after
           .view-more-inks
             if json.info.before && !subreddit_front
