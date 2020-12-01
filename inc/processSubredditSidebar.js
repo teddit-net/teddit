@@ -1,4 +1,5 @@
 module.exports = function() {
+  const config = require('../config')
   this.processSubredditSidebar = (subreddit, redis, fetch, RedditAPI) => {
     return new Promise(resolve => {
       (async () => {

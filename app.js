@@ -1,6 +1,8 @@
 const config = require('./config')
 
 global.client_id_b64 = Buffer.from(`${config.reddit_app_id}:`).toString('base64')
+global.reddit_access_token = null
+global.reddit_refresh_token = null
 
 const pug = require('pug')
 const path = require('path')
