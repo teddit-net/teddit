@@ -1082,7 +1082,6 @@ input[type="submit"]:hover,
 /* SEARCH */
 #search {
 	margin-bottom: 50px;
-	margin-top: 30px;
 	float: left;
 	width: calc(25% - 60px);
 }
@@ -1340,8 +1339,10 @@ code {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
-	#search.sr {
+	#search {
 		width: 100%;
+		margin-left: 20px;
+		margin-top: 30px;
 	}
 	#links.sr {
 		width: calc(100% - 10px);
