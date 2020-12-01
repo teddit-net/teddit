@@ -1084,7 +1084,7 @@ input[type="submit"]:hover,
 	margin-bottom: 50px;
 	margin-top: 30px;
 	float: left;
-	width: calc(100% - 30px);
+	width: calc(25% - 60px);
 }
 #search.sr {
 	width: calc(100% - 60px);
