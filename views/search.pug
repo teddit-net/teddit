@@ -5,7 +5,7 @@ html
     include includes/head.pug
   body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
-    #search
+    #search.sr.search-page
       form(action="/r/" + subreddit + "/search", method="GET")
         input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
         div

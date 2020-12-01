@@ -1089,6 +1089,11 @@ input[type="submit"]:hover,
 	width: calc(100% - 60px);
 	margin-top: 0px;
 }
+#search.sr.search-page {
+	width: 100%;
+	margin-left: 20px;
+	margin-top: 40px;
+}
 #search form {
 	max-width: 600px;
 }
