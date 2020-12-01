@@ -2,6 +2,7 @@
 * Lots of routes.. would be good idea to do some separation I guess.
 */
 module.exports = (app, redis, fetch, RedditAPI) => {
+  const config = require('./config');
   let processSubreddit = require('./inc/processJsonSubreddit.js')();
   let processPost = require('./inc/processJsonPost.js')();
   let processUser = require('./inc/processJsonUser.js')();
@@ -49,7 +50,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(key, setexs.frontpage, JSON.stringify(json), (error) => {
+              redis.setex(key, config.setexs.frontpage, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the frontpage key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
@@ -69,7 +70,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-            console.error(reddit_api_error_text)
+            console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
               http_status_code: result.status,
@@ -185,7 +186,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(key, setexs.frontpage, JSON.stringify(json), (error) => {
+              redis.setex(key, config.setexs.frontpage, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the frontpage with sortby key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
@@ -205,7 +206,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-            console.error(reddit_api_error_text)
+            console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
               http_status_code: result.status,
@@ -274,7 +275,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(key, setexs.searches, JSON.stringify(json), (error) => {
+              redis.setex(key, config.setexs.searches, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error('Error setting the searches key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
@@ -298,7 +299,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-            console.error(reddit_api_error_text)
+            console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
               http_status_code: result.status,
@@ -383,7 +384,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(key, setexs.subreddit, JSON.stringify(json), (error) => {
+              redis.setex(key, config.setexs.subreddit, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error(`Error setting the ${subreddit} key to redis.`, error)
                   return res.render('subreddit', { json: null, user_preferences: req.cookies })
@@ -410,7 +411,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.log('404 – Subreddit not found')
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-              console.error(reddit_api_error_text)
+              console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
               json: null,
@@ -507,7 +508,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(comments_url, setexs.posts, JSON.stringify(json), (error) => {
+              redis.setex(comments_url, config.setexs.posts, JSON.stringify(json), (error) => {
                 if(error) {
                   console.error(`Error setting the ${comments_url} key to redis.`, error)
                   return res.render('post', { post: null, user_preferences: req.cookies })
@@ -533,7 +534,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.log('404 – Post not found')
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-              console.error(reddit_api_error_text)
+              console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
               json: null,
@@ -628,7 +629,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   result.json()
                   .then(json => {
                     user_data.overview = json
-                    redis.setex(key, setexs.user, JSON.stringify(user_data), (error) => {
+                    redis.setex(key, config.setexs.user, JSON.stringify(user_data), (error) => {
                       if(error) {
                         console.error(`Error setting the user ${key} key to redis.`, error)
                         return res.render('index', { post: null, user_preferences: req.cookies })
@@ -647,7 +648,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   })
                 } else {
                   console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-                  console.error(reddit_api_error_text)
+                  console.error(config.reddit_api_error_text)
                   return res.render('index', {
                     json: null,
                     http_status_code: result.status,
@@ -668,7 +669,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               console.log('404 – User not found')
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-              console.error(reddit_api_error_text)
+              console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
               json: null,
@@ -730,12 +731,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               result.json()
               .then(json => {
                 let comments = json.json.data.things
-                redis.setex(key, setexs.posts, JSON.stringify(comments), (error) => {
+                redis.setex(key, config.setexs.posts, JSON.stringify(comments), (error) => {
                   if(error) {
                     console.error(`Error setting the ${key} key to redis.`, error)
                     return res.render('post', { post: null, user_preferences: req.cookies })
                   } else {
-                    redis.setex(`morechildren_ids:${post_url}`, setexs.posts, JSON.stringify(all_ids))
+                    redis.setex(`morechildren_ids:${post_url}`, config.setexs.posts, JSON.stringify(all_ids))
                     console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`)
                     console.log(`Redirecting to ${post_url} with cursor...`)
                     return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
@@ -744,7 +745,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               })
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-              console.error(reddit_api_error_text)
+              console.error(config.reddit_api_error_text)
               return res.render('index', {
                 json: null,
                 http_status_code: result.status,

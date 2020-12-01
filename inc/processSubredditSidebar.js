@@ -27,7 +27,7 @@ module.exports = function() {
                 if(result.status === 200) {
                   result.json()
                   .then(json => {
-                    redis.setex(key, setexs.sidebar, JSON.stringify(json), (error) => {
+                    redis.setex(key, config.setexs.sidebar, JSON.stringify(json), (error) => {
                       if(error) {
                         console.error('Error setting the sidebar key to redis.', error)
                         return res.render('index', { json: null, user_preferences: req.cookies })
@@ -50,7 +50,7 @@ module.exports = function() {
                   })
                 } else {
                 console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-                console.error(reddit_api_error_text)
+                console.error(config.reddit_api_error_text)
                 resolve(null)
                 }
               }).catch(error => {

@@ -1,4 +1,5 @@
 module.exports = function(tools) { 
+  const config = require('../config')
   const {spawn} = require('child_process')
   const fs = require('fs')
   this.downloadAndSave = (url, file_prefix = '', gifmp4, isYouTubeThumbnail) => {
@@ -22,7 +23,7 @@ module.exports = function(tools) {
       if(!invalid_urls.includes(url)) {
         (async () => {
           let temp_url = new URL(url)
-          if(valid_media_domains.includes(temp_url.hostname)) {
+          if(config.valid_media_domains.includes(temp_url.hostname)) {
             let pathname = temp_url.pathname
             let file_ext
             let has_extension = true
@@ -44,7 +45,7 @@ module.exports = function(tools) {
 
             if(valid_video_extensions.includes(file_ext) || gifmp4) {
               /* Is video. */
-              if(!video_enabled) {
+              if(!config.video_enabled) {
                 resolve('')
               } else {
                 let filename = `${temp_url.pathname.substr(1).split('/')[0]}.${file_ext}`
@@ -70,7 +71,7 @@ module.exports = function(tools) {
                           let processVideo = spawn('ffmpeg', ['-y', '-i', temp_path, '-i', audio_path, '-c', 'copy', path])
                           processVideo.on('exit', (code) => {
                             if(code === 0) {
-                              let final_url = `${protocol}${domain}/vids/${filename}`
+                              let final_url = `${protocol}${config.domain}/vids/${filename}`
                               let temp_files = [temp_path, audio_path]
                               deleteFiles(temp_files, (error) => {
                                 if(error) {
@@ -96,7 +97,7 @@ module.exports = function(tools) {
                           if(error) {
                             console.log(`Error while renaming the temp video file: ${temp_path} => ${path}.`, error)
                           } else {
-                            let final_url = `${protocol}${domain}/vids/${filename}`
+                            let final_url = `${protocol}${config.domain}/vids/${filename}`
                             resolve(final_url)
                           }
                         })
@@ -110,7 +111,7 @@ module.exports = function(tools) {
                     resolve('')
                   }
                 } else {
-                  resolve(`${protocol}${domain}/vids/${filename}`)
+                  resolve(`${protocol}${config.domain}/vids/${filename}`)
                 }
               }
             } else {
@@ -131,7 +132,7 @@ module.exports = function(tools) {
                 if(download.success === true) {
                   const write = await writeToDisk(download.data, path)
                   if(write.success === true) {
-                    let final_url = `${protocol}${domain}/pics/${filename}`
+                    let final_url = `${protocol}${config.domain}/pics/${filename}`
                     resolve(final_url)
                   } else {
                     console.log(`Error while writing image file.`, write)
@@ -142,7 +143,7 @@ module.exports = function(tools) {
                   resolve('')
                 }
               } else {
-                resolve(`${protocol}${domain}/pics/${filename}`)
+                resolve(`${protocol}${config.domain}/pics/${filename}`)
               }
             }
           } else {

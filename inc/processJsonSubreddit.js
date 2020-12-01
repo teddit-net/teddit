@@ -1,4 +1,5 @@
 module.exports = function() {
+  const config = require('../config');
   this.processJsonSubreddit = (json, from, subreddit_front) => {
     return new Promise(resolve => {
       (async () => {
@@ -34,7 +35,7 @@ module.exports = function() {
                   is_self_link = true
                 }
               }
-              if(valid_media_domains.includes(data.domain) || valid_reddit_self_domains.includes(data.domain)) {
+              if(config.valid_media_domains.includes(data.domain) || valid_reddit_self_domains.includes(data.domain)) {
                 is_self_link = true
               }
             }
