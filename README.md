@@ -18,6 +18,14 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 
+## Instances
+
+[https://teddit.net](https://teddit.net) - Official instance
+
+Community instances:
+
+* [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
+
 ## TODO
 
 * Sort comments in post
