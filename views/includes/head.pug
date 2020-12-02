@@ -75,6 +75,18 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
       if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
         url = url.replace(u.host, 'teddit.net')
       }
+      if(u.host === 'i.redd.it' || u.host === 'v.redd.it') {
+        let image_exts = ['png', 'jpg', 'jpeg']
+        let video_exts = ['mp4', 'gif', 'gifv']
+        let file_ext = getFileExtension(url)
+        if(image_exts.includes(file_ext))
+          url = url.replace(`${u.host}/`, 'teddit.net/pics/w:null_')
+        if(video_exts.includes(file_ext))
+          url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
+        if(!video_exts.includes(file_ext) && !image_exts.includes(file_ext))
+          url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
+      }
+      
     } catch(e) { }
     return url
   }
@@ -93,6 +105,22 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
   
   function secondsToMMSS(time) {
     return new Date(time * 1000).toISOString().substr(14,5)
+  }
+  
+  function getFileExtension(url) {
+    try {
+      url = new URL(url)
+      let pathname = url.pathname
+      let file_ext = pathname.substring(pathname.lastIndexOf('.') + 1)
+      if(file_ext) {
+        return file_ext
+      } else {
+        return ''
+      }
+    } catch (error) {
+      console.error(`Invalid url supplied to getFileExtension(). URL: ${url}`, error)
+      return ''
+    }
   }
   
   function cleanTitle(s) {
