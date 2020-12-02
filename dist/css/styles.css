@@ -1337,26 +1337,35 @@ code {
 	transition: none;
 }
 @media only screen and (max-width: 600px) {
-	#sidebar {
-		width: 100%;
-	}
-	#sidebar .content {
-		padding-left: 20px;
-		padding-right: 20px;
-	}
-	#search {
-		width: 100%;
-		margin-left: 20px;
-		margin-top: 30px;
-	}
-	#links.sr {
-		width: calc(100% - 10px);
-	}
-	#search form {
-		width: 240px;
+  #sidebar {
+    width: 100%;
   }
-  .comment details summary::-webkit-details-marker,.comment details summary::marker {
-		font-size: 1.25rem;
+  #sidebar .content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #search {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+  #links.sr {
+    width: calc(100% - 10px);
+  }
+  #search form {
+    width: 240px;
+  }
+  .comment details summary::-webkit-details-marker,
+  .comment details summary::marker {
+    font-size: 1.25rem;
+    content: "[ - ]";
+  }
+  .comment details summary {
+    margin-right: 20px;
+    margin-bottom: 10px;
+  }
+  .comment summary::-webkit-details-marker {
+    font-size: 1.25rem
   }
 }
 
