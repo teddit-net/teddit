@@ -81,9 +81,7 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
         let file_ext = getFileExtension(url)
         if(image_exts.includes(file_ext))
           url = url.replace(`${u.host}/`, 'teddit.net/pics/w:null_')
-        if(video_exts.includes(file_ext))
-          url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
-        if(!video_exts.includes(file_ext) && !image_exts.includes(file_ext))
+        if(video_exts.includes(file_ext) || !image_exts.includes(file_ext))
           url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
       }
       
