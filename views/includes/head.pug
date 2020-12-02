@@ -95,6 +95,25 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
     return new Date(time * 1000).toISOString().substr(14,5)
   }
   
-  function cleanTitle(title) {
-    return title.replace(/&amp;/g, '&')
+  function cleanTitle(s) {
+    if(s) {
+      var re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
+      var unescaped = {
+        '&amp;': '&',
+        '&#38;': '&',
+        '&lt;': '<',
+        '&#60;': '<',
+        '&gt;': '>',
+        '&#62;': '>',
+        '&apos;': "'",
+        '&#39;': "'",
+        '&quot;': '"',
+        '&#34;': '"'
+      }
+      return s.replace(re, (m) => {
+        return unescaped[m]
+      })
+    } else {
+      return ''
+    }
   }
