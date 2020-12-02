@@ -105,7 +105,7 @@ html
               a(href="" + post.permalink + "")
                 div.no-image
             .title
-              a(href="" + post.permalink + "") #{post.title}
+              a(href="" + post.permalink + "") #{cleanTitle(post.title)}
             .meta
               p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
                 a(href="/u/" + post.author + "") #{post.author}

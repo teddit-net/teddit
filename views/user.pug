@@ -78,7 +78,7 @@ html
                     a(href="" + post.permalink + "")
                       div.no-image
                 .title
-                  a(href="" + post.permalink + "") #{post.title}
+                  a(href="" + post.permalink + "") #{cleanTitle(post.title)}
                   .meta
                     p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
                       a(href="/u/" + data.username + "") #{data.username}
@@ -89,7 +89,7 @@ html
               .entry
                 .meta
                   .title
-                    a(href="" + post.url + "") #{post.link_title}
+                    a(href="" + post.url + "") #{cleanTitle(post.link_title)}
                   .author
                     p by
                       if post.link_author !== '[deleted]'

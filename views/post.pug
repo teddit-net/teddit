@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title #{post.title} : #{subreddit}
+    title #{cleanTitle(post.title)} : #{subreddit}
     include includes/head.pug
   body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
@@ -22,7 +22,7 @@ html
             div.arrow.down
           .title
             a(href="" + localize(post.url) + "")
-              h2 #{post.title}
+              h2 #{cleanTitle(post.title)}
           p.submitted
             span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
             a(href="/u/" + post.author + "")
@@ -31,7 +31,7 @@ html
           .crosspost
             .title
               a(href="" + localize(post.crosspost.permalink) + "")
-                h2 #{post.crosspost.title}
+                h2 #{cleanTitle(post.crosspost.title)}
             .num_comments
               | #{post.crosspost.num_comments} comments
             .score
@@ -85,13 +85,13 @@ html
                 .video
                   .title
                     a(href="" + post.media.embed_src + "", target="_blank")
-                      p #{post.media.title}
+                      p #{cleanTitle(post.media.title)}
                   .video-holder
                     a(href="" + post.media.embed_src + "", target="_blank")
                       img(src="" + post.media.thumbnail + "")
                   div(class="youtube-info")
                     p YouTube video info:
-                    p #{post.media.title} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
+                    p #{cleanTitle(post.media.title)} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
                     p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
               else
                 if post.media.source === 'external'

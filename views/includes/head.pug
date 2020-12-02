@@ -94,3 +94,7 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
   function secondsToMMSS(time) {
     return new Date(time * 1000).toISOString().substr(14,5)
   }
+  
+  function cleanTitle(title) {
+    return title.replace(/&amp;/g, '&')
+  }

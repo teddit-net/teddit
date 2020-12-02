@@ -82,11 +82,11 @@ html
                 .title
                   if link.is_self_link
                     a(href="" + link.permalink + "")
-                      h2 #{link.title}
+                      h2 #{cleanTitle(link.title)}
                     span (#{link.domain})
                   else
                     a(href="" + link.url + "")
-                      h2 #{link.title}
+                      h2 #{cleanTitle(link.title)}
                     span (#{link.domain})
                 .meta
                   p.submitted submitted
