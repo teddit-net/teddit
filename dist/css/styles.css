@@ -799,12 +799,10 @@ input[type="submit"]:hover,
 	border: 1px solid #369;
 	border-radius: 7px;
 	padding: 5px 10px;
-	margin-top: 10px;
-	margin-bottom: 5px;
+	margin: 10px auto 5px 60px;
 	font-size: 0.84rem;
 	max-width: 60em;
 	word-wrap: break-word;
-	margin-left: 60px;
 	float: left;
 	width: 100%;
 }
@@ -1366,6 +1364,9 @@ code {
   }
   .comment summary::-webkit-details-marker {
     font-size: 1.25rem
-  }
+	}
+	#post .usertext-body {
+		margin-left: 2.5%;
+	}
 }
 
