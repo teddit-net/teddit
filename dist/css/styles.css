@@ -1368,5 +1368,9 @@ code {
 	#post .usertext-body {
 		margin-left: 2.5%;
 	}
+	#post .image {
+		padding-left: 2.5%;
+		padding-right: 2.5%;
+	}
 }
 
