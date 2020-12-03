@@ -47,26 +47,27 @@ Community instances:
 
 ## Installation
 
-1. Install [node.js](https://nodejs.org/en/)
-For example:
+1. Install [node.js](https://nodejs.org/en/)\
+For example:\
 `# curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs`
-1. Install [redis-server](https://redis.io/) and [ffmpeg](https://ffmpeg.org/)
-For example:
-`# apt install redis-server ffmpeg`
+1. Install [redis-server](https://redis.io/) and [ffmpeg](https://ffmpeg.org/)\
+For example:\
+`# apt install redis-server ffmpeg`\
 Leave ffmpeg out if you don't want video support.
 1. `$ git clone https://codeberg.org/teddit/teddit`
 1. `$ cd teddit`
 1. `$ npm install --no-optional`
 1. Edit `config.js.template` to suit your environment. After done, rename it to `config.js`.
-1. Edit redis.conf file and set maxmemory value to suit your environment (e.g. 75% of your total RAM).
-`# nano /etc/redis/redis.conf`
-Add new lines:
-`maxmemory 2gb`
-`maxmemory-policy volatile-ttl`
+1. Edit `redis.conf` and set maxmemory value to suit your environment (e.g. 75% of your total RAM).\
+`# nano /etc/redis/redis.conf`\
+Add new lines:\
+`maxmemory 2gb`\
+`maxmemory-policy volatile-ttl`\
 Save and exit.
 1. Restart redis
-For example:
-`systemctl restart redis`
+For example:\
+`# systemctl restart redis`
 1. `$ node app.js`
 
 Teddit should be now running.
+
