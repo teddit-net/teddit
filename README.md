@@ -58,16 +58,7 @@ Leave ffmpeg out if you don't want video support.
 1. `$ cd teddit`
 1. `$ npm install --no-optional`
 1. Edit `config.js.template` to suit your environment. After done, rename it to `config.js`.
-1. Edit `redis.conf` and set maxmemory value to suit your environment (e.g. 75% of your total RAM).\
-`# nano /etc/redis/redis.conf`\
-Add new lines:\
-`maxmemory 2gb`\
-`maxmemory-policy volatile-ttl`\
-Save and exit.
-1. Restart redis
-For example:\
-`# systemctl restart redis`
 1. `$ node app.js`
 
-Teddit should be now running.
+Teddit should be now running on.
 
