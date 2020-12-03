@@ -503,7 +503,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
         })()
       } else {
-        fetch(`https://oauth.reddit.com${comments_url}?api_type=json&context=${context}`, redditApiGETHeaders())
+        fetch(`https://oauth.reddit.com${comments_url}?api_type=json&sort=${config.post_comments_sort}&context=${context}`, redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -724,7 +724,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           console.log(`Redirecting to ${post_url} with cursor...`);
           return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
         } else {
-          let url = `https://oauth.reddit.com/api/morechildren?api_type=json&children=${ids_to_show}&limit_children=false&link_id=t3_${post_id}&sort=confidence`
+          let url = `https://oauth.reddit.com/api/morechildren?api_type=json&children=${ids_to_show}&limit_children=false&link_id=t3_${post_id}&sort=${config.post_comments_sort}`
           fetch(url, redditApiGETHeaders())
           .then(result => {
             if(result.status === 200) {

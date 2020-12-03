@@ -27,6 +27,7 @@ const config = {
     searches: 600,
     sidebar: 60 * 60 * 24 * 7 // 7 days
   },
+  post_comments_sort: 'confidence', // one of: confidence, top, new, controversial, old, random, qa, live
   valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
   reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
 };

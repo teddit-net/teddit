@@ -2,10 +2,10 @@ module.exports = function() {
   this.processPostMedia = (obj, post, post_media, has_gif, reddit_video, gif_to_mp4) => {
     return new Promise(resolve => {
       (async () => {
-        let validEmbedDomains = ['gfycat.com', 'youtube.com']
+        let valid_embed_domains = ['gfycat.com', 'youtube.com']
         if(post_media || has_gif) {
           if(!has_gif) {
-            if(validEmbedDomains.includes(post_media.type)) {
+            if(valid_embed_domains.includes(post_media.type)) {
               if(post_media.type === 'gfycat.com') {
                 obj.has_media = true
                 obj.media = {
