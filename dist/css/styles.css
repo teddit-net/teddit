@@ -774,6 +774,11 @@ input[type="submit"]:hover,
 	color: var(--linkcolor);
 	float: left;
 }
+#post .title .domain {
+	color: gray;
+	font-size: 12px;
+	margin-left: 10px;
+}
 #post .submitted {
 	font-size: small;
 	color: #686868;
@@ -1359,6 +1364,9 @@ code {
   }
   #search form {
     width: 240px;
+  }
+  .comment {
+    padding-left: 2.5%;
   }
   .comment details summary::-webkit-details-marker,
   .comment details summary::marker {

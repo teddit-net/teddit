@@ -25,6 +25,7 @@ module.exports = function(fetch) {
           url: post.url,
           ups: post.ups,
           id: post.id,
+          domain: post.domain,
           comments: null,
           has_media: false,
           media: null,

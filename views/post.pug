@@ -23,6 +23,7 @@ html
           .title
             a(href="" + localize(post.url) + "")
               h2 #{cleanTitle(post.title)}
+            span(class="domain") (#{post.domain})
           p.submitted
             span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
             a(href="/u/" + post.author + "")
@@ -32,6 +33,7 @@ html
             .title
               a(href="" + localize(post.crosspost.permalink) + "")
                 h2 #{cleanTitle(post.crosspost.title)}
+              span(class="domain") (#{post.domain})
             .num_comments
               | #{post.crosspost.num_comments} comments
             .score
@@ -86,6 +88,7 @@ html
                   .title
                     a(href="" + post.media.embed_src + "", target="_blank")
                       p #{cleanTitle(post.media.title)}
+                      span(class="domain") (#{post.domain})
                   .video-holder
                     a(href="" + post.media.embed_src + "", target="_blank")
                       img(src="" + post.media.thumbnail + "")
