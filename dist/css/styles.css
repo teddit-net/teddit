@@ -816,7 +816,6 @@ input[type="submit"]:hover,
 	max-width: 60em;
 	word-wrap: break-word;
 	float: left;
-	width: 100%;
 }
 #post .comment .load-more-comments {
 	float: left;
