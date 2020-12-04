@@ -82,11 +82,11 @@ html
                 .title
                   if link.is_self_link
                     a(href="" + link.permalink + "")
-                      h2 #{cleanTitle(link.title)}
+                      h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
                     span (#{link.domain})
                   else
                     a(href="" + link.url + "")
-                      h2 #{cleanTitle(link.title)}
+                      h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
                     span (#{link.domain})
                 .meta
                   p.submitted submitted
@@ -96,6 +96,8 @@ html
                   p.to to
                      a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}
+                  if link.stickied
+                    span(class="green") stickied
                   p.comments
                     a(href="" + link.permalink + "", class="comments")
                       | #{link.num_comments} comments

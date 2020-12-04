@@ -430,6 +430,9 @@ header .tabmenu li.active a {
 	margin-left: 15px;
 	margin-top: 8px;
 }
+.green {
+	color: green !important;
+}
 input[type="submit"],
 .btn {
 	padding: 3px;

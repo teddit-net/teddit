@@ -70,6 +70,7 @@ module.exports = function() {
               ups: data.ups,
               upvote_ratio: data.upvote_ratio,
               url: data.url,
+              stickied: data.stickied,
               is_self_link: is_self_link,
               subreddit_front: subreddit_front,
               before: before,
