@@ -816,6 +816,7 @@ input[type="submit"]:hover,
 	max-width: 60em;
 	word-wrap: break-word;
 	float: left;
+	width: calc(100% - 100px);
 }
 #post .comment .load-more-comments {
 	float: left;
@@ -1382,6 +1383,7 @@ code {
 	#post .usertext-body {
 		margin-left: 2.5%;
 		margin-right: 2.5%;
+		width: calc(100% - 10%);
 	}
 	#post .image {
 		padding-left: 2.5%;
