@@ -34,6 +34,7 @@ Community instances:
 * Subreddit flairs and wikis
 * User trophies
 * "other discussions" feature
+* "Open on reddit" links
 * ... and lot of other small stuff
 
 ## Roadmap
@@ -60,5 +61,5 @@ Leave ffmpeg out if you don't want video support.
 1. Edit `config.js.template` to suit your environment. After done, rename it to `config.js`.
 1. `$ node app.js`
 
-Teddit should be now running on.
+Teddit should be now running.
 
