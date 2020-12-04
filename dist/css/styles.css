@@ -426,6 +426,10 @@ header .tabmenu li.active a {
 	border-radius: 3px;
 	font-weight: bold;
 }
+.subreddit-listing {
+	margin-left: 15px;
+	margin-top: 8px;
+}
 input[type="submit"],
 .btn {
 	padding: 3px;

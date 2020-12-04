@@ -129,3 +129,13 @@ html
                   != unescape(sidebar_data.public_description_html)
               .description
                 != unescape(sidebar_data.description_html)
+        else
+          if subreddit.includes('+')
+            .content
+              p These subreddits
+              -
+                let subreddits = subreddit.split('+')
+              ul(class="subreddit-listing")
+                each subreddit in subreddits
+                  li
+                    a(href="/r/" + subreddit + "") #{subreddit}
