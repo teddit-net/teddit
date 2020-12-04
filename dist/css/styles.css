@@ -1360,6 +1360,9 @@ code {
   #search form {
     width: 240px;
   }
+  .comment {
+    padding-left: 2.5%;
+  }
   .comment details summary::-webkit-details-marker,
   .comment details summary::marker {
     font-size: 1.25rem;
