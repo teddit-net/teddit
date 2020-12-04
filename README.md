@@ -58,7 +58,7 @@ Leave ffmpeg out if you don't want video support.
 1. `$ git clone https://codeberg.org/teddit/teddit`
 1. `$ cd teddit`
 1. `$ npm install --no-optional`
-1. Edit `config.js.template` to suit your environment. After done, rename it to `config.js`.
+1. Copy `config.js.template` to `config.js` and then edit it to suit your environment.
 1. `$ node app.js`
 
 Teddit should be now running.
