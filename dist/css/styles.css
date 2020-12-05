@@ -243,7 +243,7 @@ a:hover, a:focus {
 	color: green;
 }
 .word-break {
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 .top-links {
 	width: 100%;
@@ -391,7 +391,7 @@ header a.subreddit {
 	margin-right: 12px;
 }
 header a.subreddit h2 {
-	word-break: break-word;
+	overflow-wrap: anywhere;
 }
 header .tabmenu {
 	float: left;
@@ -927,7 +927,7 @@ input[type="submit"]:hover,
 }
 #user .info h1 {
 	font-size: 1.1rem;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 #user .entries .entry .meta {
 	float: left;
@@ -1121,7 +1121,7 @@ input[type="submit"]:hover,
 }
 #search form label {
 	float: left;
-	word-break: break-all;
+	overflow-wrap: anywhere;
 }
 #search form label input {
 	float: left;
