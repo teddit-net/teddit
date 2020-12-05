@@ -68,10 +68,10 @@ html
               if(link.images)
                 if link.is_self_link
                   a(href="" + link.permalink + "")
-                    img(src=""+ link.images.thumb +"", target="_blank", alt="")
+                    img(src=""+ link.images.thumb +"", alt="")
                 else
                   a(href="" + link.url + "")
-                    img(src=""+ link.images.thumb +"", target="_blank", alt="")
+                    img(src=""+ link.images.thumb +"", alt="")
               else
                 a(href="" + link.permalink + "")
                   .no-image
