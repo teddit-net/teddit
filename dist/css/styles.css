@@ -1386,8 +1386,7 @@ code {
 		width: calc(100% - 10%);
 	}
 	#post .image {
-		padding-left: 2.5%;
-		padding-right: 2.5%;
+		padding: 2.5%;
 	}
 }
 
