@@ -593,6 +593,7 @@ input[type="submit"]:hover,
 /* COMMENTS */
 .comment {
 	font-size: 0.83rem;
+	clear: left;
 }
 .comment summary {
 	float: left;
