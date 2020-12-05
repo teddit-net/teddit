@@ -102,12 +102,16 @@ module.exports = function() {
           } else {
             obj.has_media = true
             if(!gif_to_mp4) {
-              obj.media = {
-                source: await downloadAndSave(post.preview.reddit_video_preview.fallback_url),
-                height: post.preview.reddit_video_preview.height,
-                width: post.preview.reddit_video_preview.width,
-                duration: post.preview.reddit_video_preview.duration,
-                is_gif: true
+              if(post.preview) {
+                obj.media = {
+                  source: await downloadAndSave(post.preview.reddit_video_preview.fallback_url),
+                  height: post.preview.reddit_video_preview.height,
+                  width: post.preview.reddit_video_preview.width,
+                  duration: post.preview.reddit_video_preview.duration,
+                  is_gif: true
+                }
+              } else {
+                obj.has_media = false
               }
             } else {
               obj.media = {
