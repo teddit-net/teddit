@@ -103,4 +103,4 @@ redis.on('error', (error) => {
 if(config.https_enabled) {
   https.listen(config.ssl_port, '::', () => console.log(`Teddit running on https://${config.domain}`))
 }
-http.listen(config.nonssl_port, '::', () => console.log(`Teddit running on http://${config.domain}:${config.nonssl_port}`))
+http.listen(config.nonssl_port, '::', () => console.log(`Teddit running on http://${config.domain}`))
