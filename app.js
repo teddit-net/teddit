@@ -72,7 +72,7 @@ if(config.use_view_cache) {
 }
 
 if(config.trust_proxy) {
-  app.set('trust proxy', trust_proxy_address)
+  app.set('trust proxy', config.trust_proxy_address)
 }
 
 app.use(bodyParser.urlencoded({ extended: true }))
