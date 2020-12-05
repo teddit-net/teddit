@@ -3,6 +3,8 @@ const config = {
   reddit_app_id: 'H6-HjZ5pUPjaFQ', // You should obtain your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
   cert_dir: '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
   video_enabled: true,
+  redis_host: '127.0.0.1',
+  redis_port: 6379,
   ssl_port: 8088,
   nonssl_port: 8080,
   listen_address: '0.0.0.0',

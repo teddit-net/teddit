@@ -10,7 +10,21 @@ const compression = require('compression')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const r = require('redis')
-const redis = r.createClient()
+
+const redisOptions = {
+  host: '127.0.0.1',
+  port: 6379
+}
+
+if (config.redis_host) {
+  redisOptions.host = config.redis_host
+}
+
+if (config.redis_port && config.redis_port > 0) {
+  redisOptions.port = config.redis_port
+}
+
+const redis = r.createClient(redisOptions)
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const fetch = require('node-fetch')
