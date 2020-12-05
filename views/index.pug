@@ -25,7 +25,11 @@ html
               a(href="/controversial") controversial
             li(class=sortby === 'top' ? 'active' : '')
               a(href="/top") top
-      #links
+      if !before && !after && sortby === 'hot'
+        #intro
+          h1 Welcome to teddit
+          h2 the alternative, privacy respecting, front page of internet.
+      #links.sr
         if sortby === 'top' || sortby === 'controversial'
           details
             summary
@@ -54,11 +58,6 @@ html
                 a(href="?t=year") past year
               li(class=past === 'all' ? 'active' : '')
                 a(href="?t=all") all time
-      if !before && !after && sortby === 'hot'
-        #intro
-          h1 Welcome to teddit
-          h2 the alternative, privacy respecting, front page of internet.
-      #links.sr
         each link in json.links
           .link
             .upvotes
