@@ -1,5 +1,5 @@
 const config = {
-  domain: '127.0.0.1', // Or for example 'teddit.net'
+  domain: '127.0.0.1:8080', // Or for example 'teddit.net'
   reddit_app_id: 'H6-HjZ5pUPjaFQ', // You should obtain your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
   cert_dir: '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
   video_enabled: true,
