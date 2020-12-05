@@ -8,6 +8,8 @@ module.exports = function(request, fs) {
           resolve({ success: false, data: null })
         }
       })
+    }).catch((err) => {
+      console.log(`Downloading media file failed for unknown reason. Details:`, err)
     })
   }
 
@@ -20,6 +22,8 @@ module.exports = function(request, fs) {
           resolve({ success: false })
         }
       })
+    }).catch((err) => {
+      console.log(`Writing media file to disk failed for unknown reason. Details:`, err)
     })
   }
 
