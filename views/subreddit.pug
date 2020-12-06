@@ -16,8 +16,9 @@ html
         a(href="/", class="main")
           h1 teddit
         .bottom
-          a(href="/r/" + subreddit + "", class="subreddit")
-            h2 #{subreddit}
+          if !subreddit.includes('+')
+            a(href="/r/" + subreddit + "", class="subreddit")
+              h2 #{subreddit}
           ul.tabmenu
             li(class=!sortby || sortby == 'hot' ? 'active' : '')
               a(href="/r/" + subreddit) hot
