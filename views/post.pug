@@ -106,7 +106,7 @@ html
                       p
                         | source:
                         a(href="" + post.media.embed_src + "", target="_blank")
-                          p #{post.media.embed_src}
+                          p(class="source-url") #{post.media.embed_src}
                 else
                   .video
                     a(href="" + post.media.source + "")
