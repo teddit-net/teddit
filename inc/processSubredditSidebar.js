@@ -23,7 +23,7 @@ module.exports = function() {
               }
               resolve(obj)
             } else {
-              fetch(`https://oauth.reddit.com/r/${subreddit}/about`, redditApiGETHeaders())
+              fetch(encodeURI(`https://oauth.reddit.com/r/${subreddit}/about`), redditApiGETHeaders())
               .then(result => {
                 if(result.status === 200) {
                   result.json()
