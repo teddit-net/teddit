@@ -1397,6 +1397,9 @@ code {
 		margin: 5px 2.5%;
 		width: 95%;
 	}
+	.info .submitted {
+		margin: auto auto 2.5% 2.5%;
+	}
 }
 
 
