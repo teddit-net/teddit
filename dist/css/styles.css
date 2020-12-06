@@ -1396,6 +1396,10 @@ code {
 	#post .image {
 		padding: 2.5%;
 	}
+	#post .video {
+		margin: 5px 2.5%;
+		width: 95%;
+	}
 }
 
 
