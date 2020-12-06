@@ -882,9 +882,6 @@ input[type="submit"]:hover,
 	margin-left: 6px;
 	font-size: small;
 }
-#post .crosspost .image img {
-	max-width: 600px;
-}
 #post .gallery {
 	float: left;
 	width: 100%;
