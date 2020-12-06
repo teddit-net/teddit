@@ -51,15 +51,14 @@ Community instances:
 1. Install [node.js](https://nodejs.org/en/)\
 For example:\
 `# curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs`
-1. Install [redis-server](https://redis.io/) and [ffmpeg](https://ffmpeg.org/)\
+1. It's highly recommended that you install [redis-server](https://redis.io/) because it works as a cache for Reddit API calls. If you want to support videos, install [ffmpeg](https://ffmpeg.org/)\
 For example:\
 `# apt install redis-server ffmpeg`\
-Leave ffmpeg out if you don't want video support.
 1. `$ git clone https://codeberg.org/teddit/teddit`
 1. `$ cd teddit`
 1. `$ npm install --no-optional`
 1. Copy `config.js.template` to `config.js` and then edit it to suit your environment.
-1. `$ node app.js`
+1. `$ npm start`
 
 Teddit should be now running.
 
