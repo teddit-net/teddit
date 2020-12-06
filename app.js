@@ -11,20 +11,32 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const r = require('redis')
 
-const redisOptions = {
-  host: '127.0.0.1',
-  port: 6379
-}
 
-if (config.redis_host) {
-  redisOptions.host = config.redis_host
-}
+const redis = (() => {
+  if (!config.redis_enabled) {
+    // Stub Redis if disabled
+    return {
+      get: (_, callback) => callback(null, null),
+      setex: (_, _1, _2, callback) => callback(null),
+      on: () => {}
+    }
+  }
 
-if (config.redis_port && config.redis_port > 0) {
-  redisOptions.port = config.redis_port
-}
+  const redisOptions = {
+    host: '127.0.0.1',
+    port: 6379
+  }
+  
+  if (config.redis_host) {
+    redisOptions.host = config.redis_host
+  }
+  
+  if (config.redis_port && config.redis_port > 0) {
+    redisOptions.port = config.redis_port
+  }  
 
-const redis = r.createClient(redisOptions)
+  return r.createClient(redisOptions)
+})()
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const fetch = require('node-fetch')
