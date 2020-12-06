@@ -908,7 +908,7 @@ input[type="submit"]:hover,
 	font-size: 10px;
 }
 #post .source-url {
-	overflow: auto;
+	overflow-wrap: anywhere;
 }
 /* USER */
 #user .entries {
