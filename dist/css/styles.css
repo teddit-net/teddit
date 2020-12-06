@@ -1400,6 +1400,9 @@ code {
 	.info .submitted {
 		margin: auto auto 2.5% 2.5%;
 	}
+	#post .crosspost {
+		margin: auto 2.5%;
+	}
 }
 
 
