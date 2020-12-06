@@ -730,18 +730,26 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             if(result.status === 200) {
               result.json()
               .then(json => {
-                let comments = json.json.data.things
-                redis.setex(key, config.setexs.posts, JSON.stringify(comments), (error) => {
-                  if(error) {
-                    console.error(`Error setting the ${key} key to redis.`, error)
-                    return res.render('post', { post: null, user_preferences: req.cookies })
+                if(json.json.data) {
+                  if(json.json.data.things) {
+                    let comments = json.json.data.things
+                    redis.setex(key, config.setexs.posts, JSON.stringify(comments), (error) => {
+                      if(error) {
+                        console.error(`Error setting the ${key} key to redis.`, error)
+                        return res.render('post', { post: null, user_preferences: req.cookies })
+                      } else {
+                        redis.setex(`morechildren_ids:${post_url}`, config.setexs.posts, JSON.stringify(all_ids))
+                        console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`)
+                        console.log(`Redirecting to ${post_url} with cursor...`)
+                        return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
+                      }
+                    })
                   } else {
-                    redis.setex(`morechildren_ids:${post_url}`, config.setexs.posts, JSON.stringify(all_ids))
-                    console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`)
-                    console.log(`Redirecting to ${post_url} with cursor...`)
-                    return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
+                    return res.redirect(post_url)
                   }
-                })
+                } else {
+                  return res.redirect(post_url)
+                }
               })
             } else {
               console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
