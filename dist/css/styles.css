@@ -885,6 +885,7 @@ input[type="submit"]:hover,
 #post .gallery {
 	float: left;
 	width: 100%;
+	margin: 10px auto auto 60px;
 }
 #post .gallery .item {
 	float: left;
