@@ -906,6 +906,9 @@ input[type="submit"]:hover,
 #post .gallery .item small {
 	font-size: 10px;
 }
+#post .source-url {
+	overflow: auto;
+}
 /* USER */
 #user .entries {
 	float: left;
