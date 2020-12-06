@@ -53,7 +53,7 @@ For example:\
 `# curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs`
 1. It's highly recommended that you install [redis-server](https://redis.io/) because it works as a cache for Reddit API calls. If you want to support videos, install [ffmpeg](https://ffmpeg.org/)\
 For example:\
-`# apt install redis-server ffmpeg`\
+`# apt install redis-server ffmpeg`
 1. `$ git clone https://codeberg.org/teddit/teddit`
 1. `$ cd teddit`
 1. `$ npm install --no-optional`
