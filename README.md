@@ -48,6 +48,16 @@ Community instances:
 
 ## Installation
 
+### Docker
+
+Using [`docker-compose`](https://github.com/docker/compose):
+```bash
+docker-compose build
+docker-compose up
+```
+
+### Manual
+
 1. Install [node.js](https://nodejs.org/en/)
 1. It's highly recommended that you install [redis-server](https://redis.io/) because it works as a cache for Reddit API calls. If you want to support videos, install [ffmpeg](https://ffmpeg.org/)\
 For example:\
