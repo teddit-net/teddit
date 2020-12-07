@@ -48,9 +48,7 @@ Community instances:
 
 ## Installation
 
-1. Install [node.js](https://nodejs.org/en/)\
-For example:\
-`# curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs`
+1. Install [node.js](https://nodejs.org/en/)
 1. It's highly recommended that you install [redis-server](https://redis.io/) because it works as a cache for Reddit API calls. If you want to support videos, install [ffmpeg](https://ffmpeg.org/)\
 For example:\
 `# apt install redis-server ffmpeg`
