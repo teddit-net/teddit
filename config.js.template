@@ -1,23 +1,23 @@
 const config = {
-  domain: '127.0.0.1', // Or for example 'teddit.net'
-  reddit_app_id: 'H6-HjZ5pUPjaFQ', // You should obtain your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
-  cert_dir: '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
-  video_enabled: true,
-  redis_enabled: true, // If disabled, does not cache Reddit API calls
-  redis_host: '127.0.0.1',
-  redis_port: 6379,
-  ssl_port: 8088,
-  nonssl_port: 8080,
-  listen_address: '0.0.0.0',
-  https_enabled: false,
-  redirect_http_to_https: false,
-  redirect_www: false,
-  use_compression: true,
-  use_view_cache: false,
-  use_helmet: false, // Recommended to be true when using https
-  use_helmet_hsts: false, // Recommended to be true when using https
-  trust_proxy: false, // Enable trust_proxy if you are using reverse proxy like nginx
-  trust_proxy_address: '127.0.0.1',
+  domain: process.env.DOMAIN || '127.0.0.1', // Or for example 'teddit.net'
+  reddit_app_id: process.env.REDDIT_APP_ID || 'H6-HjZ5pUPjaFQ', // You should obtain your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
+  cert_dir: process.env.CERT_DIR || '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
+  video_enabled: process.env.VIDEO_ENABLED !== "true" || true,
+  redis_enabled: process.env.REDIS_ENABLED !== "true" || true, // If disabled, does not cache Reddit API calls
+  redis_host: process.env.REDIS_HOST || '127.0.0.1',
+  redis_port: process.env.REDIS_PORT || 6379,
+  ssl_port: process.env.SSL_PORT || 8088,
+  nonssl_port: process.env.NONSSL_PORT || 8080,
+  listen_address: process.env.LISTEN_ADDRESS || '0.0.0.0',
+  https_enabled: process.env.HTTPS_ENABLED === "true" || false,
+  redirect_http_to_https: process.env.REDIRECT_HTTP_TO_HTTPS === "true" || false,
+  redirect_www: process.env.REDIRECT_WWW === "true" || false,
+  use_compression: process.env.USE_COMPRESSION !== "true" || true,
+  use_view_cache: process.env.USE_VIEW_CACHE === "true" || false,
+  use_helmet: process.env.USE_HELMET === "true" || false, // Recommended to be true when using https
+  use_helmet_hsts: process.env.USE_HELMET_HSTS === "true" || false, // Recommended to be true when using https
+  trust_proxy: process.env.TRUST_PROXY === "true" || false, // Enable trust_proxy if you are using reverse proxy like nginx
+  trust_proxy_address: process.env.TRUST_PROXY_ADDRESS || '127.0.0.1',
   setexs: {
     /**,
     * Redis cache expiration values (in seconds).
