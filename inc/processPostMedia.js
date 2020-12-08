@@ -1,4 +1,5 @@
 module.exports = function() {
+  const config = require('../config')
   this.processPostMedia = (obj, post, post_media, has_gif, reddit_video, gif_to_mp4) => {
     return new Promise(resolve => {
       (async () => {
@@ -121,6 +122,26 @@ module.exports = function() {
                 duration: null,
                 is_gif: null
               }
+            }
+          }
+        } else {
+          /**
+          * Sometimes post has an image, but all the common keys which are implying
+          * that the post has an iamge, are null or don't exist. Awesome Reddit!
+          */
+          if(!post_media && !has_gif && !post.gallery_data && post.url != '') {
+            try {
+              let u = new URL(post.url)
+              if(config.valid_media_domains.includes(u.hostname)) {
+                let ext = u.pathname.split('.')[1]
+                if(ext === 'jpg' || ext === 'png') {
+                  obj.images = {
+                    source: await downloadAndSave(post.url)
+                  }
+                }
+              }
+            } catch(error) {
+              //console.error(Invalid URL supplied when trying to fetch an image', error)
             }
           }
         }
