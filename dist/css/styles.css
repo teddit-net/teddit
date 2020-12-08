@@ -559,6 +559,7 @@ input[type="submit"]:hover,
 }
 #links .link .entry .meta p {
 	float: inherit;
+	overflow-wrap: anywhere;
 }
 #links .link .entry .meta p.submitted span {
 	margin-left: 4px;
