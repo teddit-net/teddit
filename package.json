@@ -1,8 +1,31 @@
 {
   "name": "teddit",
   "version": "0.0.3",
-  "description": "",
+  "description": "A free and open source alternative Reddit front-end focused on privacy.",
+  "homepage": "https://teddit.net",
+  "bugs": {
+    "url": "https://codeberg.org/teddit/teddit/issues"
+  },
+  "license": "AGPL 3.0",
+  "funding": [
+    {
+      "type": "XMR",
+      "url": "832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj"
+    },
+    {
+      "type": "BTC",
+      "url": "bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan"
+    }
+  ],
   "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://codeberg.org/teddit/teddit"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
   "dependencies": {
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -14,11 +37,5 @@
     "pug": "^3.0.0",
     "redis": "^3.0.2"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
-  "author": "",
-  "license": ""
+  "devDependencies": {}
 }
