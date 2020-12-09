@@ -1,8 +1,6 @@
 # teddit
 
-
 [teddit.net](https://teddit.net)
-
 
 A free and open source alternative Reddit front-end focused on privacy.
 Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
@@ -50,23 +48,41 @@ Community instances:
 
 ### Docker
 
-Using [`docker-compose`](https://github.com/docker/compose):
-```bash
+Using [Docker and `docker-compose`](https://github.com/docker/compose):
+
+```console
 docker-compose build
 docker-compose up
 ```
 
+Teddit should now be running at <https://localhost:8080>.
+
 ### Manual
 
-1. Install [node.js](https://nodejs.org/en/)
-1. It's highly recommended that you install [redis-server](https://redis.io/) because it works as a cache for Reddit API calls. If you want to support videos, install [ffmpeg](https://ffmpeg.org/)\
-For example:\
-`# apt install redis-server ffmpeg`
-1. `$ git clone https://codeberg.org/teddit/teddit`
-1. `$ cd teddit`
-1. `$ npm install --no-optional`
-1. Copy `config.js.template` to `config.js` and then edit it to suit your environment.
-1. `$ npm start`
+1. Install [Node.js](https://nodejs.org).
+1. (Optional) Install [redis-server](https://redis.io).
 
-Teddit should be now running.
+   Highly recommended – it works as a cache for Reddit API calls.
 
+1. (Optional) If you want to support videos, install [ffmpeg](https://ffmpeg.org)
+
+   ```console
+   # Linux
+   apt install redis-server ffmpeg
+
+   # macOS
+   brew install redis
+   ```
+
+1. Clone and set up the repository.
+
+   ```console
+   git clone https://codeberg.org/teddit/teddit
+   cd teddit
+   npm install --no-optional
+   cp config.js.template config.js # edit the file to suit your environment
+   redis-server
+   npm start
+   ```
+
+Teddit should now be running at <https://localhost:8080>.
