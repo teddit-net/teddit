@@ -29,7 +29,8 @@ const config = {
     posts: 600,
     user: 600,
     searches: 600,
-    sidebar: 60 * 60 * 24 * 7 // 7 days
+    sidebar: 60 * 60 * 24 * 7, // 7 days
+    shorts: 60 * 60 * 24 * 31
   },
   post_comments_sort: 'confidence', // "confidence" is the default sorting in Reddit. Must be one of: confidence, top, new, controversial, old, random, qa, live.
   valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com'],

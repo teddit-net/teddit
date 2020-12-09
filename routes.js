@@ -129,6 +129,75 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     return res.redirect(`/r/all/search?q=${q}&restrict_sr=${restrict_sr}&nsfw=${nsfw}&sort=${sortby}&t=${past}${d}`)
   })
 
+  app.get('/comments/:post_id/:comment?/:comment_id?', (req, res, next) => {
+    let post_id = req.params.post_id
+    let comment = req.params.comment
+    let comment_id = req.params.comment_id
+    let post_url = false
+    let comment_url = false
+    
+    if(comment)
+      if(comment !== 'comment' || !comment_id)
+        return res.redirect('/')
+    
+    if(comment)
+      comment_url = true
+    else
+      post_url = true
+    
+    let key = `/shorturl:post:${post_id}:comment:${comment_id}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error('Error getting the short URL for post key from redis.', error)
+        return res.render('index', { json: null, user_preferences: req.cookies })
+      }
+      if(json) {
+        console.log('Got short URL for post key from redis.')
+        json = JSON.parse(json)
+        if(post_url)
+          return res.redirect(json[0].data.children[0].data.permalink)
+        else
+          return res.redirect(json[1].data.children[0].data.permalink)
+      } else {
+        let url = ''
+        if(post_url)
+          url = `https://oauth.reddit.com/comments/${post_id}?api_type=json`
+        else
+          url = `https://oauth.reddit.com/comments/${post_id}/comment/${comment_id}?api_type=json`
+        fetch(encodeURI(url), redditApiGETHeaders())
+        .then(result => {
+          if(result.status === 200) {
+            result.json()
+            .then(json => {
+              redis.setex(key, config.setexs.shorts, JSON.stringify(json), (error) => {
+                if(error) {
+                  console.error('Error setting the short URL for post key to redis.', error)
+                  return res.render('index', { json: null, user_preferences: req.cookies })
+                } else {
+                  console.log('Fetched the short URL for post from reddit API.')
+                  if(post_url)
+                    return res.redirect(json[0].data.children[0].data.permalink)
+                  else
+                    return res.redirect(json[1].data.children[0].data.permalink)
+                }
+              })
+            })
+          } else {
+            console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+            console.error(config.reddit_api_error_text)
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
+          }
+        }).catch(error => {
+          console.error('Error fetching the short URL for post with sortby JSON file.', error)
+        })
+      }
+    })
+  })
+
   app.get('/:sort', (req, res, next) => {
     let sortby = req.params.sort
     let past = req.query.t
