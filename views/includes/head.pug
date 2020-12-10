@@ -69,26 +69,6 @@ meta(name="viewport", content="width=device-width, initial-scale=1.0")
     }
   }
   
-  function localize(url) {
-    try {
-      let u = new URL(url)
-      if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
-        url = url.replace(u.host, 'teddit.net')
-      }
-      if(u.host === 'i.redd.it' || u.host === 'v.redd.it') {
-        let image_exts = ['png', 'jpg', 'jpeg']
-        let video_exts = ['mp4', 'gif', 'gifv']
-        let file_ext = getFileExtension(url)
-        if(image_exts.includes(file_ext))
-          url = url.replace(`${u.host}/`, 'teddit.net/pics/w:null_')
-        if(video_exts.includes(file_ext) || !image_exts.includes(file_ext))
-          url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
-      }
-      
-    } catch(e) { }
-    return url
-  }
-  
   function toDateString(time) {
     let d = new Date();
     d.setTime(time*1000);

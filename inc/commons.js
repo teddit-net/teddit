@@ -35,12 +35,24 @@ module.exports = function(request, fs) {
     return url.replace(/&amp;/g, '&')
   }
 
-  this.localizeUrl = (url, dir) => {
-    url = cleanUrl(url)
-    let temp_url = new URL(url)
-    if(!dir)
-      dir = ''
-    return url.replace(temp_url.origin, `${protocol}${domain}${dir}`)
+  this.teddifyUrl = (url) => {
+    try {
+      let u = new URL(url)
+      if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
+        url = url.replace(u.host, 'teddit.net')
+      }
+      if(u.host === 'i.redd.it' || u.host === 'v.redd.it') {
+        let image_exts = ['png', 'jpg', 'jpeg']
+        let video_exts = ['mp4', 'gif', 'gifv']
+        let file_ext = getFileExtension(url)
+        if(image_exts.includes(file_ext))
+          url = url.replace(`${u.host}/`, 'teddit.net/pics/w:null_')
+        if(video_exts.includes(file_ext) || !image_exts.includes(file_ext))
+          url = url.replace(u.host, 'teddit.net/vids') + '.mp4'
+      }
+      
+    } catch(e) { }
+    return url
   }
 
   this.kFormatter = (num) => {
