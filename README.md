@@ -55,16 +55,19 @@ docker-compose build
 docker-compose up
 ```
 
-Teddit should now be running at <https://localhost:8080>.
+Teddit should now be running at <http://localhost:8080>.
 
 ### Manual
 
 1. Install [Node.js](https://nodejs.org).
+
 1. (Optional) Install [redis-server](https://redis.io).
 
    Highly recommended – it works as a cache for Reddit API calls.
 
-1. (Optional) If you want to support videos, install [ffmpeg](https://ffmpeg.org)
+1. (Optional) Install [ffmpeg](https://ffmpeg.org).
+
+   It's needed if you want to support videos.
 
    ```console
    # Linux
@@ -85,4 +88,4 @@ Teddit should now be running at <https://localhost:8080>.
    npm start
    ```
 
-Teddit should now be running at <https://localhost:8080>.
+Teddit should now be running at <http://localhost:8080>.
