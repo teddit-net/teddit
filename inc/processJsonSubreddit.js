@@ -72,9 +72,7 @@ module.exports = function() {
               url: data.url,
               stickied: data.stickied,
               is_self_link: is_self_link,
-              subreddit_front: subreddit_front,
-              before: before,
-              after: after
+              subreddit_front: subreddit_front
             }
             ret.links.push(obj)
           }
