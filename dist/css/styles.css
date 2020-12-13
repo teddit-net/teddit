@@ -220,7 +220,8 @@ body.dark .md .md-spoiler-text:not(.revealed):hover {
 	background: white;
 	color: black;
 }
-body.dark .comment .body a {
+body.dark .comment .body a,
+body.dark .usertext-body a {
 	color: #3d99fb;
 }
 body.dark header .tabmenu li.active a {
