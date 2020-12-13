@@ -146,28 +146,28 @@ body.dark .comment .comment .comment .comment .comment .comment .comment .commen
 	background: var(--darkbg);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
+	background: var(--darkbglight);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
+	background: var(--darkbg);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
+	background: var(--darkbglight);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
+	background: var(--darkbg);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
+	background: var(--darkbglight);
 }
 body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background: var(--darkbg);
 }
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background: var(--darkbglight);
+}
+body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--darkbg);
 }
 body.dark .comment .meta .created a {
 	color: #7b7b7b;
@@ -715,28 +715,28 @@ input[type="submit"]:hover,
 	background: var(--whitebg);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
+	background: var(--lightgray);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
+	background: var(--whitebg);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
+	background: var(--lightgray);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
+	background: var(--whitebg);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
+	background: var(--lightgray);
 }
 .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background: var(--whitebg);
 }
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
 	background: var(--lightgray);
+}
+.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
+	background: var(--whitebg);
 }
 /* POST */
 #post .info {
