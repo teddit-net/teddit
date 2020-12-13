@@ -60,6 +60,7 @@ module.exports = function() {
               id: data.id,
               images: images,
               is_video: data.is_video,
+              link_flair_text: data.link_flair_text,
               locked: data.locked,
               media: data.media,
               num_comments: data.num_comments,
