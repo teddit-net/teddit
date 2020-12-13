@@ -785,6 +785,15 @@ input[type="submit"]:hover,
 	font-size: 12px;
 	margin-left: 10px;
 }
+.title .postflair {
+	display: inline-block;
+	border-radius: 4px;
+	padding: 1ch;
+	color: #dadada;
+	background-color: #6f6f6f;
+	font-size: 12px;
+	margin-left: 10px;
+}
 #post .submitted {
 	font-size: small;
 	color: #686868;

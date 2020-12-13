@@ -18,6 +18,7 @@ module.exports = function(fetch) {
           edited: post.edited,
           is_video: post.is_video,
           locked: post.locked,
+          link_flair_text: post.link_flair_text,
           name: post_id,
           num_comments: post.num_comments,
           permalink: teddifyUrl(post.permalink),
