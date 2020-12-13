@@ -1,4 +1,5 @@
 module.exports = function(request, fs) { 
+  const config = require('../config')
   this.downloadFile = (url) => {
     return new Promise(resolve => {
       request(url, { encoding: 'binary' }, (error, response, body) => {
