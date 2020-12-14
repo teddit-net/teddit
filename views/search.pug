@@ -108,7 +108,12 @@ html
               a(href="" + post.permalink + "") #{cleanTitle(post.title)}
             .meta
               p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-                a(href="/u/" + post.author + "") #{post.author}
+                //- I believe finding posts by deleted authors is impossible
+                if post.author === '[deleted]'
+                  span [deleted]
+                else
+                  a(href="/u/" + post.author + "")
+                    | #{post.author}
                 | to
                 a(href="/r/" + post.subreddit + "", class="subreddit") r/#{post.subreddit}
               a.comments(href="" + post.permalink + "") #{post.num_comments} comments

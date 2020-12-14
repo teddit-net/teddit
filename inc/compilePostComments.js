@@ -3,6 +3,15 @@ module.exports = function() {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
+
+        function commentAuthor(comment, classlist, submitter, moderator) {
+          let classes = classlist.join(' ')
+          if (comment.author === '[deleted]')
+            return `<span class="${classes}">[deleted]</span>`
+          else
+            return `<a href="/u/${comment.author}" class="${classes}">${comment.author}</a>${submitter || ''}${moderator || ''}`
+        }
+
         if(comments.author !== undefined && comments.body_html !== undefined) {
           let classlist = []
           let submitter_link = ''
@@ -32,13 +41,13 @@ module.exports = function() {
             <div class="comment" id="${comments.id}">
               <details open>
                 <summary>
-                  <a href="/u/${comments.author}">${comments.author}${moderator ? moderator_badge : ''}</a>
+                  <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                   <p class="ups">${ups}</p>
                   <p class="created" title="${toUTCString(comments.created)}">${timeDifference(comments.created)}${edited_span}</p>
                   <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
                 </summary>
               <div class="meta">
-                <p class="author"><a href="/u/${comments.author}" class="${classlist.join(' ')}">${comments.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
+                <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                 <p class="ups">${ups}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
                    <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
@@ -118,13 +127,13 @@ module.exports = function() {
                 <div class="comment" id="${comment.id}">
                 <details open>
                   <summary>
-                    <a href="/u/${comment.author}">${comment.author}${moderator ? moderator_badge : ''}</a>
+                    <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">${timeDifference(comment.created)}${edited_span}</p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </summary>
                   <div class="meta">
-                    <p class="author"><a href="/u/${comment.author}" class="${classlist.join(' ')}">${comment.author}</a>${submitter ? submitter_link : ''}${moderator ? moderator_badge : ''}</p>
+                    <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
                       <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>

@@ -92,10 +92,10 @@ html
                     a(href="" + post.url + "") #{cleanTitle(post.link_title)}
                   .author
                     p by
-                      if post.link_author !== '[deleted]'
-                        a(href="/u/" + post.link_author + "") #{post.link_author}
-                      else
+                      if post.link_author === '[deleted]'
                         | [deleted]
+                      else
+                        a(href="/u/" + post.link_author + "") #{post.link_author}
                   .subreddit
                     p in
                       a(href="/r/" + post.subreddit + "") #{post.subreddit} 
