@@ -88,8 +88,11 @@ html
               .meta
                 p.submitted submitted
                   span(title="" + toUTCString(link.created) + "") #{timeDifference(link.created)} by
-                  a(href="/u/" + link.author + "")
-                    | #{link.author}
+                  if link.author === '[deleted]'
+                    span(class="deleted") [deleted]
+                  else
+                    a(href="/u/" + link.author + "")
+                      | #{link.author}
                   span(class="to") to
                     a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}

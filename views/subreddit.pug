@@ -96,8 +96,11 @@ html
                 .meta
                   p.submitted submitted
                     span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)} by
-                    a(href="/u/" + link.author + "")
-                      | #{link.author}
+                    if link.author === '[deleted]'
+                      span(class="deleted") [deleted]
+                    else
+                      a(href="/u/" + link.author + "")
+                        | #{link.author}
                   p.to to
                      a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}
@@ -146,3 +149,4 @@ html
                 each subreddit in subreddits
                   li
                     a(href="/r/" + subreddit + "") #{subreddit}
+

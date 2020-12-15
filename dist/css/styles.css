@@ -573,6 +573,11 @@ input[type="submit"]:hover,
 	padding-left: 3px;
 	padding-right: 3px;
 }
+#links .link .entry .meta .deleted {
+	margin-left: 0 !important;
+	padding-left: 5px;
+	padding-right: 3px;
+}
 #links .link .entry .meta p {
 	float: inherit;
 	overflow-wrap: anywhere;
@@ -805,7 +810,8 @@ input[type="submit"]:hover,
 	font-size: small;
 	color: #686868;
 }
-#post .submitted a {
+#post .submitted a,
+#post .submitted span {
 	margin-left: 5px;
 }
 #post .comments {
@@ -815,7 +821,8 @@ input[type="submit"]:hover,
 #post .comment .meta p.stickied {
 	color: green;
 }
-#post .comment .meta p.author a {
+#post .comment .meta p.author a,
+#post .comment .meta p.author span {
 	font-weight: initial;
 	margin-left: 10px;
 }

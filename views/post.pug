@@ -28,8 +28,11 @@ html
             span(class="domain") (#{post.domain})
           p.submitted
             span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-            a(href="/u/" + post.author + "")
-              | #{post.author}
+            if post.author === '[deleted]'
+              span [deleted]
+            else
+              a(href="/u/" + post.author + "")
+                | #{post.author}
         if post.crosspost.is_crosspost === true
           .crosspost
             .title
@@ -44,8 +47,11 @@ html
               div.arrow.down
             p.submitted
               span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by
-              a(href="/u/" + post.crosspost.author + "")
-                | #{post.crosspost.author}
+              if post.crosspost.author === '[deleted]'
+                span [deleted]
+              else
+                a(href="/u/" + post.crosspost.author + "")
+                  | #{post.crosspost.author}
             p.to to
               a(href="/r/" + post.crosspost.subreddit + "")
                 | #{post.crosspost.subreddit}
@@ -129,3 +135,4 @@ html
             p you are viewing a single comment's thread.
             a(href="" + post_url + "") view the rest of the comments →
         != comments
+
