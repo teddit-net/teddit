@@ -27,6 +27,7 @@ module.exports = function(tools) {
             let pathname = temp_url.pathname
             let file_ext
             let has_extension = true
+            let dir = ''
 
             if(gifmp4) {
               file_ext = 'mp4'
@@ -42,6 +43,11 @@ module.exports = function(tools) {
                 file_ext = pathname.substring(pathname.lastIndexOf('.') + 1)
               }
             }
+            
+            if(file_prefix === 'thumb_')
+              dir = 'thumbs/'
+            if(file_prefix === 'flair')
+              dir = 'flairs/'
 
             if(valid_video_extensions.includes(file_ext) || gifmp4) {
               /* Is video. */
@@ -49,8 +55,8 @@ module.exports = function(tools) {
                 resolve('')
               } else {
                 let filename = `${temp_url.pathname.substr(1).split('/')[0]}.${file_ext}`
-                let path = `./dist/vids/${filename}`
-                let temp_path = `./dist/vids/temp_${filename}`
+                let path = `./dist/vids/${dir}${filename}`
+                let temp_path = `./dist/vids/${dir}temp_${filename}`
                 if(!fs.existsSync(path)) {
                   const download = await downloadFile(cleanUrl(url))
                   if(download.success === true) {
@@ -65,13 +71,13 @@ module.exports = function(tools) {
                       }
                       const download_audio = await downloadFile(cleanUrl(audio_url))
                       if(download_audio.success === true) {
-                        let audio_path = `./dist/vids/temp_audio_${filename}`
+                        let audio_path = `./dist/vids/${dir}temp_audio_${filename}`
                         const write_audio = await writeToDisk(download_audio.data, audio_path)
                         if(write_audio.success === true) {
                           let processVideo = spawn('ffmpeg', ['-y', '-i', temp_path, '-i', audio_path, '-c', 'copy', path])
                           processVideo.on('exit', (code) => {
                             if(code === 0) {
-                              let final_url = `/vids/${filename}`
+                              let final_url = `/vids/${dir}${filename}`
                               let temp_files = [temp_path, audio_path]
                               deleteFiles(temp_files, (error) => {
                                 if(error) {
@@ -97,7 +103,7 @@ module.exports = function(tools) {
                           if(error) {
                             console.log(`Error while renaming the temp video file: ${temp_path} => ${path}.`, error)
                           } else {
-                            let final_url = `/vids/${filename}`
+                            let final_url = `/vids/${dir}${filename}`
                             resolve(final_url)
                           }
                         })
@@ -111,7 +117,7 @@ module.exports = function(tools) {
                     resolve('')
                   }
                 } else {
-                  resolve(`/vids/${filename}`)
+                  resolve(`/vids/${dir}${filename}`)
                 }
               }
             } else {
@@ -126,13 +132,13 @@ module.exports = function(tools) {
                 }
                 filename = `${file_prefix}w:${temp_url.searchParams.get('width')}_${temp_url.pathname.split('/').slice(-1)}`
               }
-              path = `./dist/pics/${filename}`
+              path = `./dist/pics/${dir}${filename}`
               if(!fs.existsSync(path)) {
                 const download = await downloadFile(cleanUrl(url))
                 if(download.success === true) {
                   const write = await writeToDisk(download.data, path)
                   if(write.success === true) {
-                    let final_url = `/pics/${filename}`
+                    let final_url = `/pics/${dir}${filename}`
                     resolve(final_url)
                   } else {
                     console.log(`Error while writing image file.`, write)
@@ -143,7 +149,7 @@ module.exports = function(tools) {
                   resolve('')
                 }
               } else {
-                resolve(`/pics/${filename}`)
+                resolve(`/pics/${dir}${filename}`)
               }
             }
           } else {
