@@ -661,7 +661,7 @@ input[type="submit"]:hover,
 }
 .comment details summary::-webkit-details-marker,.comment details summary::marker {
 	color: #313131;
-	content: "[-]";
+	content: "[‒]";
 	padding-right: 5px;
 	cursor: pointer;
 }
