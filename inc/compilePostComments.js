@@ -124,7 +124,7 @@ module.exports = function() {
                 edited_span = `<span title="this comment is edited">*</span>`
               }
               comments_html += `
-                <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'} id="${comment.id}">
+                <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comment.id}">
                 <details open>
                   <summary>
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
