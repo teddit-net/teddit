@@ -98,77 +98,17 @@ body.dark .comment .body blockquote {
 	color: #afafaf;
 	border-color: #464646;
 }
-body.dark .comment {
+body.dark .even-depth {
 	background: var(--darkbg);
 }
-body.dark .comment .comment {
+body.dark .odd-depth {
 	background: var(--darkbglight);
+}
+
+body.dark .comment .comment {
 	border-left: 1px solid #545454;
 }
-body.dark .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-/* Is there any better way to do this??? send help naow */
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbglight);
-}
-body.dark .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--darkbg);
-}
+
 body.dark .comment .meta .created a {
 	color: #7b7b7b;
 }
@@ -691,75 +631,19 @@ input[type="submit"]:hover,
 .comment .md {
 	max-width: 60em;
 }
-.comment .comment {
+
+.even-depth {
+	background: var(--whitebg);
+}
+
+.odd-depth {
 	background: var(--lightgray);
+}
+.comment .comment {
 	border-left: 1px solid #dcdcdc;
 	margin-top: 10px;
 }
-.comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-/* Is there any better way to do this??? send help naow */
-.comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--lightgray);
-}
-.comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment .comment {
-	background: var(--whitebg);
-}
+
 /* POST */
 #post .info {
 	float: left;

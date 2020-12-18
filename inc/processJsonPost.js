@@ -142,7 +142,8 @@ module.exports = function(fetch) {
               distinguished: comment.distinguished,
               score_hidden: comment.score_hidden,
               edited: comment.edited,
-              replies: []
+              replies: [],
+              depth: 0
             }
           } else {
             obj = {
@@ -158,7 +159,7 @@ module.exports = function(fetch) {
           if(comment.replies && kind !== 'more') {
             if(comment.replies.data) {
               if(comment.replies.data.children.length > 0) {
-                obj.replies = processReplies(comment.replies.data.children, post_id)
+                obj.replies = processReplies(comment.replies.data.children, post_id, 1)
               }
             }
           }
@@ -197,7 +198,7 @@ module.exports = function(fetch) {
     return { post_data: post_data, comments: comments_html }
   }
 
-  this.processReplies = (data, post_id) => {
+  this.processReplies = (data, post_id, depth) => {
     let return_replies = []
     for(var i = 0; i < data.length; i++) {
       let kind = data[i].kind
@@ -218,7 +219,8 @@ module.exports = function(fetch) {
           distinguished: reply.distinguished,
           score_hidden: reply.score_hidden,
           edited: reply.edited,
-          replies: []
+          replies: [],
+          depth: depth
         }
       } else {
         obj = {
@@ -227,13 +229,13 @@ module.exports = function(fetch) {
           id: reply.id,
           parent_id: reply.parent_id,
           post_id: post_id,
-          children: []
+          children: [],
+          depth: depth
         }
       }
       
       if(reply.replies && kind !== 'more') {
         if(reply.replies.data.children.length) {
-          let replies = []
           for(var j = 0; j < reply.replies.data.children.length; j++) {
             let comment = reply.replies.data.children[j].data
             let objct = {}
@@ -252,7 +254,8 @@ module.exports = function(fetch) {
                 score_hidden: comment.score_hidden,
                 distinguished: comment.distinguished,
                 distinguished: comment.edited,
-                replies: []
+                replies: [],
+                depth: depth + 1
               }
             } else {
               objct = {
@@ -261,7 +264,8 @@ module.exports = function(fetch) {
                 id: comment.id,
                 parent_id: comment.parent_id,
                 post_id: post_id,
-                children: []
+                children: [],
+                depth: depth + 1
               }
               if(comment.children) {
                 for(var k = 0; k < comment.children.length; k++) {
@@ -273,7 +277,7 @@ module.exports = function(fetch) {
             if(comment.replies) {
               if(comment.replies.data) {
                 if(comment.replies.data.children.length > 0) {
-                  objct.replies = processReplies(comment.replies.data.children, post_id)
+                  objct.replies = processReplies(comment.replies.data.children, post_id, depth )
                 }
               }
             }
