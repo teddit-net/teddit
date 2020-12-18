@@ -702,6 +702,11 @@ input[type="submit"]:hover,
 	float: left;
 	width: 100%;
 }
+#post .comments-info {
+	float: left;
+	width: calc(100% - 30px);
+	margin: 10px 0px 10px 30px;
+}
 #post .comment .meta p.stickied {
 	color: green;
 }
