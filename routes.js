@@ -9,25 +9,41 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processSearches = require('./inc/processSearchResults.js')();
   let processSidebar = require('./inc/processSubredditSidebar.js')();
 
-  app.get('/', (req, res, next) => {
+  app.get('/:sort?', (req, res, next) => {
     let past = req.query.t
     let before = req.query.before
     let after = req.query.after
+    let sortby = req.params.sort
     let d = `&after=${after}`
     if(before) {
       d = `&before=${before}`
     }
     
-    if(past) {
-      if(!['hour', 'day', 'week', 'month', 'year', 'all'].includes(past)) {
-        console.error(`Got invalid past.`, req.originalUrl)
-        return res.redirect('/')
-      }
-    } else {
-      past = 'day'
+    if(!sortby) {
+      sortby = 'hot'
     }
     
-    let key = `/after:${after}:before:${before}:sort:hot:past:${past}`
+    if(!['new', 'rising', 'controversial', 'top', 'gilded', 'hot'].includes(sortby)) {
+      console.error(`Got invalid sort.`, req.originalUrl)
+      return res.redirect('/')
+    }
+    
+    if(past) {
+      if(sortby === 'controversial' || sortby === 'top') {
+        if(!['hour', 'day', 'week', 'month', 'year', 'all'].includes(past)) {
+          console.error(`Got invalid past.`, req.originalUrl)
+          return res.redirect(`/`)
+        }
+      } else {
+        past = undefined
+      }
+    } else {
+      if(sortby === 'controversial' || sortby === 'top') {
+        past = 'day'
+      }
+    }
+    
+    let key = `/after:${after}:before:${before}:sort:${sortby}:past:${past}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the frontpage key from redis.', error)
@@ -39,13 +55,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           let processed_json = await processJsonSubreddit(json, 'redis')
           return res.render('index', {
             json: processed_json,
-            sortby: 'hot',
+            sortby: sortby,
             past: past,
             user_preferences: req.cookies
           })
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com/hot?api_type=json&g=GLOBAL&t=${past}${d}`), redditApiGETHeaders())
+        fetch(encodeURI(`https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -60,7 +76,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     let processed_json = await processJsonSubreddit(json, 'from_online')
                     return res.render('index', {
                       json: processed_json,
-                      sortby: 'hot',
+                      sortby: sortby,
                       past: past,
                       user_preferences: req.cookies
                     })
@@ -193,97 +209,6 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
         }).catch(error => {
           console.error('Error fetching the short URL for post with sortby JSON file.', error)
-        })
-      }
-    })
-  })
-
-  app.get('/:sort', (req, res, next) => {
-    let sortby = req.params.sort
-    let past = req.query.t
-    let before = req.query.before
-    let after = req.query.after
-    let d = `&after=${after}`
-    if(before) {
-      d = `&before=${before}`
-    }
-    
-    if(!sortby) {
-      sortby = 'hot'
-    }
-    
-    if(!['new', 'rising', 'controversial', 'top', 'gilded', 'hot'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
-      return res.redirect('/')
-    }
-    
-    if(past) {
-      if(sortby === 'controversial' || sortby === 'top') {
-        if(!['hour', 'day', 'week', 'month', 'year', 'all'].includes(past)) {
-          console.error(`Got invalid past.`, req.originalUrl)
-          return res.redirect(`/`)
-        }
-      } else {
-        past = undefined
-      }
-    } else {
-      if(sortby === 'controversial' || sortby === 'top') {
-        past = 'day'
-      }
-    }
-    
-    let key = `/after:${after}:before:${before}:sort:${sortby}:past:${past}`
-    redis.get(key, (error, json) => {
-      if(error) {
-        console.error('Error getting the frontpage with sortby key from redis.', error)
-        return res.render('index', { json: null, user_preferences: req.cookies })
-      }
-      if(json) {
-        console.log('Got frontpage with sortyby key from redis.');
-        (async () => {
-          let processed_json = await processJsonSubreddit(json, 'redis')
-          return res.render('index', {
-            json: processed_json,
-            sortby: sortby,
-            past: past,
-            user_preferences: req.cookies
-          })
-        })()
-      } else {
-        fetch(encodeURI(`https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`), redditApiGETHeaders())
-        .then(result => {
-          if(result.status === 200) {
-            result.json()
-            .then(json => {
-              redis.setex(key, config.setexs.frontpage, JSON.stringify(json), (error) => {
-                if(error) {
-                  console.error('Error setting the frontpage with sortby key to redis.', error)
-                  return res.render('index', { json: null, user_preferences: req.cookies })
-                } else {
-                  console.log('Fetched the frontpage with sortby from reddit API.');
-                  (async () => {
-                    let processed_json = await processJsonSubreddit(json, 'from_online')
-                    return res.render('index', {
-                      json: processed_json,
-                      sortby: sortby,
-                      past: past,
-                      user_preferences: req.cookies
-                    })
-                  })()
-                }
-              })
-            })
-          } else {
-            console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
-            console.error(config.reddit_api_error_text)
-            return res.render('index', {
-              json: null,
-              http_status_code: result.status,
-              user_preferences: req.cookies
-            })
-          }
-        }).catch(error => {
-          console.error('Error fetching the frontpage with sortby JSON file.', error)
         })
       }
     })
