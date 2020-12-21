@@ -198,6 +198,29 @@ module.exports = function(request, fs) {
     }
   }
 
+  this.formatLinkFlair = (post) => {
+    const wrap = (inner) => `<span class="flair">${inner}</span>`
+
+    if (post.link_flair_text === null)
+      return ''
+
+    if (post.link_flair_type === 'text')
+      return wrap(post.link_flair_text)
+
+    if (post.link_flair_type === 'richtext') {
+      let flair = ''
+      for (let fragment of post.link_flair_richtext) {
+        if (fragment.e === 'text')
+          flair += fragment.t
+        else if (fragment.e === 'emoji')
+          flair += `<span class="emoji" style="background-image: url(${fragment.u})"></span>`
+        }
+      return wrap(flair)
+    }
+
+    return ''
+  }
+
   this.formatUserFlair = (post) => {
     // Generate the entire HTML here for consistency in both pug and HTML
     const wrap = (inner) => `<span class="flair">${inner}</span>`

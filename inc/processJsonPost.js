@@ -33,6 +33,7 @@ module.exports = function(fetch) {
           images: null,
           crosspost: false,
           selftext: unescape(post.selftext_html),
+          link_flair: formatLinkFlair(post),
           user_flair: formatUserFlair(post)
         }
 

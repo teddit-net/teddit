@@ -23,8 +23,7 @@ html
           .title
             a(href="" + post.url + "")
               h2 #{cleanTitle(post.title)}
-            if post.link_flair_text
-              span(class="postflair") #{post.link_flair_text}
+            != post.link_flair
             span(class="domain") (#{post.domain})
           p.submitted
             span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
