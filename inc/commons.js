@@ -199,6 +199,10 @@ module.exports = function(request, fs) {
   }
 
   this.formatLinkFlair = async (post) => {
+    if (!config.flairs_enabled) {
+      return ''
+    }
+
     const wrap = (inner) => `<span class="flair">${inner}</span>`
 
     if (post.link_flair_text === null)
@@ -222,6 +226,10 @@ module.exports = function(request, fs) {
   }
 
   this.formatUserFlair = async (post) => {
+    if (!config.flairs_enabled) {
+      return ''
+    }
+
     // Generate the entire HTML here for consistency in both pug and HTML
     const wrap = (inner) => `<span class="flair">${inner}</span>`
 
