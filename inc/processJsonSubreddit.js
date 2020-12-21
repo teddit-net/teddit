@@ -11,7 +11,7 @@ module.exports = function() {
         } else {
           let before = json.data.before
           let after = json.data.after
-          
+
           let ret = {
             info: {
               before: before,
@@ -19,9 +19,9 @@ module.exports = function() {
             },
             links: []
           }
-          
+
           let children_len = json.data.children.length
-          
+
           for(var i = 0; i < children_len; i++) {
             let data = json.data.children[i].data
             let images = null
@@ -39,7 +39,7 @@ module.exports = function() {
                 is_self_link = true
               }
             }
-            
+
             if(data.preview && data.thumbnail !== 'self') {
               if(!data.url.startsWith('/r/') && isGif(data.url)) {
                 images = {
@@ -73,7 +73,8 @@ module.exports = function() {
               url: data.url,
               stickied: data.stickied,
               is_self_link: is_self_link,
-              subreddit_front: subreddit_front
+              subreddit_front: subreddit_front,
+              user_flair: formatUserFlair(data)
             }
             ret.links.push(obj)
           }

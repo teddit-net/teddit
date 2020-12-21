@@ -12,7 +12,7 @@ html
       #post
         header
           div
-            p subreddit: 
+            p subreddit:
             a(href="/r/" + subreddit + "")
               p /r/#{subreddit}
         .info
@@ -33,6 +33,7 @@ html
             else
               a(href="/u/" + post.author + "")
                 | #{post.author}
+            != post.user_flair
         if post.crosspost.is_crosspost === true
           .crosspost
             .title
@@ -52,6 +53,7 @@ html
               else
                 a(href="/u/" + post.crosspost.author + "")
                   | #{post.crosspost.author}
+              != post.user_flair
             p.to to
               a(href="/r/" + post.crosspost.subreddit + "")
                 | #{post.crosspost.subreddit}
@@ -128,8 +130,8 @@ html
                   source(src="" + post.media.source + "", type="video/mp4")
                   |  Your browser does not support the video element.
                 a(href="" + post.media.source + "") [media]
-        if post.selftext        
-          div.usertext-body !{post.selftext}        
+        if post.selftext
+          div.usertext-body !{post.selftext}
         if viewing_comment
           .infobar
             p you are viewing a single comment's thread.

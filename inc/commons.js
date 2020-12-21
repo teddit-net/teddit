@@ -1,4 +1,4 @@
-module.exports = function(request, fs) { 
+module.exports = function(request, fs) {
   const config = require('../config')
   this.downloadFile = (url) => {
     return new Promise(resolve => {
@@ -51,7 +51,7 @@ module.exports = function(request, fs) {
         if(video_exts.includes(file_ext) || !image_exts.includes(file_ext))
           url = url.replace(u.host, `${config.domain}/vids`) + '.mp4'
       }
-      
+
     } catch(e) { }
     return url
   }
@@ -59,7 +59,7 @@ module.exports = function(request, fs) {
   this.kFormatter = (num) => {
       return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
   }
-    
+
   this.timeDifference = (time) => {
     time = parseInt(time) * 1000
     let ms_per_minute = 60 * 1000
@@ -121,7 +121,7 @@ module.exports = function(request, fs) {
       return r
     }
   }
-  
+
   this.toUTCString = (time) => {
     let d = new Date();
     d.setTime(time*1000);
@@ -165,7 +165,7 @@ module.exports = function(request, fs) {
       })
     })
   }
-  
+
   this.isGif = (url) => {
     try {
       url = new URL(url)
@@ -197,4 +197,30 @@ module.exports = function(request, fs) {
       return ''
     }
   }
+
+  this.formatUserFlair = (post) => {
+    // Generate the entire HTML here for consistency in both pug and HTML
+    const wrap = (inner) => `<span class="flair">${inner}</span>`
+
+    if (post.author_flair_text === null)
+      return ''
+
+    if (post.author_flair_type === 'text')
+      return wrap(post.author_flair_text)
+
+    if (post.author_flair_type === 'richtext') {
+      let flair = ''
+      for (let fragment of post.author_flair_richtext) {
+        // `e` seems to mean `type`
+        if (fragment.e === 'text')
+          flair += fragment.t // `t` is the text
+        else if (fragment.e === 'emoji')
+          flair += `<span class="emoji" style="background-image: url(${fragment.u})"></span>` // `u` is the emoji URL
+        }
+      return wrap(flair)
+    }
+
+    return ''
+  }
+
 }

@@ -21,7 +21,7 @@ module.exports = function() {
         if(!after && !before) {
           user_front = true
         }
-        
+
         if(json.overview.data.children) {
           if(json.overview.data.children[posts_limit - 1]) {
             after = json.overview.data.children[posts_limit - 1].data.name
@@ -30,16 +30,16 @@ module.exports = function() {
             before = json.overview.data.children[0].data.name
           }
         }
-        
+
         for(var i = 0; i < posts_limit; i++) {
           let post = json.overview.data.children[i].data
           let thumbnail = 'self'
           let type = json.overview.data.children[i].kind
           let obj
-          
+
           let post_id = post.permalink.split('/').slice(-2)[0] + '/'
           let url = post.permalink.replace(post_id, '')
-          
+
           if(type === 't3') {
             let duration = null
             if(post.media) {
@@ -62,7 +62,8 @@ module.exports = function() {
               edited: post.edited,
               selftext_html: unescape(post.selftext_html),
               num_comments: post.num_comments,
-              permalink: post.permalink
+              permalink: post.permalink,
+              user_flair: formatUserFlair(post)
             }
           }
           if(type === 't1') {
@@ -79,7 +80,8 @@ module.exports = function() {
               num_comments: post.num_comments,
               permalink: post.permalink,
               link_author: post.link_author,
-              link_title: post.link_title
+              link_title: post.link_title,
+              user_flair: formatUserFlair(post)
             }
           }
           posts.push(obj)
@@ -98,7 +100,7 @@ module.exports = function() {
           after: after,
           posts: posts
         }
-        
+
         resolve(obj)
       })()
     })

@@ -7,7 +7,7 @@ module.exports = function(fetch) {
         if(!parsed) {
           json = JSON.parse(json)
         }
-        
+
         let post = json[0].data.children[0].data
         let post_id = post.name
         let comments = json[1].data.children
@@ -32,14 +32,15 @@ module.exports = function(fetch) {
           media: null,
           images: null,
           crosspost: false,
-          selftext: unescape(post.selftext_html)
+          selftext: unescape(post.selftext_html),
+          user_flair: formatUserFlair(post)
         }
 
         let validEmbedDomains = ['gfycat.com', 'youtube.com']
         let has_gif = false
         let gif_to_mp4 = null
         let reddit_video = null
-        
+
         if(post.preview) {
           if(post.preview.reddit_video_preview) {
             if(post.preview.reddit_video_preview.is_gif) {
@@ -66,7 +67,7 @@ module.exports = function(fetch) {
         }
 
         obj = await processPostMedia(obj, post, post.media, has_gif, reddit_video, gif_to_mp4)
-        
+
         if(post.crosspost_parent_list) {
           post.crosspost = post.crosspost_parent_list[0]
         }
@@ -84,7 +85,8 @@ module.exports = function(fetch) {
             ups: post.crosspost.ups,
             selftext: unescape(post.selftext_html),
             selftext_crosspost: unescape(post.crosspost.selftext_html),
-            is_crosspost: true
+            is_crosspost: true,
+            user_flair: formatUserFlair(post)
           }
         }
 
@@ -93,7 +95,7 @@ module.exports = function(fetch) {
             source: await downloadAndSave(post.preview.images[0].source.url)
           }
         }
-        
+
         if(obj.media) {
           if(obj.media.source === 'external') {
             if(post.preview) {
@@ -103,7 +105,7 @@ module.exports = function(fetch) {
             }
           }
         }
-        
+
         if(post.gallery_data) {
           obj.gallery = true
           obj.gallery_items = []
@@ -120,13 +122,13 @@ module.exports = function(fetch) {
             }
           }
         }
-        
+
         let comms = []
         for(var i = 0; i < comments.length; i++) {
           let comment = comments[i].data
           let kind = comments[i].kind
           let obj = {}
-          
+
           if(kind !== 'more') {
             obj = {
               author: comment.author,
@@ -143,7 +145,8 @@ module.exports = function(fetch) {
               score_hidden: comment.score_hidden,
               edited: comment.edited,
               replies: [],
-              depth: 0
+              depth: 0,
+              user_flair: formatUserFlair(comment)
             }
           } else {
             obj = {
@@ -155,7 +158,7 @@ module.exports = function(fetch) {
               children: []
             }
           }
-          
+
           if(comment.replies && kind !== 'more') {
             if(comment.replies.data) {
               if(comment.replies.data.children.length > 0) {
@@ -163,18 +166,18 @@ module.exports = function(fetch) {
               }
             }
           }
-          
+
           if(comment.children) {
             for(var j = 0; j < comment.children.length; j++) {
               obj.children.push(comment.children[j])
             }
           }
-          
+
           comms.push(obj)
         }
-        
+
         obj.comments = comms
-        
+
         resolve(obj)
       })()
     })
@@ -220,7 +223,8 @@ module.exports = function(fetch) {
           score_hidden: reply.score_hidden,
           edited: reply.edited,
           replies: [],
-          depth: depth
+          depth: depth,
+          user_flair: formatUserFlair(reply)
         }
       } else {
         obj = {
@@ -233,13 +237,13 @@ module.exports = function(fetch) {
           depth: depth
         }
       }
-      
+
       if(reply.replies && kind !== 'more') {
         if(reply.replies.data.children.length) {
           for(var j = 0; j < reply.replies.data.children.length; j++) {
             let comment = reply.replies.data.children[j].data
             let objct = {}
-            
+
             if(comment.author && comment.body_html) {
               objct = {
                 author: comment.author,
@@ -255,7 +259,8 @@ module.exports = function(fetch) {
                 distinguished: comment.distinguished,
                 distinguished: comment.edited,
                 replies: [],
-                depth: depth + 1
+                depth: depth + 1,
+                user_flair: formatUserFlair(comment)
               }
             } else {
               objct = {
@@ -273,7 +278,7 @@ module.exports = function(fetch) {
                 }
               }
             }
-            
+
             if(comment.replies) {
               if(comment.replies.data) {
                 if(comment.replies.data.children.length > 0) {
@@ -286,13 +291,13 @@ module.exports = function(fetch) {
           }
         }
       }
-      
+
       if(reply.children) {
         for(var j = 0; j < reply.children.length; j++) {
           obj.children.push(reply.children[j])
         }
       }
-      
+
       return_replies.push(obj)
     }
     return return_replies

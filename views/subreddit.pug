@@ -101,6 +101,7 @@ html
                     else
                       a(href="/u/" + link.author + "")
                         | #{link.author}
+                    != link.user_flair
                   p.to to
                      a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}
