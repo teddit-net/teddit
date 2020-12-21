@@ -63,7 +63,7 @@ module.exports = function() {
               selftext_html: unescape(post.selftext_html),
               num_comments: post.num_comments,
               permalink: post.permalink,
-              user_flair: formatUserFlair(post)
+              user_flair: await formatUserFlair(post)
             }
           }
           if(type === 't1') {
@@ -81,7 +81,7 @@ module.exports = function() {
               permalink: post.permalink,
               link_author: post.link_author,
               link_title: post.link_title,
-              user_flair: formatUserFlair(post)
+              user_flair: await formatUserFlair(post)
             }
           }
           posts.push(obj)

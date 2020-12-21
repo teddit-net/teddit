@@ -198,7 +198,7 @@ module.exports = function(request, fs) {
     }
   }
 
-  this.formatLinkFlair = (post) => {
+  this.formatLinkFlair = async (post) => {
     const wrap = (inner) => `<span class="flair">${inner}</span>`
 
     if (post.link_flair_text === null)
@@ -213,7 +213,7 @@ module.exports = function(request, fs) {
         if (fragment.e === 'text')
           flair += fragment.t
         else if (fragment.e === 'emoji')
-          flair += `<span class="emoji" style="background-image: url(${fragment.u})"></span>`
+          flair += `<span class="emoji" style="background-image: url(${await downloadAndSave(fragment.u, 'flair_')})"></span>`
         }
       return wrap(flair)
     }
@@ -221,7 +221,7 @@ module.exports = function(request, fs) {
     return ''
   }
 
-  this.formatUserFlair = (post) => {
+  this.formatUserFlair = async (post) => {
     // Generate the entire HTML here for consistency in both pug and HTML
     const wrap = (inner) => `<span class="flair">${inner}</span>`
 
@@ -238,7 +238,7 @@ module.exports = function(request, fs) {
         if (fragment.e === 'text')
           flair += fragment.t // `t` is the text
         else if (fragment.e === 'emoji')
-          flair += `<span class="emoji" style="background-image: url(${fragment.u})"></span>` // `u` is the emoji URL
+          flair += `<span class="emoji" style="background-image: url(${await downloadAndSave(fragment.u, 'flair_')})"></span>` // `u` is the emoji URL
         }
       return wrap(flair)
     }

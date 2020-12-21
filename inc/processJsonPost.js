@@ -33,8 +33,8 @@ module.exports = function(fetch) {
           images: null,
           crosspost: false,
           selftext: unescape(post.selftext_html),
-          link_flair: formatLinkFlair(post),
-          user_flair: formatUserFlair(post)
+          link_flair: await formatLinkFlair(post),
+          user_flair: await formatUserFlair(post)
         }
 
         let validEmbedDomains = ['gfycat.com', 'youtube.com']
@@ -87,7 +87,7 @@ module.exports = function(fetch) {
             selftext: unescape(post.selftext_html),
             selftext_crosspost: unescape(post.crosspost.selftext_html),
             is_crosspost: true,
-            user_flair: formatUserFlair(post)
+            user_flair: await formatUserFlair(post)
           }
         }
 
@@ -147,7 +147,7 @@ module.exports = function(fetch) {
               edited: comment.edited,
               replies: [],
               depth: 0,
-              user_flair: formatUserFlair(comment)
+              user_flair: await formatUserFlair(comment)
             }
           } else {
             obj = {
@@ -163,7 +163,7 @@ module.exports = function(fetch) {
           if(comment.replies && kind !== 'more') {
             if(comment.replies.data) {
               if(comment.replies.data.children.length > 0) {
-                obj.replies = processReplies(comment.replies.data.children, post_id, 1)
+                obj.replies = await processReplies(comment.replies.data.children, post_id, 1)
               }
             }
           }
@@ -202,7 +202,7 @@ module.exports = function(fetch) {
     return { post_data: post_data, comments: comments_html }
   }
 
-  this.processReplies = (data, post_id, depth) => {
+  this.processReplies = async (data, post_id, depth) => {
     let return_replies = []
     for(var i = 0; i < data.length; i++) {
       let kind = data[i].kind
@@ -225,7 +225,7 @@ module.exports = function(fetch) {
           edited: reply.edited,
           replies: [],
           depth: depth,
-          user_flair: formatUserFlair(reply)
+          user_flair: await formatUserFlair(reply)
         }
       } else {
         obj = {
@@ -261,7 +261,7 @@ module.exports = function(fetch) {
                 distinguished: comment.edited,
                 replies: [],
                 depth: depth + 1,
-                user_flair: formatUserFlair(comment)
+                user_flair: await formatUserFlair(comment)
               }
             } else {
               objct = {
@@ -283,7 +283,7 @@ module.exports = function(fetch) {
             if(comment.replies) {
               if(comment.replies.data) {
                 if(comment.replies.data.children.length > 0) {
-                  objct.replies = processReplies(comment.replies.data.children, post_id, depth )
+                  objct.replies = await processReplies(comment.replies.data.children, post_id, depth )
                 }
               }
             }

@@ -74,8 +74,8 @@ module.exports = function() {
               stickied: data.stickied,
               is_self_link: is_self_link,
               subreddit_front: subreddit_front,
-              link_flair: formatLinkFlair(data),
-              user_flair: formatUserFlair(data)
+              link_flair: await formatLinkFlair(data),
+              user_flair: await formatUserFlair(data)
             }
             ret.links.push(obj)
           }
