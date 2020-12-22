@@ -59,7 +59,7 @@ module.exports = function() {
             <domain>${link.domain}</domain>
             <id>${link.id}</id>
             <thumbnail>${thumbnail}</thumbnail>
-            <permalink>${link.permalink}</permalink>
+            <link>${link.permalink}</link>
             <url>${link.url}</url>
             <num_comments>${link.num_comments}</num_comments>
             <ups>${link.ups}</ups>
