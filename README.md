@@ -27,9 +27,7 @@ Community instances:
 
 ## TODO
 
-* User attributes
-* Comment and post attributes (e.g. stickies)
-* Subreddit flairs and wikis
+* Subreddit wikis
 * User trophies
 * "other discussions" feature
 * "Open on reddit" links
@@ -37,8 +35,7 @@ Community instances:
 
 ## Roadmap
 
-* Themes
-* User settings
+* More themes, not just white or dark
 * HLS video streaming? (Would require browser JavaScript)
 * Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
