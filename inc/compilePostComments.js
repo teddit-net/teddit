@@ -1,9 +1,8 @@
 module.exports = function() {
-  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author) => {
+  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment) => {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
-
         function commentAuthor(comment, classlist, submitter, moderator) {
           let classes = classlist.join(' ')
           if (comment.author === '[deleted]')
@@ -71,9 +70,14 @@ module.exports = function() {
                 `
               } else {
                 if(!morechildren_ids) {
+                  let load_comms_href = parent_id
+                  
+                  if(viewing_comment)
+                    load_comms_href = '../' + parent_id
+                  
                   comments_html = `
                     <div class="load-more-comments">
-                      <a href="${parent_id}">load more comments (${comments.count})</a>
+                      <a href="${load_comms_href}">load more comments (${comments.count})</a>
                     </div>
                   `
                 } else {
@@ -152,17 +156,22 @@ module.exports = function() {
                     if(comment.replies[j+1]) {
                       next_reply = comment.replies[j+1]
                     }
-                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author)
+                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment)
                   }
                 }
               }
               comments_html += replies_html + '</details></div>'
             } else {
               if(comment.children.length > 0) {
-              let parent_id = comment.parent_id.split('_')[1]
+                let parent_id = comment.parent_id.split('_')[1]
+                let load_comms_href = parent_id
+                
+                if(viewing_comment)
+                  load_comms_href = '../' + parent_id
+
                 comments_html += `
                   <div class="load-more-comments">
-                    <a href="${parent_id}">load more comments (${comment.count})</a>
+                    <a href="${load_comms_href}">load more comments (${comment.count})</a>
                   </div>
                 `
               } else {

@@ -493,7 +493,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         (async () => {
           if(!more_comments_cursor) {
             let processed_json = await processJsonPost(json, false)
-            let finalized_json = await finalizeJsonPost(processed_json, id, post_url)
+            let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
             return res.render('post', {
               post: finalized_json.post_data,
               comments: finalized_json.comments,
@@ -558,7 +558,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   console.log(`Fetched the JSON from reddit.com${comments_url}.`);
                   (async () => {
                     let processed_json = await processJsonPost(json, true)
-                    let finalized_json = await finalizeJsonPost(processed_json, id, post_url)
+                    let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
                     return res.render('post', {
                       post: finalized_json.post_data,
                       comments: finalized_json.comments,
