@@ -27,7 +27,6 @@ Community instances:
 
 ## TODO
 
-* Sort comments in post
 * User attributes
 * Comment and post attributes (e.g. stickies)
 * Subreddit flairs and wikis

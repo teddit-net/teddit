@@ -692,6 +692,24 @@ input[type="submit"]:hover,
 	width: calc(100% - 30px);
 	margin: 10px 0px 10px 30px;
 }
+#post .comments-sort details {
+	float: left;
+	width: auto;
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+#post .comments-sort details ul li.active a {
+	font-weight: bold;
+}
+#post .comments-sort details li.active a {
+	font-weight: bold;
+}
+#post .comments-sort details {
+	font-size: 0.8rem;
+}
+#post .comments-sort details ul {
+	margin-left: 20px;
+}
 #post .comment .meta p.stickied {
 	color: green;
 }

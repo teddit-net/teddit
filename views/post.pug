@@ -137,5 +137,33 @@ html
             a(href="" + post_url + "") view the rest of the comments →
         .comments-info
           p all #{post.num_comments} comments
+          .comments-sort
+            details
+              summary
+                if sortby === 'confidence'
+                  span sorted by: <strong>best</strong>
+                if sortby === 'top'
+                  span sorted by: <strong>top</strong>
+                if sortby === 'new'
+                  span sorted by: <strong>new</strong>
+                if sortby === 'controversial'
+                  span sorted by: <strong>controversial</strong>
+                if sortby === 'old'
+                  span sorted by: <strong>old</strong>
+                if sortby === 'qa'
+                  span sorted by: <strong>q&a</strong>
+              ul
+                li(class=sortby === 'confidence' ? 'active' : '')
+                  a(href="?sort=confidence") best
+                li(class=sortby === 'top' ? 'active' : '')
+                  a(href="?sort=top") top
+                li(class=sortby === 'new' ? 'active' : '')
+                  a(href="?sort=new") new
+                li(class=sortby === 'controversial' ? 'active' : '')
+                  a(href="?sort=controversial") controversial
+                li(class=sortby === 'old' ? 'active' : '')
+                  a(href="?sort=old") old
+                li(class=sortby === 'qa' ? 'active' : '')
+                  a(href="?sort=qa") Q&A
         != comments
 
