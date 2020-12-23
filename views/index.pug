@@ -96,7 +96,9 @@ html
                   span(class="to") to
                     a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}
-                p.comments
+                .links
+                  if link.over_18
+                    span.tag.nsfw NSFW
                   a(href="" + link.permalink + "", class="comments")
                     | #{link.num_comments} comments
       #search
