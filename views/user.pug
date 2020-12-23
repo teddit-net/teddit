@@ -86,6 +86,8 @@ html
                       | to
                       != post.user_flair
                       a(href="/r/" + post.subreddit + "", class="subreddit") #{post.subreddit}
+                    if post.over_18
+                      span.tag.nsfw NSFW
                     a.comments(href="" + post.permalink + "") #{post.num_comments} comments
             if post.type === 't1'
               .entry
@@ -116,6 +118,8 @@ html
                       p.created(title="" + toUTCString(post.created) + "") #{timeDifference(post.created)}
                     .body
                       div !{post.body_html}
+                    if post.over_18
+                      span.tag.nsfw NSFW
                     a.context(href="" + post.permalink + "?context=10") context
                     a.comments.t1(href="" + post.url + "") full comments (#{post.num_comments})
           if data.before || data.after

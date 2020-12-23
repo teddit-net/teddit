@@ -377,6 +377,18 @@ header .tabmenu li.active a {
 .green {
 	color: green !important;
 }
+.tag {
+  display: inline-block;
+  border: 1px solid;
+  padding: 0 4px;
+  margin: 2px 6px 0px 0px;
+  border-radius: 3px;
+  font-size: 0.68rem;
+}
+.tag.nsfw {
+  border-color: #d10023;
+  color: #d10023;
+}
 input[type="submit"],
 .btn {
 	padding: 3px;
@@ -514,12 +526,12 @@ input[type="submit"]:hover,
 	text-decoration: none;
 	padding-left: 5px;
 }
-#links .link .entry .meta p.comments {
+#links .link .entry .meta .links {
 	float: left;
 	width: 100%;
 	margin-top: 1px;
 }
-#links .link .entry .meta p.comments a {
+#links .link .entry .meta .links a {
 	padding: 0;
 	color: #888;
 	font-weight: bold;
@@ -537,7 +549,6 @@ input[type="submit"]:hover,
 #links.search .link .meta a.comments {
 	margin-left: 0px;
 }
-
 /* COMMENTS */
 .comment {
 	font-size: 0.83rem;
@@ -987,12 +998,10 @@ input[type="submit"]:hover,
 	font-weight: bold;
 }
 #user .entries .entry .title .meta a.comments {
-	float: left;
 	margin-left: 0px;
 }
 #user .entries .entry a.comments.t1,#user .entries .entry a.context {
 	margin-top: 0px;
-	float: left;
 }
 #user .entries .entry a.context {
 	margin-right: 10px;

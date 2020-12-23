@@ -33,6 +33,9 @@ html
               a(href="/u/" + post.author + "")
                 | #{post.author}
             != post.user_flair
+          .links
+            if post.over_18
+              span.tag.nsfw NSFW
         if post.crosspost.is_crosspost === true
           .crosspost
             .title

@@ -62,6 +62,7 @@ module.exports = function() {
               edited: post.edited,
               selftext_html: unescape(post.selftext_html),
               num_comments: post.num_comments,
+              over_18: post.over_18,
               permalink: post.permalink,
               user_flair: await formatUserFlair(post)
             }
@@ -78,6 +79,7 @@ module.exports = function() {
               edited: post.edited,
               body_html: unescape(post.body_html),
               num_comments: post.num_comments,
+              over_18: post.over_18,
               permalink: post.permalink,
               link_author: post.link_author,
               link_title: post.link_title,

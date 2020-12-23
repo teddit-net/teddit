@@ -105,7 +105,9 @@ html
                       | #{link.subreddit}
                   if link.stickied
                     span(class="green") stickied
-                  p.comments
+                  .links
+                    if link.over_18
+                      span.tag.nsfw NSFW
                     a(href="" + link.permalink + "", class="comments")
                       | #{link.num_comments} comments
         if json.info.before || json.info.after

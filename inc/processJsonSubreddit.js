@@ -64,6 +64,7 @@ module.exports = function() {
               locked: data.locked,
               media: data.media,
               num_comments: data.num_comments,
+              over_18: data.over_18,
               permalink: data.permalink,
               score: data.score,
               subreddit: data.subreddit,
