@@ -80,9 +80,11 @@ html
                 .title
                   a(href="" + post.permalink + "") #{cleanTitle(post.title)}
                   .meta
-                    p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+                    p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)}
+                      | by
                       a(href="/u/" + data.username + "") #{data.username}
                       | to
+                      != post.user_flair
                       a(href="/r/" + post.subreddit + "", class="subreddit") #{post.subreddit}
                     a.comments(href="" + post.permalink + "") #{post.num_comments} comments
             if post.type === 't1'
@@ -98,7 +100,7 @@ html
                         a(href="/u/" + post.link_author + "") #{post.link_author}
                   .subreddit
                     p in
-                      a(href="/r/" + post.subreddit + "") #{post.subreddit} 
+                      a(href="/r/" + post.subreddit + "") #{post.subreddit}
                 .comment
                   details(open="")
                     summary
@@ -108,10 +110,12 @@ html
                     .meta
                       p.author
                         a(href="/u/" + data.username + "") #{data.username}
+                      p
+                        != post.user_flair
                       p.ups #{post.ups} points
                       p.created(title="" + toUTCString(post.created) + "") #{timeDifference(post.created)}
                     .body
-                      div !{post.body_html} 
+                      div !{post.body_html}
                     a.context(href="" + post.permalink + "?context=10") context
                     a.comments.t1(href="" + post.url + "") full comments (#{post.num_comments})
           if data.before || data.after
@@ -127,28 +131,3 @@ html
           br
           p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
           p verified: #{(data.verified) ? "yes" : "no" }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            

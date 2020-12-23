@@ -1,12 +1,12 @@
-module.exports = function(tools) { 
+module.exports = function(tools) {
   const config = require('../config')
   const {spawn} = require('child_process')
   const fs = require('fs')
   this.downloadAndSave = (url, file_prefix = '', gifmp4, isYouTubeThumbnail) => {
-    /** 
+    /**
     * This function downloads media (video or image) to disk.
     * Returns a localized URL
-    * 
+    *
     * For example for images:
     * https://external-preview.redd.it/DiaeK_j5fqpBqbatvo7GZzbHNJY2oxEym93B_3.jpg
     * =>
@@ -32,21 +32,23 @@ module.exports = function(tools) {
             if(gifmp4) {
               file_ext = 'mp4'
             } else {
-              if(!pathname.includes('.')) {
-                /**
+              if (file_prefix === 'flair_') {
+                // Flair emojis end in the name without a file extension
+                file_ext = 'png'
+              } else if(!pathname.includes('.')) {                /**
                 * Sometimes reddit API returns video without extension, like
                 * "DASH_480" and not "DASH_480.mp4".
                 */
                 file_ext = 'mp4'
                 has_extension = false
-              } else { 
+              } else {
                 file_ext = pathname.substring(pathname.lastIndexOf('.') + 1)
               }
             }
-            
+
             if(file_prefix === 'thumb_')
               dir = 'thumbs/'
-            if(file_prefix === 'flair')
+            if(file_prefix === 'flair_')
               dir = 'flairs/'
 
             if(valid_video_extensions.includes(file_ext) || gifmp4) {
@@ -130,7 +132,14 @@ module.exports = function(tools) {
                 if(temp_url.searchParams.get('width')) {
                   width = temp_url.searchParams.get('width')
                 }
-                filename = `${file_prefix}w:${temp_url.searchParams.get('width')}_${temp_url.pathname.split('/').slice(-1)}`
+                if(file_prefix === 'flair_') {
+                  // Flair emojis have a full path of `UUID/name`,
+                  // so we need to incorporate the UUID to avoid duplicates
+                  // since names alone are not unique across all of reddit
+                  filename = `${pathname.slice(1).replace('/', '_')}.png` // Only first replacement is fine
+                } else {
+                  filename = `${file_prefix}w:${temp_url.searchParams.get('width')}_${temp_url.pathname.split('/').slice(-1)}`
+                }
               }
               path = `./dist/pics/${dir}${filename}`
               if(!fs.existsSync(path)) {

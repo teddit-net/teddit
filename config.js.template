@@ -2,6 +2,7 @@ const config = {
   domain: process.env.DOMAIN || '127.0.0.1', // Or for example 'teddit.net'
   reddit_app_id: process.env.REDDIT_APP_ID || 'H6-HjZ5pUPjaFQ', // You should obtain your own Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
   cert_dir: process.env.CERT_DIR || '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
+  flairs_enabled: process.env.FLAIRS_ENABLED !== "true" || true, // Enables the rendering of user and link flairs on teddit
   api_enabled: process.env.API_ENABLED !== "true" || true, // Teddit API feature. Might increase loads significantly on your instance.
   video_enabled: process.env.VIDEO_ENABLED !== "true" || true,
   redis_enabled: process.env.REDIS_ENABLED !== "true" || true, // If disabled, does not cache Reddit API calls
@@ -34,7 +35,7 @@ const config = {
     shorts: 60 * 60 * 24 * 31
   },
   post_comments_sort: 'confidence', // "confidence" is the default sorting in Reddit. Must be one of: confidence, top, new, controversial, old, random, qa, live.
-  valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
+  valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'emoji.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
   reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
 };
 

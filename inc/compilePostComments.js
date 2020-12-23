@@ -18,7 +18,7 @@ module.exports = function() {
           let moderator = false
           let submitter = false
           let edited_span = ''
-          
+
           if(post_author === comments.author) {
             classlist.push('submitter')
             submitter_link = `<a href="${post_url}" title="submitter">[S]</a>`
@@ -48,6 +48,7 @@ module.exports = function() {
                 </summary>
               <div class="meta">
                 <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
+                <p>${comments.user_flair}</p>
                 <p class="ups">${ups}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
                    <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
@@ -104,7 +105,7 @@ module.exports = function() {
               let submitter = false
               let ups = ''
               let edited_span = ''
-              
+
               if(post_author === comment.author) {
                 classlist.push('submitter')
                 submitter_link = `<a href="${post_url}" title="submitter">[S]</a>`
@@ -134,6 +135,7 @@ module.exports = function() {
                   </summary>
                   <div class="meta">
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
+                    <p>${comment.user_flair}</p>
                     <p class="ups">${ups}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
                       <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>
@@ -185,7 +187,7 @@ module.exports = function() {
           comments_html += `</details></div>`
         }
         next_comment_parent_id = null
-        
+
         resolve(comments_html)
       })()
     })

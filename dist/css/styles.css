@@ -172,11 +172,6 @@ body.dark #search form input[type="text"] {
   background: #0f0f0f;
   color: white;
 }
-body.dark #links .link .entry .title span.postflair,
-body.dark #post .info .title span.postflair {
-    color: #eaeaea;
-    background-color: #404040;
-}
 a {
 	color: var(--linkcolor);
 	text-decoration: none;
@@ -401,16 +396,6 @@ input[type="submit"]:hover,
 	color: white;
 	cursor: pointer;
 	text-decoration: none;
-}
-#links .link .entry .title span.postflair,
-#post .info .title span.postflair {
-    display: inline-block;
-    border-radius: 4px;
-    color: #404040;
-    background-color: #e8e8e8;
-    font-size: x-small;
-    margin-left: 10px;
-    padding: 0 2px;
 }
 /* SUBREDDIT LINKS */
 #links {
@@ -993,6 +978,40 @@ input[type="submit"]:hover,
 }
 #user .entries .entry a.context {
 	margin-right: 10px;
+}
+/* FLAIR */
+.flair,
+#links .link .entry .title span.flair,
+#post .info .title span.flair {
+    display: inline-block;
+    border-radius: 4px;
+    color: #404040;
+    background-color: #e8e8e8;
+    font-size: x-small;
+    margin-left: 10px;
+    padding: 0 2px;
+}
+body.dark .flair {
+    color: #eaeaea !important;
+    background-color: #404040 !important;
+}
+#post .comments .flair,
+#user .comment .meta .flair {
+	margin-left: 0 !important;
+}
+#links .link .entry .meta p.submitted .flair,
+#user .comment .meta .flair,
+#user .entries p.submitted .flair {
+	margin-right: 4px;
+}
+.flair .emoji {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  vertical-align: middle;
 }
 /* SIDEBAR */
 #sidebar {

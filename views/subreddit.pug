@@ -84,14 +84,12 @@ html
                   if link.is_self_link
                     a(href="" + link.permalink + "")
                       h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
-                    if link.link_flair_text
-                      span(class="postflair") #{link.link_flair_text}
+                    != link.link_flair
                     span (#{link.domain})
                   else
                     a(href="" + link.url + "")
                       h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
-                    if link.link_flair_text
-                      span(class="postflair") #{link.link_flair_text}
+                    != link.link_flair
                     span (#{link.domain})
                 .meta
                   p.submitted submitted
@@ -101,6 +99,7 @@ html
                     else
                       a(href="/u/" + link.author + "")
                         | #{link.author}
+                    != link.user_flair
                   p.to to
                      a(href="/r/" + link.subreddit + "")
                       | #{link.subreddit}
