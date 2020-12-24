@@ -10,14 +10,21 @@ html
         h1 Preferences
         form(action="/saveprefs", method="POST")
           legend Display
-          label(for="theme") Theme: 
-            select(id="theme", name="theme")
-              if(!user_preferences.theme || user_preferences.theme == '')
-                option(value="", selected="selected") White
-                option(value="dark") Dark
-              if(user_preferences.theme === 'dark')
-                option(value="") White
-                option(value="dark", selected="selected") Dark
+          .setting
+            label(for="theme") Theme: 
+              select(id="theme", name="theme")
+                if(!user_preferences.theme || user_preferences.theme == '')
+                  option(value="", selected="selected") White
+                  option(value="dark") Dark
+                if(user_preferences.theme === 'dark')
+                  option(value="") White
+                  option(value="dark", selected="selected") Dark
+          .setting
+            label(for="flairs") Show flairs: 
+              if(!user_preferences.flairs || user_preferences.flairs == 'true')
+                input(type="checkbox", name="flairs", id="flairs", checked="checked")
+              else
+                input(type="checkbox", name="flairs", id="flairs")
           p(class="notice") Preferences are stored client-side using cookies without any personal information.
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences

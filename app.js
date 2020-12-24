@@ -93,20 +93,27 @@ if(config.use_compression) {
 
 app.use(cookieParser())
 
-const themeMiddleware = (req, res, next) => {
+const preferencesMiddleware = (req, res, next) => {
   let themeOverride = req.query.theme
-  if( themeOverride) {
+  if(themeOverride) {
     // Convert Dark to dark since the stylesheet has it lower case
-    themeOverride = themeOverride.toLowerCase();
+    themeOverride = themeOverride.toLowerCase()
     // This override here will set it for the current request
     req.cookies.theme = themeOverride
     // this will set it for future requests
-    res.cookie('theme', themeOverride, {maxAge: 31536000, httpOnly: true})
+    res.cookie('theme', themeOverride, { maxAge: 31536000, httpOnly: true })
   }
-  next();
+  
+  let flairsOverride = req.query.flairs
+  if(flairsOverride) {
+    req.cookies.flairs = flairsOverride
+    res.cookie('flairs', flairsOverride, { maxAge: 31536000, httpOnly: true })
+  }
+  
+  next()
 }
 
-app.use(themeMiddleware)
+app.use(preferencesMiddleware)
 
 if(config.use_view_cache) {
   app.set('view cache', true)

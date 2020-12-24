@@ -110,7 +110,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(api_req) {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, '/')
           } else {
-            let processed_json = await processJsonSubreddit(json, 'redis')
+            let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
             return res.render('index', {
               json: processed_json,
               sortby: sortby,
@@ -135,7 +135,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, '/')
                     } else {
-                      let processed_json = await processJsonSubreddit(json, 'from_online')
+                      let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
                       return res.render('index', {
                         json: processed_json,
                         sortby: sortby,
@@ -381,7 +381,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(api_req) {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, subreddit)
           } else {
-            let processed_json = await processJsonSubreddit(json, 'redis')
+            let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
             let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
             if(!processed_json.error) {
               return res.render('subreddit', {
@@ -419,7 +419,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, subreddit)
                     } else {
-                      let processed_json = await processJsonSubreddit(json, 'from_online')
+                      let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
                       let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
                       return res.render('subreddit', {
                         json: processed_json,
@@ -492,7 +492,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         console.log(`Got ${comments_url} key from redis.`);
         (async () => {
           if(!more_comments_cursor) {
-            let processed_json = await processJsonPost(json, false)
+            let processed_json = await processJsonPost(json, false, req.cookies)
             let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
             return res.render('post', {
               post: finalized_json.post_data,
@@ -523,7 +523,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         post_json = JSON.parse(post_json)
                         json = JSON.parse(json)
                         post_json[1].data.children = json
-                        let processed_json = await processJsonPost(post_json, true)
+                        let processed_json = await processJsonPost(post_json, true, req.cookies)
                         let finalized_json = await finalizeJsonPost(processed_json, id, post_url, morechildren_ids)
                         
                         return res.render('post', {
@@ -557,7 +557,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log(`Fetched the JSON from reddit.com${comments_url}.`);
                   (async () => {
-                    let processed_json = await processJsonPost(json, true)
+                    let processed_json = await processJsonPost(json, true, req.cookies)
                     let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
                     return res.render('post', {
                       post: finalized_json.post_data,
@@ -651,7 +651,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got user ${user} key from redis.`);
         (async () => {
-          let processed_json = await processJsonUser(json, false, after, before)
+          let processed_json = await processJsonUser(json, false, after, before, req.cookies)
           return res.render('user', {
             data: processed_json,
             sortby: sortby,
@@ -678,7 +678,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         return res.render('index', { post: null, user_preferences: req.cookies })
                       } else {
                         (async () => {
-                          let processed_json = await processJsonUser(user_data, true, after, before)
+                          let processed_json = await processJsonUser(user_data, true, after, before, req.cookies)
                           return res.render('user', {
                             data: processed_json,
                             sortby: sortby,
@@ -735,7 +735,15 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   
   app.post('/saveprefs', (req, res, next) => {
     let theme = req.body.theme
+    let flairs = req.body.flairs
+
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(flairs === 'on')
+      flairs = 'true'
+    else
+      flairs = 'false'
+    res.cookie('flairs', flairs, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     return res.redirect('/preferences')
   })
 

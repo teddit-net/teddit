@@ -96,7 +96,7 @@ module.exports = function() {
       if(api_target === 'reddit') {
         return res.end(JSON.stringify(json))
       } else {
-        let processed_json = await processJsonSubreddit(_json, from)
+        let processed_json = await processJsonSubreddit(_json, from, null, req.cookies)
         
         let protocol = (config.https_enabled ? 'https' : 'http')
         for(var i = 0; i < processed_json.links.length; i++) {

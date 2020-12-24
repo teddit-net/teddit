@@ -1,6 +1,6 @@
 module.exports = function() {
   const config = require('../config');
-  this.processJsonSubreddit = (json, from, subreddit_front) => {
+  this.processJsonSubreddit = (json, from, subreddit_front, user_preferences) => {
     return new Promise(resolve => {
       (async () => {
         if(from === 'redis') {
@@ -75,8 +75,8 @@ module.exports = function() {
               stickied: data.stickied,
               is_self_link: is_self_link,
               subreddit_front: subreddit_front,
-              link_flair: await formatLinkFlair(data),
-              user_flair: await formatUserFlair(data)
+              link_flair: (user_preferences.flairs != 'false' ? await formatLinkFlair(data) : ''),
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(data) : '')
             }
             ret.links.push(obj)
           }

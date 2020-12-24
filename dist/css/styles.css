@@ -288,6 +288,10 @@ form legend {
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
+form .setting {
+    margin: 10px 0px;
+    width: 100%;
+}
 .container .content p.notice {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -861,7 +865,10 @@ input[type="submit"]:hover,
 #user .entries .entry .meta {
 	float: left;
 }
-#user .entries .entry .meta .title,#user .entries .entry .meta .author,#user .entries .entry .meta .subreddit {
+#user .entries .entry .meta .title,
+#user .entries .entry .meta .author,
+#user .entries .entry .meta .subreddit,
+#user .entries .entry .meta .flair {
 	float: left;
 }
 #user .comment {

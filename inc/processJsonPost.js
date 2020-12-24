@@ -1,7 +1,7 @@
 module.exports = function(fetch) {
   var compilePostComments = require('./compilePostComments.js')();
   var procPostMedia = require('./processPostMedia.js')();
-  this.processJsonPost = (json, parsed) => {
+  this.processJsonPost = (json, parsed, user_preferences) => {
     return new Promise(resolve => {
       (async () => {
         if(!parsed) {
@@ -34,8 +34,8 @@ module.exports = function(fetch) {
           images: null,
           crosspost: false,
           selftext: unescape(post.selftext_html),
-          link_flair: await formatLinkFlair(post),
-          user_flair: await formatUserFlair(post)
+          link_flair: (user_preferences.flairs != 'false' ? await formatLinkFlair(post) : ''),
+          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
         }
 
         let validEmbedDomains = ['gfycat.com', 'youtube.com']
@@ -89,7 +89,7 @@ module.exports = function(fetch) {
             selftext: unescape(post.selftext_html),
             selftext_crosspost: unescape(post.crosspost.selftext_html),
             is_crosspost: true,
-            user_flair: await formatUserFlair(post)
+            user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
           }
         }
 
@@ -149,7 +149,7 @@ module.exports = function(fetch) {
               edited: comment.edited,
               replies: [],
               depth: 0,
-              user_flair: await formatUserFlair(comment)
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
             }
           } else {
             obj = {
@@ -165,7 +165,7 @@ module.exports = function(fetch) {
           if(comment.replies && kind !== 'more') {
             if(comment.replies.data) {
               if(comment.replies.data.children.length > 0) {
-                obj.replies = await processReplies(comment.replies.data.children, post_id, 1)
+                obj.replies = await processReplies(comment.replies.data.children, post_id, 1, user_preferences)
               }
             }
           }
@@ -204,7 +204,7 @@ module.exports = function(fetch) {
     return { post_data: post_data, comments: comments_html }
   }
 
-  this.processReplies = async (data, post_id, depth) => {
+  this.processReplies = async (data, post_id, depth, user_preferences) => {
     let return_replies = []
     for(var i = 0; i < data.length; i++) {
       let kind = data[i].kind
@@ -227,7 +227,7 @@ module.exports = function(fetch) {
           edited: reply.edited,
           replies: [],
           depth: depth,
-          user_flair: await formatUserFlair(reply)
+          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(reply) : '')
         }
       } else {
         obj = {
@@ -263,7 +263,7 @@ module.exports = function(fetch) {
                 distinguished: comment.edited,
                 replies: [],
                 depth: depth + 1,
-                user_flair: await formatUserFlair(comment)
+                user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
               }
             } else {
               objct = {
@@ -285,7 +285,7 @@ module.exports = function(fetch) {
             if(comment.replies) {
               if(comment.replies.data) {
                 if(comment.replies.data.children.length > 0) {
-                  objct.replies = await processReplies(comment.replies.data.children, post_id, depth )
+                  objct.replies = await processReplies(comment.replies.data.children, post_id, depth, user_preferences)
                 }
               }
             }

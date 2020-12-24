@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.processJsonUser = function(json, parsed, after, before) {
+  this.processJsonUser = function(json, parsed, after, before, user_preferences) {
     return new Promise(resolve => {
       (async () => {
         if(!parsed) {
@@ -64,7 +64,7 @@ module.exports = function() {
               num_comments: post.num_comments,
               over_18: post.over_18,
               permalink: post.permalink,
-              user_flair: await formatUserFlair(post)
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
             }
           }
           if(type === 't1') {
@@ -83,7 +83,7 @@ module.exports = function() {
               permalink: post.permalink,
               link_author: post.link_author,
               link_title: post.link_title,
-              user_flair: await formatUserFlair(post)
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
             }
           }
           posts.push(obj)
