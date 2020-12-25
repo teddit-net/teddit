@@ -57,8 +57,8 @@ module.exports = function(tools) {
                 resolve('')
               } else {
                 let filename = `${temp_url.pathname.substr(1).split('/')[0]}.${file_ext}`
-                let path = `./dist/vids/${dir}${filename}`
-                let temp_path = `./dist/vids/${dir}temp_${filename}`
+                let path = `./static/vids/${dir}${filename}`
+                let temp_path = `./static/vids/${dir}temp_${filename}`
                 if(!fs.existsSync(path)) {
                   const download = await downloadFile(cleanUrl(url))
                   if(download.success === true) {
@@ -73,7 +73,7 @@ module.exports = function(tools) {
                       }
                       const download_audio = await downloadFile(cleanUrl(audio_url))
                       if(download_audio.success === true) {
-                        let audio_path = `./dist/vids/${dir}temp_audio_${filename}`
+                        let audio_path = `./static/vids/${dir}temp_audio_${filename}`
                         const write_audio = await writeToDisk(download_audio.data, audio_path)
                         if(write_audio.success === true) {
                           let processVideo = spawn('ffmpeg', ['-y', '-i', temp_path, '-i', audio_path, '-c', 'copy', path])
@@ -141,7 +141,7 @@ module.exports = function(tools) {
                   filename = `${file_prefix}w:${temp_url.searchParams.get('width')}_${temp_url.pathname.split('/').slice(-1)}`
                 }
               }
-              path = `./dist/pics/${dir}${filename}`
+              path = `./static/pics/${dir}${filename}`
               if(!fs.existsSync(path)) {
                 const download = await downloadFile(cleanUrl(url))
                 if(download.success === true) {

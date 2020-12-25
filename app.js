@@ -125,7 +125,7 @@ if(config.trust_proxy) {
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(express.static(`${__dirname}/dist`))
+app.use(express.static(`${__dirname}/static`))
 
 app.set('views', './views')
 app.set('view engine', 'pug')
