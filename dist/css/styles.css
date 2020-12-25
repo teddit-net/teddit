@@ -126,6 +126,10 @@ body.dark #links .link .image .no-image,
 body.dark #user .entry .image .no-image {
 	filter: opacity(0.5);
 }
+body.dark #user .comment {
+	width: 100%;
+	background: var(--darkbg);
+}
 body.dark #links .link .upvotes {
 	color: #858585;
 }
