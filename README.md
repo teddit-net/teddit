@@ -24,6 +24,7 @@ BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 Community instances:
 
 * [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
+* [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
 
 ## TODO
 
