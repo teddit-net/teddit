@@ -5,6 +5,15 @@ html
     include includes/head.pug
   body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
+    -
+      let show_nsfw_warning = false;
+      if(subreddit_about) {
+        if(subreddit_about.over18) {
+          if((instance_nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false') {
+            show_nsfw_warning = true;
+          }
+        }
+      }
     if json === null
       h1 Error occured
       if error
@@ -12,142 +21,151 @@ html
           h2 This is a private subreddit.
       p Error: #{JSON.stringify(json.error_data)}
     else
-      header
-        a(href="/", class="main")
-          h1 teddit
-        .bottom
-          if !subreddit.includes('+')
-            a(href="/r/" + subreddit + "", class="subreddit")
-              h2 #{subreddit}
-          ul.tabmenu
-            li(class=!sortby || sortby == 'hot' ? 'active' : '')
-              a(href="/r/" + subreddit) hot
-            li(class=sortby === 'new' ? 'active' : '')
-              a(href="/r/" + subreddit + "/new") new
-            li(class=sortby === 'rising' ? 'active' : '')
-              a(href="/r/" + subreddit + "/rising") rising
-            li(class=sortby === 'controversial' ? 'active' : '')
-              a(href="/r/" + subreddit + "/controversial") controversial
-            li(class=sortby === 'top' ? 'active' : '')
-              a(href="/r/" + subreddit + "/top") top
-      #links.sr
-        if sortby === 'top' || sortby === 'controversial'
-          details
-            summary
-              if past === 'hour'
-                span links from: past hour
-              if past === 'day'
-                span links from: past 24 hours
-              if past === 'week'
-                span links from: past week
-              if past === 'month'
-                span links from: past month
-              if past === 'year'
-                span links from: past year
-              if past === 'all'
-                span links from: all time
-            ul
-              li(class=past === 'hour' ? 'active' : '')
-                a(href="?t=hour") past hour
-              li(class=past === 'day' ? 'active' : '')
-                a(href="?t=day") past 24 hours
-              li(class=past === 'week' ? 'active' : '')
-                a(href="?t=week") past week
-              li(class=past === 'month' ? 'active' : '')
-                a(href="?t=month") past month
-              li(class=past === 'year' ? 'active' : '')
-                a(href="?t=year") past year
-              li(class=past === 'all' ? 'active' : '')
-                a(href="?t=all") all time
-        if json.links.length === 0
-          p nothing here
-        else
-          each link in json.links
-            .link
-              .upvotes
-                .arrow
-                span #{kFormatter(link.ups)}
-                .arrow.down
-              .image
-                if link.images
-                  if link.is_self_link
-                    a(href="" + link.permalink + "")
-                      img(src="" + link.images.thumb + "", alt="")
-                  else
-                    a(href=""+ link.url +"")
-                      img(src="" + link.images.thumb + "", alt="")
-                else
-                  a(href="" + link.permalink + "")
-                    .no-image
-              .entry
-                .title
-                  if link.is_self_link
-                    a(href="" + link.permalink + "")
-                      h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
-                    != link.link_flair
-                    span (#{link.domain})
-                  else
-                    a(href="" + link.url + "")
-                      h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
-                    != link.link_flair
-                    span (#{link.domain})
-                .meta
-                  p.submitted submitted
-                    span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)} by
-                    if link.author === '[deleted]'
-                      span(class="deleted") [deleted]
+      if show_nsfw_warning === true
+        .nsfw-warning
+          span 18+
+          h2 You must be 18+ to view this community
+          p You must be at least eighteen years old to view this content. Are you over eighteen and willing to see adult content?
+          a(href="/") No thank you
+          a(href="?nsfw_enabled=true") Continue
+          p If you continue, <code>nsfw_enabled</code> cookie preference will be automatically set to <code>true</code>.
+      else
+        header
+          a(href="/", class="main")
+            h1 teddit
+          .bottom
+            if !subreddit.includes('+')
+              a(href="/r/" + subreddit + "", class="subreddit")
+                h2 #{subreddit}
+            ul.tabmenu
+              li(class=!sortby || sortby == 'hot' ? 'active' : '')
+                a(href="/r/" + subreddit) hot
+              li(class=sortby === 'new' ? 'active' : '')
+                a(href="/r/" + subreddit + "/new") new
+              li(class=sortby === 'rising' ? 'active' : '')
+                a(href="/r/" + subreddit + "/rising") rising
+              li(class=sortby === 'controversial' ? 'active' : '')
+                a(href="/r/" + subreddit + "/controversial") controversial
+              li(class=sortby === 'top' ? 'active' : '')
+                a(href="/r/" + subreddit + "/top") top
+        #links.sr
+          if sortby === 'top' || sortby === 'controversial'
+            details
+              summary
+                if past === 'hour'
+                  span links from: past hour
+                if past === 'day'
+                  span links from: past 24 hours
+                if past === 'week'
+                  span links from: past week
+                if past === 'month'
+                  span links from: past month
+                if past === 'year'
+                  span links from: past year
+                if past === 'all'
+                  span links from: all time
+              ul
+                li(class=past === 'hour' ? 'active' : '')
+                  a(href="?t=hour") past hour
+                li(class=past === 'day' ? 'active' : '')
+                  a(href="?t=day") past 24 hours
+                li(class=past === 'week' ? 'active' : '')
+                  a(href="?t=week") past week
+                li(class=past === 'month' ? 'active' : '')
+                  a(href="?t=month") past month
+                li(class=past === 'year' ? 'active' : '')
+                  a(href="?t=year") past year
+                li(class=past === 'all' ? 'active' : '')
+                  a(href="?t=all") all time
+          if json.links.length === 0
+            p nothing here
+          else
+            each link in json.links
+              .link
+                .upvotes
+                  .arrow
+                  span #{kFormatter(link.ups)}
+                  .arrow.down
+                .image
+                  if link.images
+                    if link.is_self_link
+                      a(href="" + link.permalink + "")
+                        img(src="" + link.images.thumb + "", alt="")
                     else
-                      a(href="/u/" + link.author + "")
-                        | #{link.author}
-                    != link.user_flair
-                  p.to to
-                     a(href="/r/" + link.subreddit + "")
-                      | #{link.subreddit}
-                  if link.stickied
-                    span(class="green") stickied
-                  .links
-                    if link.over_18
-                      span.tag.nsfw NSFW
-                    a(href="" + link.permalink + "", class="comments")
-                      | #{link.num_comments} comments
-        if json.info.before || json.info.after
-          .view-more-inks
-            if json.info.before && !subreddit_front
-              a(href="/r/" + subreddit + "/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
-            if json.info.after
-              a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
-      #sidebar
-        #search.sr
-          p search
-          form(action="/r/" + subreddit + "/search", method="GET")
-            input(type="text", name="q", id="q", placeholder="search")
-            div
-              label(for="restrict_sr") limit my search to r/#{subreddit}
-                input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
-            div
-              label(for="nsfw") include NSFW results
-                input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
-            input(type="submit", value="search")
-        if sidebar_data
-          if sidebar_data.subscribers
-            .content
-              p subscribers: #{sidebar_data.subscribers.toLocaleString()}
-              p users here right now: #{sidebar_data.active_user_count.toLocaleString()}
-              br
-              .heading
-                p.title #{sidebar_data.title}
-                .short-description
-                  != unescape(sidebar_data.public_description_html)
-              .description
-                != unescape(sidebar_data.description_html)
-        else
-          if subreddit.includes('+')
-            .content
-              p These subreddits
-              -
-                let subreddits = subreddit.split('+')
-              ul(class="subreddit-listing")
-                each subreddit in subreddits
-                  li
-                    a(href="/r/" + subreddit + "") #{subreddit}
+                      a(href=""+ link.url +"")
+                        img(src="" + link.images.thumb + "", alt="")
+                  else
+                    a(href="" + link.permalink + "")
+                      .no-image
+                .entry
+                  .title
+                    if link.is_self_link
+                      a(href="" + link.permalink + "")
+                        h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+                      != link.link_flair
+                      span (#{link.domain})
+                    else
+                      a(href="" + link.url + "")
+                        h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+                      != link.link_flair
+                      span (#{link.domain})
+                  .meta
+                    p.submitted submitted
+                      span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)} by
+                      if link.author === '[deleted]'
+                        span(class="deleted") [deleted]
+                      else
+                        a(href="/u/" + link.author + "")
+                          | #{link.author}
+                      != link.user_flair
+                    p.to to
+                       a(href="/r/" + link.subreddit + "")
+                        | #{link.subreddit}
+                    if link.stickied
+                      span(class="green") stickied
+                    .links
+                      if link.over_18
+                        span.tag.nsfw NSFW
+                      a(href="" + link.permalink + "", class="comments")
+                        | #{link.num_comments} comments
+          if json.info.before || json.info.after
+            .view-more-inks
+              if json.info.before && !subreddit_front
+                a(href="/r/" + subreddit + "/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
+              if json.info.after
+                a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+        #sidebar
+          #search.sr
+            p search
+            form(action="/r/" + subreddit + "/search", method="GET")
+              input(type="text", name="q", id="q", placeholder="search")
+              div
+                label(for="restrict_sr") limit my search to r/#{subreddit}
+                  input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
+              div
+                label(for="nsfw") include NSFW results
+                  input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+              input(type="submit", value="search")
+          if subreddit_about
+            if subreddit_about.subscribers
+              .content
+                p subscribers: #{subreddit_about.subscribers.toLocaleString()}
+                p users here right now: #{subreddit_about.active_user_count.toLocaleString()}
+                br
+                .heading
+                  p.title #{subreddit_about.title}
+                  .short-description
+                    != unescape(subreddit_about.public_description_html)
+                .description
+                  != unescape(subreddit_about.description_html)
+          else
+            if subreddit.includes('+')
+              .content
+                p These subreddits
+                -
+                  let subreddits = subreddit.split('+')
+                ul(class="subreddit-listing")
+                  each subreddit in subreddits
+                    li
+                      a(href="/r/" + subreddit + "") #{subreddit}
 

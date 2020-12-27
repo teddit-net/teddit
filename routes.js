@@ -7,7 +7,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processPost = require('./inc/processJsonPost.js')();
   let processUser = require('./inc/processJsonUser.js')();
   let processSearches = require('./inc/processSearchResults.js')();
-  let processSidebar = require('./inc/processSubredditSidebar.js')();
+  let processAbout = require('./inc/processSubredditAbout.js')();
   let tedditApiSubreddit = require('./inc/teddit_api/handleSubreddit.js')();
 
   app.get('/about', (req, res, next) => {
@@ -384,16 +384,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, subreddit)
           } else {
             let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
-            let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
+            let subreddit_about = await processSubredditAbout(subreddit, redis, fetch, RedditAPI)
             if(!processed_json.error) {
               return res.render('subreddit', {
                 json: processed_json,
                 subreddit: subreddit,
-                sidebar_data: sidebar_data,
+                subreddit_about: subreddit_about,
                 subreddit_front: (!before && !after) ? true : false,
                 sortby: sortby,
                 past: past,
-                user_preferences: req.cookies
+                user_preferences: req.cookies,
+                instance_nsfw_enabled: config.nsfw_enabled
               })
             } else {
               return res.render('subreddit', {
@@ -422,15 +423,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, subreddit)
                     } else {
                       let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
-                      let sidebar_data = await processSubredditSidebar(subreddit, redis, fetch, RedditAPI)
+                      let subreddit_about = await processSubredditAbout(subreddit, redis, fetch, RedditAPI)
                       return res.render('subreddit', {
                         json: processed_json,
                         subreddit: subreddit,
-                        sidebar_data: sidebar_data,
+                        subreddit_about: subreddit_about,
                         subreddit_front: (!before && !after) ? true : false,
                         sortby: sortby,
                         past: past,
-                        user_preferences: req.cookies
+                        user_preferences: req.cookies,
+                        instance_nsfw_enabled: config.nsfw_enabled
                       })
                     }
                   })()
