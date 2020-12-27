@@ -110,6 +110,12 @@ const preferencesMiddleware = (req, res, next) => {
     res.cookie('flairs', flairsOverride, { maxAge: 31536000, httpOnly: true })
   }
   
+  let nsfwEnabledOverride = req.query.nsfw_enabled
+  if(nsfwEnabledOverride) {
+    req.cookies.nsfw_enabled = nsfwEnabledOverride
+    res.cookie('nsfw_enabled', nsfwEnabledOverride, { maxAge: 31536000, httpOnly: true })
+  }
+  
   next()
 }
 

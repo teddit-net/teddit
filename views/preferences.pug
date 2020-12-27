@@ -25,6 +25,12 @@ html
                 input(type="checkbox", name="flairs", id="flairs", checked="checked")
               else
                 input(type="checkbox", name="flairs", id="flairs")
-          p(class="notice") Preferences are stored client-side using cookies without any personal information.
+          .setting
+            label(for="nsfw_enabled") Show NSFW content: 
+              if (instance_config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false'
+                input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled")
+              else
+                input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled", checked="checked")
+          small(class="notice") Preferences are stored client-side using cookies without any personal information.
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences

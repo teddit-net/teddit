@@ -10,166 +10,175 @@ html
       p #{JSON.stringify(error_data)}
     else
       #post
-        header
-          div
-            p subreddit:
-            a(href="/r/" + subreddit + "")
-              p /r/#{subreddit}
-        .info
-          .score
-            div.arrow
-            span #{kFormatter(post.ups)}
-            div.arrow.down
-          .title
-            a(href="" + post.url + "")
-              h2 #{cleanTitle(post.title)}
-            != post.link_flair
-            span(class="domain") (#{post.domain})
-          p.submitted
-            span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-            if post.author === '[deleted]'
-              span [deleted]
-            else
-              a(href="/u/" + post.author + "")
-                | #{post.author}
-            != post.user_flair
-          .links
-            if post.over_18
-              span.tag.nsfw NSFW
-        if post.crosspost.is_crosspost === true
-          .crosspost
-            .title
-              a(href="" + post.crosspost.permalink + "")
-                h2 #{cleanTitle(post.crosspost.title)}
-              span(class="domain") (#{post.domain})
-            .num_comments
-              | #{post.crosspost.num_comments} comments
+        if post.over_18 && (instance_nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false'
+          .nsfw-warning
+            span 18+
+            h2 You must be 18+ to view this community
+            p You must be at least eighteen years old to view this content. Are you over eighteen and willing to see adult content?
+            a(href="/") No thank you
+            a(href="?nsfw_enabled=true") Continue
+            p If you continue, <code>nsfw_enabled</code> cookie preference will be automatically set to <code>true</code>.
+        else
+          header
+            div
+              p subreddit:
+              a(href="/r/" + subreddit + "")
+                p /r/#{subreddit}
+          .info
             .score
               div.arrow
-              span #{kFormatter(post.crosspost.ups)}
+              span #{kFormatter(post.ups)}
               div.arrow.down
+            .title
+              a(href="" + post.url + "")
+                h2 #{cleanTitle(post.title)}
+              != post.link_flair
+              span(class="domain") (#{post.domain})
             p.submitted
-              span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by
-              if post.crosspost.author === '[deleted]'
+              span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+              if post.author === '[deleted]'
                 span [deleted]
               else
-                a(href="/u/" + post.crosspost.author + "")
-                  | #{post.crosspost.author}
+                a(href="/u/" + post.author + "")
+                  | #{post.author}
               != post.user_flair
-            p.to to
-              a(href="/r/" + post.crosspost.subreddit + "")
-                | #{post.crosspost.subreddit}
+            .links
+              if post.over_18
+                span.tag.nsfw NSFW
+          if post.crosspost.is_crosspost === true
+            .crosspost
+              .title
+                a(href="" + post.crosspost.permalink + "")
+                  h2 #{cleanTitle(post.crosspost.title)}
+                span(class="domain") (#{post.domain})
+              .num_comments
+                | #{post.crosspost.num_comments} comments
+              .score
+                div.arrow
+                span #{kFormatter(post.crosspost.ups)}
+                div.arrow.down
+              p.submitted
+                span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by
+                if post.crosspost.author === '[deleted]'
+                  span [deleted]
+                else
+                  a(href="/u/" + post.crosspost.author + "")
+                    | #{post.crosspost.author}
+                != post.user_flair
+              p.to to
+                a(href="/r/" + post.crosspost.subreddit + "")
+                  | #{post.crosspost.subreddit}
+              if !post.has_media
+                if post.images
+                  .image
+                    a(href="" + post.images.source + "")
+                      img(src="" + post.images.source + "", alt="")
+              else
+                if post.media.not_hosted_in_reddit
+                  .video
+                    a(href="" + post.media.source + "")
+                      img(src=""+ post.media.source +"")
+                  p Embed URL:
+                  a(href="" + post.media.embed_src + "", target="_blank")
+                    p #{post.media.embed_src}
+                else
+                  .video
+                    video(controls="controls", autoplay="autoplay", loop="loop")
+                      source(src="" + post.media.source + "", type="video/mp4")
+                      |  Your browser does not support the video element.
+                    a(href="" + post.media.source + "") [media]
+          else
             if !post.has_media
+              if post.gallery
+                .gallery
+                  each item in post.gallery_items
+                    .item
+                      div
+                        a(href="" + item.large + "", target="_blank")
+                          img(src=""+ item.thumbnail +"", alt="")
+                      a(href="" + item.source + "", target="_blank", class="source-link")
+                        small source
               if post.images
                 .image
                   a(href="" + post.images.source + "")
                     img(src="" + post.images.source + "", alt="")
             else
               if post.media.not_hosted_in_reddit
-                .video
-                  a(href="" + post.media.source + "")
-                    img(src=""+ post.media.source +"")
-                p Embed URL:
-                a(href="" + post.media.embed_src + "", target="_blank")
-                  p #{post.media.embed_src}
+                if post.media.source === 'YouTube'
+                  .video
+                    .title
+                      a(href="" + post.media.embed_src + "", target="_blank")
+                        p #{cleanTitle(post.media.title)}
+                        span(class="domain") (#{post.domain})
+                    .video-holder
+                      a(href="" + post.media.embed_src + "", target="_blank")
+                        img(src="" + post.media.thumbnail + "")
+                    div(class="youtube-info")
+                      p YouTube video info:
+                      p #{cleanTitle(post.media.title)} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
+                      p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
+                else
+                  if post.media.source === 'external'
+                    if post.images
+                      .image
+                        a(href="" + post.media.embed_src + "", target="_blank")
+                          img(src="" + post.images.source + "", alt="")
+                      if !post.media.embed_src.startsWith("https://twitter.com")
+                        p
+                          | source:
+                          a(href="" + post.media.embed_src + "", target="_blank")
+                            p(class="source-url") #{post.media.embed_src}
+                  else
+                    .video
+                      a(href="" + post.media.source + "")
+                        img(src="" + post.media.source + "")
+                    p Embed URL:
+                    a(href="" + post.media.embed_src + "", target="_blank")
+                      p #{post.media.embed_src}
               else
                 .video
                   video(controls="controls", autoplay="autoplay", loop="loop")
                     source(src="" + post.media.source + "", type="video/mp4")
                     |  Your browser does not support the video element.
                   a(href="" + post.media.source + "") [media]
-        else
-          if !post.has_media
-            if post.gallery
-              .gallery
-                each item in post.gallery_items
-                  .item
-                    div
-                      a(href="" + item.large + "", target="_blank")
-                        img(src=""+ item.thumbnail +"", alt="")
-                    a(href="" + item.source + "", target="_blank", class="source-link")
-                      small source
-            if post.images
-              .image
-                a(href="" + post.images.source + "")
-                  img(src="" + post.images.source + "", alt="")
-          else
-            if post.media.not_hosted_in_reddit
-              if post.media.source === 'YouTube'
-                .video
-                  .title
-                    a(href="" + post.media.embed_src + "", target="_blank")
-                      p #{cleanTitle(post.media.title)}
-                      span(class="domain") (#{post.domain})
-                  .video-holder
-                    a(href="" + post.media.embed_src + "", target="_blank")
-                      img(src="" + post.media.thumbnail + "")
-                  div(class="youtube-info")
-                    p YouTube video info:
-                    p #{cleanTitle(post.media.title)} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
-                    p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
-              else
-                if post.media.source === 'external'
-                  if post.images
-                    .image
-                      a(href="" + post.media.embed_src + "", target="_blank")
-                        img(src="" + post.images.source + "", alt="")
-                    if !post.media.embed_src.startsWith("https://twitter.com")
-                      p
-                        | source:
-                        a(href="" + post.media.embed_src + "", target="_blank")
-                          p(class="source-url") #{post.media.embed_src}
-                else
-                  .video
-                    a(href="" + post.media.source + "")
-                      img(src="" + post.media.source + "")
-                  p Embed URL:
-                  a(href="" + post.media.embed_src + "", target="_blank")
-                    p #{post.media.embed_src}
-            else
-              .video
-                video(controls="controls", autoplay="autoplay", loop="loop")
-                  source(src="" + post.media.source + "", type="video/mp4")
-                  |  Your browser does not support the video element.
-                a(href="" + post.media.source + "") [media]
-        if post.selftext
-          div.usertext-body !{post.selftext}
-        if post.contest_mode
-          .infobar.blue
-            p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.
-        if viewing_comment
-          .infobar
-            p you are viewing a single comment's thread.
-            a(href="" + post_url + "") view the rest of the comments →
-        .comments-info
-          p all #{post.num_comments} comments
-          .comments-sort
-            details
-              summary
-                if sortby === 'confidence'
-                  span sorted by: <strong>best</strong>
-                if sortby === 'top'
-                  span sorted by: <strong>top</strong>
-                if sortby === 'new'
-                  span sorted by: <strong>new</strong>
-                if sortby === 'controversial'
-                  span sorted by: <strong>controversial</strong>
-                if sortby === 'old'
-                  span sorted by: <strong>old</strong>
-                if sortby === 'qa'
-                  span sorted by: <strong>q&a</strong>
-              ul
-                li(class=sortby === 'confidence' ? 'active' : '')
-                  a(href="?sort=confidence") best
-                li(class=sortby === 'top' ? 'active' : '')
-                  a(href="?sort=top") top
-                li(class=sortby === 'new' ? 'active' : '')
-                  a(href="?sort=new") new
-                li(class=sortby === 'controversial' ? 'active' : '')
-                  a(href="?sort=controversial") controversial
-                li(class=sortby === 'old' ? 'active' : '')
-                  a(href="?sort=old") old
-                li(class=sortby === 'qa' ? 'active' : '')
-                  a(href="?sort=qa") Q&A
-        != comments
+          if post.selftext
+            div.usertext-body !{post.selftext}
+          if post.contest_mode
+            .infobar.blue
+              p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.
+          if viewing_comment
+            .infobar
+              p you are viewing a single comment's thread.
+              a(href="" + post_url + "") view the rest of the comments →
+          .comments-info
+            p all #{post.num_comments} comments
+            .comments-sort
+              details
+                summary
+                  if sortby === 'confidence'
+                    span sorted by: <strong>best</strong>
+                  if sortby === 'top'
+                    span sorted by: <strong>top</strong>
+                  if sortby === 'new'
+                    span sorted by: <strong>new</strong>
+                  if sortby === 'controversial'
+                    span sorted by: <strong>controversial</strong>
+                  if sortby === 'old'
+                    span sorted by: <strong>old</strong>
+                  if sortby === 'qa'
+                    span sorted by: <strong>q&a</strong>
+                ul
+                  li(class=sortby === 'confidence' ? 'active' : '')
+                    a(href="?sort=confidence") best
+                  li(class=sortby === 'top' ? 'active' : '')
+                    a(href="?sort=top") top
+                  li(class=sortby === 'new' ? 'active' : '')
+                    a(href="?sort=new") new
+                  li(class=sortby === 'controversial' ? 'active' : '')
+                    a(href="?sort=controversial") controversial
+                  li(class=sortby === 'old' ? 'active' : '')
+                    a(href="?sort=old") old
+                  li(class=sortby === 'qa' ? 'active' : '')
+                    a(href="?sort=qa") Q&A
+          != comments
 

@@ -15,11 +15,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   })
 
   app.get('/preferences', (req, res, next) => {
-    return res.render('preferences', { user_preferences: req.cookies })
+    return res.render('preferences', { user_preferences: req.cookies, instance_config: config })
   })
 
   app.get('/resetprefs', (req, res, next) => {
     res.clearCookie('theme')
+    res.clearCookie('flairs')
+    res.clearCookie('nsfw_enabled')
     return res.redirect('/preferences')
   })
 
@@ -501,7 +503,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               post_url: post_url,
               subreddit: subreddit,
               sortby: sortby,
-              user_preferences: req.cookies
+              user_preferences: req.cookies,
+              instance_nsfw_enabled: config.nsfw_enabled
             })
           } else {
             let key = `morechildren:${post_url};1`
@@ -534,7 +537,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                           subreddit: req.params.subreddit,
                           sortby: sortby,
                           more_comments_page: 1,
-                          user_preferences: req.cookies
+                          user_preferences: req.cookies,
+                          instance_nsfw_enabled: config.nsfw_enabled
                         })
                       })()
                     })
@@ -566,7 +570,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       post_url: post_url,
                       subreddit: subreddit,
                       sortby: sortby,
-                      user_preferences: req.cookies
+                      user_preferences: req.cookies,
+                      instance_nsfw_enabled: config.nsfw_enabled
                     })
                   })()
                 }
@@ -736,6 +741,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.post('/saveprefs', (req, res, next) => {
     let theme = req.body.theme
     let flairs = req.body.flairs
+    let nsfw_enabled = req.body.nsfw_enabled
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -744,6 +750,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       flairs = 'false'
     res.cookie('flairs', flairs, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(nsfw_enabled === 'on')
+      nsfw_enabled = 'true'
+    else
+      nsfw_enabled = 'false'
+    res.cookie('nsfw_enabled', nsfw_enabled, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
     return res.redirect('/preferences')
   })
 

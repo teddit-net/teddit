@@ -297,12 +297,13 @@ form legend {
   padding-bottom: 10px;
 }
 form .setting {
-    margin: 10px 0px;
-    width: 100%;
+	margin: 10px 0px;
+	width: 100%;
 }
-.container .content p.notice {
-  padding-top: 20px;
-  padding-bottom: 20px;
+.container .content small.notice {
+	padding-top: 20px;
+	padding-bottom: 5px;
+	display: inline-block;
 }
 .container .content p.version {
 	text-align: right;
@@ -850,6 +851,30 @@ input[type="submit"]:hover,
 }
 #post .source-url {
 	overflow-wrap: anywhere;
+}
+#post .nsfw-warning {
+  text-align: center;
+  float: left;
+  width: 100%;
+  margin: 40px 0px;
+}
+#post .nsfw-warning span {
+  font-size: 3rem;
+  background: #ff575b;
+  border-radius: 130px;
+  display: inline-block;
+  padding: 39px 20px 39px 20px;
+  color: white;
+}
+#post .nsfw-warning h2 {
+  margin: 20px 0px;
+}
+#post .nsfw-warning a {
+  margin: 20px;
+  display: inline-block;
+  background: #4f86b5;
+  color: white;
+  padding: 16px;
 }
 /* USER */
 #user .entries {

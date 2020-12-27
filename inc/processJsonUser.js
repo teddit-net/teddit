@@ -1,4 +1,5 @@
 module.exports = function() {
+  const config = require('../config');
   this.processJsonUser = function(json, parsed, after, before, user_preferences) {
     return new Promise(resolve => {
       (async () => {
@@ -39,6 +40,10 @@ module.exports = function() {
 
           let post_id = post.permalink.split('/').slice(-2)[0] + '/'
           let url = post.permalink.replace(post_id, '')
+          
+          if(post.over_18)
+            if((config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false')
+              continue
 
           if(type === 't3') {
             let duration = null

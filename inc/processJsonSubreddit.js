@@ -27,6 +27,11 @@ module.exports = function() {
             let images = null
             let is_self_link = false
             let valid_reddit_self_domains = ['reddit.com']
+            
+            
+            if(data.over_18)
+              if((config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false')
+                continue
 
             if(data.domain) {
               let tld = data.domain.split('self.')
