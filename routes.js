@@ -474,7 +474,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       sortby = config.post_comments_sort
     }
     
-    if(!['confidence', 'top', 'new', 'controversial', 'old', 'qa'].includes(sortby)) {
+    if(!['confidence', 'top', 'new', 'controversial', 'old', 'qa', 'random'].includes(sortby)) {
       console.error(`Got invalid sort.`, req.originalUrl)
       return res.redirect('/')
     }

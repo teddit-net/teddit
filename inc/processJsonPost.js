@@ -28,6 +28,7 @@ module.exports = function(fetch) {
           ups: post.ups,
           id: post.id,
           domain: post.domain,
+          contest_mode: post.contest_mode,
           comments: null,
           has_media: false,
           media: null,

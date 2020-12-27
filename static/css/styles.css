@@ -70,6 +70,10 @@ body.dark #post .infobar {
 	background-color: #d2d2d2;
 	color: #2f2f2f;
 }
+body.dark #post .infobar.blue {
+	background: #c7e3f9;
+	border: 1px solid #4b78a4;
+}
 body.dark #post .infobar a {
 	color: #0356d4;
 }
@@ -659,6 +663,10 @@ input[type="submit"]:hover,
 	padding: 5px 10px;
 	float: left;
 	width: calc(100% - 50px);
+}
+#post .infobar.blue {
+	background: #eff8ff;
+	border: 1px solid #93abc2;
 }
 #post header {
 	padding-top: 0px;

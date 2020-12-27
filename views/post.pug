@@ -134,6 +134,9 @@ html
                 a(href="" + post.media.source + "") [media]
         if post.selftext
           div.usertext-body !{post.selftext}
+        if post.contest_mode
+          .infobar.blue
+            p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.
         if viewing_comment
           .infobar
             p you are viewing a single comment's thread.
