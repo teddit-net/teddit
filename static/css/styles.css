@@ -180,6 +180,12 @@ body.dark #search form input[type="text"] {
   background: #0f0f0f;
   color: white;
 }
+body.dark footer {
+  background: #2f2f2f;
+}
+body.dark footer a {
+  color: #999;
+}
 a {
 	color: var(--linkcolor);
 	text-decoration: none;
@@ -445,6 +451,18 @@ input[type="submit"]:hover,
 	color: white;
 	cursor: pointer;
 	text-decoration: none;
+}
+footer {
+	padding: 30px 0px 30px 20px;
+	margin: 60px 0px 0px;
+	background: #e1e1e1;
+	float: left;
+	width: calc(100% - 20px);
+}
+footer a {
+	color: #646464;
+	font-size: 0.85rem;
+	text-decoration: underline;
 }
 /* SUBREDDIT LINKS */
 #links {

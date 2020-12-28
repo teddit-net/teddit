@@ -114,4 +114,5 @@ html
           if json.info.before && !subreddit_front
             a(href="/r/all/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
           if json.info.after
-            a(href="/r/all/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›     
+            a(href="/r/all/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+    include includes/footer.pug     
