@@ -147,7 +147,7 @@ html
             .infobar.blue
               p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.
           if viewing_comment
-            .infobar
+            div(class="infobar", id="c")
               p you are viewing a single comment's thread.
               a(href="" + post_url + "") view the rest of the comments →
           .comments-info

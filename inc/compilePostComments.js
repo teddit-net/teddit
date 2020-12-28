@@ -77,7 +77,7 @@ module.exports = function() {
                   
                   comments_html = `
                     <div class="load-more-comments">
-                      <a href="${load_comms_href}">load more comments (${comments.count})</a>
+                      <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
                     </div>
                   `
                 } else {
@@ -171,7 +171,7 @@ module.exports = function() {
 
                 comments_html += `
                   <div class="load-more-comments">
-                    <a href="${load_comms_href}">load more comments (${comment.count})</a>
+                    <a href="${load_comms_href}#c">load more comments (${comment.count})</a>
                   </div>
                 `
               } else {
