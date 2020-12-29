@@ -51,6 +51,8 @@ module.exports = function() {
         if(is_self_link)
           link.url = link.permalink
         
+        let append_desc_html = `<br/><a href="${link.url}">[link]</a> <a href="${link.permalink}">[comments]</a>`
+        
         items += `
           <item>
             <title>${link.title}</title>
@@ -61,7 +63,7 @@ module.exports = function() {
             <thumbnail>${thumbnail}</thumbnail>
             <link>${link.permalink}</link>
             <url>${link.url}</url>
-            <description><![CDATA[${unescape(link.selftext_html)}]]></description>
+            <description><![CDATA[${unescape(link.selftext_html)}${append_desc_html}]]></description>
             <num_comments>${link.num_comments}</num_comments>
             <ups>${link.ups}</ups>
             <stickied>${link.stickied}</stickied>
