@@ -61,6 +61,7 @@ module.exports = function() {
             <thumbnail>${thumbnail}</thumbnail>
             <link>${link.permalink}</link>
             <url>${link.url}</url>
+            <description><![CDATA[${unescape(link.selftext_html)}]]></description>
             <num_comments>${link.num_comments}</num_comments>
             <ups>${link.ups}</ups>
             <stickied>${link.stickied}</stickied>
