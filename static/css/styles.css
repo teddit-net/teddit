@@ -472,6 +472,7 @@ footer a {
 #links.sr {
 	float: left;
 	width: 75%;
+	min-height: 100vh;
 }
 #links details {
 	float: left;
@@ -696,6 +697,9 @@ footer a {
 }
 
 /* POST */
+#post {
+	min-height: 100vh;
+}
 #post .info {
 	float: left;
 	width: 100%;
@@ -898,6 +902,7 @@ footer a {
 #user .entries {
 	float: left;
 	width: 80%;
+	min-height: 100vh;
 }
 #user .entries .entry {
 	padding-left: 5px;
