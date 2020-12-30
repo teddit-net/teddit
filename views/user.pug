@@ -65,20 +65,20 @@ html
             if post.type === 't3'
               .entry.t3
                 .upvotes
-                  div.arrow
+                  .arrow
                   span #{kFormatter(post.ups)}
-                  div.arrow.down
+                  .arrow.down
                 .image
                   if post.thumbnail !== 'self'
-                    a(href="" + post.permalink + "")
+                    a(href="" + post.permalink + "", rel="noopener noreferrer")
                       img(src="" + post.thumbnail + "", alt="")
                       if post.duration
                         span #{secondsToMMSS(post.duration)}
                   else
-                    a(href="" + post.permalink + "")
-                      div.no-image
+                    a(href="" + post.permalink + "", rel="noopener noreferrer")
+                      .no-image no image
                 .title
-                  a(href="" + post.permalink + "") #{cleanTitle(post.title)}
+                  a(href="" + post.permalink + "", rel="noopener noreferrer") #{cleanTitle(post.title)}
                   .meta
                     p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)}
                       | by
@@ -93,7 +93,7 @@ html
               .entry
                 .meta
                   .title
-                    a(href="" + post.url + "") #{cleanTitle(post.link_title)}
+                    a(href="" + post.url + "", rel="noopener noreferrer") #{cleanTitle(post.link_title)}
                   .author
                     p by
                       if post.link_author === '[deleted]'

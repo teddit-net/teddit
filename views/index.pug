@@ -61,20 +61,20 @@ html
         each link in json.links
           .link
             .upvotes
-              div.arrow
+              .arrow
               span #{kFormatter(link.ups)}
-              div.arrow.down
+              .arrow.down
             .image
               if(link.images)
                 if link.is_self_link
                   a(href="" + link.permalink + "")
                     img(src=""+ link.images.thumb +"", alt="")
                 else
-                  a(href="" + link.url + "")
+                  a(href="" + link.url + "", rel="noopener noreferrer")
                     img(src=""+ link.images.thumb +"", alt="")
               else
                 a(href="" + link.permalink + "")
-                  .no-image
+                  .no-image no image
             .entry
               .title
                 if link.is_self_link
@@ -82,7 +82,7 @@ html
                     h2 #{cleanTitle(link.title)}
                   span (#{link.domain})
                 else
-                  a(href="" + link.url + "")
+                  a(href="" + link.url + "", rel="noopener noreferrer")
                     h2 #{cleanTitle(link.title)}
                   span (#{link.domain})
               .meta
@@ -102,9 +102,10 @@ html
                   a(href="" + link.permalink + "", class="comments")
                     | #{link.num_comments} comments
       #search
-        p search
         form(action="/r/all/search", method="GET")
-          input(type="text", name="q", id="q", placeholder="search")
+          div
+            label(for="q") search
+              input(type="text", name="q", id="q", placeholder="search")
           div
             label(for="nsfw") include NSFW results
               input(type="checkbox", name="nsfw", id="nsfw", checked="checked")

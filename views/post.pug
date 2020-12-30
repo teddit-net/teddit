@@ -30,7 +30,7 @@ html
               span #{kFormatter(post.ups)}
               div.arrow.down
             .title
-              a(href="" + post.url + "")
+              a(href="" + post.url + "", rel="noopener noreferrer")
                 h2 #{cleanTitle(post.title)}
               != post.link_flair
               span(class="domain") (#{post.domain})
@@ -48,7 +48,7 @@ html
           if post.crosspost.is_crosspost === true
             .crosspost
               .title
-                a(href="" + post.crosspost.permalink + "")
+                a(href="" + post.crosspost.permalink + "", rel="noopener noreferrer")
                   h2 #{cleanTitle(post.crosspost.title)}
                 span(class="domain") (#{post.domain})
               .num_comments
@@ -79,7 +79,7 @@ html
                     a(href="" + post.media.source + "")
                       img(src=""+ post.media.source +"")
                   p Embed URL:
-                  a(href="" + post.media.embed_src + "", target="_blank")
+                  a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                     p #{post.media.embed_src}
                 else
                   .video
@@ -107,11 +107,11 @@ html
                 if post.media.source === 'YouTube'
                   .video
                     .title
-                      a(href="" + post.media.embed_src + "", target="_blank")
+                      a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                         p #{cleanTitle(post.media.title)}
                         span(class="domain") (#{post.domain})
                     .video-holder
-                      a(href="" + post.media.embed_src + "", target="_blank")
+                      a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                         img(src="" + post.media.thumbnail + "")
                     div(class="youtube-info")
                       p YouTube video info:
@@ -121,19 +121,19 @@ html
                   if post.media.source === 'external'
                     if post.images
                       .image
-                        a(href="" + post.media.embed_src + "", target="_blank")
+                        a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                           img(src="" + post.images.source + "", alt="")
                       if !post.media.embed_src.startsWith("https://twitter.com")
                         p
                           | source:
-                          a(href="" + post.media.embed_src + "", target="_blank")
+                          a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                             p(class="source-url") #{post.media.embed_src}
                   else
                     .video
                       a(href="" + post.media.source + "")
                         img(src="" + post.media.source + "")
                     p Embed URL:
-                    a(href="" + post.media.embed_src + "", target="_blank")
+                    a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                       p #{post.media.embed_src}
               else
                 .video

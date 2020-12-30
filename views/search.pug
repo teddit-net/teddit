@@ -7,7 +7,9 @@ html
     include includes/topbar.pug
     #search.sr.search-page
       form(action="/r/" + subreddit + "/search", method="GET")
-        input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
+        div
+          label(for="q") search
+            input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
         div
           label(for="restrict_sr") limit my search to r/#{subreddit}
             if restrict_sr === 'on'
@@ -98,14 +100,14 @@ html
         each post in json.posts
           .link
             .upvotes
-              div.arrow
+              .arrow
               span #{kFormatter(post.ups)}
-              div.arrow.down
+              .arrow.down
             .image
-              a(href="" + post.permalink + "")
-                div.no-image
+              a(href="" + post.permalink + "", rel="noopener noreferrer")
+                .no-image no image
             .title
-              a(href="" + post.permalink + "") #{cleanTitle(post.title)}
+              a(href="" + post.permalink + "", rel="noopener noreferrer") #{cleanTitle(post.title)}
             .meta
               p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
                 //- I believe finding posts by deleted authors is impossible

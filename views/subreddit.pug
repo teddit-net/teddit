@@ -92,11 +92,11 @@ html
                       a(href="" + link.permalink + "")
                         img(src="" + link.images.thumb + "", alt="")
                     else
-                      a(href=""+ link.url +"")
+                      a(href=""+ link.url +"", rel="noopener noreferrer")
                         img(src="" + link.images.thumb + "", alt="")
                   else
                     a(href="" + link.permalink + "")
-                      .no-image
+                      .no-image no image
                 .entry
                   .title
                     if link.is_self_link
@@ -105,7 +105,7 @@ html
                       != link.link_flair
                       span (#{link.domain})
                     else
-                      a(href="" + link.url + "")
+                      a(href="" + link.url + "", rel="noopener noreferrer")
                         h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
                       != link.link_flair
                       span (#{link.domain})
@@ -136,9 +136,10 @@ html
                 a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
         #sidebar
           #search.sr
-            p search
             form(action="/r/" + subreddit + "/search", method="GET")
-              input(type="text", name="q", id="q", placeholder="search")
+              div
+                label(for="q") search
+                  input(type="text", name="q", id="q", placeholder="search")
               div
                 label(for="restrict_sr") limit my search to r/#{subreddit}
                   input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")

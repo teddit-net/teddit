@@ -543,7 +543,7 @@ footer a {
 	margin-left: 8px;
 }
 #links .link .entry .title span {
-	color: #888;
+	color: #757575;
 	font-size: x-small;
 	display: inline-block;
 	padding-left: 13px;
@@ -564,12 +564,12 @@ footer a {
 #links .link .entry .meta {
 	float: left;
 	width: 100%;
-	color: #888;
+	color: #757575;
 	font-size: x-small;
 	margin-top: 2px;
 }
 #links .link .entry .meta a {
-	color: #369;
+	color: #737373;
 	padding-left: 3px;
 	padding-right: 3px;
 }
