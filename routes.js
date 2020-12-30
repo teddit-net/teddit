@@ -122,7 +122,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`), redditApiGETHeaders())
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`
+        else
+          url = `https://reddit.com/${sortby}.json?g=GLOBAL&t=${past}${d}`
+        fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -196,10 +201,18 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           return res.redirect(json[1].data.children[0].data.permalink)
       } else {
         let url = ''
-        if(post_url)
-          url = `https://oauth.reddit.com/comments/${post_id}?api_type=json`
-        else
-          url = `https://oauth.reddit.com/comments/${post_id}/comment/${comment_id}?api_type=json`
+        if(config.use_reddit_oauth) {
+          if(post_url)
+            url = `https://oauth.reddit.com/comments/${post_id}?api_type=json`
+          else
+            url = `https://oauth.reddit.com/comments/${post_id}/comment/${comment_id}?api_type=json`
+        } else {
+          if(post_url)
+            url = `https://reddit.com/comments/${post_id}.json?api_type=json`
+          else
+            url = `https://reddit.com/comments/${post_id}/comment/${comment_id}.json?api_type=json`
+        }
+        
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
@@ -284,7 +297,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           })
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${d}`), redditApiGETHeaders())
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${d}`
+        else
+          url = `https://reddit.com/r/${subreddit}/search.json?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${d}`
+        fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -407,7 +425,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com/r/${subreddit}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}`), redditApiGETHeaders())
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com/r/${subreddit}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+        else
+          url = `https://reddit.com/r/${subreddit}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+        fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -551,7 +574,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com${comments_url}?api_type=json&sort=${sortby}&context=${context}`), redditApiGETHeaders())
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com${comments_url}?api_type=json&sort=${sortby}&context=${context}`
+        else
+          url = `https://reddit.com${comments_url}.json?api_type=json&sort=${sortby}&context=${context}`
+        
+        fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
@@ -667,13 +696,23 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           })
         })()
       } else {
-        fetch(encodeURI(`https://oauth.reddit.com/user/${user}/about`), redditApiGETHeaders())
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com/user/${user}/about`
+        else
+          url = `https://reddit.com/user/${user}/about.json`
+        fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
             result.json()
             .then(json => {
               user_data.about = json
-              fetch(encodeURI(`https://oauth.reddit.com/user/${user}/overview?limit=26${d}&sort=${sortby}&t=${past}`), redditApiGETHeaders())
+              let url = ''
+              if(config.use_reddit_oauth)
+                url = `https://oauth.reddit.com/user/${user}/overview?limit=26${d}&sort=${sortby}&t=${past}`
+              else
+                url = `https://reddit.com/user/${user}.json?limit=26${d}&sort=${sortby}&t=${past}`
+              fetch(encodeURI(url), redditApiGETHeaders())
               .then(result => {
                 if(result.status === 200) {
                   result.json()
@@ -790,6 +829,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           console.log(`Redirecting to ${post_url} with cursor...`);
           return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
         } else {
+          if(!config.use_reddit_oauth)
+            return res.send(`This instance is using Reddit's public API (non-OAuth), and therefore this endpoint is not supported.`)
           let url = `https://oauth.reddit.com/api/morechildren?api_type=json&children=${ids_to_show}&limit_children=false&link_id=t3_${post_id}`
           fetch(encodeURI(url), redditApiGETHeaders())
           .then(result => {

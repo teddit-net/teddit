@@ -24,7 +24,12 @@ module.exports = function() {
               resolve(obj)
             } else {
               if(subreddit !== 'all') {
-                fetch(encodeURI(`https://oauth.reddit.com/r/${subreddit}/about`), redditApiGETHeaders())
+                let url = ''
+                if(config.use_reddit_oauth)
+                  url = `https://oauth.reddit.com/r/${subreddit}/about`
+                else
+                  url = `https://reddit.com/r/${subreddit}/about.json`
+                fetch(encodeURI(url), redditApiGETHeaders())
                 .then(result => {
                   if(result.status === 200) {
                     result.json()

@@ -1,5 +1,9 @@
 module.exports = function(fetch) {
+  const config = require('../config');
   this.initRedditApi = function() {
+    if(!config.use_reddit_oauth)
+      return null
+    
     let options = {
       body: `grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE&duration=permanent`,
       headers: {
@@ -69,6 +73,9 @@ module.exports = function(fetch) {
     })
   }
   this.redditApiGETHeaders = function() {
+    if(!config.use_reddit_oauth)
+      return { method: 'GET' }
+    
     return {
       headers: {
         Authorization: `Bearer ${reddit_access_token}`
