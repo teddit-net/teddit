@@ -206,7 +206,7 @@ a:hover, a:focus {
 	overflow: hidden;
 }
 .upvotes .arrow, .score .arrow {
-	background: url(/css/sprite.png?v=1);
+	background: url(/css/sprite.png);
 	background-position: -84px -1654px;
 	background-repeat: no-repeat;
 	margin: 2px 0px 2px 0px;
