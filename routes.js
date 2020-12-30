@@ -137,7 +137,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   console.error('Error setting the frontpage key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
-                  console.log('Fetched the frontpage from reddit API.');
+                  console.log('Fetched the frontpage from Reddit.');
                   (async () => {
                     if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, '/')
@@ -155,7 +155,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               })
             })
           } else {
-            console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+            console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
             console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
@@ -223,7 +223,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   console.error('Error setting the short URL for post key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
-                  console.log('Fetched the short URL for post from reddit API.')
+                  console.log('Fetched the short URL for post from Reddit.')
                   if(post_url)
                     return res.redirect(json[0].data.children[0].data.permalink)
                   else
@@ -232,7 +232,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               })
             })
           } else {
-            console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+            console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
             console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
@@ -312,7 +312,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   console.error('Error setting the searches key to redis.', error)
                   return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
-                  console.log('Fetched search results from reddit API.');
+                  console.log('Fetched search results from Reddit.');
                   (async () => {
                     let processed_json = await processSearchResults(json, true, after, before)
                     return res.render('search', {
@@ -330,7 +330,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               })
             })
           } else {
-            console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+            console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
             console.error(config.reddit_api_error_text)
             return res.render('index', {
               json: null,
@@ -466,7 +466,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             if(result.status === 404) {
               console.log('404 – Subreddit not found')
             } else {
-              console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
@@ -612,7 +612,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             if(result.status === 404) {
               console.log('404 – Post not found')
             } else {
-              console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
@@ -736,7 +736,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                     })
                   })
                 } else {
-                  console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+                  console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
                   console.error(config.reddit_api_error_text)
                   return res.render('index', {
                     json: null,
@@ -757,7 +757,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             if(result.status === 404) {
               console.log('404 – User not found')
             } else {
-              console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
             }
             return res.render('index', {
@@ -846,7 +846,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         return res.render('post', { post: null, user_preferences: req.cookies })
                       } else {
                         redis.setex(`morechildren_ids:${post_url}`, config.setexs.posts, JSON.stringify(all_ids))
-                        console.log(`Fetched the JSON from reddit API (endpoint "morechildren") with url: ${url}.`)
+                        console.log(`Fetched the JSON from Reddit (endpoint "morechildren") with url: ${url}.`)
                         console.log(`Redirecting to ${post_url} with cursor...`)
                         return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
                       }
@@ -859,7 +859,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 }
               })
             } else {
-              console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
+              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
               return res.render('index', {
                 json: null,
@@ -868,7 +868,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               })
             }
           }).catch(error => {
-            console.log(`Error fetching the JSON from reddit API (endpoint "morechildren") with url: ${url}.`, error)
+            console.log(`Error fetching the JSON from Reddit (endpoint "morechildren") with url: ${url}.`, error)
             return res.render('index', {
               json: null,
               http_status_code: result.status,
