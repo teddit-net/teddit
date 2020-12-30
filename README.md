@@ -10,6 +10,7 @@ Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
 * Prevents Reddit from tracking your IP or JavaScript fingerprint
 * [Unofficial API](https://codeberg.org/teddit/teddit/wiki#teddit-api) (no rate limits or Reddit account required)
 * Lightweight (teddit frontpage: ~30 HTTP requests with ~270 KB of data downloaded vs. Reddit frontpage: ~190 requests with ~24 MB)
+* Self-hostable. Anyone can setup an instance. An instance can either use Reddit's API with or without OAuth (so Reddit API key is not necessarily needed).
 
 Join the teddit discussion room on Matrix: [#teddit:matrix.org](https://matrix.to/#/#teddit:matrix.org)
 
