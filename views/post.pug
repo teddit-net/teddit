@@ -10,7 +10,7 @@ html
       p #{JSON.stringify(error_data)}
     else
       #post
-        if post.over_18 && (instance_nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false'
+        if (post.over_18 && instance_nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || (post.over_18 && user_preferences.nsfw_enabled === 'false')
           .nsfw-warning
             span 18+
             h2 You must be 18+ to view this community
