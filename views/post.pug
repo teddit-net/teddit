@@ -103,44 +103,45 @@ html
                   a(href="" + post.images.source + "")
                     img(src="" + post.images.source + "", alt="")
             else
-              if post.media.not_hosted_in_reddit
-                if post.media.source === 'YouTube'
-                  .video
-                    .title
-                      a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                        p #{cleanTitle(post.media.title)}
-                        span(class="domain") (#{post.domain})
-                    .video-holder
-                      a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                        img(src="" + post.media.thumbnail + "")
-                    div(class="youtube-info")
-                      p YouTube video info:
-                      p #{cleanTitle(post.media.title)} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
-                      p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
-                else
-                  if post.media.source === 'external'
-                    if post.images
-                      .image
-                        a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                          img(src="" + post.images.source + "", alt="")
-                      if !post.media.embed_src.startsWith("https://twitter.com")
-                        p
-                          | source:
-                          a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                            p(class="source-url") #{post.media.embed_src}
-                  else
+              if post.media
+                if post.media.not_hosted_in_reddit
+                  if post.media.source === 'YouTube'
                     .video
-                      a(href="" + post.media.source + "")
-                        img(src="" + post.media.source + "")
-                    p Embed URL:
-                    a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                      p #{post.media.embed_src}
-              else
-                .video
-                  video(controls="controls", autoplay="autoplay", loop="loop")
-                    source(src="" + post.media.source + "", type="video/mp4")
-                    |  Your browser does not support the video element.
-                  a(href="" + post.media.source + "") [media]
+                      .title
+                        a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                          p #{cleanTitle(post.media.title)}
+                          span(class="domain") (#{post.domain})
+                      .video-holder
+                        a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                          img(src="" + post.media.thumbnail + "")
+                      div(class="youtube-info")
+                        p YouTube video info:
+                        p #{cleanTitle(post.media.title)} <a href="#{post.media.embed_src}">#{post.media.embed_src}</a>
+                        p #{post.media.author_name} <a href="#{post.media.author_url}">#{post.media.author_url}</a>
+                  else
+                    if post.media.source === 'external'
+                      if post.images
+                        .image
+                          a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                            img(src="" + post.images.source + "", alt="")
+                        if !post.media.embed_src.startsWith("https://twitter.com")
+                          p
+                            | source:
+                            a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                              p(class="source-url") #{post.media.embed_src}
+                    else
+                      .video
+                        a(href="" + post.media.source + "")
+                          img(src="" + post.media.source + "")
+                      p Embed URL:
+                      a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                        p #{post.media.embed_src}
+                else
+                  .video
+                    video(controls="controls", autoplay="autoplay", loop="loop")
+                      source(src="" + post.media.source + "", type="video/mp4")
+                      |  Your browser does not support the video element.
+                    a(href="" + post.media.source + "") [media]
           if post.selftext
             div.usertext-body !{post.selftext}
           if post.contest_mode
