@@ -126,6 +126,9 @@ body.dark .comment details summary::marker {
 body.dark #links .link .entry .title a h2 {
 	color: #f0f0f0;
 }
+body.dark #links .link .entry .title a:visited h2 {
+	color: #6f6f6f;
+}
 body.dark #links .link .image .no-image,
 body.dark #user .entry .image .no-image {
 	filter: opacity(0.5);
@@ -560,6 +563,9 @@ footer a {
 	color: #0000ff;
 	font-size: medium;
 	font-weight: normal;
+}
+#links .link .entry .title a:visited h2 {
+	color: #6f6f6f;
 }
 #links .link .entry .meta {
 	float: left;
