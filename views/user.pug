@@ -131,7 +131,7 @@ html
         .info
           h1 #{data.username}
           p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
-          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> post karma
+          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
           br
           p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
           p verified: #{(data.verified) ? "yes" : "no" }
