@@ -28,7 +28,6 @@ module.exports = function() {
           for(var i = 0; i < posts_limit; i++) {
             let post = json.data.children[i].data
             let post_id = post.permalink.split('/').slice(-2)[0] + '/'
-            let url = post.permalink.replace(post_id, '')
             
             let images = null
             let is_self_link = false
@@ -73,7 +72,7 @@ module.exports = function() {
               link_flair_text: post.link_flair_text,
               ups: post.ups,
               images: images,
-              url: url,
+              url: post.url,
               edited: post.edited,
               selftext_html: unescape(post.body_html),
               num_comments: post.num_comments,
