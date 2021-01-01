@@ -25,9 +25,6 @@ module.exports = function() {
             posts_limit = json.data.children.length
           }
           
-
-            
-          
           for(var i = 0; i < posts_limit; i++) {
             let post = json.data.children[i].data
             let post_id = post.permalink.split('/').slice(-2)[0] + '/'
