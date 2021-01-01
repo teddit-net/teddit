@@ -94,35 +94,61 @@ html
                 option(value="all", selected="selected") all time
         input(type="submit", value="search")
     #links.search
-      if json.posts.length <= 0
-        h1 no results
+      if json.posts.length === 0
+        p no results
       else
-        each post in json.posts
+        each link in json.posts
           .link
             .upvotes
               .arrow
-              span #{kFormatter(post.ups)}
+              span #{kFormatter(link.ups)}
               .arrow.down
             .image
-              a(href="" + post.permalink + "", rel="noopener noreferrer")
-                .no-image no image
-            .title
-              a(href="" + post.permalink + "", rel="noopener noreferrer") #{cleanTitle(post.title)}
-            .meta
-              p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-                //- I believe finding posts by deleted authors is impossible
-                if post.author === '[deleted]'
-                  span [deleted]
+              if link.images
+                if link.is_self_link
+                  a(href="" + link.permalink + "")
+                    img(src="" + link.images.thumb + "", alt="")
                 else
-                  a(href="/u/" + post.author + "")
-                    | #{post.author}
-                | to
-                a(href="/r/" + post.subreddit + "", class="subreddit") r/#{post.subreddit}
-              a.comments(href="" + post.permalink + "") #{post.num_comments} comments
+                  a(href=""+ link.url +"", rel="noopener noreferrer")
+                    img(src="" + link.images.thumb + "", alt="")
+              else
+                a(href="" + link.permalink + "")
+                  .no-image no image
+            .entry
+              .title
+                if link.is_self_link
+                  a(href="" + link.permalink + "")
+                    h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+                  != link.link_flair
+                  span (#{link.domain})
+                else
+                  a(href="" + link.url + "", rel="noopener noreferrer")
+                    h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+                  != link.link_flair
+                  span (#{link.domain})
+              .meta
+                p.submitted submitted
+                  span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)} by
+                  if link.author === '[deleted]'
+                    span(class="deleted") [deleted]
+                  else
+                    a(href="/u/" + link.author + "")
+                      | #{link.author}
+                  != link.user_flair
+                p.to to
+                   a(href="/r/" + link.subreddit + "")
+                    | #{link.subreddit}
+                if link.stickied
+                  span(class="green") stickied
+                .links
+                  if link.over_18
+                    span.tag.nsfw NSFW
+                  a(href="" + link.permalink + "", class="comments")
+                    | #{link.num_comments} comments
     if json.before || json.after
-      p view more:
-    if json.before && !json.search_firstpage
-      a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
-    if json.after
-      a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&after=" + json.after + "") next ›
+      .view-more-inks
+        if json.before && !subreddit_front
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
+        if json.after
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&after=" + json.after + "") next ›
     include includes/footer.pug

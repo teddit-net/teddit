@@ -284,7 +284,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log('Got search key from redis.');
         (async () => {
-          let processed_json = await processSearchResults(json, false, after, before)
+          let processed_json = await processSearchResults(json, false, after, before, req.cookies)
           return res.render('search', {
             json: processed_json,
             q: q,
@@ -314,7 +314,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log('Fetched search results from Reddit.');
                   (async () => {
-                    let processed_json = await processSearchResults(json, true, after, before)
+                    let processed_json = await processSearchResults(json, true, after, before, req.cookies)
                     return res.render('search', {
                       json: processed_json,
                       q: q,
