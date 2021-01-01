@@ -102,6 +102,8 @@ const preferencesMiddleware = (req, res, next) => {
     req.cookies.theme = themeOverride
     // this will set it for future requests
     res.cookie('theme', themeOverride, { maxAge: 31536000, httpOnly: true })
+  } else if(!req.cookies.theme && req.cookies.theme !== '') {
+    req.cookies.theme = config.theme
   }
   
   let flairsOverride = req.query.flairs
