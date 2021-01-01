@@ -50,13 +50,17 @@ module.exports = function() {
               
         if(is_self_link)
           link.url = link.permalink
-          
-        let thumb_mime = ''
-        let ext = thumbnail.split('.').pop()
-        if(ext === 'png')
-          thumb_mime = 'image/png'
-        else
-          thumb_mime = 'image/jpeg'
+        
+        let enclosure = ''
+        if(thumbnail != '') {
+          let mime = ''
+          let ext = thumbnail.split('.').pop()
+          if(ext === 'png')
+            mime = 'image/png'
+          else
+            mime = 'image/jpeg'
+          enclosure = `<enclosure length="0" type="${mime}" url="${thumbnail}" />`
+        }
         
         let append_desc_html = `<br/><a href="${link.url}">[link]</a> <a href="${link.permalink}">[comments]</a>`
         
@@ -68,7 +72,7 @@ module.exports = function() {
             <domain>${link.domain}</domain>
             <id>${link.id}</id>
             <thumbnail>${thumbnail}</thumbnail>
-            <enclosure length="0" type="${thumb_mime}" url="${thumbnail}" />
+            ${enclosure}
             <link>${link.permalink}</link>
             <url>${link.url}</url>
             <description><![CDATA[${unescape(link.selftext_html)}${append_desc_html}]]></description>
