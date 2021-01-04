@@ -146,7 +146,7 @@ html
                   a(href="" + link.permalink + "", class="comments")
                     | #{link.num_comments} comments
     if json.before || json.after
-      .view-more-inks
+      .view-more-links
         if json.before && !subreddit_front
           a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
         if json.after

@@ -129,7 +129,7 @@ html
                       a(href="" + link.permalink + "", class="comments")
                         | #{link.num_comments} comments
           if json.info.before || json.info.after
-            .view-more-inks
+            .view-more-links
               if json.info.before && !subreddit_front
                 a(href="/r/" + subreddit + "/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
               if json.info.after

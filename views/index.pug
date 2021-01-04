@@ -111,7 +111,7 @@ html
               input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
           input(type="submit", value="search")
       if json.info.before || json.info.after
-        .view-more-inks
+        .view-more-links
           if json.info.before && !subreddit_front
             a(href="/r/all/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
           if json.info.after
