@@ -662,12 +662,21 @@ footer a {
 }
 .comment details summary {
 	float: left;
-}
-.comment details summary::-webkit-details-marker,.comment details summary::marker {
+	font-size: 0.833rem;
+	list-style-type: none;
 	color: #313131;
-	content: "[‒]";
+}
+.comment details > summary::-webkit-details-marker {
+	display: none;
+}
+.comment details > summary::before {
+	content: '[+]';
+	font-size: 0.9rem;
+	padding-right: 10px;
+}
+.comment details[open] > summary::before {
+	content: '[‒]';
 	padding-right: 5px;
-	cursor: pointer;
 }
 .comment details summary:hover {
 	text-decoration: underline;
@@ -680,8 +689,16 @@ footer a {
 	display: initial;
 	opacity: 0.5;
 }
-.comment details:not([open]) summary::-webkit-details-marker,.comment details:not([open]) summary::marker {
-	content: "[+]";
+.comment details summary:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+.comment details summary a,.comment details summary p {
+	display: none;
+}
+.comment details:not([open]) summary a, .comment details:not([open]) summary p {
+	display: initial;
+	opacity: 0.5;
 }
 .comment .body blockquote {
 	border-left: 2px solid #D6D5CF;
@@ -1411,10 +1428,13 @@ code {
   .comment {
     padding-left: 2.5%;
   }
-  .comment details summary::-webkit-details-marker,
-  .comment details summary::marker {
+  .comment details > summary::before {
+	  content: '[ + ]';
     font-size: 1.25rem;
-    content: "[ - ]";
+  }
+  .comment details[open] > summary::before {
+	  content: '[ ‒ ]';
+    font-size: 1.25rem;
   }
   .comment details summary {
     margin-right: 20px;
