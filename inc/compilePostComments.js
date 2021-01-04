@@ -72,9 +72,6 @@ module.exports = function() {
                 if(!morechildren_ids) {
                   let load_comms_href = parent_id
                   
-                  if(viewing_comment)
-                    load_comms_href = '../' + parent_id
-                  
                   comments_html = `
                     <div class="load-more-comments">
                       <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
@@ -92,8 +89,11 @@ module.exports = function() {
                 }
               }
             } else {
+              let link = comments.parent_id.split('_')[1]
               comments_html = `
-                <a href="${comments.id}/">continue this thread</a>
+                <div class="load-more-comments">
+                  <a href="${link}/#c">continue this thread</a>
+                </div>
               `
             }
           }
@@ -165,9 +165,6 @@ module.exports = function() {
               if(comment.children.length > 0) {
                 let parent_id = comment.parent_id.split('_')[1]
                 let load_comms_href = parent_id
-                
-                if(viewing_comment)
-                  load_comms_href = '../' + parent_id
 
                 comments_html += `
                   <div class="load-more-comments">
@@ -175,9 +172,10 @@ module.exports = function() {
                   </div>
                 `
               } else {
-                comments_html += `
+                let link = comment.parent_id.split('_')[1]   
+                comments_html = `
                   <div class="load-more-comments">
-                    <a href="${comment.id}">continue this thread</a>
+                    <a href="${link}/#c">continue this thread</a>
                   </div>
                 `
               }
