@@ -161,7 +161,7 @@ body.dark .btn {
 body.dark #post .crosspost {
 	background: var(--darkbg);
 }
-body.dark .view-more-inks a {
+body.dark .view-more-links a {
 	background: black;
 	color: white;
 }
@@ -386,12 +386,12 @@ header .tabmenu li a {
 header .tabmenu li.active a {
 	background: black;
 }
-.view-more-inks {
+.view-more-links {
 	margin-bottom: 50px;
 	float: left;
 	width: 100%;
 }
-.view-more-inks a {
+.view-more-links a {
 	margin-left: 20px;
 	padding: 1px 4px;
 	background: #eee;
