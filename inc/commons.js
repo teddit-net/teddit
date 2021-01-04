@@ -41,6 +41,8 @@ module.exports = function(request, fs) {
       let u = new URL(url)
       if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
         url = url.replace(u.host, config.domain)
+        if(u.pathname.startsWith('/gallery/'))
+          url = url.replace('/gallery/', '/comments/')
       }
       if(u.host === 'i.redd.it' || u.host === 'v.redd.it') {
         let image_exts = ['png', 'jpg', 'jpeg']
