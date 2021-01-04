@@ -17,6 +17,7 @@ module.exports = function() {
           let moderator = false
           let submitter = false
           let edited_span = ''
+          let controversial_span = ''
 
           if(post_author === comments.author) {
             classlist.push('submitter')
@@ -36,6 +37,9 @@ module.exports = function() {
           if(comments.edited) {
             edited_span = `<span title="this comment is edited">*</span>`
           }
+          if(comments.controversiality > 0) {
+            controversial_span = `<span class="controversial">†</span>`
+          }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
               <details open>
@@ -48,7 +52,7 @@ module.exports = function() {
               <div class="meta">
                 <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                 <p>${comments.user_flair}</p>
-                <p class="ups">${ups}</p>
+                <p class="ups">${ups}${controversial_span}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
                    <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
                 </p>
@@ -109,6 +113,7 @@ module.exports = function() {
               let submitter = false
               let ups = ''
               let edited_span = ''
+              let controversial_span = ''
 
               if(post_author === comment.author) {
                 classlist.push('submitter')
@@ -128,6 +133,9 @@ module.exports = function() {
               if(comment.edited) {
                 edited_span = `<span title="this comment is edited">*</span>`
               }
+              if(comment.controversiality > 0) {
+                controversial_span = `<span class="controversial">†</span>`
+              }
               comments_html += `
                 <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comment.id}">
                 <details open>
@@ -140,7 +148,7 @@ module.exports = function() {
                   <div class="meta">
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p>${comment.user_flair}</p>
-                    <p class="ups">${ups}</p>
+                    <p class="ups">${ups}${controversial_span}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
                       <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>
                     </p>

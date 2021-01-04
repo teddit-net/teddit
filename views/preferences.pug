@@ -26,6 +26,12 @@ html
               else
                 input(type="checkbox", name="flairs", id="flairs")
           .setting
+            label(for="highlight_controversial") Show a dagger (†) on comments voted controversial: 
+              if(!user_preferences.highlight_controversial || user_preferences.highlight_controversial == 'true')
+                input(type="checkbox", name="highlight_controversial", id="highlight_controversial", checked="checked")
+              else
+                input(type="checkbox", name="highlight_controversial", id="highlight_controversial")
+          .setting
             label(for="nsfw_enabled") Show NSFW content: 
               if (instance_config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false'
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled")

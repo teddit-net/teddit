@@ -117,6 +117,12 @@ const preferencesMiddleware = (req, res, next) => {
     req.cookies.nsfw_enabled = nsfwEnabledOverride
     res.cookie('nsfw_enabled', nsfwEnabledOverride, { maxAge: 31536000, httpOnly: true })
   }
+
+  let highlightControversialOverride = req.query.highlight_controversial
+  if(highlightControversialOverride) {
+    req.cookies.highlight_controversial = highlightControversialOverride
+    res.cookie('highlight_controversial', highlightControversialOverride, { maxAge: 31536000, httpOnly: true })
+  }
   
   next()
 }

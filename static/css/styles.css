@@ -640,6 +640,13 @@ footer a {
 .comment .meta .created a {
 	color: var(--graytext);
 }
+.comment .meta span.controversial {
+	font-size: var(--sm-font);
+	display:inline-block;
+	vertical-align: baseline;
+	position: relative;
+	top: -0.4em;
+}
 .comment .body {
 	float: left;
 	width: 100%;
