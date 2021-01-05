@@ -22,6 +22,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('theme')
     res.clearCookie('flairs')
     res.clearCookie('nsfw_enabled')
+    res.clearCookie("highlight_controversial")
     return res.redirect('/preferences')
   })
 
@@ -783,6 +784,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let theme = req.body.theme
     let flairs = req.body.flairs
     let nsfw_enabled = req.body.nsfw_enabled
+    let highlight_controversial = req.body.highlight_controversial
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -797,7 +799,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       nsfw_enabled = 'false'
     res.cookie('nsfw_enabled', nsfw_enabled, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
-    
+
+    if(highlight_controversial === 'on')
+      highlight_controversial = 'true'
+    else
+      highlight_controversial = 'false'
+    res.cookie('highlight_controversial', highlight_controversial, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+
     return res.redirect('/preferences')
   })
 

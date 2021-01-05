@@ -153,7 +153,8 @@ module.exports = function(fetch) {
               edited: comment.edited,
               replies: [],
               depth: 0,
-              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : ''),
+              controversiality: (user_preferences.highlight_controversial != 'false' ? comment.controversiality : '')
             }
           } else {
             obj = {
@@ -231,7 +232,8 @@ module.exports = function(fetch) {
           edited: reply.edited,
           replies: [],
           depth: depth,
-          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(reply) : '')
+          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(reply) : ''),
+          controversiality: (user_preferences.highlight_controversial != 'false' ? reply.controversiality : '')
         }
       } else {
         obj = {
@@ -267,7 +269,8 @@ module.exports = function(fetch) {
                 distinguished: comment.edited,
                 replies: [],
                 depth: depth + 1,
-                user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
+                user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : ''),
+                controversiality: (user_preferences.highlight_controversial != 'false' ? comment.controversiality : '')
               }
             } else {
               objct = {
