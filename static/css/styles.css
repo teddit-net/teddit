@@ -1498,56 +1498,6 @@ code {
   padding:4px;
   margin:5px 0
 }
-.wiki-page .wikititle {
-  margin-left:15px;
-  color:#666;
-  display:inline;
-  vertical-align:middle
-}
-.wiki-page .wikititle strong {
-  font-weight:bold
-}
-.wiki-page .pageactions {
-  display:inline-block;
-  font-size:larger;
-  margin-left:25px;
-  border-radius:5px;
-  border:1px solid #8D9CAA;
-  vertical-align:middle
-}
-.wiki-page .pageactions .wikiaction {
-  display:inline-block;
-  margin:2px;
-  padding-top:2px;
-  padding-bottom:3px;
-  border-radius:3px;
-  padding-right:10px;
-  padding-left:10px
-}
-.wiki-page .pageactions .wikiaction:hover {
-  background-color:#CEE3F8
-}
-.wiki-page .pageactions .wikiaction-current:hover {
-  background-color:#5F99CF
-}
-.wiki-page .pageactions .wikiaction-current {
-  color:white;
-  background-color:#5F99CF
-}
-.wiki-page .source {
-  width:100%;
-  display:none
-}
-.wiki-page .toggle-source {
-  float:right
-}
-.wiki-page-config-automoderator #editform textarea {
-  font-family:"Bitstream Vera Sans Mono",Consolas,monospace
-}
-.wiki-page-config-automoderator .wiki-page-content pre {
-  word-wrap:break-word;
-  white-space:pre-wrap
-}
 /* Fix spoiler texts not showing without JS */
 .md .md-spoiler-text:not(.revealed):active,.md .md-spoiler-text:not(.revealed):focus,.md .md-spoiler-text:not(.revealed):hover {
 	color: black;
