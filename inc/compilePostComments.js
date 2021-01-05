@@ -38,7 +38,7 @@ module.exports = function() {
             edited_span = `<span title="this comment is edited">*</span>`
           }
           if(comments.controversiality > 0) {
-            controversial_span = `<span class="controversial">†</span>`
+            controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
           }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
@@ -134,7 +134,7 @@ module.exports = function() {
                 edited_span = `<span title="this comment is edited">*</span>`
               }
               if(comment.controversiality > 0) {
-                controversial_span = `<span class="controversial">†</span>`
+                controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
               }
               comments_html += `
                 <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comment.id}">
