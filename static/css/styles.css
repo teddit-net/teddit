@@ -988,6 +988,10 @@ footer a {
 #user .comment details {
 	padding-top: 2px;
 }
+#user .comment details a.context,
+#user .comment details a.comments {
+	float: left;
+}
 #user .comment .meta p.ups,#user .comment .meta p.created {
 	font-size: var(--sm-font);
 	padding-right: 5px;
