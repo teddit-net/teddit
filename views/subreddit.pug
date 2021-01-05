@@ -48,6 +48,8 @@ html
                 a(href="/r/" + subreddit + "/controversial") controversial
               li(class=sortby === 'top' ? 'active' : '')
                 a(href="/r/" + subreddit + "/top") top
+              li
+                a(href="/r/" + subreddit + "/wiki") wiki
         #links.sr
           if sortby === 'top' || sortby === 'controversial'
             details

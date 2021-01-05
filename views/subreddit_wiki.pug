@@ -15,7 +15,20 @@ html
           h1 teddit
         .bottom
           a(href="/r/" + subreddit + "", class="subreddit")
-            h2 wiki - #{subreddit}
-      .wiki-content
+            h2 #{subreddit}
+          ul.tabmenu
+            li
+              a(href="/r/" + subreddit) hot
+            li
+              a(href="/r/" + subreddit + "/new") new
+            li
+              a(href="/r/" + subreddit + "/rising") rising
+            li
+              a(href="/r/" + subreddit + "/controversial") controversial
+            li
+              a(href="/r/" + subreddit + "/top") top
+            li(class="active")
+              a(href="/r/" + subreddit + "/wiki") wiki
+      .wiki-page.wiki-content
         != content_html
     include includes/footer.pug
