@@ -29,7 +29,6 @@ Community instances:
 
 ## TODO
 
-* Subreddit wikis
 * User trophies
 * "other discussions" feature
 * "Open on reddit" links

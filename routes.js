@@ -346,6 +346,81 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
   
+  app.get('/r/:subreddit/wiki/:page?', (req, res, next) => {
+    let subreddit = req.params.subreddit
+    let page = req.params.page
+    
+    if(!page)
+      page = 'index'
+    
+    let key = `${subreddit.toLowerCase()}:wiki:page:${page}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error(`Error getting the ${subreddit} wiki key from redis.`, error)
+        return res.render('index', { json: null, user_preferences: req.cookies })
+      }
+      if(json) {
+        console.log(`Got /r/${subreddit} wiki key from redis.`)
+        json = JSON.parse(json)
+        return res.render('subreddit_wiki', {
+          content_html: unescape(json.data.content_html),
+          subreddit: subreddit,
+          user_preferences: req.cookies
+        })
+      } else {
+        let url = ''
+        if(config.use_reddit_oauth)
+          url = `https://oauth.reddit.com/r/${subreddit}/wiki/${page}?api_type=json`
+        else
+          url = `https://reddit.com/r/${subreddit}/wiki/${page}.json?api_type=json`
+        fetch(encodeURI(url), redditApiGETHeaders())
+        .then(result => {
+          if(result.status === 200) {
+            result.json()
+            .then(json => {
+              redis.setex(key, config.setexs.wikis, JSON.stringify(json), (error) => {
+                if(error) {
+                  console.error(`Error setting the ${subreddit} wiki key to redis.`, error)
+                  return res.render('subreddit', { json: null, user_preferences: req.cookies })
+                } else {
+                  console.log(`Fetched the JSON from reddit.com/r/${subreddit}/wiki.`)
+                  return res.render('subreddit_wiki', {
+                    content_html: unescape(json.data.content_html),
+                    subreddit: subreddit,
+                    user_preferences: req.cookies
+                  })
+                }
+              })
+            })
+          } else {
+            if(result.status === 404) {
+              console.log('404 – Subreddit wiki not found')
+            } else {
+              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
+              console.error(config.reddit_api_error_text)
+            }
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies
+            })
+          }
+        }).catch(error => {
+          console.error(`Error fetching the JSON file from reddit.com/r/${subreddit}/wiki.`, error)
+        })
+      }
+    })
+  })
+  
+  app.get('/r/:subreddit/w/:page?', (req, res, next) => {
+    /* "w" is a shorturl for wikis for example https://old.reddit.com/r/privacytoolsIO/w/index */
+    let subreddit = req.params.subreddit
+    let page = req.params.page
+    if(!page)
+      page = 'index'
+    return res.redirect(`/r/${subreddit}/wiki/${page}`)
+  })
+  
   app.get('/r/:subreddit/:sort?', (req, res, next) => {
     let subreddit = req.params.subreddit
     let sortby = req.params.sort

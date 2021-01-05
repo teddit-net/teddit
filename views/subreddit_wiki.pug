@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    title wiki /r/#{subreddit}
+    include includes/head.pug
+  body(class=""+ user_preferences.theme +"")
+    include includes/topbar.pug
+    if json === null
+      h1 Error occured
+      if error
+        p Error: #{JSON.stringify(json.error_data)}
+    else
+      header
+        a(href="/", class="main")
+          h1 teddit
+        .bottom
+          a(href="/r/" + subreddit + "", class="subreddit")
+            h2 wiki - #{subreddit}
+      .wiki-content
+        != content_html
+    include includes/footer.pug

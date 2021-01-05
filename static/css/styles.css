@@ -1408,6 +1408,146 @@ code {
 	font-size:1em;
 	line-height:1.25em;
 }
+/* REDDIT WIKI STYLES */
+.wiki-content {
+  margin:15px;
+  float: left;
+  width: calc(100% - 30px);
+  font-size: 0.8rem;
+}
+.wiki-content .pagelisting {
+  font-size:1.2em;
+  font-weight:bold;
+  color:black;
+  padding-left:25px
+}
+.wiki-content .pagelisting ul {
+  list-style:disc;
+  padding:2px;
+  padding-left:10px
+}
+.wiki-content .description {
+  padding-bottom:5px
+}
+.wiki-content .description h2 {
+  color:#222
+}
+.wiki-content .wikirevisionlisting .generic-table {
+  width:100%
+}
+.wiki-content .wikirevisionlisting table tr td {
+  padding-right:15px
+}
+.wiki-content .wikirevisionlisting .revision.deleted {
+  opacity:.5;
+  text-decoration:line-through
+}
+.wiki-content .wikirevisionlisting .revision.hidden {
+  opacity:.5
+}
+.wiki-content .wikirevisionlisting .revision.hidden td {
+  opacity:inherit
+}
+.wiki-content .wiki.md {
+  max-width:none
+}
+.wiki-content .wiki>.toc>ul {
+  float:right;
+  padding:11px 22px;
+  margin:0 0 11px 22px;
+  border:1px solid #8D9CAA;
+  list-style:none;
+  max-width:300px
+}
+.wiki-content .wiki>.toc>ul ul {
+  margin:4px 0;
+  padding-left:22px;
+  border-left:1px dotted #cce;
+  list-style:none
+}
+.wiki-content .wiki>.toc>ul li {
+  margin:0
+}
+.wiki-content .fancy-settings .toggle {
+  display:inline-block;
+  padding-right:15px
+}
+.wiki-content #wiki_revision_reason {
+  padding:2px;
+  margin-left:0;
+  width:100%
+}
+.wiki-content .wiki_button {
+  padding:2px
+}
+.wiki-content .throbber {
+  margin-bottom:-5px
+}
+.wiki-content .discussionlink {
+  display:inline-block;
+  margin-left:15px;
+  padding-right:50px;
+  margin-top:5px
+}
+.wiki-content .discussionlink a {
+  padding-left:15px
+}
+.wiki-content .markhelp {
+  max-width:500px;
+  font-size:1.2em;
+  padding:4px;
+  margin:5px 0
+}
+.wiki-page .wikititle {
+  margin-left:15px;
+  color:#666;
+  display:inline;
+  vertical-align:middle
+}
+.wiki-page .wikititle strong {
+  font-weight:bold
+}
+.wiki-page .pageactions {
+  display:inline-block;
+  font-size:larger;
+  margin-left:25px;
+  border-radius:5px;
+  border:1px solid #8D9CAA;
+  vertical-align:middle
+}
+.wiki-page .pageactions .wikiaction {
+  display:inline-block;
+  margin:2px;
+  padding-top:2px;
+  padding-bottom:3px;
+  border-radius:3px;
+  padding-right:10px;
+  padding-left:10px
+}
+.wiki-page .pageactions .wikiaction:hover {
+  background-color:#CEE3F8
+}
+.wiki-page .pageactions .wikiaction-current:hover {
+  background-color:#5F99CF
+}
+.wiki-page .pageactions .wikiaction-current {
+  color:white;
+  background-color:#5F99CF
+}
+.wiki-page .source {
+  width:100%;
+  display:none
+}
+.wiki-page .toggle-source {
+  float:right
+}
+.wiki-page-config-automoderator #editform textarea {
+  font-family:"Bitstream Vera Sans Mono",Consolas,monospace
+}
+.wiki-page-config-automoderator .wiki-page-content pre {
+  word-wrap:break-word;
+  white-space:pre-wrap
+}
 /* Fix spoiler texts not showing without JS */
 .md .md-spoiler-text:not(.revealed):active,.md .md-spoiler-text:not(.revealed):focus,.md .md-spoiler-text:not(.revealed):hover {
 	color: black;
