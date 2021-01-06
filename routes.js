@@ -9,6 +9,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processSearches = require('./inc/processSearchResults.js')();
   let processAbout = require('./inc/processSubredditAbout.js')();
   let tedditApiSubreddit = require('./inc/teddit_api/handleSubreddit.js')();
+  let tedditApiUser = require('./inc/teddit_api/handleUser.js')();
 
   app.get('/about', (req, res, next) => {
     return res.render('about', { user_preferences: req.cookies })
@@ -714,6 +715,15 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let after = req.query.after
     let before = req.query.before
     let user_data = {}
+    let api_req = req.query.api
+    let api_type = req.query.type
+    let api_target = req.query.target
+    
+    if(req.query.hasOwnProperty('api'))
+      api_req = true
+    else
+      api_req = false
+    
     if(!after) {
       after = ''
     }
@@ -763,13 +773,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got user ${user} key from redis.`);
         (async () => {
-          let processed_json = await processJsonUser(json, false, after, before, req.cookies)
-          return res.render('user', {
-            data: processed_json,
-            sortby: sortby,
-            past: past,
-            user_preferences: req.cookies
-          })
+          if(api_req) {
+            return handleTedditApiUser(json, req, res, 'redis', api_type, api_target, user, after, before)
+          } else {
+            let processed_json = await processJsonUser(json, false, after, before, req.cookies)
+            return res.render('user', {
+              data: processed_json,
+              sortby: sortby,
+              past: past,
+              user_preferences: req.cookies
+            })
+          }
         })()
       } else {
         let url = ''
@@ -800,13 +814,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         return res.render('index', { post: null, user_preferences: req.cookies })
                       } else {
                         (async () => {
-                          let processed_json = await processJsonUser(user_data, true, after, before, req.cookies)
-                          return res.render('user', {
-                            data: processed_json,
-                            sortby: sortby,
-                            past: past,
-                            user_preferences: req.cookies
-                          })
+                          if(api_req) {
+                            return handleTedditApiUser(user_data, req, res, 'online', api_type, api_target, user, after, before)
+                          } else {
+                            let processed_json = await processJsonUser(user_data, true, after, before, req.cookies)
+                            return res.render('user', {
+                              data: processed_json,
+                              sortby: sortby,
+                              past: past,
+                              user_preferences: req.cookies
+                            })
+                          }
                         })()
                       }
                     })
