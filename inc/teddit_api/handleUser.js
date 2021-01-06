@@ -42,14 +42,24 @@ module.exports = function() {
         if(kind === 't3') {
           let s = await downloadAndSave(post.thumbnail, 'thumb_')
           let thumbnail = ''
-          if(s !== 'self') {
+          let enclosure = ''
+          if(s !== 'self' && s != '') {
             let img = `${protocol}://${config.domain}${s}`
             thumbnail = `<thumbnail>${img}</thumbnail>`
+            
+            let mime = ''
+            let ext = s.split('.').pop()
+            if(ext === 'png')
+              mime = 'image/png'
+            else
+              mime = 'image/jpeg'
+            enclosure = `<enclosure length="0" type="${mime}" url="${img}" />`
           }
           let append_desc_html = `<br/><a href="${permalink}">[comments]</a>`
           t3_elements = `
             <description><![CDATA[${unescape(post.selftext_html)}${append_desc_html}]]></description>
             ${thumbnail}
+            ${enclosure}
           `
         }
         
