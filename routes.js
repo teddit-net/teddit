@@ -33,6 +33,21 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   
   app.get('/search', (req, res, next) => {
     let q = req.query.q
+
+    if (typeof q === "undefined") {
+      return res.render('search', {
+        json: { posts: [] },
+        no_query: true,
+        q: '',
+        restrict_sr: undefined,
+        nsfw: undefined,
+        subreddit: 'all',
+        sortby: undefined,
+        past: undefined,
+        user_preferences: req.cookies 
+      })
+    }
+
     let restrict_sr = req.query.restrict_sr
     let nsfw = req.query.nsfw
     let sortby = req.query.sort
@@ -289,6 +304,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           let processed_json = await processSearchResults(json, false, after, before, req.cookies)
           return res.render('search', {
             json: processed_json,
+            no_query: false,
             q: q,
             restrict_sr: restrict_sr,
             nsfw: nsfw,
@@ -318,6 +334,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   (async () => {
                     let processed_json = await processSearchResults(json, true, after, before, req.cookies)
                     return res.render('search', {
+                      no_query: false,
                       json: processed_json,
                       q: q,
                       restrict_sr: restrict_sr,
