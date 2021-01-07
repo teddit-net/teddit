@@ -1,7 +1,10 @@
 doctype html
 html
   head
-    title search results for #{q}
+    if no_query
+      title search teddit
+    else
+      title search results for #{q}
     include includes/head.pug
   body(class=""+ user_preferences.theme +"")
     include includes/topbar.pug
@@ -94,7 +97,7 @@ html
                 option(value="all", selected="selected") all time
         input(type="submit", value="search")
     #links.search
-      if json.posts.length === 0
+      if json.posts.length === 0 && !no_query
         p no results
       else
         each link in json.posts
