@@ -185,10 +185,12 @@ html
                   each subreddit in subreddits
                     -
                       let subbed_to_this_subreddit = false
-                      let subbed = user_preferences.subbed_subreddits
-                      for(let i = 0; i < subbed.length; i++) {
-                        if(subbed[i] === subreddit)
-                          subbed_to_this_subreddit = true
+                      if(user_preferences.subbed_subreddits) {
+                        let subbed = user_preferences.subbed_subreddits
+                        for(let i = 0; i < subbed.length; i++) {
+                          if(subbed[i] === subreddit)
+                            subbed_to_this_subreddit = true
+                        }
                       }
                     li
                       if subbed_to_this_subreddit
