@@ -29,6 +29,7 @@ Community instances:
 
 ## TODO
 
+* Import/export preferences
 * User trophies
 * "other discussions" feature
 * "Open on reddit" links

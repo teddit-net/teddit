@@ -37,6 +37,19 @@ html
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled")
               else
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled", checked="checked")
+          legend Subscribed subreddits
+          .setting
+            details
+              summary
+                span Show subscribed subreddits
+              if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
+                ul.subreddit-listing
+                  each subreddit in user_preferences.subbed_subreddits
+                    li
+                      a(href="/unsubscribe/" + subreddit + "/?b=/preferences", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                      a(href="/r/" + subreddit) #{subreddit}
+              else
+                small no subscribed subreddits
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences

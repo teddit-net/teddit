@@ -23,12 +23,91 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('theme')
     res.clearCookie('flairs')
     res.clearCookie('nsfw_enabled')
-    res.clearCookie("highlight_controversial")
+    res.clearCookie('highlight_controversial')
+    res.clearCookie('subbed_subreddits')
     return res.redirect('/preferences')
   })
 
   app.get('/privacy', (req, res, next) => {
     return res.render('privacypolicy', { user_preferences: req.cookies })
+  })
+
+  app.get('/subscribe/:subreddit', (req, res, next) => {
+    let subreddit = req.params.subreddit
+    let subbed = req.cookies.subbed_subreddits
+    let back = req.query.b
+    
+    if(!subreddit)
+      return res.redirect('/')
+    
+    if(!subbed || !Array.isArray(subbed))
+      subbed = []
+      
+    if(!subbed.includes(subreddit))
+      subbed.push(subreddit)
+
+    res.cookie('subbed_subreddits', subbed, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(!back)
+      return res.redirect('/r/' + subreddit)
+    else {
+      back = back.replace(/,/g, '+')
+      return res.redirect(back)
+    }
+  })
+  
+  app.get('/import_subscriptions/:subreddits', (req, res, next) => {
+    let subreddits = req.params.subreddits
+    let subbed = req.cookies.subbed_subreddits
+    let back = req.query.b
+    
+    if(!subreddits)
+      return res.redirect('/')
+    
+    if(!subbed || !Array.isArray(subbed))
+      subbed = []
+      
+    subreddits = subreddits.split('+')
+    for(var i = 0; i < subreddits.length; i++) {
+      if(!subbed.includes(subreddits[i]))
+        subbed.push(subreddits[i])
+    }
+    
+    res.cookie('subbed_subreddits', subbed, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(!back)
+      return res.redirect('/r/' + subreddits)
+    else {
+      back = back.replace(/,/g, '+').replace(/ /g, '+')
+      return res.redirect(back)
+    }
+  })
+  
+  app.get('/unsubscribe/:subreddit', (req, res, next) => {
+    let subreddit = req.params.subreddit
+    let subbed = req.cookies.subbed_subreddits
+    let back = req.query.b
+    
+    if(!subreddit || !subbed || !Array.isArray(subbed)) {
+      res.clearCookie('subbed_subreddits')
+      return res.redirect('/')
+    }
+    
+    var index = subbed.indexOf(subreddit)
+    if(index !== -1)
+      subbed.splice(index, 1)
+
+    if(subbed.length <= 0)
+      res.clearCookie('subbed_subreddits')
+    else
+      res.cookie('subbed_subreddits', subbed, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+
+    if(!back)
+      return res.redirect('/r/' + subreddit)
+    else {
+      back = back.replace(/,/g, '+')
+      return res.redirect(back)
+    }
   })
   
   app.get('/search', (req, res, next) => {
@@ -116,8 +195,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       api_req = true
     else
       api_req = false
-    
+     
     let key = `/after:${after}:before:${before}:sort:${sortby}:past:${past}`
+    
+    let subbed_subreddits = req.cookies.subbed_subreddits
+    let get_subbed_subreddits = false
+    if(subbed_subreddits && Array.isArray(subbed_subreddits)) {
+      get_subbed_subreddits = true
+      subbed_subreddits = subbed_subreddits.join('+')
+      key = `${subbed_subreddits.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}`
+    }
+    
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the frontpage key from redis.', error)
@@ -140,10 +228,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         })()
       } else {
         let url = ''
-        if(config.use_reddit_oauth)
-          url = `https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`
-        else
-          url = `https://reddit.com/${sortby}.json?g=GLOBAL&t=${past}${d}`
+        if(config.use_reddit_oauth) {
+          if(get_subbed_subreddits)
+            url = `https://oauth.reddit.com/r/${subbed_subreddits}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+          else
+            url = `https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`
+        } else {
+          if(get_subbed_subreddits)
+            url = `https://reddit.com/r/${subbed_subreddits}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+          else
+            url = `https://reddit.com/${sortby}.json?g=GLOBAL&t=${past}${d}`
+        }
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {

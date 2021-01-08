@@ -150,6 +150,20 @@ html
                   input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
               input(type="submit", value="search")
           if subreddit_about
+            .subscribe
+              -
+                let subbed_to_this_subreddit = false
+                let subbed = []
+                if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+                  subbed = user_preferences.subbed_subreddits
+                for(let i = 0; i < subbed.length; i++) {
+                  if(subbed[i] === subreddit)
+                    subbed_to_this_subreddit = true
+                }
+              if subbed_to_this_subreddit
+                a(href="/unsubscribe/" + subreddit + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+              else
+                a(href="/subscribe/" + subreddit + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
             if subreddit_about.subscribers
               .content
                 p subscribers: #{subreddit_about.subscribers.toLocaleString()}
@@ -169,6 +183,20 @@ html
                   let subreddits = subreddit.split('+')
                 ul(class="subreddit-listing")
                   each subreddit in subreddits
+                    -
+                      let subbed_to_this_subreddit = false
+                      let subbed = user_preferences.subbed_subreddits
+                      for(let i = 0; i < subbed.length; i++) {
+                        if(subbed[i] === subreddit)
+                          subbed_to_this_subreddit = true
+                      }
                     li
-                      a(href="/r/" + subreddit + "") #{subreddit}
+                      if subbed_to_this_subreddit
+                        a(href="/unsubscribe/" + subreddit + "?b=/r/" + subreddits + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                        a(href="/r/" + subreddit + "") #{subreddit}
+                      else
+                        a(href="/subscribe/" + subreddit + "?b=/r/" + subreddits + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
+                        a(href="/r/" + subreddit + "") #{subreddit}
+                  - joined_subreddits = subreddits.join("+")
+                  a(href="/import_subscriptions/" + joined_subreddits + "?b=/r/" + joined_subreddits) subscribe to all of these subreddits
     include includes/footer.pug
