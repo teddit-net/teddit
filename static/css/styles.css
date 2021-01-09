@@ -774,8 +774,9 @@ footer a {
 	padding-top: 0px;
 }
 #user .info {
-	float: left;
+	float: right;
 	width: 20%;
+	text-align: center;
 }
 #user .info h1 {
 	font-size: 1.1rem;
@@ -789,9 +790,6 @@ footer a {
 #user .entries .entry .meta .subreddit,
 #user .entries .entry .meta .flair {
 	float: left;
-}
-#user .comment {
-	width: 100%;
 }
 #user .entries .entry .meta a {
 	margin-right: 5px;
@@ -1352,6 +1350,19 @@ code {
 	color: black;
 	background: #fff0;
 	transition: none;
+}
+@media only screen and (max-width: 768px) {
+  #user .info {
+		float: right;
+		width: 100%;
+		text-align: center;
+		margin: 0px 0px 20px 0px;
+  }
+  #user .entries {
+		float: left;
+	  width: calc(100% - 20px);
+		min-height: 100vh;
+  }
 }
 @media only screen and (max-width: 600px) {
   #sidebar {

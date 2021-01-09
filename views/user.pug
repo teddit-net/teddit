@@ -58,6 +58,13 @@ html
                   a(href="?sort=" + sortby + "&t=year") past year
                 li(class=past === 'all' ? 'active' : '')
                   a(href="?sort=" + sortby + "&t=all") all time
+        .info
+          h1 #{data.username}
+          p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
+          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
+          br
+          p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
+          p verified: #{(data.verified) ? "yes" : "no" }
         .entries
           if !data.posts || data.posts.length <= 0
             h3 no posts/comments
@@ -128,11 +135,4 @@ html
             a(href="/u/" + data.username + "?before=" + data.before + "") ‹ prev
           if data.after
             a(href="/u/" + data.username + "?after=" + data.after + "") next ›
-        .info
-          h1 #{data.username}
-          p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
-          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
-          br
-          p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
-          p verified: #{(data.verified) ? "yes" : "no" }
     include includes/footer.pug
