@@ -9,6 +9,7 @@ div#topbar
         a(href="/preferences") [preferences]
   .top-links
     if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
+      a(href="/r/all") All
       each subreddit in user_preferences.subbed_subreddits
         a(href="/r/" + subreddit) #{subreddit}
     else
