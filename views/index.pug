@@ -10,21 +10,24 @@ html
       p #{JSON.stringify(http_status_code)}
       p #{JSON.stringify(http_statustext)}
     else
+      - var subreddit = ''
+      if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+        - subreddit = '/r/' + user_preferences.subbed_subreddits.join('+')
       header
         a(href="/", class="main")
           h1 teddit
         .bottom
           ul.tabmenu
             li(class=!sortby || sortby == 'hot' ? 'active' : '')
-              a(href="/") hot
+              a(href="" + subreddit +  "/") hot
             li(class=sortby === 'new' ? 'active' : '')
-              a(href="/new") new
+              a(href="" + subreddit +  "/new") new
             li(class=sortby === 'rising' ? 'active' : '')
-              a(href="/rising") rising
+              a(href="" + subreddit +  "/rising") rising
             li(class=sortby === 'controversial' ? 'active' : '')
-              a(href="/controversial") controversial
+              a(href="" + subreddit +  "/controversial") controversial
             li(class=sortby === 'top' ? 'active' : '')
-              a(href="/top") top
+              a(href="" + subreddit +  "/top") top
       if !before && !after && sortby === 'hot'
         #intro
           h1 Welcome to teddit
@@ -112,8 +115,9 @@ html
           input(type="submit", value="search")
       if json.info.before || json.info.after
         .view-more-links
-          if json.info.before && !subreddit_front
-            a(href="/r/all/" + sortby + "?t="+ (past ? past : '') +"&before=" + json.info.before + "") ‹ prev
+          - var subreddit = 'all'
+            if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+              - subreddit = user_preferences.subbed_subreddits.join('+')
           if json.info.after
-            a(href="/r/all/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+            a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
     include includes/footer.pug     
