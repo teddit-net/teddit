@@ -1,0 +1,184 @@
+:root {
+    --darkbg: #0F0F0F;
+    --darkbglight: #252525;
+    --darklinkcolor: #599bff;
+}
+
+body.dark {
+	background: var(--darkbg);
+	color: #cacaca;
+}
+body.dark nav {
+	background: #1f1f1f;
+}
+body.dark .top-links a {
+	background: var(--darkbg);
+	color: #bfbfbf;
+}
+body.dark header {
+	background: var(--darkbglight);
+	color: #f1f1f1;
+}
+body.dark #post header div a {
+	color: var(--darklinkcolor);
+	text-decoration: none;
+}
+body.dark a {
+	color: #f5f5f5;
+}
+body.dark a:hover, body.dark a:focus {
+	color: #3d8aff;
+	text-decoration: underline;
+}
+body.dark #post header div a:hover,
+body.dark #post header div a:focus {
+	text-decoration: underline;
+}
+body.dark input[type="submit"]:hover,
+body.dark input[type="submit"]:focus,
+body.dark .btn:hover,
+body.dark .btn:focus {
+	background: white;
+	color: black;
+	text-decoration: none;
+}
+body.dark form legend {
+	border-bottom: 1px solid #353535;
+}
+body.dark #post .title a {
+	color: var(--darklinkcolor);
+}
+body.dark #post .submitted {
+	color: #a5a5a5;
+}
+body.dark #post .usertext-body {
+	background: #0a0a0a;
+	border: 1px solid #404040;
+}
+body.dark #post .infobar {
+	background-color: #d2d2d2;
+	color: #2f2f2f;
+}
+body.dark #post .infobar.blue {
+	background: #c7e3f9;
+	border: 1px solid #4b78a4;
+}
+body.dark #post .infobar a {
+	color: #0356d4;
+}
+body.dark header .tabmenu li a {
+	background: #3e3e3e;
+}
+body.dark header .tabmenu li a:hover, body.dark header .tabmenu li a:focus {
+	text-decoration: underline;
+	color: white;
+}
+body.dark #search {
+	color: #d2d2d2;
+}
+body.dark .md {
+	color: #dadada;
+}
+body.dark .md blockquote, body.dark .md del {
+	color: #777777;
+}
+body.dark .md code, body.dark .md pre {
+	background: black;
+	color: white;
+}
+body.dark .comment .body blockquote {
+	background: #313131;
+	color: #afafaf;
+	border-color: #464646;
+}
+body.dark .even-depth {
+	background: var(--darkbg);
+}
+body.dark .odd-depth {
+	background: var(--darkbglight);
+}
+
+body.dark .comment .comment {
+	border-left: 1px solid #545454;
+}
+
+body.dark .comment .meta .created a {
+	color: #7b7b7b;
+}
+body.dark .comment details summary {
+	color: #868686;
+}
+body.dark .comment details summary::-webkit-details-marker,
+body.dark .comment details summary::marker {
+	color: #868686;
+}
+body.dark #links .link .entry .title a h2 {
+	color: #f0f0f0;
+}
+body.dark #links .link .entry .title a:visited h2 {
+	color: #6f6f6f;
+}
+body.dark #links .link .image .no-image,
+body.dark #user .entry .image .no-image {
+	filter: opacity(0.5);
+}
+body.dark #user .comment {
+	width: 100%;
+	background: var(--darkbg);
+}
+body.dark #links .link .upvotes {
+	color: #858585;
+}
+body.dark .upvotes .arrow,
+body.dark .score .arrow {
+	filter: opacity(0.5);
+}
+body.dark #links .link .entry .meta a {
+	color: #c7c7c7;
+}
+body.dark .content .bottom img {
+	filter: invert(1);
+}
+body.dark .container .content {
+	border: 1px solid #5e5e5e;
+}
+body.dark input[type="submit"],
+body.dark .btn {
+	background: black;
+	color: white;
+}
+body.dark #post .crosspost {
+	background: var(--darkbg);
+}
+body.dark .view-more-links a {
+	background: black;
+	color: white;
+}
+body.dark .md .md-spoiler-text:not(.revealed):active,
+body.dark .md .md-spoiler-text:not(.revealed):focus,
+body.dark .md .md-spoiler-text:not(.revealed):hover {
+	background: white;
+	color: black;
+}
+body.dark .comment .body a,
+body.dark .usertext-body a {
+	color: #3d99fb;
+}
+body.dark header .tabmenu li.active a {
+  background: #acacac;
+  color: #151515;
+}
+body.dark #search form input[type="text"] {
+  background: #0f0f0f;
+  color: white;
+}
+body.dark footer {
+  background: #2f2f2f;
+}
+body.dark footer a {
+  color: #999;
+}
+body.dark .flair {
+    color: #eaeaea !important;
+    background-color: #404040 !important;
+}
