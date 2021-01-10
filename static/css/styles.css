@@ -3,6 +3,7 @@
 	--lightgray: #f5f5f5;
 	--whitebg: #ffffff;
 	--linkcolor: #000bac;
+	--lightlinkcolor: #32399f;
 	--graytext: #6f6f6f;
 }
 * {
@@ -382,7 +383,7 @@ footer a {
 #links .link .entry .title a h2 {
 	display: initial;
 	font-size: 16px;
-	color: #0000ff;
+	color: var(--linkcolor);
 	font-size: medium;
 	font-weight: normal;
 }
@@ -397,7 +398,7 @@ footer a {
 	margin-top: 2px;
 }
 #links .link .entry .meta a {
-	color: #737373;
+	color: var(--lightlinkcolor);
 	padding-left: 3px;
 	padding-right: 3px;
 }
@@ -1094,7 +1095,7 @@ a.sub-to-subreddit.gray {
 	color:#4f4f4f;
 }
 .md a {
-	color:#0079d3;
+	color: var(--linkcolor);
 	text-decoration:none;
 }
 .md a del {
