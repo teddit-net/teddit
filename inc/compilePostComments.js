@@ -35,7 +35,7 @@ module.exports = function() {
             ups = `${kFormatter(comments.ups)} points`
           }
           if(comments.edited) {
-            edited_span = `<span title="this comment is edited">*</span>`
+            edited_span = `<span title="last edited ${toUTCString(comments.edited)}">*</span>`
           }
           if(comments.controversiality > 0) {
             controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
@@ -75,7 +75,7 @@ module.exports = function() {
               } else {
                 if(!morechildren_ids) {
                   let load_comms_href = parent_id
-                  
+
                   comments_html = `
                     <div class="load-more-comments">
                       <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
@@ -131,7 +131,7 @@ module.exports = function() {
                 ups = `${kFormatter(comment.ups)} points`
               }
               if(comment.edited) {
-                edited_span = `<span title="this comment is edited">*</span>`
+                edited_span = `<span title="last edited ${toUTCString(comments.edited)}">*</span>`
               }
               if(comment.controversiality > 0) {
                 controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
@@ -180,7 +180,7 @@ module.exports = function() {
                   </div>
                 `
               } else {
-                let link = comment.parent_id.split('_')[1]   
+                let link = comment.parent_id.split('_')[1]
                 comments_html = `
                   <div class="load-more-comments">
                     <a href="${link}/#c">continue this thread</a>
