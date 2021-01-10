@@ -1377,6 +1377,9 @@ code {
     margin-left: 20px;
     margin-top: 30px;
   }
+  #search.sr {
+    margin-top: 30px;
+	}
   #links.sr {
     width: calc(100% - 10px);
   }
@@ -1425,6 +1428,9 @@ code {
 	#post .crosspost {
 		margin: auto 2.5%;
 	}
+	a.sub-to-subreddit {
+		padding: 8px 10px 8px 10px;
+  }
 }
 
 
