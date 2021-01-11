@@ -1,34 +1,33 @@
 # Changelog
-# Changelog
 
-## 2021-1-10
+## 2021-01-10
 
-## Added
+### Added
 
 - Edit date for comments
 
-## Fixed
+### Fixed
 
 - Position of subscribe button in mobile
-- Link colours
+- Inconsistency of Link colours
 
-## 2021-1-09
+## 2021-01-09
 
-## Added
+### Added
 
 - User info on top of entries
-- r/all
+- r/all even when users have subscriptions
 
-## Fixed
+### Fixed
 - Previous/Next links on page.
 
-## 2021-1-08
+## 2021-01-08
 
-## Added
+### Added
 
-- Subscribe to subreddits
+- Subscribe to subreddits and manage subscriptions from preferences page.
 
-## Fixed
+### Fixed
 
 - Fixed subreddit view when there are no subscriptions.
 
