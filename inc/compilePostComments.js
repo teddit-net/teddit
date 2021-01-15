@@ -54,7 +54,7 @@ module.exports = function() {
                 <p>${comments.user_flair}</p>
                 <p class="ups">${ups}${controversial_span}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
-                   <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
+                   <a href="${comments.permalink}#c">${timeDifference(comments.created)}${edited_span}</a>
                 </p>
                 <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
               </div>
@@ -150,7 +150,7 @@ module.exports = function() {
                     <p>${comment.user_flair}</p>
                     <p class="ups">${ups}${controversial_span}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
-                      <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>
+                      <a href="${comment.permalink}#c">${timeDifference(comment.created)}${edited_span}</a>
                     </p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </div>
