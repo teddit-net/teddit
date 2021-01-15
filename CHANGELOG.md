@@ -1,5 +1,9 @@
 # Changelog
-
+## 2021-01-15
+### Added
+-  scroll to infobar when viewing comment permalink (#78) 
+### Fixed
+- Fix sidebar overflow on mobile (#109)
 ## 2021-01-12
 ### Added
 - Added r/popular to list of subreddits
