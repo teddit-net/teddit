@@ -125,12 +125,15 @@ module.exports = function(request, fs) {
   }
 
   this.toUTCString = (time) => {
-    let d = new Date();
-    d.setTime(time*1000);
-    return d.toUTCString();
+    let d = new Date()
+    d.setTime(time*1000)
+    return d.toUTCString()
   }
 
   this.unescape = (s) => {
+    /* It would make much more sense to rename this function to something
+    * like "formatter".
+    */
     if(s) {
       var re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
       var unescaped = {
@@ -145,9 +148,18 @@ module.exports = function(request, fs) {
         '&quot;': '"',
         '&#34;': '"'
       }
-      return s.replace(re, (m) => {
-        return unescaped[m]
-      })
+      if(config.convert_urls.reddit) {
+        let str = s.replace(re, (m) => {
+          return unescaped[m]
+        })
+        let r = new RegExp('((www|old)\.)?reddit.com', 'g')
+        let result = str.replace(r, config.domain)
+        return result
+      } else {
+        return s.replace(re, (m) => {
+          return unescaped[m]
+        })
+      }
     } else {
       return ''
     }
