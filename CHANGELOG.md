@@ -1,7 +1,9 @@
 # Changelog
 ## 2021-01-17
 ### Added
-- Support for r/random
+1. Support for r/random
+2. add '/subreddits'
+    - Now you can search and explore subreddits easily. Add '/subreddits' to the URL or press the **more** button in the top bar.
 ## 2021-01-16
 ### Added
 - Convert reddit.com links to instance domain
