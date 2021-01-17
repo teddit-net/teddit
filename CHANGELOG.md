@@ -1,4 +1,6 @@
 # Changelog
+## 2021-01-16
+- Convert reddit.com links to instance domain
 ## 2021-01-15
 ### Added
 -  scroll to infobar when viewing comment permalink (#78) 
