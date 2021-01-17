@@ -38,7 +38,11 @@ const config = {
     searches: 600,
     sidebar: 60 * 60 * 24 * 7, // 7 days
     shorts: 60 * 60 * 24 * 31,
-    wikis: 60* 60 * 24 * 7
+    wikis: 60* 60 * 24 * 7,
+    subreddits_explore: {
+      front: 60 * 60 * 24 * 1,
+      new_page: 60
+    },
   },
   convert_urls: {
     /**

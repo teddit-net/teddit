@@ -1,0 +1,96 @@
+doctype html
+html
+  head
+    title subreddits - explore
+    include includes/head.pug
+  body(class=""+ user_preferences.theme +"")
+    include includes/topbar.pug
+    if json === null
+      h1 Error occured
+      p Error: #{JSON.stringify(json.error_data)}
+    else
+      header
+        a(href="/", class="main")
+          h1 teddit
+        .bottom
+          a(href="/subreddits", class="subreddit")
+            h2 subreddits - explore
+          ul.tabmenu
+            li(class=!sortby || sortby == 'hot' ? 'active' : '')
+              a(href="/subreddits") popular
+            li(class=sortby === 'new' ? 'active' : '')
+              a(href="/subreddits/new") new
+      #search.explore
+        form(action="/subreddits/search", method="GET")
+          div
+            label(for="q") search subreddits
+              input(type="text", name="q", id="q", value="" + (q ? q : '') + "", placeholder="search")
+          div
+            label(for="nsfw") include NSFW results
+              if nsfw === 'on'
+                input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+              else
+                input(type="checkbox", name="nsfw", id="nsfw")
+          input(type="submit", value="search")
+      #links.sr.explore
+        if json.links.length === 0
+          p nothing here
+        else
+          .infobar.explore
+            p click the <code>subscribe</code> or unsubscribe buttons to choose which subreddits appear on the home feed.
+          each link in json.links
+            .link
+              .entry
+                -
+                  let subbed_to_this_subreddit = false
+                  let subbed = []
+                  if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+                    subbed = user_preferences.subbed_subreddits
+                  for(let i = 0; i < subbed.length; i++) {
+                    if(subbed[i].toLowerCase() === link.display_name.toLowerCase())
+                      subbed_to_this_subreddit = true
+                  }
+                .sub-button
+                  if subbed_to_this_subreddit
+                    if !searching
+                      a(href="/unsubscribe/" + link.display_name + "?b=/subreddits/" + sortby + "?after=" + after + "§1before=" + before + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                    else
+                      a(href="/unsubscribe/" + link.display_name + "?b=/subreddits/search?q=" + q + "§1nsfw=" + nsfw + "§1after=" + after + "§1before=" + before + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                  else
+                    if !searching
+                      a(href="/subscribe/" + link.display_name + "?b=/subreddits/" + sortby + "?after=" + after + "§1before=" + before + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
+                    else
+                      a(href="/subscribe/" + link.display_name + "?b=/subreddits/search?q=" + q + "§1nsfw=" + nsfw + "§1after=" + after + "§1before=" + before + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
+                .content
+                  .title
+                    a(href="" + link.url + "", rel="noopener noreferrer")
+                      h2 #{link.display_name_prefixed}: #{cleanTitle(link.title)}
+                  .description
+                    p #{cleanTitle(link.public_description)}
+                  .meta
+                    p.subscribers #{kFormatter(link.subscribers)} subscribers,
+                    p.submitted &nbsp; created
+                      span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)}
+                    .links
+                      if link.over_18
+                        span.tag.nsfw NSFW
+        if json.info.before || json.info.after
+          .view-more-links
+            if json.info.before && !subreddits_front
+              a(href="/subreddits/" + sortby + "?before=" + json.info.before + "&nsfw=" + nsfw + "&q=" + (q ? q : '') + "") ‹ prev
+            if json.info.after
+              a(href="/subreddits/" + sortby + "?after=" + json.info.after + "&nsfw=" + nsfw + "&q=" + (q ? q : '') + "") next ›
+      #sidebar
+        .content
+          if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
+            p your subscribed subreddits
+            ul.subreddit-listing
+              each subreddit in user_preferences.subbed_subreddits
+                li
+                  if !searching
+                    a(href="/unsubscribe/" + subreddit + "?b=/subreddits/" + sortby + "?after=" + after + "§1before=" + before + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                    a(href="/r/" + subreddit) #{subreddit}
+                  else
+                    a(href="/unsubscribe/" + subreddit + "?b=/subreddits/search?q=" + q + "§1nsfw=" + nsfw + "§1after=" + after + "§1before=" + before + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                    a(href="/r/" + subreddit) #{subreddit}
+    include includes/footer.pug
