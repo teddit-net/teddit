@@ -974,6 +974,7 @@ footer a {
   float: left;
   font-size: smaller;
   padding-right: 15px;
+  width: auto;
 }
 .subreddit-listing {
   margin: 8px 0px;
