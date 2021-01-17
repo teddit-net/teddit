@@ -555,6 +555,32 @@ footer a {
   border-left: 1px solid #dcdcdc;
   margin-top: 10px;
 }
+.infobar {
+  background-color: #f6e69f;
+  margin: 5px 305px 5px 11px;
+  padding: 5px 10px;
+  float: left;
+  width: calc(100% - 50px);
+}
+.infobar.blue {
+  background: #eff8ff;
+  border: 1px solid #93abc2;
+}
+.infobar.explore {
+  margin-bottom: 15px;
+}
+.explore#links .link {
+  padding-left: 10%;
+}
+.explore#links .link .sub-button {
+  float: left;
+  margin: 7px 0px;
+  width: 90px;
+}
+.explore#links .link .content {
+  float: left;
+  width: calc(100% - 120px);
+}
 
 /* POST */
 #post {
@@ -563,17 +589,6 @@ footer a {
 #post .info {
   float: left;
   width: 100%;
-}
-#post .infobar {
-  background-color: #f6e69f;
-  margin: 5px 305px 5px 11px;
-  padding: 5px 10px;
-  float: left;
-  width: calc(100% - 50px);
-}
-#post .infobar.blue {
-  background: #eff8ff;
-  border: 1px solid #93abc2;
 }
 #post header {
   padding-top: 0px;
@@ -1020,6 +1035,11 @@ a.sub-to-subreddit.gray {
   margin-left: 20px;
   margin-top: 40px;
 }
+#search.explore {
+  width: calc(100% - 60px);
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
 #search form {
   max-width: 600px;
 }
@@ -1431,5 +1451,15 @@ code {
   }
   a.sub-to-subreddit {
     padding: 8px 10px 8px 10px;
+  }
+  	.explore#links .link {
+    padding-left: 5px;
+  }
+  .explore#links .link .sub-button {
+    margin: 7px 0px;
+    width: 90px;
+  }
+  .explore#links .link .entry {
+    width: calc(100% - 20px);
   }
 }
