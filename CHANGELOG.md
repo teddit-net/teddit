@@ -1,5 +1,6 @@
 # Changelog
 ## 2021-01-16
+### Added
 - Convert reddit.com links to instance domain
 ## 2021-01-15
 ### Added
