@@ -534,6 +534,53 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     return res.redirect(`/r/${subreddit}/wiki/${page}`)
   })
   
+  app.get('/r/random', (req, res, next) => {
+    let url = ''
+    if(config.use_reddit_oauth)
+      url = `https://oauth.reddit.com/r/random?api_type=json&count=25&g=GLOBAL`
+    else
+      url = `https://reddit.com/r/random.json?api_type=json&count=25&g=GLOBAL`
+    
+    fetch(encodeURI(url), redditApiGETHeaders())
+    .then(result => {
+      if(result.status === 200) {
+        result.json()
+        .then(json => {
+          let subreddit = json.data.children[0].data.subreddit
+          if(subreddit) {
+            let key = `${subreddit.toLowerCase()}:undefined:undefined:sort:hot:past:undefined`
+            redis.setex(key, config.setexs.subreddit, JSON.stringify(json), (error) => {
+              if(error) {
+                console.error(`Error setting the random subreddit key to redis.`, error)
+                return res.render('subreddit', { json: null, user_preferences: req.cookies })
+              } else {
+                console.log(`Fetched the JSON from reddit.com/r/${subreddit}.`);
+                return res.redirect(`/r/${subreddit}`)
+              }
+            })
+          } else {
+            console.error(`Fetching random subreddit failed.`, json)
+            return res.render('index', { json: null, user_preferences: req.cookies })
+          }
+        })
+      } else {
+        if(result.status === 404) {
+          console.log('404 – Subreddit not found')
+        } else {
+          console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
+          console.error(config.reddit_api_error_text)
+        }
+        return res.render('index', {
+          json: null,
+          http_status_code: result.status,
+          user_preferences: req.cookies
+        })
+      }
+    }).catch(error => {
+      console.error(`Error fetching the JSON file from reddit.com/r/${subreddit}.`, error)
+    })
+  })
+  
   app.get('/r/:subreddit/:sort?', (req, res, next) => {
     let subreddit = req.params.subreddit
     let sortby = req.params.sort
