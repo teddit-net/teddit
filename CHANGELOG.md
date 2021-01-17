@@ -1,4 +1,7 @@
 # Changelog
+## 2021-01-17
+### Added
+- Support for r/random
 ## 2021-01-16
 ### Added
 - Convert reddit.com links to instance domain
