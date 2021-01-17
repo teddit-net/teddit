@@ -30,6 +30,7 @@ a:hover, a:focus {
   width: 100%;
   float: left;
   overflow: hidden;
+  position: relative;
 }
 .upvotes .arrow, .score .arrow {
   background: url(/css/sprite.png);
@@ -580,6 +581,19 @@ footer a {
 .explore#links .link .content {
   float: left;
   width: calc(100% - 120px);
+}
+.explore#links .link .description {
+  font-size: 0.86rem;
+}
+#sr-more-link {
+  color: black;
+  background-color: #f0f0f0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0px 15px 0px 15px;
+  margin: 3px 0px;
+  font-weight: bold;
 }
 
 /* POST */

@@ -55,15 +55,15 @@ body.dark #post .usertext-body {
 	background: #0a0a0a;
 	border: 1px solid #404040;
 }
-body.dark #post .infobar {
+body.dark .infobar {
 	background-color: #d2d2d2;
 	color: #2f2f2f;
 }
-body.dark #post .infobar.blue {
+body.dark .infobar.blue {
 	background: #c7e3f9;
 	border: 1px solid #4b78a4;
 }
-body.dark #post .infobar a {
+body.dark .infobar a {
 	color: #0356d4;
 }
 body.dark header .tabmenu li a {
@@ -179,6 +179,10 @@ body.dark footer a {
   color: #999;
 }
 body.dark .flair {
-    color: #eaeaea !important;
-    background-color: #404040 !important;
+  color: #eaeaea !important;
+  background-color: #404040 !important;
+}
+body.dark #sr-more-link {
+  color: white;
+  background: #0f0f0f;
 }
