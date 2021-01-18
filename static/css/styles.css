@@ -377,6 +377,7 @@ footer a {
 }
 #links .link .entry .title a {
   font-size: 0.8rem;
+  overflow-wrap: anywhere;
 }
 #links .link .entry .title a:hover {
   text-decoration: none;
@@ -1003,7 +1004,7 @@ footer a {
   float: left;
   font-size: smaller;
   padding-right: 15px;
-  width: auto;
+  width: calc(100% - 15px);
 }
 .subreddit-listing {
   margin: 8px 0px;
@@ -1408,6 +1409,12 @@ code {
     padding-left: 20px;
     padding-right: 20px;
   }
+  #sidebar .content {
+    float: left;
+    font-size: smaller;
+    padding-right: 15px;
+    width: calc(100% - 60px);
+}
   #search {
     margin-left: 20px;
     margin-top: 30px;
