@@ -443,6 +443,10 @@ footer a {
 #links.search .link .meta a.comments {
   margin-left: 0px;
 }
+#links .link .entry .meta .links .selftext a {
+  color: var(--linkcolor);
+  font-weight: initial;
+}
 #links .link .entry .selftext {
   unicode-bidi: isolate;
   background-color: #fafafa;
@@ -457,6 +461,7 @@ footer a {
   width: calc(100% - 100px);
   margin-right: 11000px;
   overflow: hidden;
+  cursor: initial;
 }
 #links .link .entry details {
   margin: 0px 10px 0px 0px;

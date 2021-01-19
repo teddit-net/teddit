@@ -128,14 +128,14 @@ html
                     .links
                       if link.over_18
                         span.tag.nsfw NSFW
-                  if link.selftext_html
-                    details
-                      summary
-                        .line
-                        .line
-                        .line
-                      .selftext
-                        != unescape(link.selftext_html)
+                      if link.selftext_html
+                        details
+                          summary
+                            .line
+                            .line
+                            .line
+                          .selftext
+                            != unescape(link.selftext_html)
                       a(href="" + link.permalink + "", class="comments")
                         | #{link.num_comments} comments
           if json.info.before || json.info.after
