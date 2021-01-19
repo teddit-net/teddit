@@ -5,8 +5,6 @@
 	--headerbg: #bf360c;
 	--headertext: white;
 	--headerfaded: #ecc3b7;
-	--tabbg: #5a5a5a;
-	--tabtext: #f2f0ea;
 	--linkbg: #e2dfd7;
 	--linktext: #979692;
 	--shadow: #9e9e9e;
@@ -51,9 +49,13 @@ body.sepia header {
 body.sepia header a {
 	color: var(--headertext);
 }
-body.sepia header .tabmenu li:not(.active) a {
-	background: var(--tabbg);
-	color: var(--tabtext);
+body.sepia header .tabmenu li a {
+	background: none;
+	color: var(--headerfaded);
+	text-transform: uppercase;
+}
+body.sepia header .tabmenu li.active a {
+	color: var(--headertext);
 }
 body.sepia #links {
 	margin: 4px 16px; /* Only when width has certain minimum */
