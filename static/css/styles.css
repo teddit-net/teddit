@@ -455,6 +455,8 @@ footer a {
   word-wrap: break-word;
   float: left;
   width: calc(100% - 100px);
+  margin-right: 11000px;
+  overflow: hidden;
 }
 #links .link .entry details {
   margin: 0px 10px 0px 0px;
@@ -1440,6 +1442,9 @@ code {
     float: left;
     width: calc(100% - 20px);
     min-height: 100vh;
+  }
+  #links .link .entry .selftext {
+    width: calc(100% - 10%);
   }
 }
 @media only screen and (max-width: 600px) {
