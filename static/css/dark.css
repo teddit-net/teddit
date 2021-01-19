@@ -136,6 +136,16 @@ body.dark .score .arrow {
 body.dark #links .link .entry .meta a {
 	color: #c7c7c7;
 }
+body.dark #links .link .entry .selftext {
+  background: #0a0a0a;
+  border: 1px solid #404040;
+}
+body.dark #links .link .entry details .line {
+  width: 16px;
+  margin-top: 3px;
+  background: black;
+  border: 1px solid #6f6f6f;
+}
 body.dark .content .bottom img {
 	filter: invert(1);
 }

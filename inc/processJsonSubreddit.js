@@ -67,6 +67,7 @@ module.exports = function() {
               link_flair_text: data.link_flair_text,
               locked: data.locked,
               media: data.media,
+              selftext_html: data.selftext_html,
               num_comments: data.num_comments,
               over_18: data.over_18,
               permalink: data.permalink,

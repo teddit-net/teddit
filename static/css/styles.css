@@ -443,6 +443,54 @@ footer a {
 #links.search .link .meta a.comments {
   margin-left: 0px;
 }
+#links .link .entry .meta .links .selftext a {
+  color: var(--linkcolor);
+  font-weight: initial;
+}
+#links .link .entry .selftext {
+  unicode-bidi: isolate;
+  background-color: #fafafa;
+  border: 1px solid #369;
+  border-radius: 7px;
+  padding: 5px 10px;
+  margin: 10px auto 5px 0px;
+  font-size: 0.84rem;
+  max-width: 60em;
+  word-wrap: break-word;
+  float: left;
+  width: calc(100% - 100px);
+  margin-right: 11000px;
+  overflow: hidden;
+  cursor: initial;
+}
+#links .link .entry details {
+  margin: 0px 10px 0px 0px;
+  font-size: 0.7rem;
+}
+#links .link .entry details[open] {
+  width: 100%;
+}
+#links .link .entry details summary {
+  font-size: 0.833rem;
+  list-style-type: none;
+  padding: 4px;
+}
+#links .link .entry  details > summary::-webkit-details-marker {
+  display: none;
+}
+#links .link .entry  details summary:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#links .link .entry details .line {
+  width: 16px;
+  margin-top: 3px;
+  background: #979797;
+  border: 1px solid #b3b0b0;
+}
+#links .link .entry details .line:first-child {
+  margin-top: 0px;
+}
 /* COMMENTS */
 .comment {
   font-size: 0.83rem;
@@ -1399,6 +1447,9 @@ code {
     float: left;
     width: calc(100% - 20px);
     min-height: 100vh;
+  }
+  #links .link .entry .selftext {
+    width: calc(100% - 10%);
   }
 }
 @media only screen and (max-width: 600px) {
