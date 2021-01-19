@@ -30,6 +30,7 @@ body.sepia nav {
 	color: var(--headertext);
 }
 body.sepia .top-links {
+	padding-bottom: 4px;
 	background: var(--headerbg);
 }
 body.sepia .top-links a {
@@ -42,7 +43,7 @@ body.sepia #sr-more-link {
 	background: var(--buttonbg);
 }
 body.sepia header {
-	margin-top: 0;
+	margin-top: -8px;
 	background: var(--headerbg);
 	color: var(--headertext);
 }
