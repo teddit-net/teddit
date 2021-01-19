@@ -41,7 +41,9 @@ Community instances:
 * HLS video streaming? (Would require browser JavaScript)
 * Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
+## Changelog
 
+See ```CHANGELOG.md```
 ## Installation
 
 ### Docker
