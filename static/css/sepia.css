@@ -59,9 +59,11 @@ body.sepia header .tabmenu li.active a {
 	color: var(--headertext);
 }
 body.sepia #links {
-	margin: 4px 16px; /* Only when width has certain minimum */
+	max-width: calc(100% - 32px);
+	margin: 4px 16px;
 }
 body.sepia #links .link {
+	width: calc(100% - 8px);
 	margin: 8px 0;
 	padding: 16px 8px 16px 0;
 	background: var(--linkbg);
