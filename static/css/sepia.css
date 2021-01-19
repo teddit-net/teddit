@@ -163,6 +163,12 @@ body.sepia .comments > .comment {
 	border: none;
 	border-radius: 0;
 }
+body.sepia .comment details {
+	padding-top: 8px;
+}
+body.sepia .comment details:not([open]) {
+	padding-bottom: 8px;
+}
 body.sepia .md .md-spoiler-text:not(.revealed),
 body.sepia .md .md-spoiler-text:active:not(.revealed),
 body.sepia .md .md-spoiler-text:focus:not(.revealed),
