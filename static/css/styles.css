@@ -82,6 +82,11 @@ nav .nav-item.left a {
   font-size: 15px;
   font-weight: initial;
 }
+nav .nav-item.left img {
+  width: 20px;
+  vertical-align: bottom;
+  margin: 0px 7px 0px 0px;
+}
 nav .nav-item.left a:hover
 nav .nav-item.left a:focus {
   color: white;
