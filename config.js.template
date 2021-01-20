@@ -2,7 +2,7 @@ const config = {
   domain: process.env.DOMAIN || '127.0.0.1', // Or for example 'teddit.net'
   use_reddit_oauth: process.env.USE_REDDIT_OAUTH === 'true' || false, // If false, teddit uses Reddit's public API. If true, you need to have your own Reddit app ID (enter the app ID to the "reddit_app_id" config key). 
   cert_dir: process.env.CERT_DIR || '', // For example '/home/teddit/letsencrypt/live/teddit.net', if you are using https. No trailing slash.
-  theme: process.env.THEME || 'dark', // One of: 'dark', ''
+  theme: process.env.THEME || 'dark', // One of: 'dark', 'sepia', ''
   flairs_enabled: process.env.FLAIRS_ENABLED !== 'true' || true, // Enables the rendering of user and link flairs on teddit
   highlight_controversial: process.env.HIGHLIGHT_CONTROVERSIAL !== 'true' || true, // Enables controversial comments to be indicated by a typographical dagger (†)
   api_enabled: process.env.API_ENABLED !== 'true' || true, // Teddit API feature. Might increase loads significantly on your instance.
