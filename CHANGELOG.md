@@ -4,6 +4,8 @@
 1. Expand text posts from subreddit view
     - Now you can expand/preview text posts by clicking on the hamburger icon.
 ### Fixed
+1. Check that Gallery ID exists
+### Fixed
 1. Optimized CSS
 ## 2021-01-17
 ### Added
