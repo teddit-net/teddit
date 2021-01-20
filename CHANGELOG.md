@@ -1,7 +1,7 @@
 # Changelog
 ## 2021-01-20
 ### Added
-1. Added Teddit logo to tne topbar
+1. Added Teddit logo to the topbar
 2. Sepia theme
      - Teddit has a new beautiful Sepia theme. Go to preferences to change the theme.
 ## 2021-01-19
