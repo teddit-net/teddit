@@ -16,9 +16,15 @@ html
                 if(!user_preferences.theme || user_preferences.theme == '')
                   option(value="", selected="selected") White
                   option(value="dark") Dark
+                  option(value="sepia") Sepia
                 if(user_preferences.theme === 'dark')
                   option(value="") White
                   option(value="dark", selected="selected") Dark
+                  option(value="sepia") Sepia
+                if(user_preferences.theme === 'sepia')
+                  option(value="") White
+                  option(value="dark") Dark
+                  option(value="sepia", selected="selected") Sepia
           .setting
             label(for="flairs") Show flairs: 
               if(!user_preferences.flairs || user_preferences.flairs == 'true')
