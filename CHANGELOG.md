@@ -1,10 +1,16 @@
 # Changelog
+## 2021-01-20
+### Added
+1. Added Teddit logo to the topbar
+2. Sepia theme
+     - Teddit has a new beautiful Sepia theme. Go to preferences to change the theme.
 ## 2021-01-19
 ### Added
 1. Expand text posts from subreddit view
     - Now you can expand/preview text posts by clicking on the hamburger icon.
 ### Fixed
-1. Optimized CSS
+1. Check that Gallery ID exists
+2. Optimized CSS
 ## 2021-01-17
 ### Added
 1. Support for r/random
