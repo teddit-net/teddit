@@ -100,6 +100,7 @@ html
       if json.posts.length === 0 && !no_query
         p no results
       else
+        p.number-of-results results: #{json.posts.length}
         each link in json.posts
           .link
             .upvotes
