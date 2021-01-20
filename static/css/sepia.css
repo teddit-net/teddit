@@ -139,11 +139,15 @@ body.sepia #post .submitted,
 body.sepia #post .title .domain {
 	color: var(--graytext);
 }
-body.sepia #post .usertext-body {
+body.sepia #post .usertext-body,
+body.sepia #post .crosspost {
 	background: var(--oddbg);
 	border-radius: 3px;
-	border: none;
+	border: 1px solid var(--oddbg);	/* .crosspost disappears with border: none */
 	box-shadow: 0px 0px 2px var(--shadow);
+}
+body.sepia #post .crosspost {
+	padding: 0 16px 16px 0;
 }
 body.sepia .md {
 	color: var(--bodytext);
@@ -165,6 +169,9 @@ body.sepia .comment.even-depth {
 body.sepia .comments > .comment {
 	border: none;
 	border-radius: 0;
+}
+body.sepia .comment .comment {
+	margin: 8px 0;
 }
 body.sepia .comment details {
 	padding-top: 8px;
