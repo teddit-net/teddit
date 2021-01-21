@@ -14,6 +14,8 @@
 	--oddborder: #616161;
  	--evenbg: #f2f0ea;
 	--evenborder: #919191;
+	--quotebg: #e9e9e9;
+	--quoteborder: #bdbdbd;
 	/* Overrides */
 	--graytext: #616161;
 	/* Copied from default theme */
@@ -58,6 +60,9 @@ body.sepia header .tabmenu li a {
 body.sepia header .tabmenu li.active a {
 	color: var(--headertext);
 }
+body.sepia #sidebar {
+	width: calc(25% - 45px);
+}
 body.sepia #links {
 	max-width: calc(100% - 32px);
 	margin: 4px 16px;
@@ -69,7 +74,7 @@ body.sepia #links .link {
 	background: var(--linkbg);
 	color: var(--linktext);
 	border-radius: 3px;
-	box-shadow: 0px 0px 2px var(--shadow);
+	box-shadow: 0 0 2px var(--shadow);
 }
 body.sepia .flair,
 body.sepia #links .link .entry .title span.flair,
@@ -106,7 +111,7 @@ body.sepia .view-more-links a {
 	color: var(--buttontext);
 	border-radius: 3px;
 	border: none;
-	box-shadow: 0px 0px 2px var(--shadow);
+	box-shadow: 0 0 2px var(--shadow);
 }
 body.sepia .view-more-links a {
 	margin-left: 16px;
@@ -122,7 +127,7 @@ body.sepia input[type="checkbox"] {
 body.sepia footer {
 	margin-top: 20px;
 	padding: 8px 0 8px 20px;
-	box-shadow: 0px 0px 2px var(--shadow);
+	box-shadow: 0 0 2px var(--shadow);
 }
 /* Search */
 body.sepia #links.search {
@@ -139,14 +144,15 @@ body.sepia #post .submitted,
 body.sepia #post .title .domain {
 	color: var(--graytext);
 }
-body.sepia #post .usertext-body {
+body.sepia #post .usertext-body,
+body.sepia #post .crosspost {
 	background: var(--oddbg);
 	border-radius: 3px;
-	border: none;
-	box-shadow: 0px 0px 2px var(--shadow);
+	border: 1px solid var(--oddbg);	/* .crosspost disappears with border: none */
+	box-shadow: 0 0 2px var(--shadow);
 }
-body.sepia .md {
-	color: var(--bodytext);
+body.sepia #post .crosspost {
+	padding: 0 16px 16px 0;
 }
 body.sepia #post header div a {
 	color: var(--headerfaded);
@@ -155,22 +161,35 @@ body.sepia .comment {
 	background: var(--oddbg);
 	border-left: 3px solid var(--oddborder);
 	border-radius: 3px 0 0 3px;
-	box-shadow: 1px 0px 1px var(--shadow);
+	box-shadow: 1px 0 1px var(--shadow);
 }
 body.sepia .comment.even-depth {
 	background: var(--evenbg);
 	border-left: 3px solid var(--evenborder);
-	box-shadow: 1px 0px 1px var(--shadow);
+	box-shadow: 1px 0 1px var(--shadow);
 }
 body.sepia .comments > .comment {
 	border: none;
 	border-radius: 0;
+}
+body.sepia .comment .comment {
+	margin: 8px 0;
 }
 body.sepia .comment details {
 	padding-top: 8px;
 }
 body.sepia .comment details:not([open]) {
 	padding-bottom: 8px;
+}
+body.sepia .comment .body blockquote {
+	background: var(--quotebg);
+	color: var(--bodytext);
+	border-left: 3px solid var(--quoteborder);
+	border-radius: 3px;
+	box-shadow: 0 0 1px var(--shadow);
+}
+body.sepia .md {
+	color: var(--bodytext);
 }
 body.sepia .md .md-spoiler-text:not(.revealed),
 body.sepia .md .md-spoiler-text:active:not(.revealed),
@@ -188,4 +207,10 @@ body.sepia .comments > form button {
 	margin: 12px 8px;
 	padding: 8px;
 	cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  body.sepia #sidebar {
+    width: 100%;
+  }
 }
