@@ -1,7 +1,7 @@
 :root {
 	--bodybg: #ccc9b8; /* #cac5ad; */
 	--bodytext: #53524b;
-	--topbarbg: #992c09;
+	--endsbg: #992c09;
 	--headerbg: #bf360c;
 	--headertext: white;
 	--headerfaded: #ecc3b7;
@@ -29,7 +29,7 @@ body.sepia {
 	color: var(--bodytext);
 }
 body.sepia nav {
-	background: var(--topbarbg);
+	background: var(--endsbg);
 	color: var(--headertext);
 }
 body.sepia .top-links {
@@ -126,9 +126,13 @@ body.sepia input[type="checkbox"] {
 	margin-top: 6px;
 }
 body.sepia footer {
-	margin-top: 20px;
+	margin-top: 16px;
 	padding: 8px 0 8px 20px;
+	background: var(--endsbg);
 	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia footer a {
+	color: var(--headerfaded);
 }
 /* Search */
 body.sepia #links.search {
