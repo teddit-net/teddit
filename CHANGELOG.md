@@ -1,4 +1,7 @@
 # Changelog
+## 2021-01-21
+### Fixed
+1. Styling of sepia theme
 ## 2021-01-20
 ### Added
 1. Added Teddit logo to the topbar
