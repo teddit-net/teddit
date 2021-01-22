@@ -854,7 +854,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
 
-  app.get('/r/:subreddit/comments/:id/:snippet/:comment_id?', (req, res, next) => {
+  app.get('/r/:subreddit/comments/:id/:snippet?/:comment_id?', (req, res, next) => {
     let subreddit = req.params.subreddit
     let id = req.params.id
     let snippet = encodeURIComponent(req.params.snippet)

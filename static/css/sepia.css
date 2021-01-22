@@ -1,7 +1,7 @@
 :root {
 	--bodybg: #ccc9b8; /* #cac5ad; */
 	--bodytext: #53524b;
-	--topbarbg: #992c09;
+	--endsbg: #992c09;
 	--headerbg: #bf360c;
 	--headertext: white;
 	--headerfaded: #ecc3b7;
@@ -10,6 +10,7 @@
 	--shadow: #9e9e9e;
 	--buttonbg: #f2f0ea;
 	--buttontext: #53524b;
+	--infobarbg: #ebe6b6;
 	--oddbg: #e2dfd7;
 	--oddborder: #616161;
  	--evenbg: #f2f0ea;
@@ -28,7 +29,7 @@ body.sepia {
 	color: var(--bodytext);
 }
 body.sepia nav {
-	background: var(--topbarbg);
+	background: var(--endsbg);
 	color: var(--headertext);
 }
 body.sepia .top-links {
@@ -125,15 +126,22 @@ body.sepia input[type="checkbox"] {
 	margin-top: 6px;
 }
 body.sepia footer {
-	margin-top: 20px;
+	margin-top: 16px;
 	padding: 8px 0 8px 20px;
+	background: var(--endsbg);
 	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia footer a {
+	color: var(--headerfaded);
 }
 /* Search */
 body.sepia #links.search {
 	width: calc(100% - 40px);
 }
 /* Comments */
+body.sepia #post header div a {
+	color: var(--headerfaded);
+}
 body.sepia #post .score {
 	color: var(--graytext);
 }
@@ -154,8 +162,10 @@ body.sepia #post .crosspost {
 body.sepia #post .crosspost {
 	padding: 0 16px 16px 0;
 }
-body.sepia #post header div a {
-	color: var(--headerfaded);
+body.sepia .infobar {
+	background: var(--infobarbg);
+	border-radius: 3px;
+	box-shadow: 0 0 2px var(--shadow);
 }
 body.sepia .comment {
 	background: var(--oddbg);
@@ -210,7 +220,7 @@ body.sepia .comments > form button {
 }
 
 @media only screen and (max-width: 600px) {
-  body.sepia #sidebar {
-    width: 100%;
-  }
+	body.sepia #sidebar {
+		width: 100%;
+	}
 }
