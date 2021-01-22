@@ -152,7 +152,7 @@ module.exports = function(request, fs) {
         let str = s.replace(re, (m) => {
           return unescaped[m]
         })
-        let r = new RegExp('((www|old)\.)?reddit.com', 'g')
+        let r = new RegExp('((www|old)\.)?reddit[.]com', 'g')
         let result = str.replace(r, config.domain)
         return result
       } else {
