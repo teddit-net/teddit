@@ -36,7 +36,7 @@ a:hover, a:focus {
   background: url(/css/sprite.png);
   background-position: -84px -1654px;
   background-repeat: no-repeat;
-  margin: 2px 0px 2px 0px;
+  margin: 2px 0 2px 0;
   width: 100%;
   height: 14px;
   display: block;
@@ -85,7 +85,7 @@ nav .nav-item.left a {
 nav .nav-item.left img {
   width: 20px;
   vertical-align: bottom;
-  margin: 0px 7px 0px 0px;
+  margin: 0 7px 0 0;
 }
 nav .nav-item.left a:hover
 nav .nav-item.left a:focus {
@@ -119,7 +119,7 @@ nav a:focus {
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 0px;
+  margin-top: 0;
   margin-top: 10px;
   padding: 10px 15px;
   border: 1px solid black;
@@ -144,10 +144,10 @@ form legend {
   font-weight: bold;
 }
 form legend:first-child {
-  margin-top: 0px;
+  margin-top: 0;
 }
 form .setting {
-  margin: 10px 0px;
+  margin: 10px 0;
   width: 100%;
 }
 .container .content small.notice {
@@ -239,7 +239,7 @@ header .tabmenu li.active a {
   display: inline-block;
   border: 1px solid;
   padding: 0 4px;
-  margin: 2px 6px 0px 0px;
+  margin: 2px 6px 0 0;
   border-radius: 3px;
   font-size: 0.68rem;
 }
@@ -251,7 +251,7 @@ header .tabmenu li.active a {
   text-align: center;
   float: left;
   width: 100%;
-  margin: 40px 0px;
+  margin: 40px 0;
 }
 .nsfw-warning span {
   font-size: 3rem;
@@ -262,7 +262,7 @@ header .tabmenu li.active a {
   color: white;
 }
 .nsfw-warning h2 {
-  margin: 20px 0px;
+  margin: 20px 0;
 }
 .nsfw-warning a {
   margin: 20px;
@@ -276,7 +276,7 @@ input[type="submit"],
   padding: 3px;
   margin-top: 7px;
   margin-right: 10px;
-  border-radius: 0px;
+  border-radius: 0;
   border: 1px solid #a5a5a5;
   background: white;
   color: #464646;
@@ -292,11 +292,12 @@ input[type="submit"]:hover,
   text-decoration: none;
 }
 footer {
-  padding: 30px 0px 30px 20px;
-  margin: 2.5% 0px 0px;
+  padding: 10px;
+  margin: 2.5% 0 0;
   background: #e1e1e1;
   float: left;
   width: calc(100% - 20px);
+  text-align: center;
 }
 footer a {
   color: #646464;
@@ -353,7 +354,7 @@ footer a {
   overflow: hidden;
   width: 70px;
   background-image: url(/css/sprite.png);
-  background-position: 0px -1267px;
+  background-position: 0 -1267px;
   background-repeat: no-repeat;
   height: 50px;
 }
@@ -446,7 +447,7 @@ footer a {
   margin-left: 6px;
 }
 #links.search .link .meta a.comments {
-  margin-left: 0px;
+  margin-left: 0;
 }
 #links .link .entry .meta .links .selftext a {
   color: var(--linkcolor);
@@ -458,7 +459,7 @@ footer a {
   border: 1px solid #369;
   border-radius: 7px;
   padding: 5px 10px;
-  margin: 10px auto 5px 0px;
+  margin: 10px auto 5px 0;
   font-size: 0.84rem;
   max-width: 60em;
   word-wrap: break-word;
@@ -469,7 +470,7 @@ footer a {
   cursor: initial;
 }
 #links .link .entry details {
-  margin: 0px 10px 0px 0px;
+  margin: 0 10px 0 0;
   font-size: 0.7rem;
 }
 #links .link .entry details[open] {
@@ -494,7 +495,7 @@ footer a {
   border: 1px solid #b3b0b0;
 }
 #links .link .entry details .line:first-child {
-  margin-top: 0px;
+  margin-top: 0;
 }
 /* COMMENTS */
 .comment {
@@ -629,7 +630,7 @@ footer a {
 }
 .explore#links .link .sub-button {
   float: left;
-  margin: 7px 0px;
+  margin: 7px 0;
   width: 90px;
 }
 .explore#links .link .content {
@@ -645,8 +646,8 @@ footer a {
   position: absolute;
   right: 0;
   top: 0;
-  padding: 0px 15px 0px 15px;
-  margin: 3px 0px;
+  padding: 0 15px 0 15px;
+  margin: 3px 0;
   font-weight: bold;
 }
 
@@ -659,10 +660,10 @@ footer a {
   width: 100%;
 }
 #post header {
-  padding-top: 0px;
+  padding-top: 0;
 }
 #post header div {
-  padding: 20px 0px 20px 20px;
+  padding: 20px 0 20px 20px;
   float: left;
 }
 #post header div a {
@@ -707,7 +708,7 @@ footer a {
 #post .comments-info {
   float: left;
   width: calc(100% - 30px);
-  margin: 10px 0px 10px 30px;
+  margin: 10px 0 10px 30px;
 }
 #post .comments-sort details {
   float: left;
@@ -739,7 +740,7 @@ footer a {
   font-weight: bold;
 }
 #post .comment .body {
-  padding-top: 0px;
+  padding-top: 0;
   padding-bottom: 13px;
 }
 #post .usertext-body {
@@ -795,7 +796,7 @@ footer a {
 #post .crosspost .title {
   width: 100%;
   margin: 15px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 #post .crosspost .num_comments {
   float: left;
@@ -826,7 +827,7 @@ footer a {
 #post .gallery .item div {
   float: left;
   width: 100%;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 #post .gallery .item a {
   float: left;
@@ -855,7 +856,7 @@ footer a {
   width: 100%;
 }
 #user .entries .entry:first-child {
-  padding-top: 0px;
+  padding-top: 0;
 }
 #user .info {
   float: right;
@@ -880,7 +881,7 @@ footer a {
   margin-left: 5px;
 }
 #user .entries .entry .title a {
-  margin-left: 0px;
+  margin-left: 0;
   font-size: 0.86rem;
 }
 #user .entries .entry .meta .author,#user .entries .entry .meta .subreddit {
@@ -924,14 +925,14 @@ footer a {
   float: left;
 }
 #user .entries .entry .comment .meta .author {
-  margin-top: 0px;
+  margin-top: 0;
 }
 #user .comment .meta p {
-  padding-right: 0px;
+  padding-right: 0;
 }
 #user .comment .body {
   padding-top: 4px;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 #user .info .user-stat span {
   font-weight: bold;
@@ -951,7 +952,7 @@ footer a {
   float: left;
 }
 #user .entries .entry .image {
-  margin-left: 0px;
+  margin-left: 0;
   margin-right: 8px;
   position: relative;
 }
@@ -1010,10 +1011,10 @@ footer a {
   font-weight: bold;
 }
 #user .entries .entry .title .meta a.comments {
-  margin-left: 0px;
+  margin-left: 0;
 }
 #user .entries .entry a.comments.t1,#user .entries .entry a.context {
-  margin-top: 0px;
+  margin-top: 0;
 }
 #user .entries .entry a.context {
   margin-right: 10px;
@@ -1060,11 +1061,11 @@ footer a {
   width: calc(100% - 15px);
 }
 .subreddit-listing {
-  margin: 8px 0px;
+  margin: 8px 0;
   list-style: none;
 }
 .subreddit-listing li {
-  margin: 15px 0px;
+  margin: 15px 0;
 }
 #sidebar .content .description {
   margin-top: 38px;
@@ -1074,7 +1075,7 @@ a.sub-to-subreddit {
   background: #007900;
   font-size: var(--sm-font);
   padding: 6px 8px 6px 8px;
-  margin: 0px 5px 0px 0px;
+  margin: 0 5px 0 0;
 }
 a.sub-to-subreddit:hover,
 a.sub-to-subreddit:focus {
@@ -1084,7 +1085,7 @@ a.sub-to-subreddit.gray {
   background: gray;
 }
 .subscribe {
-  margin: 0px 0px 30px 0px;
+  margin: 0 0px 30px 0;
   width: 100%;
   float: left;
 }
@@ -1096,7 +1097,7 @@ a.sub-to-subreddit.gray {
 }
 #search.sr {
   width: calc(100% - 60px);
-  margin-top: 0px;
+  margin-top: 0;
 }
 #search.sr.search-page {
   width: auto;
@@ -1131,7 +1132,7 @@ a.sub-to-subreddit.gray {
 #search input[type="text"] {
   padding: 4px;
   border: 1px solid #a5a5a5;
-  border-radius: 0px;
+  border-radius: 0;
   margin-bottom: 11px;
 }
 /* REDDIT STYLES */
@@ -1446,7 +1447,7 @@ code {
     float: right;
     width: 100%;
     text-align: center;
-    margin: 0px 0px 20px 0px;
+    margin: 0 0px 20px 0;
   }
   #user .entries {
     float: left;
@@ -1533,7 +1534,7 @@ code {
     padding-left: 5px;
   }
   .explore#links .link .sub-button {
-    margin: 7px 0px;
+    margin: 7px 0;
     width: 90px;
   }
   .explore#links .link .entry {
