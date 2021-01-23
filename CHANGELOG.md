@@ -3,6 +3,7 @@
 ### Fixed
 1. Fix short comment URLs(#114)
 2. Fix unescape's regex(#128)
+3. Optimize CSS for narrow devices(#123)
 ## 2021-01-21
 ### Fixed
 1. Styling of sepia theme
