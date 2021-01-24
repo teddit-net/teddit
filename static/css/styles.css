@@ -1051,8 +1051,10 @@ footer a {
 }
 /* SIDEBAR */
 #sidebar {
+  box-sizing: border-box;
   float: left;
   width: 25%;
+  padding-left: 20px;
 }
 #sidebar .content {
   float: left;
