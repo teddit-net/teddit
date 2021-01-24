@@ -1,4 +1,8 @@
 # Changelog
+## 2021-01-23
+### Fixed
+1. Styling of footer (PR: #132)
+2. Fix (#130) - Placement of buttons.
 ## 2021-01-22
 ### Fixed
 1. Fix short comment URLs(#114)
