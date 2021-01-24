@@ -497,6 +497,12 @@ footer a {
 #links .link .entry details .line:first-child {
   margin-top: 0;
 }
+@media screen and (max-width: 600px) {
+  #links .link .entry details[open] .preview {
+    width: 100vw;
+    transform: translateX(-150px);
+  }
+}
 /* COMMENTS */
 .comment {
   font-size: 0.83rem;
