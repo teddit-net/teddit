@@ -136,6 +136,27 @@ html
                             .line
                           .selftext
                             != unescape(link.selftext_html)
+                      if (link.images && link.images.preview)
+                        style.
+                          details.preview-container img {
+                            width: 100% !important;
+                            height: auto !important;
+                            max-width: none !important;
+                            max-height: none !important;
+                            opacity: 0;
+                          }
+                          details.preview-container[open][data-url="#{link.images.preview}"] .preview {
+                            width: 100%;
+                            height: auto;
+                            background-image: url('#{link.images.preview}');
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                          }
+                        details.preview-container(data-url="" + link.images.preview + "")
+                          summary
+                            span &#9654;
+                          .preview
+                            img(src=""+ link.images.thumb +"", alt="")
                       a(href="" + link.permalink + "", class="comments")
                         | #{link.num_comments} comments
           if json.info.before || json.info.after
