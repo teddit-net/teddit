@@ -52,7 +52,7 @@ module.exports = function() {
               } else {
                 if(data.preview.images[0].resolutions[0]) {
                   let preview = null
-                  if(!isGif(data.url) && data.post_hint !== 'rich:video')
+                  if(!isGif(data.url) && !data.post_hint.includes(':video'))
                     preview = await downloadAndSave(data.preview.images[0].source.url)
                   images = {
                     thumb: await downloadAndSave(data.preview.images[0].resolutions[0].url, 'thumb_'),
