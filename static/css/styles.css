@@ -498,10 +498,6 @@ footer a {
   margin-top: 0;
 }
 @media screen and (max-width: 600px) {
-  #links .link .entry details[open] .preview {
-    width: 100vw;
-    transform: translateX(-150px);
-  }
 }
 /* COMMENTS */
 .comment {
@@ -1547,5 +1543,14 @@ code {
   }
   .explore#links .link .entry {
     width: calc(100% - 20px);
+  }
+  #links .link .entry details[open] .preview {
+    width: 100vw;
+    transform: translateX(-150px);
+  }
+  #links .link .entry .selftext {
+    width: calc(100vw - 40px);
+    transform: translateX(-150px);
+    margin-left: 10px;
   }
 }
