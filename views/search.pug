@@ -6,7 +6,7 @@ html
     else
       title search results for #{q}
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     #search.sr.search-page
       form(action="/r/" + subreddit + "/search", method="GET")
