@@ -497,7 +497,8 @@ footer a {
 #links .link .entry details .line:first-child {
   margin-top: 0;
 }
-@media screen and (max-width: 600px) {
+#links .link .entry details.preview-container img {
+  max-height: 600px !important;
 }
 /* COMMENTS */
 .comment {
