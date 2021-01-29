@@ -223,4 +223,7 @@ body.sepia .comments > form button {
 	body.sepia #sidebar {
 		width: 100%;
 	}
+  body.sepia #links .link .entry details[open] .preview {
+    width: calc(100vw - 30px);
+  }
 }
