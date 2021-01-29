@@ -1,6 +1,6 @@
 module.exports = function() {
   const config = require('../config');
-  this.processJsonUser = function(json, parsed, after, before, user_preferences) {
+  this.processJsonUser = function(json, parsed, after, before, user_preferences, kind, post_type) {
     return new Promise(resolve => {
       (async () => {
         if(!parsed) {
@@ -40,7 +40,10 @@ module.exports = function() {
 
           let post_id = post.permalink.split('/').slice(-2)[0] + '/'
           let url = post.permalink.replace(post_id, '')
-          
+
+          if(type !== kind && kind)
+            continue
+
           if(post.over_18)
             if((config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false')
               continue
@@ -103,6 +106,7 @@ module.exports = function() {
           comment_karma: about.comment_karma,
           view_more_posts: view_more_posts,
           user_front: user_front,
+          post_type: post_type,
           before: before,
           after: after,
           posts: posts

@@ -23,13 +23,13 @@ html
                 span sorted by: controversial
             ul
               li(class=!sortby || sortby == 'new' ? 'active' : '')
-                a(href="/u/" + data.username) new
+                a(href="/u/" + data.username + data.post_type) new
               li(class=sortby === 'hot' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=hot") hot
+                a(href="/u/" + data.username + data.post_type + "?sort=hot") hot
               li(class=sortby === 'top' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=top&t=" + past + "") top
+                a(href="/u/" + data.username + data.post_type + "?sort=top&t=" + past + "") top
               li(class=sortby === 'controversial' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=controversial&t=" + past + "") controversial
+                a(href="/u/" + data.username + data.post_type + "?sort=controversial&t=" + past + "") controversial
           if sortby === 'top' || sortby === 'controversial'
             details
               summary
@@ -132,7 +132,7 @@ html
           if data.before || data.after
             p view more:
           if data.before && !data.user_front
-            a(href="/u/" + data.username + "?before=" + data.before + "") ‹ prev
+            a(href="/u/" + data.username + data.post_type + "?before=" + data.before + "") ‹ prev
           if data.after
-            a(href="/u/" + data.username + "?after=" + data.after + "") next ›
+            a(href="/u/" + data.username + data.post_type + "?after=" + data.after + "") next ›
     include includes/footer.pug

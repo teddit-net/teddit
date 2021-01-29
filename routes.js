@@ -1005,7 +1005,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.redirect(`/u/${req.params.user}`)
   })
 
-  app.get('/u/:user/:sort?', (req, res, next) => {
+  app.get('/u/:user/:kind?/:sort?', (req, res, next) => {
     let user = req.params.user
     let after = req.query.after
     let before = req.query.before
@@ -1028,6 +1028,27 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let d = `&after=${after}`
     if(before) {
       d = `&before=${before}`
+    }
+
+    let post_type = req.params.kind
+    let kind = post_type
+
+    if(!config.use_reddit_oauth) {
+      post_type = `/${post_type}`
+      switch(post_type) {
+        case '/comments':
+          kind = 't1'
+          break;
+        case '/submitted':
+          kind = 't3'
+          break;
+        default:
+          post_type = ''
+          kind = ''
+      }
+    } else {
+      post_type = ''
+      kind = ''
     }
     
     let sortby = req.query.sort
@@ -1071,7 +1092,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(api_req) {
             return handleTedditApiUser(json, req, res, 'redis', api_type, api_target, user, after, before)
           } else {
-            let processed_json = await processJsonUser(json, false, after, before, req.cookies)
+            let processed_json = await processJsonUser(json, false, after, before, req.cookies, kind, post_type)
             return res.render('user', {
               data: processed_json,
               sortby: sortby,
@@ -1096,7 +1117,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               if(config.use_reddit_oauth)
                 url = `https://oauth.reddit.com/user/${user}/overview?limit=26${d}&sort=${sortby}&t=${past}`
               else
-                url = `https://reddit.com/user/${user}.json?limit=26${d}&sort=${sortby}&t=${past}`
+                url = `https://reddit.com/user/${user}${post_type}.json?limit=26${d}&sort=${sortby}&t=${past}`
               fetch(encodeURI(url), redditApiGETHeaders())
               .then(result => {
                 if(result.status === 200) {
@@ -1112,7 +1133,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                           if(api_req) {
                             return handleTedditApiUser(user_data, req, res, 'online', api_type, api_target, user, after, before)
                           } else {
-                            let processed_json = await processJsonUser(user_data, true, after, before, req.cookies)
+                            let processed_json = await processJsonUser(user_data, true, after, before, req.cookies, kind, post_type)
                             return res.render('user', {
                               data: processed_json,
                               sortby: sortby,
