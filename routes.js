@@ -1001,11 +1001,20 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
 
-  app.get('/user/:user', (req, res, next) => {
-    res.redirect(`/u/${req.params.user}`)
+  app.get('/user/:user/:kind?', (req, res, next) => {
+    let kind = ''
+    if(req.params.kind)
+      kind = `/${req.params.kind}`
+    let q = ''
+    if(req.query.sort)     
+      q += `?sort=${req.query.sort}&`
+    if(req.query.t)
+      q += `t=${req.query.t}`
+      
+    res.redirect(`/u/${req.params.user}${kind}${q}`)
   })
 
-  app.get('/u/:user/:kind?/:sort?', (req, res, next) => {
+  app.get('/u/:user/:kind?', (req, res, next) => {
     let user = req.params.user
     let after = req.query.after
     let before = req.query.before
