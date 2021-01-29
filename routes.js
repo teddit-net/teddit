@@ -1009,6 +1009,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let user = req.params.user
     let after = req.query.after
     let before = req.query.before
+    let post_type = req.params.kind
+    let kind = post_type
     let user_data = {}
     let api_req = req.query.api
     let api_type = req.query.type
@@ -1030,25 +1032,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       d = `&before=${before}`
     }
 
-    let post_type = req.params.kind
-    let kind = post_type
-
-    if(!config.use_reddit_oauth) {
-      post_type = `/${post_type}`
-      switch(post_type) {
-        case '/comments':
-          kind = 't1'
-          break;
-        case '/submitted':
-          kind = 't3'
-          break;
-        default:
-          post_type = ''
-          kind = ''
-      }
-    } else {
-      post_type = ''
-      kind = ''
+    post_type = `/${post_type}`
+    switch(post_type) {
+      case '/comments':
+        kind = 't1'
+        break;
+      case '/submitted':
+        kind = 't3'
+        break;
+      default:
+        post_type = ''
+        kind = ''
     }
     
     let sortby = req.query.sort
@@ -1080,7 +1074,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
     }
     
-    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}`
+    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}:post_type:${post_type}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the user ${key} key from redis.`, error)
@@ -1089,7 +1083,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got user ${user} key from redis.`);
         (async () => {
-          if(api_req) {
+          if(api_req) {
             return handleTedditApiUser(json, req, res, 'redis', api_type, api_target, user, after, before)
           } else {
             let processed_json = await processJsonUser(json, false, after, before, req.cookies, kind, post_type)
@@ -1114,10 +1108,14 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             .then(json => {
               user_data.about = json
               let url = ''
-              if(config.use_reddit_oauth)
-                url = `https://oauth.reddit.com/user/${user}/overview?limit=26${d}&sort=${sortby}&t=${past}`
-              else
+              if(config.use_reddit_oauth) {
+                let endpoint = '/overview'
+                if(post_type !== '')
+                  endpoint = post_type
+                url = `https://oauth.reddit.com/user/${user}${post_type}?limit=26${d}&sort=${sortby}&t=${past}`
+              } else {
                 url = `https://reddit.com/user/${user}${post_type}.json?limit=26${d}&sort=${sortby}&t=${past}`
+              }
               fetch(encodeURI(url), redditApiGETHeaders())
               .then(result => {
                 if(result.status === 200) {
@@ -1130,7 +1128,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         return res.render('index', { post: null, user_preferences: req.cookies })
                       } else {
                         (async () => {
-                          if(api_req) {
+                          if(api_req) {
                             return handleTedditApiUser(user_data, req, res, 'online', api_type, api_target, user, after, before)
                           } else {
                             let processed_json = await processJsonUser(user_data, true, after, before, req.cookies, kind, post_type)
@@ -1165,7 +1163,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – User not found')
+              console.log('404 – User not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)

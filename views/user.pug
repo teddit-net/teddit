@@ -10,6 +10,17 @@ html
       p #{JSON.stringify(error_data)}
     else
       #user
+        header
+          .bottom
+            a(href="/u/" + data.username + "")
+              h3.username user: #{data.username}
+            ul.tabmenu
+              li(class=!data.post_type || data.post_type == '' ? 'active' : '')
+                a(href="/u/" + data.username) overview
+              li(class=data.post_type === '/comments' ? 'active' : '')
+                a(href="/u/" + data.username + "/comments") comments
+              li(class=data.post_type === '/submitted' ? 'active' : '')
+                a(href="/u/" + data.username + "/submitted") submitted
         #links
           details
             summary

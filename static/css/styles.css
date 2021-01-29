@@ -183,6 +183,9 @@ header a {
 header a.main {
   margin-left: 12px;
 }
+header h3.username {
+  margin: 0px 15px 0px 0px;
+}
 header .bottom {
   float: left;
   overflow: hidden;
