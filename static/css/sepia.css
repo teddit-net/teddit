@@ -224,6 +224,10 @@ body.sepia .comments > form button {
 		width: 100%;
 	}
   body.sepia #links .link .entry details[open] .preview {
-    width: calc(100vw - 30px);
+    width: calc(100vw - 34px);
+    margin-left: 3px;
+  }
+  body.sepia #links .link .entry .selftext {
+    width: calc(100vw - 70px);
   }
 }
