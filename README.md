@@ -26,6 +26,7 @@ Community instances:
 
 * [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
 * [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
+* [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
 
 ## TODO
 
