@@ -69,6 +69,7 @@ module.exports = function() {
             <title>${link.title}</title>
             <author>${link.author}</author>
             <created>${link.created}</created>
+            <pubDate>${new Date(link.created_utc*1000).toGMTString()}</pubDate>
             <domain>${link.domain}</domain>
             <id>${link.id}</id>
             <thumbnail>${thumbnail}</thumbnail>
