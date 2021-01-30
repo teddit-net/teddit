@@ -28,6 +28,42 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('subbed_subreddits')
     return res.redirect('/preferences')
   })
+  
+  app.get('/import_prefs/:key', (req, res, next) => {
+    let key = req.params.key
+    if(!key)
+      return res.redirect('/')
+    if(key.length !== 10)
+      return res.redirect('/')
+    
+    key = `prefs_key:${key}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error(`Error getting the preferences import key ${key} from redis.`, error)
+        return res.render('index', { json: null, user_preferences: req.cookies })
+      }
+      if(json) {
+        try {
+          let prefs = JSON.parse(json)
+          let subbed_subreddits_is_set = false
+          for(var setting in prefs) {
+            if(prefs.hasOwnProperty(setting)) {
+              res.cookie(setting, prefs[setting], { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+              if(setting === 'subbed_subreddits')
+                subbed_subreddits_is_set = true
+            }
+          }
+          if(!subbed_subreddits_is_set)
+            res.clearCookie('subbed_subreddits')
+          return res.redirect('/preferences')
+        } catch(e) {
+          console.error(`Error setting imported preferences to the cookies. Key: ${key}.`, error)
+        }
+      } else {
+        return res.redirect('/preferences')
+      }
+    })
+  })
 
   app.get('/privacy', (req, res, next) => {
     return res.render('privacypolicy', { user_preferences: req.cookies })
@@ -1223,6 +1259,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.cookie('highlight_controversial', highlight_controversial, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
 
     return res.redirect('/preferences')
+  })
+  
+  app.post('/export_prefs', (req, res, next) => {
+    let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
+    let key = `prefs_key:${r}`
+    redis.set(key, JSON.stringify(req.cookies), (error) => {
+      if(error) {
+        console.error(`Error saving preferences to redis.`, error)
+        return res.redirect('/preferences')
+      } else {
+        return res.render('preferences', { user_preferences: req.cookies, instance_config: config, preferences_key: r })
+      }
+    })
   })
 
   app.post('/r/:subreddit/comments/:id/:snippet', (req, res, next) => {

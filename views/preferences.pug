@@ -67,4 +67,27 @@ html
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences
+        form(action="/export_prefs", method="POST", id="export-form")
+          if preferences_key
+            details(open)
+              summary
+                span Export preferences
+              .setting
+                small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                br
+                input(type="submit", value="Export preferences")
+                if preferences_key
+                  - var protocol = 'http'
+                  if instance_config.https_enabled === true
+                    - var protocol = 'https'
+                  p Visit this URL to import your preferences:
+                  a(href=`${protocol}://${instance_config.domain}/import_prefs/${preferences_key}`) #{protocol}://#{instance_config.domain}/import_prefs/#{preferences_key}
+          else
+            details
+              summary
+                span Export preferences
+              .setting
+                small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                br
+                input(type="submit", value="Export preferences")
     include includes/footer.pug
