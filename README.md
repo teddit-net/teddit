@@ -37,7 +37,6 @@ Community instances:
 
 ## Roadmap
 
-* More themes, not just white or dark
 * HLS video streaming? (Would require browser JavaScript)
 * Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
