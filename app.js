@@ -11,7 +11,6 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const r = require('redis')
 
-
 const redis = (() => {
   if (!config.redis_enabled) {
     // Stub Redis if disabled

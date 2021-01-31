@@ -26,10 +26,10 @@ Community instances:
 
 * [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
 * [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
+* [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
 
 ## TODO
 
-* Import/export preferences
 * User trophies
 * "other discussions" feature
 * "Open on reddit" links
@@ -37,7 +37,6 @@ Community instances:
 
 ## Roadmap
 
-* More themes, not just white or dark
 * HLS video streaming? (Would require browser JavaScript)
 * Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.

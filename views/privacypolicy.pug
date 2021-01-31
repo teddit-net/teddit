@@ -3,7 +3,7 @@ html
   head
     title privacy policy - teddit
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     .container
       .content

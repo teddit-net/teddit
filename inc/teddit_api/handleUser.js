@@ -74,6 +74,7 @@ module.exports = function() {
             <kind>${kind}</kind>
             <subreddit>${post.subreddit}</subreddit>
             <created>${post.created_utc}</created>
+            <pubDate>${new Date(post.created_utc*1000).toGMTString()}</pubDate>
             <ups>${post.ups}</ups>
             <link>${permalink}</link>
             <edited>${post.edited}</edited>

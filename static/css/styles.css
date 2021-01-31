@@ -150,6 +150,12 @@ form .setting {
   margin: 10px 0;
   width: 100%;
 }
+#export-form {
+  margin: 60px 0px 0px 0px;
+}
+#export-form input {
+  margin: 10px 0px 10px 0px;
+}
 .container .content small.notice {
   padding-top: 20px;
   padding-bottom: 5px;
@@ -182,6 +188,9 @@ header a {
 }
 header a.main {
   margin-left: 12px;
+}
+header h3.username {
+  margin: 0px 15px 0px 0px;
 }
 header .bottom {
   float: left;
@@ -496,6 +505,9 @@ footer a {
 }
 #links .link .entry details .line:first-child {
   margin-top: 0;
+}
+#links .link .entry details.preview-container img {
+  max-height: 600px !important;
 }
 /* COMMENTS */
 .comment {
@@ -1541,5 +1553,14 @@ code {
   }
   .explore#links .link .entry {
     width: calc(100% - 20px);
+  }
+  #links .link .entry details[open] .preview {
+    width: 100vw;
+    transform: translateX(-150px);
+  }
+  #links .link .entry .selftext {
+    width: calc(100vw - 40px);
+    transform: translateX(-150px);
+    margin-left: 10px;
   }
 }

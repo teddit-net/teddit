@@ -28,6 +28,42 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('subbed_subreddits')
     return res.redirect('/preferences')
   })
+  
+  app.get('/import_prefs/:key', (req, res, next) => {
+    let key = req.params.key
+    if(!key)
+      return res.redirect('/')
+    if(key.length !== 10)
+      return res.redirect('/')
+    
+    key = `prefs_key:${key}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error(`Error getting the preferences import key ${key} from redis.`, error)
+        return res.render('index', { json: null, user_preferences: req.cookies })
+      }
+      if(json) {
+        try {
+          let prefs = JSON.parse(json)
+          let subbed_subreddits_is_set = false
+          for(var setting in prefs) {
+            if(prefs.hasOwnProperty(setting)) {
+              res.cookie(setting, prefs[setting], { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+              if(setting === 'subbed_subreddits')
+                subbed_subreddits_is_set = true
+            }
+          }
+          if(!subbed_subreddits_is_set)
+            res.clearCookie('subbed_subreddits')
+          return res.redirect('/preferences')
+        } catch(e) {
+          console.error(`Error setting imported preferences to the cookies. Key: ${key}.`, error)
+        }
+      } else {
+        return res.redirect('/preferences')
+      }
+    })
+  })
 
   app.get('/privacy', (req, res, next) => {
     return res.render('privacypolicy', { user_preferences: req.cookies })
@@ -1001,14 +1037,25 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
 
-  app.get('/user/:user', (req, res, next) => {
-    res.redirect(`/u/${req.params.user}`)
+  app.get('/user/:user/:kind?', (req, res, next) => {
+    let kind = ''
+    if(req.params.kind)
+      kind = `/${req.params.kind}`
+    let q = ''
+    if(req.query.sort)     
+      q += `?sort=${req.query.sort}&`
+    if(req.query.t)
+      q += `t=${req.query.t}`
+      
+    res.redirect(`/u/${req.params.user}${kind}${q}`)
   })
 
-  app.get('/u/:user/:sort?', (req, res, next) => {
+  app.get('/u/:user/:kind?', (req, res, next) => {
     let user = req.params.user
     let after = req.query.after
     let before = req.query.before
+    let post_type = req.params.kind
+    let kind = post_type
     let user_data = {}
     let api_req = req.query.api
     let api_type = req.query.type
@@ -1028,6 +1075,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let d = `&after=${after}`
     if(before) {
       d = `&before=${before}`
+    }
+
+    post_type = `/${post_type}`
+    switch(post_type) {
+      case '/comments':
+        kind = 't1'
+        break;
+      case '/submitted':
+        kind = 't3'
+        break;
+      default:
+        post_type = ''
+        kind = ''
     }
     
     let sortby = req.query.sort
@@ -1059,7 +1119,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
     }
     
-    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}`
+    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}:post_type:${post_type}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the user ${key} key from redis.`, error)
@@ -1068,10 +1128,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got user ${user} key from redis.`);
         (async () => {
-          if(api_req) {
+          if(api_req) {
             return handleTedditApiUser(json, req, res, 'redis', api_type, api_target, user, after, before)
           } else {
-            let processed_json = await processJsonUser(json, false, after, before, req.cookies)
+            let processed_json = await processJsonUser(json, false, after, before, req.cookies, kind, post_type)
             return res.render('user', {
               data: processed_json,
               sortby: sortby,
@@ -1093,10 +1153,14 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             .then(json => {
               user_data.about = json
               let url = ''
-              if(config.use_reddit_oauth)
-                url = `https://oauth.reddit.com/user/${user}/overview?limit=26${d}&sort=${sortby}&t=${past}`
-              else
-                url = `https://reddit.com/user/${user}.json?limit=26${d}&sort=${sortby}&t=${past}`
+              if(config.use_reddit_oauth) {
+                let endpoint = '/overview'
+                if(post_type !== '')
+                  endpoint = post_type
+                url = `https://oauth.reddit.com/user/${user}${post_type}?limit=26${d}&sort=${sortby}&t=${past}`
+              } else {
+                url = `https://reddit.com/user/${user}${post_type}.json?limit=26${d}&sort=${sortby}&t=${past}`
+              }
               fetch(encodeURI(url), redditApiGETHeaders())
               .then(result => {
                 if(result.status === 200) {
@@ -1109,10 +1173,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         return res.render('index', { post: null, user_preferences: req.cookies })
                       } else {
                         (async () => {
-                          if(api_req) {
+                          if(api_req) {
                             return handleTedditApiUser(user_data, req, res, 'online', api_type, api_target, user, after, before)
                           } else {
-                            let processed_json = await processJsonUser(user_data, true, after, before, req.cookies)
+                            let processed_json = await processJsonUser(user_data, true, after, before, req.cookies, kind, post_type)
                             return res.render('user', {
                               data: processed_json,
                               sortby: sortby,
@@ -1144,7 +1208,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – User not found')
+              console.log('404 – User not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -1195,6 +1259,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.cookie('highlight_controversial', highlight_controversial, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
 
     return res.redirect('/preferences')
+  })
+  
+  app.post('/export_prefs', (req, res, next) => {
+    let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
+    let key = `prefs_key:${r}`
+    redis.set(key, JSON.stringify(req.cookies), (error) => {
+      if(error) {
+        console.error(`Error saving preferences to redis.`, error)
+        return res.redirect('/preferences')
+      } else {
+        return res.render('preferences', { user_preferences: req.cookies, instance_config: config, preferences_key: r })
+      }
+    })
   })
 
   app.post('/r/:subreddit/comments/:id/:snippet', (req, res, next) => {
