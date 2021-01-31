@@ -1,4 +1,22 @@
 # Changelog
+## 2021-01-30
+### Added
+1. add import/export feature for preferences
+2. add 'pubDate' for RSS feeds
+## 2021-01-29
+### Added
+1. filter users by submissions/comments
+### Fixed
+1. fixes for #139
+2. Fix expandable and image overflow for sepia theme
+## 2021-01-28
+### Fixed
+1. Fine tune expandable post
+## 2021-01-27
+### Added
+1. Automatically change theme
+### Fixed
+1. Fix expanding post (#137)
 ## 2021-01-23
 ### Fixed
 1. Styling of footer (PR: #132)
