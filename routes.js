@@ -68,6 +68,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.get('/privacy', (req, res, next) => {
     return res.render('privacypolicy', { user_preferences: req.cookies })
   })
+
+  app.get('/gallery/:id', (req, res, next) => {
+    return res.redirect(`/comments/${req.params.id}`)
+  })
   
   app.get('/subreddits/:sort?', (req, res, next) => {
     let q = req.query.q
