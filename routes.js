@@ -72,6 +72,173 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.get('/gallery/:id', (req, res, next) => {
     return res.redirect(`/comments/${req.params.id}`)
   })
+
+  app.get('/saved', (req, res, next) => {
+    let saved = req.cookies.saved
+    
+    if(!saved || !Array.isArray(saved))
+      return res.send('no saved posts')
+    
+    let key = `saved_posts:${saved.join(',')}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error(`Error getting saved_post ${saved_post} key from redis.`, error)
+        return res.redirect('/')
+      }
+      if(json) {
+        (async () => {
+          let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies, true)
+          if(!processed_json.error) {
+            return res.render('saved', {
+              json: processed_json,
+              user_preferences: req.cookies,
+            })
+          } else {
+            return res.render('subreddit', {
+              json: null,
+              error: true,
+              data: processed_json,
+              user_preferences: req.cookies
+            })
+          }
+        })()
+      }
+    })
+  })
+
+  app.get('/save/:id', (req, res, next) => {
+    let post_id = req.params.id
+    let redis_key = req.query.rk
+    let back = req.query.b
+    let saved = req.cookies.saved
+    let fetched = req.query.f
+    
+    if(!post_id || !redis_key)
+      return res.redirect('/saved')
+      
+    if(!saved || !Array.isArray(saved))
+      saved = []
+    
+    if(saved.length > 100)
+      return res.send('You can not save more than 100 posts.')
+    
+    redis.get(redis_key, (error, json) => {
+      if(error) {
+        console.error(`Error getting the ${redis_key} key from redis (via /save/).`, error)
+        return res.redirect('/')
+      }
+      if(json) {
+        json = JSON.parse(json)
+        if(fetched === 'true' || redis_key.includes('/comments/'))
+          json = json[0]
+        
+        let post_to_save = false
+        for(var i = 0; i < json.data.children.length; i++) {
+          let post = json.data.children[i]
+          if(post.data.id === post_id) {
+            post_to_save = post
+            break
+          }
+        }
+        
+        if(post_to_save) {
+          if(!saved || !Array.isArray(saved))
+            saved = []
+          
+          for(var i = 0; i < saved.length; i++) {
+            if(post_to_save.data.id === saved[i])
+              return res.redirect('/saved')
+          }
+          
+          let key = `saved_posts:${saved.join(',')}`
+          redis.get(key, (error, json) => {
+            if(error) {
+              console.error(`Error getting saved_posts ${key} key from redis.`, error)
+              return res.redirect('/')
+            }
+            links = JSON.parse(json)
+            if(!links)
+              links = []
+              
+            links.unshift(post_to_save)
+            saved.unshift(post_to_save.data.id)
+            res.cookie('saved', saved, { maxAge: 3 * 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+            
+            let new_key = `saved_posts:${saved.join(',')}`
+            redis.set(new_key, JSON.stringify(links), (error) => {
+              if(error)
+                console.error(`Error saving ${new_key} to redis.`, error)
+              
+              if(!back)
+                return res.redirect('/saved')
+              else {
+                back = back.replace(/§2/g, '?').replace(/§1/g, '&')
+                return res.redirect(back)
+              }
+            })
+          })
+        } else {
+          return res.redirect(`/comments/${post_id}/?save=true&b=${back}`)
+        }
+      } else {
+        return res.redirect(`/comments/${post_id}/?save=true&b=${back}`)
+      }
+    })
+  })
+  
+  app.get('/unsave/:id', (req, res, next) => {
+    let post_id = req.params.id
+    let back = req.query.b
+    let saved = req.cookies.saved
+    
+    if(!post_id)
+      return res.redirect('/saved')
+      
+    if(!saved || !Array.isArray(saved))
+      return res.redirect('/saved')
+    
+    let key = `saved_posts:${saved.join(',')}`
+    redis.get(key, (error, json) => {
+      if(error) {
+        console.error(`Error getting the ${key} key from redis (via /save/).`, error)
+        return res.redirect('/')
+      }
+      if(json) {
+        json = JSON.parse(json)
+        let post_found = false
+        for(var i = 0; i < json.length; i++) {
+          if(json[i].data.id === post_id) {
+            post_found = true
+            json.splice(i, 1)
+            for(var j = 0; j < saved.length; j++) {
+              if(saved[j] === post_id)
+                saved.splice(j, 1)
+            }
+          }
+        }
+        if(post_found) {
+          res.cookie('saved', saved, { maxAge: 3 * 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+          
+          let new_key = `saved_posts:${saved.join(',')}`
+          redis.set(new_key, JSON.stringify(json), (error) => {
+            if(error)
+              console.error(`Error saving ${new_key} to redis.`, error)
+            
+            if(!back)
+              return res.redirect('/saved')
+            else {
+              back = back.replace(/§2/g, '?').replace(/§1/g, '&')
+              return res.redirect(back)
+            }
+          })
+        } else {
+          return res.redirect(`/saved`)
+        }
+      } else {
+        return res.redirect(`/saved`)
+      }
+    })
+  })
   
   app.get('/subreddits/:sort?', (req, res, next) => {
     let q = req.query.q
@@ -398,7 +565,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               json: processed_json,
               sortby: sortby,
               past: past,
-              user_preferences: req.cookies
+              user_preferences: req.cookies,
+              redis_key: key
             })
           }
         })()
@@ -435,7 +603,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         json: processed_json,
                         sortby: sortby,
                         past: past,
-                        user_preferences: req.cookies
+                        user_preferences: req.cookies,
+                        redis_key: key
                       })
                     }
                   })()
@@ -462,6 +631,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let post_id = req.params.post_id
     let comment = req.params.comment
     let comment_id = req.params.comment_id
+    let back = req.query.b
+    let save = req.query.save
     let post_url = false
     let comment_url = false
     
@@ -483,10 +654,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log('Got short URL for post key from redis.')
         json = JSON.parse(json)
-        if(post_url)
+        if(post_url) {
+          if(save === 'true')
+            return res.redirect(`/save/${post_id}/?rk=${key}&b=${back}&f=true`)
           return res.redirect(json[0].data.children[0].data.permalink)
-        else
+        } else {
           return res.redirect(json[1].data.children[0].data.permalink)
+        }
       } else {
         let url = ''
         if(config.use_reddit_oauth) {
@@ -512,10 +686,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   return res.render('index', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log('Fetched the short URL for post from Reddit.')
-                  if(post_url)
+                  if(post_url) {
+                    if(save === 'true')
+                      return res.redirect(`/save/${post_id}/?rk=${key}&b=${back}&f=true`)
                     return res.redirect(json[0].data.children[0].data.permalink)
-                  else
+                  } else {
                     return res.redirect(json[1].data.children[0].data.permalink)
+                  }
                 }
               })
             })
@@ -824,7 +1001,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 sortby: sortby,
                 past: past,
                 user_preferences: req.cookies,
-                instance_nsfw_enabled: config.nsfw_enabled
+                instance_nsfw_enabled: config.nsfw_enabled,
+                redis_key: key,
+                after: req.query.after,
+                before: req.query.before
               })
             } else {
               return res.render('subreddit', {
@@ -867,7 +1047,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                         sortby: sortby,
                         past: past,
                         user_preferences: req.cookies,
-                        instance_nsfw_enabled: config.nsfw_enabled
+                        instance_nsfw_enabled: config.nsfw_enabled,
+                        redis_key: key,
+                        after: req.query.after,
+                        before: req.query.before
                       })
                     }
                   })()
@@ -941,7 +1124,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               subreddit: subreddit,
               sortby: sortby,
               user_preferences: req.cookies,
-              instance_nsfw_enabled: config.nsfw_enabled
+              instance_nsfw_enabled: config.nsfw_enabled,
+              redis_key: comments_key
             })
           } else {
             let key = `morechildren:${post_url};1`
@@ -975,7 +1159,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                           sortby: sortby,
                           more_comments_page: 1,
                           user_preferences: req.cookies,
-                          instance_nsfw_enabled: config.nsfw_enabled
+                          instance_nsfw_enabled: config.nsfw_enabled,
+                          redis_key: comments_key
                         })
                       })()
                     })
@@ -1014,7 +1199,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       subreddit: subreddit,
                       sortby: sortby,
                       user_preferences: req.cookies,
-                      instance_nsfw_enabled: config.nsfw_enabled
+                      instance_nsfw_enabled: config.nsfw_enabled,
+                      redis_key: comments_key
                     })
                   })()
                 }

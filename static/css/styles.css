@@ -444,6 +444,7 @@ footer a {
   padding: 0;
   color: #888;
   font-weight: bold;
+  margin: 0px 15px 0px 0px;
 }
 #links .link .entry .meta a:hover {
   text-decoration: underline;
@@ -670,6 +671,9 @@ footer a {
 #post .info {
   float: left;
   width: 100%;
+}
+#post .info .links a {
+  font-size: var(--sm-font);
 }
 #post header {
   padding-top: 0;

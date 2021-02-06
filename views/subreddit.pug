@@ -157,8 +157,22 @@ html
                             span &#9654;
                           .preview
                             img(src=""+ link.images.thumb +"", alt="")
-                      a(href="" + link.permalink + "", class="comments")
-                        | #{link.num_comments} comments
+                      a(href="" + link.permalink + "", class="comments") #{link.num_comments} comments
+                      -
+                        let back_url = "/r/" + subreddit + "/" + sortby + "§2t="+ (past ? past : '') +""
+                        if(before && !subreddit_front)
+                          back_url = "/r/" + subreddit + "/" + sortby + "§2t="+ (past ? past : '') +"§1before=" + before + ""
+                        if(after)
+                          back_url = "/r/" + subreddit + "/" + sortby + "§2t=" + (past ? past : '') + "§1after=" + after + ""
+                      - let saved_post = false
+                      if user_preferences.saved
+                        each post_id in user_preferences.saved
+                          if post_id === link.id
+                            - saved_post = true
+                      if saved_post
+                        a(href="/unsave/" + link.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
+                      else
+                        a(href="/save/" + link.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
           if json.info.before || json.info.after
             .view-more-links
               if json.info.before && !subreddit_front
