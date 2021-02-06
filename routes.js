@@ -76,8 +76,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.get('/saved', (req, res, next) => {
     let saved = req.cookies.saved
     
-    if(!saved || !Array.isArray(saved))
-      return res.send('no saved posts')
+    if(!saved || !Array.isArray(saved)) {
+      return res.render('saved', {
+        json: null,
+        user_preferences: req.cookies,
+      })
+    }
     
     let key = `saved_posts:${saved.join(',')}`
     redis.get(key, (error, json) => {
