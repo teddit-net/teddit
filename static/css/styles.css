@@ -675,6 +675,9 @@ footer a {
 #post .info .links a {
   font-size: var(--sm-font);
 }
+#post .info .links a {
+  float: initial;
+}
 #post header {
   padding-top: 0;
 }
@@ -712,6 +715,9 @@ footer a {
 #post .submitted {
   font-size: small;
   color: #686868;
+}
+#post .submitted a {
+  float: initial;
 }
 #post .submitted a,
 #post .submitted span {

@@ -34,28 +34,28 @@ html
                 h2 #{cleanTitle(post.title)}
               != post.link_flair
               span(class="domain") (#{post.domain})
-            p.submitted
-              span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-              if post.author === '[deleted]'
-                span [deleted]
-              else
-                a(href="/u/" + post.author + "")
-                  | #{post.author}
-              != post.user_flair
-            .links
-              if post.over_18
-                span.tag.nsfw NSFW
-              -
-                let back_url = "/r/" + subreddit + "/comments/" + post.id
-                let saved_post = false
-              if user_preferences.saved
-                each post_id in user_preferences.saved
-                  if post_id === post.id
-                    - saved_post = true
-              if saved_post
-                a(href="/unsave/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
-              else
-                a(href="/save/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
+              p.submitted
+                span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+                if post.author === '[deleted]'
+                  span [deleted]
+                else
+                  a(href="/u/" + post.author + "")
+                    | #{post.author}
+                != post.user_flair
+              .links
+                if post.over_18
+                  span.tag.nsfw NSFW
+                -
+                  let back_url = "/r/" + subreddit + "/comments/" + post.id
+                  let saved_post = false
+                if user_preferences.saved
+                  each post_id in user_preferences.saved
+                    if post_id === post.id
+                      - saved_post = true
+                if saved_post
+                  a(href="/unsave/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
+                else
+                  a(href="/save/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
           if post.crosspost.is_crosspost === true
             .crosspost
               .title
