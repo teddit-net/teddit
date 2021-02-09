@@ -1,7 +1,18 @@
 # Changelog
+## 2021-02-06
+### Added
+1. Save Post feature
+    - You can now save/bookmark posts! Click the **saved** button on the subreddit bar to view the bookmarked posts.
+### Fixed
+1. Fix error message for empty/saved
+2. Fix main post links
+## 2021-01-31
+### Added
+1. Support for short Gallery URLs
 ## 2021-01-30
 ### Added
 1. add import/export feature for preferences
+    - You can now transfer your preferences and subreddits to another device. To export preferences, go to **Preferences** --> click the arrow next to **Export Preferences**. Access the URL from another device to import your preferences and subreddits.
 2. add 'pubDate' for RSS feeds
 ## 2021-01-29
 ### Added
