@@ -1,6 +1,6 @@
 module.exports = function() {
   const config = require('../config');
-  this.processJsonSubreddit = (json, from, subreddit_front, user_preferences) => {
+  this.processJsonSubreddit = (json, from, subreddit_front, user_preferences, saved) => {
     return new Promise(resolve => {
       (async () => {
         if(from === 'redis') {
@@ -9,6 +9,17 @@ module.exports = function() {
         if(json.error) {
           resolve({ error: true, error_data: json })
         } else {
+          if(saved) {
+            let t = {
+              data: {
+                before: null,
+                after: null,
+                children: json
+              }
+            }
+            json = t
+          }
+          
           let before = json.data.before
           let after = json.data.after
 
