@@ -55,7 +55,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           }
           if(!subbed_subreddits_is_set)
             res.clearCookie('subbed_subreddits')
-          return res.redirect('/preferences')
+          return res.redirect('/')
         } catch(e) {
           console.error(`Error setting imported preferences to the cookies. Key: ${key}.`, error)
         }
@@ -1456,6 +1456,14 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   })
   
   app.post('/export_prefs', (req, res, next) => {
+    let export_saved = req.body.export_saved
+    let export_data = req.cookies
+    
+    if(export_saved !== 'on') {
+      if(req.cookies.saved)
+        delete export_data.saved
+    }
+    
     let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
     let key = `prefs_key:${r}`
     redis.set(key, JSON.stringify(req.cookies), (error) => {
