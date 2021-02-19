@@ -39,12 +39,17 @@ module.exports = function(fetch) {
           user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
         }
 
-        let validEmbedDomains = ['gfycat.com', 'youtube.com']
+        let valid_embed_video_domains = ['gfycat.com']
         let has_gif = false
         let gif_to_mp4 = null
         let reddit_video = null
+        let embed_video = false
+        
+        if(post.media)
+          if(valid_embed_video_domains.includes(post.media.type))
+            embed_video = true
 
-        if(post.preview) {
+        if(post.preview && !embed_video) {
           if(post.preview.reddit_video_preview) {
             if(post.preview.reddit_video_preview.is_gif) {
               has_gif = true
