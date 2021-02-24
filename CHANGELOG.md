@@ -1,4 +1,13 @@
 # Changelog
+## 2021-02-19
+### Fixed
+1. Improve support for gyfcat(fix #15)
+## 2021-02-14
+### Fixed
+1. fix spoiler text not always showing when focused
+## 2021-02-13
+### Added
+1. Include saved posts in export preferences
 ## 2021-02-06
 ### Added
 1. Save Post feature
