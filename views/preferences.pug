@@ -75,6 +75,9 @@ html
               .setting
                 small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
                 br
+                label(for="export_saved") Export saved posts: 
+                  input(type="checkbox", name="export_saved", id="export_saved")
+                br
                 input(type="submit", value="Export preferences")
                 if preferences_key
                   - var protocol = 'http'
@@ -88,6 +91,9 @@ html
                 span Export preferences
               .setting
                 small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                br
+                label(for="export_saved") Export saved posts: 
+                  input(type="checkbox", name="export_saved", id="export_saved")
                 br
                 input(type="submit", value="Export preferences")
     include includes/footer.pug

@@ -1466,6 +1466,11 @@ code {
   background: #fff0;
   transition: none;
 }
+.md .md-spoiler-text:not(.revealed):active *,
+.md .md-spoiler-text:not(.revealed):focus *,
+.md .md-spoiler-text:not(.revealed):hover * {
+  opacity: 1;
+}
 @media only screen and (max-width: 768px) {
   #user .info {
     float: right;

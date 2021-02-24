@@ -3,28 +3,17 @@ module.exports = function() {
   this.processPostMedia = (obj, post, post_media, has_gif, reddit_video, gif_to_mp4) => {
     return new Promise(resolve => {
       (async () => {
-        let valid_embed_domains = ['gfycat.com', 'youtube.com']
         if(post_media || has_gif) {
           if(!has_gif) {
-            if(valid_embed_domains.includes(post_media.type)) {
+            if(config.valid_embed_video_domains.includes(post_media.type)) {
               if(post_media.type === 'gfycat.com') {
                 obj.has_media = true
+                let video_url = post_media.oembed.thumbnail_url
+                video_url = video_url.replace('size_restricted.gif', 'mobile.mp4')
                 obj.media = {
-                  source: await downloadAndSave(post_media.oembed.thumbnail_url),
+                  source: await downloadAndSave(video_url),
                   height: post_media.oembed.thumbnail_height,
-                  width: post_media.oembed.thumbnail_width,
-                  duration: null,
-                  is_gif: null,
-                  not_hosted_in_reddit: true,
-                  embed_src: null
-                }
-                try {
-                  let str = post_media.oembed.html
-                  let r = /iframe.*?src=\"(.*?)\"/;
-                  let src = r.exec(str)[1]
-                  obj.media.embed_src = cleanUrl(src)
-                } catch(error) {
-                  console.error(`Error while trying to get src link from embed html.`, error)
+                  width: post_media.oembed.thumbnail_width
                 }
               }
               if(post_media.type === 'youtube.com') {
