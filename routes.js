@@ -1129,6 +1129,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               sortby: sortby,
               user_preferences: req.cookies,
               instance_nsfw_enabled: config.nsfw_enabled,
+              post_media_max_heights: config.post_media_max_heights,
               redis_key: comments_key
             })
           } else {
@@ -1164,6 +1165,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                           more_comments_page: 1,
                           user_preferences: req.cookies,
                           instance_nsfw_enabled: config.nsfw_enabled,
+                          post_media_max_heights: config.post_media_max_heights,
                           redis_key: comments_key
                         })
                       })()
@@ -1204,6 +1206,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       sortby: sortby,
                       user_preferences: req.cookies,
                       instance_nsfw_enabled: config.nsfw_enabled,
+                      post_media_max_heights: config.post_media_max_heights,
                       redis_key: comments_key
                     })
                   })()
@@ -1431,6 +1434,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let flairs = req.body.flairs
     let nsfw_enabled = req.body.nsfw_enabled
     let highlight_controversial = req.body.highlight_controversial
+    let post_media_max_height = req.body.post_media_max_height
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -1451,6 +1455,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       highlight_controversial = 'false'
     res.cookie('highlight_controversial', highlight_controversial, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+
+    if(config.post_media_max_heights.hasOwnProperty(post_media_max_height) || !isNaN(post_media_max_height))
+      res.cookie('post_media_max_height', post_media_max_height, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
 
     return res.redirect('/preferences')
   })

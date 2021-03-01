@@ -25,8 +25,19 @@ const config = {
   nsfw_enabled: process.env.NSFW_ENABLED !== 'true' || true, // Enable NSFW (over 18) content. If false, a warning is shown to the user before opening any NSFW post. When the NFSW content is disabled, NSFW posts are hidden from subreddits and from user page feeds. Note: Users can set this to true or false from their preferences.
   post_comments_sort: process.env.POST_COMMENTS_SORT || 'confidence', // "confidence" is the default sorting in Reddit. Must be one of: confidence, top, new, controversial, old, random, qa, live.
   reddit_app_id: process.env.REDDIT_APP_ID || 'ABfYqdDc9qPh1w', // If "use_reddit_oauth" config key is set to true, you have to obtain your Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app.
+  post_media_max_heights: {
+    /**
+    * Sets the max-height value for images and videos in posts.
+    * Default is 'medium'.
+    */
+    'extra-small': 300,
+    'small': 415,
+    'medium': 600,
+    'large': 850,
+    'extra-large': 1200
+  },
   setexs: {
-    /**,
+    /**
     * Redis cache expiration values (in seconds).
     * When the cache expires, new content is fetched from Reddit's API (when
     * the given URL is revisited).
