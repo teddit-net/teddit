@@ -51,6 +51,20 @@ html
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled")
               else
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled", checked="checked")
+          .setting
+            label(for="post_media_max_height") Media size in posts: 
+              select(id="post_media_max_height", name="post_media_max_height")
+                -
+                  let max_heights_html = ''
+                  let user_key = user_preferences.post_media_max_height
+                  if(!user_key || user_key == '')
+                    user_key = 'medium'
+                  
+                  for(let key in instance_config.post_media_max_heights) {
+                    if(instance_config.post_media_max_heights.hasOwnProperty(key))
+                      max_heights_html += `<option value="${key}" ${(user_key == key ? "selected" : "")}>${key}</option>`
+                  }
+                != max_heights_html
           legend Subscribed subreddits
           .setting
             details

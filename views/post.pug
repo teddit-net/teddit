@@ -24,6 +24,19 @@ html
               p subreddit:
               a(href="/r/" + subreddit + "")
                 p /r/#{subreddit}
+          if user_preferences.post_media_max_height
+            if(post_media_max_heights.hasOwnProperty(user_preferences.post_media_max_height))
+              style.
+                #post .image img, #post .video video {
+                    max-height: #{post_media_max_heights[user_preferences.post_media_max_height]}px;
+                    max-width: 100%;
+                }
+            else if(!isNaN(user_preferences.post_media_max_height))
+              style.
+                #post .image img, #post .video video {
+                    max-height: #{user_preferences.post_media_max_height}px;
+                    max-width: 100%;
+                }
           .info
             .score
               div.arrow

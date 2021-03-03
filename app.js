@@ -123,6 +123,14 @@ const preferencesMiddleware = (req, res, next) => {
     res.cookie('highlight_controversial', highlightControversialOverride, { maxAge: 31536000, httpOnly: true })
   }
   
+  let postMediaMaxHeight = req.query.post_media_max_height
+  if(postMediaMaxHeight) {
+    if(config.post_media_max_heights.hasOwnProperty(postMediaMaxHeight) || !isNaN(postMediaMaxHeight)) {
+      req.cookies.post_media_max_height = postMediaMaxHeight
+      res.cookie('post_media_max_height', postMediaMaxHeight, { maxAge: 31536000, httpOnly: true })
+    }
+  }
+  
   next()
 }
 

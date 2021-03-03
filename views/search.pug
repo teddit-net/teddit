@@ -151,7 +151,7 @@ html
     if json.before || json.after
       .view-more-links
         if json.before && !subreddit_front
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&before=" + json.before + "") ‹ prev
         if json.after
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&after=" + json.after + "") next ›
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&after=" + json.after + "") next ›
     include includes/footer.pug

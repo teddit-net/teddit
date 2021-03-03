@@ -28,6 +28,8 @@ Community instances:
 * [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
 * [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
 * [https://teddit.namazso.eu/](https://teddit.namazso.eu/)
+* [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
+
 ## TODO
 
 * User trophies
