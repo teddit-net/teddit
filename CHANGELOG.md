@@ -1,4 +1,11 @@
 # Changelog
+## 2021-03-01
+### Added
+1. Make a preference for image sizes in posts, fix #119
+    - Now users can change the max height of the media in posts. In preferences there is a setting called "Media size in posts". For more info, click [here](https://codeberg.org/teddit/teddit/issues/119#issuecomment-180384)
+## 2021-02-23
+### Fixed
+1. Fix next page bug if NSFW is turned on
 ## 2021-02-19
 ### Fixed
 1. Improve support for gyfcat(fix #15)
