@@ -29,6 +29,8 @@ Community instances:
 * [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
 * [https://teddit.namazso.eu/](https://teddit.namazso.eu/)
 * [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
+* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion)
+* [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)
 
 ## TODO
 
@@ -40,7 +42,6 @@ Community instances:
 ## Roadmap
 
 * HLS video streaming? (Would require browser JavaScript)
-* Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
 ## Changelog
 
