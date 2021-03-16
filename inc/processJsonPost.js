@@ -198,7 +198,7 @@ module.exports = function(fetch) {
     })
   }
 
-  this.finalizeJsonPost = async (processed_json, post_id, post_url, morechildren_ids, viewing_comment) => {
+  this.finalizeJsonPost = async (processed_json, post_id, post_url, morechildren_ids, viewing_comment, user_preferences) => {
     let comments_html = `<div class="comments">`
     let comments = processed_json.comments
     for(var i = 0; i < comments.length; i++) {
@@ -206,7 +206,7 @@ module.exports = function(fetch) {
       if(comments[i+1]) {
         next_comment = comments[i+1]
       }
-      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment)
+      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment, user_preferences)
     }
 
     comments_html += `</div>`

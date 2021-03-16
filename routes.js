@@ -133,7 +133,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
       if(json) {
         json = JSON.parse(json)
-        if(fetched === 'true' || redis_key.includes('/comments/'))
+        if(fetched === 'true' || redis_key.includes('/comments/'))
           json = json[0]
         
         let post_to_save = false
@@ -235,7 +235,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
               return res.redirect(back)
             }
           })
-        } else {
+        } else {
           return res.redirect(`/saved`)
         }
       } else {
@@ -264,7 +264,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       d = `&before=${before}`
     }
     
-    if(nsfw !== 'on') {
+    if(nsfw !== 'on') {
       nsfw = 'off'
     }
     
@@ -361,7 +361,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – Subreddits not found')
+              console.log('404 – Subreddits not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -486,11 +486,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     if(!before) {
       before = ''
     }
-    if(restrict_sr !== 'on') {
+    if(restrict_sr !== 'on') {
       restrict_sr = 'off'
     }
     
-    if(nsfw !== 'on') {
+    if(nsfw !== 'on') {
       nsfw = 'off'
     }
     let d = `&after=${after}`
@@ -561,7 +561,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log('Got frontpage key from redis.');
         (async () => {
-          if(api_req) {
+          if(api_req) {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, '/')
           } else {
             let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
@@ -599,7 +599,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log('Fetched the frontpage from Reddit.');
                   (async () => {
-                    if(api_req) {
+                    if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, '/')
                     } else {
                       let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
@@ -736,11 +736,11 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       d = `&before=${before}`
     }
     
-    if(restrict_sr !== 'on') {
+    if(restrict_sr !== 'on') {
       restrict_sr = 'off'
     }
     
-    if(nsfw !== 'on') {
+    if(nsfw !== 'on') {
       nsfw = 'off'
     }
     
@@ -864,7 +864,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – Subreddit wiki not found')
+              console.log('404 – Subreddit wiki not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -922,7 +922,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         })
       } else {
         if(result.status === 404) {
-          console.log('404 – Subreddit not found')
+          console.log('404 – Subreddit not found')
         } else {
           console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
           console.error(config.reddit_api_error_text)
@@ -991,7 +991,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got /r/${subreddit} key from redis.`);
         (async () => {
-          if(api_req) {
+          if(api_req) {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, subreddit)
           } else {
             let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
@@ -1038,7 +1038,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log(`Fetched the JSON from reddit.com/r/${subreddit}.`);
                   (async () => {
-                    if(api_req) {
+                    if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, subreddit)
                     } else {
                       let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
@@ -1063,7 +1063,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – Subreddit not found')
+              console.log('404 – Subreddit not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -1119,7 +1119,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         (async () => {
           if(!more_comments_cursor) {
             let processed_json = await processJsonPost(json, false, req.cookies)
-            let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
+            let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment, req.cookies)
             return res.render('post', {
               post: finalized_json.post_data,
               comments: finalized_json.comments,
@@ -1215,7 +1215,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – Post not found')
+              console.log('404 – Post not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -1483,7 +1483,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got /u/${user} custom_feed key from redis.`);
         (async () => {
-          if(api_req) {
+          if(api_req) {
             return handleTedditApiSubreddit(json, req, res, 'redis', api_type, api_target, subreddit)
           } else {
             let processed_json = await processJsonSubreddit(json, 'redis', null, req.cookies)
@@ -1529,7 +1529,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log(`Fetched the JSON from reddit.com/r/${subreddit}.`);
                   (async () => {
-                    if(api_req) {
+                    if(api_req) {
                       return handleTedditApiSubreddit(json, req, res, 'from_online', api_type, api_target, subreddit)
                     } else {
                       let processed_json = await processJsonSubreddit(json, 'from_online', null, req.cookies)
@@ -1553,7 +1553,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             })
           } else {
             if(result.status === 404) {
-              console.log('404 – Subreddit not found')
+              console.log('404 – Subreddit not found')
             } else {
               console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
               console.error(config.reddit_api_error_text)
@@ -1581,6 +1581,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let nsfw_enabled = req.body.nsfw_enabled
     let highlight_controversial = req.body.highlight_controversial
     let post_media_max_height = req.body.post_media_max_height
+    let collapse_child_comments = req.body.collapse_child_comments
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -1604,7 +1605,13 @@ module.exports = (app, redis, fetch, RedditAPI) => {
 
     if(config.post_media_max_heights.hasOwnProperty(post_media_max_height) || !isNaN(post_media_max_height))
       res.cookie('post_media_max_height', post_media_max_height, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
-
+    
+    if(collapse_child_comments === 'on')
+      collapse_child_comments = 'true'
+    else
+      collapse_child_comments = 'false'
+    res.cookie('collapse_child_comments', collapse_child_comments, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
     return res.redirect('/preferences')
   })
   
@@ -1708,3 +1715,4 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     }
   })
 }
+

@@ -131,6 +131,12 @@ const preferencesMiddleware = (req, res, next) => {
     }
   }
   
+  let collapseChildComments = req.query.collapse_child_comments
+  if(collapseChildComments) {
+    req.cookies.collapse_child_comments = collapseChildComments
+    res.cookie('collapse_child_comments', collapseChildComments, { maxAge: 31536000, httpOnly: true })
+  }
+  
   next()
 }
 

@@ -65,6 +65,12 @@ html
                       max_heights_html += `<option value="${key}" ${(user_key == key ? "selected" : "")}>${key}</option>`
                   }
                 != max_heights_html
+          .setting
+            label(for="collapse_child_comments") Collapse child comments automatically: 
+              if(user_preferences.collapse_child_comments == 'true')
+                input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments", checked="checked")
+              else
+                input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments")
           legend Subscribed subreddits
           .setting
             details

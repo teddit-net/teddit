@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment) => {
+  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences) => {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
@@ -10,6 +10,9 @@ module.exports = function() {
           else
             return `<a href="/u/${comment.author}" class="${classes}">${comment.author}</a>${submitter || ''}${moderator || ''}`
         }
+        
+        if(!user_preferences)
+          user_preferences = {}
 
         if(comments.author !== undefined && comments.body_html !== undefined) {
           let classlist = []
@@ -42,7 +45,7 @@ module.exports = function() {
           }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
-              <details open>
+              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 ? '' : 'open'}>
                 <summary>
                   <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                   <p class="ups">${ups}</p>
@@ -138,7 +141,7 @@ module.exports = function() {
               }
               comments_html += `
                 <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comment.id}">
-                <details open>
+                <details ${user_preferences.collapse_child_comments === 'true' && comments.depth === 0 ? '' : 'open'}>
                   <summary>
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p class="ups">${ups}</p>
@@ -164,7 +167,7 @@ module.exports = function() {
                     if(comment.replies[j+1]) {
                       next_reply = comment.replies[j+1]
                     }
-                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment)
+                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment, user_preferences)
                   }
                 }
               }
