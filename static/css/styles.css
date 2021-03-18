@@ -698,6 +698,11 @@ footer a {
   font-weight: bold;
   font-size: small;
 }
+#post .ratio {
+  font-size: 0.6rem;
+  display: block;
+  padding: 4px 0px 5px 0px;
+}
 #post .title {
   float: left;
   width: calc(100% - 60px);

@@ -71,6 +71,12 @@ html
                 input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments", checked="checked")
               else
                 input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments")
+          .setting
+            label(for="show_upvoted_percentage") Show upvote ratio percentage in posts: 
+              if(user_preferences.show_upvoted_percentage == 'true')
+                input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage", checked="checked")
+              else
+                input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage")
           legend Subscribed subreddits
           .setting
             details

@@ -137,6 +137,12 @@ const preferencesMiddleware = (req, res, next) => {
     res.cookie('collapse_child_comments', collapseChildComments, { maxAge: 31536000, httpOnly: true })
   }
   
+  let showUpvotedPercentage = req.query.show_upvoted_percentage
+  if(showUpvotedPercentage) {
+    req.cookies.show_upvoted_percentage = showUpvotedPercentage
+    res.cookie('show_upvoted_percentage', showUpvotedPercentage, { maxAge: 31536000, httpOnly: true })
+  }
+  
   next()
 }
 

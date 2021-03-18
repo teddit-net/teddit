@@ -41,6 +41,9 @@ html
             .score
               div.arrow
               span #{kFormatter(post.ups)}
+              if user_preferences.show_upvoted_percentage === 'true'
+                - let downvoted = parseInt(post.ups * (1 - post.upvote_ratio))
+                span.ratio(title="~"+ downvoted +" downvoted") #{post.upvote_ratio  * 100}%
               div.arrow.down
             .title
               a(href="" + post.url + "", rel="noopener noreferrer")
@@ -80,6 +83,9 @@ html
               .score
                 div.arrow
                 span #{kFormatter(post.crosspost.ups)}
+                if user_preferences.show_upvoted_percentage === 'true'
+                  - let downvoted = parseInt(post.ups * (1 - post.upvote_ratio))
+                  span.ratio(title="~"+ downvoted +" downvoted") #{post.upvote_ratio  * 100}%
                 div.arrow.down
               p.submitted
                 span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by

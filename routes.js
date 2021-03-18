@@ -1582,6 +1582,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let highlight_controversial = req.body.highlight_controversial
     let post_media_max_height = req.body.post_media_max_height
     let collapse_child_comments = req.body.collapse_child_comments
+    let show_upvoted_percentage = req.body.show_upvoted_percentage
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -1611,6 +1612,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       collapse_child_comments = 'false'
     res.cookie('collapse_child_comments', collapse_child_comments, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(show_upvoted_percentage === 'on')
+      show_upvoted_percentage = 'true'
+    else
+      show_upvoted_percentage = 'false'
+    res.cookie('show_upvoted_percentage', show_upvoted_percentage, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
     return res.redirect('/preferences')
   })
