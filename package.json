@@ -34,7 +34,7 @@
     "minizlib": "^2.1.2",
     "node-fetch": "^2.6.1",
     "postman-request": "^2.88.1-postman.27",
-    "pug": "^3.0.0",
+    "pug": "^3.0.2",
     "redis": "^3.0.2"
   },
   "devDependencies": {}
