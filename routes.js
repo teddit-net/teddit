@@ -719,6 +719,21 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.get('/r/:subreddit/search', (req, res, next) => {
     let subreddit = req.params.subreddit
     let q = req.query.q
+
+    if (typeof q === "undefined") {
+      return res.render('search', {
+        json: { posts: [] },
+        no_query: true,
+        q: '',
+        restrict_sr: undefined,
+        nsfw: undefined,
+        subreddit: subreddit,
+        sortby: undefined,
+        past: undefined,
+        user_preferences: req.cookies
+      })
+    }
+
     let restrict_sr = req.query.restrict_sr
     let nsfw = req.query.nsfw
     let sortby = req.query.sort

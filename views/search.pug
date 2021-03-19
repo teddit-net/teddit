@@ -15,13 +15,13 @@ html
             input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
         div
           label(for="restrict_sr") limit my search to r/#{subreddit}
-            if restrict_sr === 'on'
+            if !restrict_sr || restrict_sr === 'on'
               input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
             else
               input(type="checkbox", name="restrict_sr", id="restrict_sr")
         div
           label(for="nsfw") include NSFW results
-            if nsfw === 'on'
+            if !nsfw || nsfw === 'on'
               input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
             else
               input(type="checkbox", name="nsfw", id="nsfw")
