@@ -150,11 +150,14 @@ form .setting {
   margin: 10px 0;
   width: 100%;
 }
-#export-form {
+.export-import-form {
   margin: 60px 0px 0px 0px;
 }
-#export-form input {
+.export-import-form input {
   margin: 10px 0px 10px 0px;
+}
+.export-import-form:last-child {
+  margin: 25px 0px 15px 0px;
 }
 .container .content small.notice {
   padding-top: 20px;

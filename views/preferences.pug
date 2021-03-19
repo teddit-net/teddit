@@ -93,7 +93,7 @@ html
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences
-        form(action="/export_prefs", method="POST", id="export-form")
+        form(action="/export_prefs", method="POST", class="export-import-form")
           if preferences_key
             details(open)
               summary
@@ -118,8 +118,23 @@ html
               .setting
                 small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
                 br
+                small If you are exporting to a file, please save your preferences first!
+                br
                 label(for="export_saved") Export saved posts: 
                   input(type="checkbox", name="export_saved", id="export_saved")
                 br
+                label(for="export_to_file") Export preferences to a JSON file: 
+                  input(type="checkbox", name="export_to_file", id="export_to_file")
+                br
                 input(type="submit", value="Export preferences")
+        form(action="/import_prefs", method="POST", class="export-import-form", enctype="multipart/form-data")
+          details
+            summary
+              span Import JSON preferences file
+            .setting
+              small All your current preferences and saved posts will be reseted and the settings from the JSON file will be used instead.
+              br
+              input(type="file", name="file", id="file")
+              br
+              input(type="submit", value="Import preferences")
     include includes/footer.pug

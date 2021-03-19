@@ -1640,10 +1640,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   app.post('/export_prefs', (req, res, next) => {
     let export_saved = req.body.export_saved
     let export_data = req.cookies
+    let export_to_file = req.body.export_to_file
     
     if(export_saved !== 'on') {
       if(req.cookies.saved)
         delete export_data.saved
+    }
+    
+    if(export_to_file === 'on') {
+      res.setHeader('Content-disposition', 'attachment; filename=teddit_prefs.json')
+      res.setHeader('Content-type', 'application/json')
+      res.send(req.cookies)
     }
     
     let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
@@ -1654,6 +1661,29 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         return res.redirect('/preferences')
       } else {
         return res.render('preferences', { user_preferences: req.cookies, instance_config: config, preferences_key: r })
+      }
+    })
+  })
+  
+  app.post('/import_prefs', (req, res, next) => {
+    let body = ''
+    req.on('data', chunk => {
+        body += chunk.toString()
+    })
+    req.on('end', () => {
+      body = body.toString()
+      let json = body.split('Content-Type: application/json')[1].trim().split('--')[0]
+      try {
+        let prefs = JSON.parse(json)
+        resetPreferences(res)
+        for(var setting in prefs) {
+          if(prefs.hasOwnProperty(setting)) {
+            res.cookie(setting, prefs[setting], { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+          }
+        }
+        return res.redirect('/preferences')
+      } catch(e) {
+        console.error(`Error importing preferences from a JSON file. Please report this error on https://codeberg.org/teddit/teddit.`, e)
       }
     })
   })
@@ -1736,5 +1766,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       })
     }
   })
+  
+  function resetPreferences(res) {
+    res.clearCookie('theme')
+    res.clearCookie('flairs')
+    res.clearCookie('nsfw_enabled')
+    res.clearCookie('highlight_controversial')
+    res.clearCookie('post_media_max_height')
+    res.clearCookie('collapse_child_comments')
+    res.clearCookie('show_upvoted_percentage')
+    res.clearCookie('subbed_subreddits')
+  }
 }
 
