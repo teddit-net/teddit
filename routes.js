@@ -1650,7 +1650,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     if(export_to_file === 'on') {
       res.setHeader('Content-disposition', 'attachment; filename=teddit_prefs.json')
       res.setHeader('Content-type', 'application/json')
-      res.send(req.cookies)
+      return res.send(req.cookies)
     }
     
     let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
