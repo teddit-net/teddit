@@ -871,12 +871,11 @@ footer a {
 }
 #post .usertext-body .poll {
   padding: 20px;
-  border: 1px solid #404040;
+  border: 1px solid #369;
   margin: 10px 0px 20px 0px;
   float: left;
   width: calc(100% - 20%);
   position: relative;
-  background: #8a8a8a;
 }
 #post .usertext-body .poll .option {
   float: left;

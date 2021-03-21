@@ -218,7 +218,9 @@ body.sepia .comments > form button {
 	padding: 8px;
 	cursor: pointer;
 }
-
+body.sepia #post .usertext-body .poll {
+  border: 1px solid #ccc9b8;
+}
 @media only screen and (max-width: 600px) {
 	body.sepia #sidebar {
 		width: 100%;

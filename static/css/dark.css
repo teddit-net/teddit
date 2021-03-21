@@ -196,3 +196,6 @@ body.dark #sr-more-link {
   color: white;
   background: #0f0f0f;
 }
+body.dark #post .usertext-body .poll {
+  border: 1px solid #404040;
+}
