@@ -36,7 +36,7 @@ module.exports = function(request, fs) {
     return url.replace(/&amp;/g, '&')
   }
 
-  this.teddifyUrl = (url) => {
+  this.teddifyUrl = (url, user_preferences) => {
     try {
       let u = new URL(url)
       if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
