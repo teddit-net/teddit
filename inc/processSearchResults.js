@@ -72,7 +72,7 @@ module.exports = function() {
               link_flair_text: post.link_flair_text,
               ups: post.ups,
               images: images,
-              url: post.url,
+              url: replacePrivacyDomains(post.url, user_preferences),
               edited: post.edited,
               selftext_html: unescape(post.body_html),
               num_comments: post.num_comments,

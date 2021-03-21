@@ -9,6 +9,25 @@ html
       .content
         h1 Preferences
         form(action="/saveprefs", method="POST")
+          legend Privacy
+          .setting
+            label(for="domain_twitter") Replace Twitter links with Nitter (blank to disable): 
+              if(user_preferences.domain_twitter != '' && typeof(user_preferences.domain_twitter) != 'undefined')
+                input(type="text", name="domain_twitter", id="domain_twitter", value="" + user_preferences.domain_twitter + "", placeholder="e.g. nitter.net")
+              else
+                input(type="text", name="domain_twitter", id="domain_twitter", placeholder="e.g. nitter.net")
+          .setting
+            label(for="domain_youtube") Replace YouTube links with Invidious (blank to disable): 
+              if(user_preferences.domain_youtube != '' && typeof(user_preferences.domain_youtube) != 'undefined')
+                input(type="text", name="domain_youtube", id="domain_youtube", value="" + user_preferences.domain_youtube + "", placeholder="e.g. invidious.site")
+              else
+                input(type="text", name="domain_youtube", id="domain_youtube", placeholder="e.g. invidious.site")
+          .setting
+            label(for="domain_instagram") Replace Instagram links with Bibliogram (blank to disable):
+              if(user_preferences.domain_instagram != '' && typeof(user_preferences.domain_instagram) != 'undefined')
+                input(type="text", name="domain_instagram", id="domain_instagram", value="" + user_preferences.domain_instagram + "", placeholder="e.g. bibliogram.art")
+              else
+                input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
           legend Display
           .setting
             label(for="theme") Theme: 
@@ -77,7 +96,11 @@ html
                 input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage", checked="checked")
               else
                 input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage")
-          legend Subscribed subreddits
+          small(class="notice") Preferences are stored client-side using cookies without any personal information.
+          br
+          input(type="submit", value="Save preferences")
+          a(href="/resetprefs", class="btn") Reset preferences
+        .bottom-prefs
           .setting
             details
               summary
@@ -90,51 +113,48 @@ html
                       a(href="/r/" + subreddit) #{subreddit}
               else
                 small no subscribed subreddits
-          small(class="notice") Preferences are stored client-side using cookies without any personal information.
-          input(type="submit", value="Save preferences")
-          a(href="/resetprefs", class="btn") Reset preferences
-        form(action="/export_prefs", method="POST", class="export-import-form")
-          if preferences_key
-            details(open)
-              summary
-                span Export preferences
-              .setting
-                small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
-                br
-                label(for="export_saved") Export saved posts: 
-                  input(type="checkbox", name="export_saved", id="export_saved")
-                br
-                input(type="submit", value="Export preferences")
-                if preferences_key
-                  - var protocol = 'http'
-                  if instance_config.https_enabled === true
-                    - var protocol = 'https'
-                  p Visit this URL to import your preferences:
-                  a(href=`${protocol}://${instance_config.domain}/import_prefs/${preferences_key}`) #{protocol}://#{instance_config.domain}/import_prefs/#{preferences_key}
-          else
+          form(action="/export_prefs", method="POST", class="export-import-form")
+            if preferences_key
+              details(open)
+                summary
+                  span Export preferences
+                .setting
+                  small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                  br
+                  label(for="export_saved") Export saved posts: 
+                    input(type="checkbox", name="export_saved", id="export_saved")
+                  br
+                  input(type="submit", value="Export preferences")
+                  if preferences_key
+                    - var protocol = 'http'
+                    if instance_config.https_enabled === true
+                      - var protocol = 'https'
+                    p Visit this URL to import your preferences:
+                    a(href=`${protocol}://${instance_config.domain}/import_prefs/${preferences_key}`) #{protocol}://#{instance_config.domain}/import_prefs/#{preferences_key}
+            else
+              details
+                summary
+                  span Export preferences
+                .setting
+                  small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                  br
+                  small If you are exporting to a file, please save your preferences first!
+                  br
+                  label(for="export_saved") Export saved posts: 
+                    input(type="checkbox", name="export_saved", id="export_saved")
+                  br
+                  label(for="export_to_file") Export preferences to a JSON file: 
+                    input(type="checkbox", name="export_to_file", id="export_to_file")
+                  br
+                  input(type="submit", value="Export preferences")
+          form(action="/import_prefs", method="POST", class="export-import-form", enctype="multipart/form-data")
             details
               summary
-                span Export preferences
+                span Import JSON preferences file
               .setting
-                small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                small All your current preferences and saved posts will be reseted and the settings from the JSON file will be used instead.
                 br
-                small If you are exporting to a file, please save your preferences first!
+                input(type="file", name="file", id="file")
                 br
-                label(for="export_saved") Export saved posts: 
-                  input(type="checkbox", name="export_saved", id="export_saved")
-                br
-                label(for="export_to_file") Export preferences to a JSON file: 
-                  input(type="checkbox", name="export_to_file", id="export_to_file")
-                br
-                input(type="submit", value="Export preferences")
-        form(action="/import_prefs", method="POST", class="export-import-form", enctype="multipart/form-data")
-          details
-            summary
-              span Import JSON preferences file
-            .setting
-              small All your current preferences and saved posts will be reseted and the settings from the JSON file will be used instead.
-              br
-              input(type="file", name="file", id="file")
-              br
-              input(type="submit", value="Import preferences")
+                input(type="submit", value="Import preferences")
     include includes/footer.pug

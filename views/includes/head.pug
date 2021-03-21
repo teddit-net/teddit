@@ -8,6 +8,9 @@ link(rel="stylesheet", type="text/css", href="/css/styles.css")
 link(rel="icon", type="image/png", sizes="32x32", href="/favicon.png")
 meta(name="viewport", content="width=device-width, initial-scale=1.0")
 -
+  if(!user_preferences)
+    user_preferences = {}
+  
   function kFormatter(num) {
       return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
   }

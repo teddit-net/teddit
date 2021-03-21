@@ -135,7 +135,7 @@ html
                             .line
                             .line
                           .selftext
-                            != unescape(link.selftext_html)
+                            != unescape(link.selftext_html, user_preferences)
                       if (link.images && link.images.preview)
                         style.
                           details.preview-container img {
@@ -215,9 +215,9 @@ html
                 .heading
                   p.title #{subreddit_about.title}
                   .short-description
-                    != unescape(subreddit_about.public_description_html)
+                    != unescape(subreddit_about.public_description_html, user_preferences)
                 .description
-                  != unescape(subreddit_about.description_html)
+                  != unescape(subreddit_about.description_html, user_preferences)
           else
             if subreddit.includes('+')
               .content

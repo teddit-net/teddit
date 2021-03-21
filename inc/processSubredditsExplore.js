@@ -36,7 +36,7 @@ module.exports = function() {
               display_name: data.display_name,
               display_name_prefixed: data.display_name_prefixed,
               public_description: data.public_description,
-              url: data.url,
+              url: replacePrivacyDomains(data.url, user_preferences),
               subscribers: data.subscribers,
               over_18: data.over18,
               title: data.title,

@@ -24,7 +24,7 @@ module.exports = function(fetch) {
           over_18: post.over_18,
           permalink: teddifyUrl(post.permalink),
           title: post.title,
-          url: teddifyUrl(post.url),
+          url: teddifyUrl(post.url, user_preferences),
           ups: post.ups,
           id: post.id,
           domain: post.domain,

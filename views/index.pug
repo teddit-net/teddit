@@ -109,7 +109,7 @@ html
                         .line
                         .line
                       .selftext
-                        != unescape(link.selftext_html)
+                        != unescape(link.selftext_html, user_preferences)
                   if (link.images && link.images.preview)
                     style.
                       details.preview-container img {

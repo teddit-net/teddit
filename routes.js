@@ -1598,6 +1598,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let post_media_max_height = req.body.post_media_max_height
     let collapse_child_comments = req.body.collapse_child_comments
     let show_upvoted_percentage = req.body.show_upvoted_percentage
+    let domain_twitter = req.body.domain_twitter
+    let domain_youtube = req.body.domain_youtube
+    let domain_instagram = req.body.domain_instagram
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -1633,6 +1636,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       show_upvoted_percentage = 'false'
     res.cookie('show_upvoted_percentage', show_upvoted_percentage, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    res.cookie('domain_twitter', domain_twitter, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    res.cookie('domain_youtube', domain_youtube, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    res.cookie('domain_instagram', domain_instagram, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
     return res.redirect('/preferences')
   })
@@ -1776,6 +1783,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('collapse_child_comments')
     res.clearCookie('show_upvoted_percentage')
     res.clearCookie('subbed_subreddits')
+    res.clearCookie('domain_twitter')
+    res.clearCookie('domain_youtube')
+    res.clearCookie('domain_instagram')
   }
 }
 
