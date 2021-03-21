@@ -73,6 +73,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     return res.redirect(`/comments/${req.params.id}`)
   })
 
+  app.get('/poll/:id', (req, res, next) => {
+    return res.redirect(`/comments/${req.params.id}`)
+  })
+
   app.get('/saved', (req, res, next) => {
     let saved = req.cookies.saved
     
