@@ -63,7 +63,7 @@ module.exports = function(request, fs) {
       return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
   }
 
-  this.timeDifference = (time) => {
+  this.timeDifference = (time, hide_suffix) => {
     time = parseInt(time) * 1000
     let ms_per_minute = 60 * 1000
     let ms_per_hour = ms_per_minute * 60
@@ -71,6 +71,10 @@ module.exports = function(request, fs) {
     let ms_per_month = ms_per_day * 30
     let ms_per_year = ms_per_day * 365
     let current = + new Date()
+    let suffix = 'ago'
+    
+    if(hide_suffix)
+      suffix = ''
 
     let elapsed = Math.abs(time - current)
     let r = ''
@@ -78,7 +82,7 @@ module.exports = function(request, fs) {
 
     if(elapsed < ms_per_minute) {
       e = Math.round(elapsed/1000)
-      r = `${e} seconds ago`
+      r = `${e} seconds ${suffix}`
       if(e === 1)
         r = 'just now'
       return r
@@ -86,41 +90,41 @@ module.exports = function(request, fs) {
 
     else if(elapsed < ms_per_hour) {
       e = Math.round(elapsed/ms_per_minute)
-      r = `${e} minutes ago`
+      r = `${e} minutes ${suffix}`
       if(r === 1)
-        r = 'a minute ago'
+        r = `a minute ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_day ) {
       e = Math.round(elapsed/ms_per_hour)
-      r = `${e} hours ago`
+      r = `${e} hours ${suffix}`
       if(e === 1)
-        r = 'an hour ago'
+        r = `an hour ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_month) {
       e = Math.round(elapsed/ms_per_day)
-      r = `${e} days ago`
+      r = `${e} days ${suffix}`
       if(e === 1)
-        r = '1 day ago'
+        r = `1 day ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_year) {
       e = Math.round(elapsed/ms_per_month)
-      r = `${e} months ago`
+      r = `${e} months ${suffix}`
       if(e === 1)
-        r = '1 month ago'
+        r = `1 month ${suffix}`
       return r
     }
 
     else {
       e = Math.round(elapsed/ms_per_year)
-      r = `${e} years ago`
+      r = `${e} years ${suffix}`
       if(e === 1)
-        r = '1 year ago'
+        r = `1 year ${suffix}`
       return r
     }
   }

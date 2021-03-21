@@ -869,6 +869,50 @@ footer a {
 #post .source-url {
   overflow-wrap: anywhere;
 }
+#post .usertext-body .poll {
+  padding: 20px;
+  border: 1px solid #404040;
+  margin: 10px 0px 20px 0px;
+  float: left;
+  width: calc(100% - 20%);
+  position: relative;
+  background: #8a8a8a;
+}
+#post .usertext-body .poll .option {
+  float: left;
+  width: 100%;
+  position: relative;
+  margin: 0px 0px 15px 0px;
+}
+#post .usertext-body .poll .option .vote_count {
+  float: left;
+  width: 20%;
+  position: relative;
+  z-index: 22;
+  padding: 10px;
+}
+#post .usertext-body .poll .option .text {
+  position: relative;
+  width: 80%;
+  z-index: 22;
+  display: initial;
+  padding: 10px 0px 0px 0px;
+  line-height: initial;
+  display: block;
+}
+#post .usertext-body .poll .option .background {
+  position: absolute;
+  background: #7171718c;
+  height: 100%;
+  float: left;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+}
+#post .usertext-body .poll .votes {
+  font-size: 1rem;
+  padding: 10px 0px 10px 0px;
+}
 /* USER */
 #user .entries {
   float: left;

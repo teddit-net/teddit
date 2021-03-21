@@ -36,6 +36,7 @@ module.exports = function(fetch) {
           images: null,
           crosspost: false,
           selftext: unescape(post.selftext_html),
+          poll_data: post.poll_data,
           link_flair: (user_preferences.flairs != 'false' ? await formatLinkFlair(post) : ''),
           user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
         }
@@ -95,6 +96,7 @@ module.exports = function(fetch) {
             ups: post.crosspost.ups,
             selftext: unescape(post.selftext_html),
             selftext_crosspost: unescape(post.crosspost.selftext_html),
+            poll_data: post.poll_data,
             is_crosspost: true,
             user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
           }
