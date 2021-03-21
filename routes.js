@@ -1650,12 +1650,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     if(export_to_file === 'on') {
       res.setHeader('Content-disposition', 'attachment; filename=teddit_prefs.json')
       res.setHeader('Content-type', 'application/json')
-      return res.send(req.cookies)
+      return res.send(export_data)
     }
     
     let r = `${(Math.random().toString(36)+'00000000000000000').slice(2, 10+2).toUpperCase()}`
     let key = `prefs_key:${r}`
-    redis.set(key, JSON.stringify(req.cookies), (error) => {
+    redis.set(key, JSON.stringify(export_data), (error) => {
       if(error) {
         console.error(`Error saving preferences to redis.`, error)
         return res.redirect('/preferences')
