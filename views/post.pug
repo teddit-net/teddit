@@ -196,7 +196,7 @@ html
                     if post.poll_data.voting_end_timestamp < new Date().getTime()
                       em voting ended #{timeDifference(post.poll_data.voting_end_timestamp/1000)}
                     else
-                      em voting will end #{timeDifference(post.poll_data.voting_end_timestamp/1000, true)}
+                      em voting will end in #{timeDifference(post.poll_data.voting_end_timestamp/1000, true)}
           if post.contest_mode
             .infobar.blue
               p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.
