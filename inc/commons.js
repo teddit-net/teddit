@@ -55,6 +55,7 @@ module.exports = function(request, fs) {
       }
 
     } catch(e) { }
+    url = replacePrivacyDomains(url, user_preferences)
     return url
   }
 
