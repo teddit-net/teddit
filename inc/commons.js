@@ -181,6 +181,9 @@ module.exports = function(request, fs) {
   }
 
   this.isGif = (url) => {
+    if(url.startsWith('/r/'))
+      return false
+    
     try {
       url = new URL(url)
       let pathname = url.pathname
