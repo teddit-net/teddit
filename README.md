@@ -16,8 +16,6 @@ Join the teddit discussion room on Matrix: [#teddit:matrix.org](https://matrix.t
 
 XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
 
-BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
-
 ## Instances
 
 [https://teddit.net](https://teddit.net) - Official instance
