@@ -164,15 +164,15 @@ module.exports = function(request, fs) {
   }
 
   this.replacePrivacyDomains = (str, user_preferences) => {
-    if(typeof(user_preferences) == 'undefined')
-      return str
-    
     let redditRegex = /([A-z.]+\.)?(reddit(\.com)|redd(\.it))/gm;
     let youtubeRegex = /([A-z.]+\.)?youtu(be\.com|\.be)/gm;
     let twitterRegex = /([A-z.]+\.)?twitter\.com/gm;
     let instagramRegex = /([A-z.]+\.)?instagram.com/gm;
     
     str = str.replace(redditRegex, config.domain)
+    
+    if(typeof(user_preferences) == 'undefined')
+      return str
     
     if(typeof(user_preferences.domain_youtube) != 'undefined')
         if(user_preferences.domain_youtube)
