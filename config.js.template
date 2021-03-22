@@ -55,7 +55,7 @@ const config = {
       new_page: 60
     },
   },
-  valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'emoji.redditmedia.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
+  valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'emoji.redditmedia.com', 'styles.redditmedia.com', 'www.redditstatic.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
   valid_embed_video_domains: ['gfycat.com', 'youtube.com'],
   reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
 };

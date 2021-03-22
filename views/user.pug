@@ -70,6 +70,7 @@ html
                 li(class=past === 'all' ? 'active' : '')
                   a(href="?sort=" + sortby + "&t=all") all time
         .info
+          img(src=data.icon_img)
           h1 #{data.username}
           p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
           p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
