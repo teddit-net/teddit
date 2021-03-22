@@ -51,6 +51,8 @@ module.exports = function(tools) {
               dir = 'thumbs/'
             if(file_prefix === 'flair_')
               dir = 'flairs/'
+            if(file_prefix === 'icon_')
+              dir = 'icons/'
 
             if(valid_video_extensions.includes(file_ext) || gifmp4) {
               /* Is video. */

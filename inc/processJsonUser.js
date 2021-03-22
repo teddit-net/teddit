@@ -99,7 +99,7 @@ module.exports = function() {
 
         let obj = {
           username: about.name,
-          icon_img: about.icon_img,
+          icon_img: await downloadAndSave(about.icon_img, "icon_"),
           created: about.created_utc,
           verified: about.verified,
           link_karma: about.link_karma,
