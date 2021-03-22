@@ -933,6 +933,10 @@ footer a {
   width: 20%;
   text-align: center;
 }
+#user .info img {
+  max-width: 50%;
+  max-height: 190px;
+}
 #user .info h1 {
   font-size: 1.1rem;
   overflow-wrap: anywhere;
