@@ -763,7 +763,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       nsfw = 'off'
     }
     
-    let key = `search:${q}:${restrict_sr}:${sortby}:${past}:${after}:${before}:${nsfw}`
+    let key = `search:${subreddit}:${q}:${restrict_sr}:${sortby}:${past}:${after}:${before}:${nsfw}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error('Error getting the search key from redis.', error)
