@@ -1,4 +1,38 @@
 # Changelog
+## 2021-03-23
+### Fixed
+1. fix /r/:subreddit/search redis key.
+## 2021-03-22
+### Added
+1. add favicon.ico and display profile icons
+## 2021-03-21
+### Added
+1.  Add support for /poll urls 
+2.  Replace reddit links by default
+3.  Add missing user_preferences parameter 
+4.  add replacePrivacyDomains()
+5.  Replace youtube/twitter/instagram with privacy respecting ones 	
+### Fixed
+1.  Fix export feature when not exporting saved posts
+2.  Ignore urls starting with /r/ 
+## 2021-03-20
+### Fixed
+1.  Rewrite redd.it and its subdomains to teddit domain, fixes (#120)
+2.  Replace all (*.)reddit.com domains with teddit domain (#120)  
+## 2021-03-19
+### Added
+1.  Add feature to export and import preferences as json file 
+### Fixed
+1. Fix search page (PR #164)
+2. Fix Pug security vulns. see more PR #165 
+## 2021-03-18
+1.Add a feature for showing upvote ratio in posts #147 
+## 2021-03-16
+## Added
+1. Add a feature to the preferences where users can choose to collapse child comments automatically
+## 2021-03-15
+### Added
+1. Add support for user created custom fields (#162)
 ## 2021-03-01
 ### Added
 1. Make a preference for image sizes in posts, fix #119
