@@ -1,9 +1,12 @@
 doctype html
 html
   head
-    title search results for #{q}
+    if no_query
+      title search teddit
+    else
+      title search results for #{q}
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     #search.sr.search-page
       form(action="/r/" + subreddit + "/search", method="GET")
@@ -12,13 +15,13 @@ html
             input(type="text", name="q", id="q", placeholder="search", value=""+ q +"")
         div
           label(for="restrict_sr") limit my search to r/#{subreddit}
-            if restrict_sr === 'on'
+            if !restrict_sr || restrict_sr === 'on'
               input(type="checkbox", name="restrict_sr", id="restrict_sr", checked="checked")
             else
               input(type="checkbox", name="restrict_sr", id="restrict_sr")
         div
           label(for="nsfw") include NSFW results
-            if nsfw === 'on'
+            if !nsfw || nsfw === 'on'
               input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
             else
               input(type="checkbox", name="nsfw", id="nsfw")
@@ -94,7 +97,7 @@ html
                 option(value="all", selected="selected") all time
         input(type="submit", value="search")
     #links.search
-      if json.posts.length === 0
+      if json.posts.length === 0 && !no_query
         p no results
       else
         each link in json.posts
@@ -146,9 +149,9 @@ html
                   a(href="" + link.permalink + "", class="comments")
                     | #{link.num_comments} comments
     if json.before || json.after
-      .view-more-inks
+      .view-more-links
         if json.before && !subreddit_front
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&before=" + json.before + "") ‹ prev
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&before=" + json.before + "") ‹ prev
         if json.after
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&after=" + json.after + "") next ›
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&after=" + json.after + "") next ›
     include includes/footer.pug

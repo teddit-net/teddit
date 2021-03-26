@@ -14,15 +14,13 @@ Inspired by the [Nitter](https://github.com/zedeus/nitter) project.
 * No JavaScript or ads
 * All requests go through the backend, client never talks to Reddit
 * Prevents Reddit from tracking your IP or JavaScript fingerprint
-* [Unofficial API](https://codeberg.org/teddit/teddit/wiki#teddit-api) (no rate limits or Reddit account required)
+* [Unofficial API](https://codeberg.org/teddit/teddit/wiki#teddit-api) (RSS & JSON support, no rate limits or Reddit account required)
 * Lightweight (teddit frontpage: ~30 HTTP requests with ~270 KB of data downloaded vs. Reddit frontpage: ~190 requests with ~24 MB)
 * Self-hostable. Anyone can setup an instance. An instance can either use Reddit's API with or without OAuth (so Reddit API key is not necessarily needed).
 
 Join the teddit discussion room on Matrix: [#teddit:matrix.org](https://matrix.to/#/#teddit:matrix.org)
 
 XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
-
-BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
 
 ## Instances
 
@@ -32,10 +30,15 @@ Community instances:
 
 * [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
 * [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
+* [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
+* [https://teddit.namazso.eu/](https://teddit.namazso.eu/)
+* [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
+* [https://teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)
+* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion)
+* [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)
 
 ## TODO
 
-* Subreddit wikis
 * User trophies
 * "other discussions" feature
 * "Open on reddit" links
@@ -43,11 +46,11 @@ Community instances:
 
 ## Roadmap
 
-* More themes, not just white or dark
 * HLS video streaming? (Would require browser JavaScript)
-* Onion site
 * User login, so people can use their Reddit account through teddit to comment and up/downvote posts etc.
+## Changelog
 
+See ```CHANGELOG.md```
 ## Installation
 
 ### Docker

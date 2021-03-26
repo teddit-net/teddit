@@ -1,6 +1,6 @@
 module.exports = function() {
   const config = require('../config');
-  this.processJsonSubreddit = (json, from, subreddit_front, user_preferences) => {
+  this.processJsonSubreddit = (json, from, subreddit_front, user_preferences, saved) => {
     return new Promise(resolve => {
       (async () => {
         if(from === 'redis') {
@@ -9,6 +9,17 @@ module.exports = function() {
         if(json.error) {
           resolve({ error: true, error_data: json })
         } else {
+          if(saved) {
+            let t = {
+              data: {
+                before: null,
+                after: null,
+                children: json
+              }
+            }
+            json = t
+          }
+          
           let before = json.data.before
           let after = json.data.after
 
@@ -27,7 +38,7 @@ module.exports = function() {
             let images = null
             let is_self_link = false
             let valid_reddit_self_domains = ['reddit.com']
-            
+
             if(data.over_18)
               if((config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false')
                 continue
@@ -51,8 +62,12 @@ module.exports = function() {
                 }
               } else {
                 if(data.preview.images[0].resolutions[0]) {
+                  let preview = null
+                  if(!isGif(data.url) && !data.post_hint.includes(':video'))
+                    preview = await downloadAndSave(data.preview.images[0].source.url)
                   images = {
-                    thumb: await downloadAndSave(data.preview.images[0].resolutions[0].url, 'thumb_')
+                    thumb: await downloadAndSave(data.preview.images[0].resolutions[0].url, 'thumb_'),
+                    preview: preview
                   }
                 }
               }
@@ -67,6 +82,7 @@ module.exports = function() {
               link_flair_text: data.link_flair_text,
               locked: data.locked,
               media: data.media,
+              selftext_html: data.selftext_html,
               num_comments: data.num_comments,
               over_18: data.over_18,
               permalink: data.permalink,
@@ -75,7 +91,7 @@ module.exports = function() {
               title: data.title,
               ups: data.ups,
               upvote_ratio: data.upvote_ratio,
-              url: data.url,
+              url: replacePrivacyDomains(data.url, user_preferences),
               stickied: data.stickied,
               is_self_link: is_self_link,
               subreddit_front: subreddit_front,

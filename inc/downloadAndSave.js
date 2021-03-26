@@ -35,7 +35,8 @@ module.exports = function(tools) {
               if (file_prefix === 'flair_') {
                 // Flair emojis end in the name without a file extension
                 file_ext = 'png'
-              } else if(!pathname.includes('.')) {                /**
+              } else if(!pathname.includes('.')) {
+                /**
                 * Sometimes reddit API returns video without extension, like
                 * "DASH_480" and not "DASH_480.mp4".
                 */
@@ -50,6 +51,8 @@ module.exports = function(tools) {
               dir = 'thumbs/'
             if(file_prefix === 'flair_')
               dir = 'flairs/'
+            if(file_prefix === 'icon_')
+              dir = 'icons/'
 
             if(valid_video_extensions.includes(file_ext) || gifmp4) {
               /* Is video. */
@@ -57,6 +60,9 @@ module.exports = function(tools) {
                 resolve('')
               } else {
                 let filename = `${temp_url.pathname.substr(1).split('/')[0]}.${file_ext}`
+                if(temp_url.hostname === 'thumbs.gfycat.com')
+                  filename = `${temp_url.pathname.substr(1).split('/')[0]}`
+                
                 let path = `./static/vids/${dir}${filename}`
                 let temp_path = `./static/vids/${dir}temp_${filename}`
                 if(!fs.existsSync(path)) {

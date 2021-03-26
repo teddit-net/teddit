@@ -3,7 +3,7 @@ html
   head
     title #{cleanTitle(post.title)} : #{subreddit}
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     if post === null
       h1 Error occured
@@ -24,27 +24,54 @@ html
               p subreddit:
               a(href="/r/" + subreddit + "")
                 p /r/#{subreddit}
+          if user_preferences.post_media_max_height
+            if(post_media_max_heights.hasOwnProperty(user_preferences.post_media_max_height))
+              style.
+                #post .image img, #post .video video {
+                    max-height: #{post_media_max_heights[user_preferences.post_media_max_height]}px;
+                    max-width: 100%;
+                }
+            else if(!isNaN(user_preferences.post_media_max_height))
+              style.
+                #post .image img, #post .video video {
+                    max-height: #{user_preferences.post_media_max_height}px;
+                    max-width: 100%;
+                }
           .info
             .score
               div.arrow
               span #{kFormatter(post.ups)}
+              if user_preferences.show_upvoted_percentage === 'true'
+                - let downvoted = parseInt(post.ups * (1 - post.upvote_ratio))
+                span.ratio(title="~"+ downvoted +" downvoted") #{post.upvote_ratio  * 100}%
               div.arrow.down
             .title
               a(href="" + post.url + "", rel="noopener noreferrer")
                 h2 #{cleanTitle(post.title)}
               != post.link_flair
               span(class="domain") (#{post.domain})
-            p.submitted
-              span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
-              if post.author === '[deleted]'
-                span [deleted]
-              else
-                a(href="/u/" + post.author + "")
-                  | #{post.author}
-              != post.user_flair
-            .links
-              if post.over_18
-                span.tag.nsfw NSFW
+              p.submitted
+                span(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)} by
+                if post.author === '[deleted]'
+                  span [deleted]
+                else
+                  a(href="/u/" + post.author + "")
+                    | #{post.author}
+                != post.user_flair
+              .links
+                if post.over_18
+                  span.tag.nsfw NSFW
+                -
+                  let back_url = "/r/" + subreddit + "/comments/" + post.id
+                  let saved_post = false
+                if user_preferences.saved
+                  each post_id in user_preferences.saved
+                    if post_id === post.id
+                      - saved_post = true
+                if saved_post
+                  a(href="/unsave/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
+                else
+                  a(href="/save/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
           if post.crosspost.is_crosspost === true
             .crosspost
               .title
@@ -56,6 +83,9 @@ html
               .score
                 div.arrow
                 span #{kFormatter(post.crosspost.ups)}
+                if user_preferences.show_upvoted_percentage === 'true'
+                  - let downvoted = parseInt(post.ups * (1 - post.upvote_ratio))
+                  span.ratio(title="~"+ downvoted +" downvoted") #{post.upvote_ratio  * 100}%
                 div.arrow.down
               p.submitted
                 span(title="" + toUTCString(post.crosspost.created) + "") submitted #{timeDifference(post.crosspost.created)} by
@@ -144,6 +174,29 @@ html
                     a(href="" + post.media.source + "") [media]
           if post.selftext
             div.usertext-body !{post.selftext}
+              if post.poll_data
+                .poll
+                  .votes #{post.poll_data.total_vote_count} votes
+                  if !post.poll_data.options[0].vote_count
+                    em Cannot fetch poll data (either the poll is only for logged in users, or the result is shown after voting is complete).
+                    br
+                    em Showing only voting options:
+                    br
+                  each option in post.poll_data.options
+                    .option
+                      if(option.vote_count)
+                        - let perc = option.vote_count / post.poll_data.total_vote_count * 100
+                        .background(style="width:" + perc + "%")
+                        .vote_count #{option.vote_count} (#{perc.toFixed(0)} %)
+                        .text #{option.text}
+                      else
+                        .vote_count 
+                        .text #{option.text}
+                  .meta
+                    if post.poll_data.voting_end_timestamp < new Date().getTime()
+                      em voting ended #{timeDifference(post.poll_data.voting_end_timestamp/1000)}
+                    else
+                      em voting will end in #{timeDifference(post.poll_data.voting_end_timestamp/1000, true)}
           if post.contest_mode
             .infobar.blue
               p this thread is in contest mode - contest mode randomizes comment sorting and hides scores.

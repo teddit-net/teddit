@@ -3,22 +3,55 @@ html
   head
     title preferences - teddit
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     .container
       .content
         h1 Preferences
         form(action="/saveprefs", method="POST")
+          legend Privacy
+          .setting
+            label(for="domain_twitter") Replace Twitter links with Nitter (blank to disable): 
+              if(user_preferences.domain_twitter != '' && typeof(user_preferences.domain_twitter) != 'undefined')
+                input(type="text", name="domain_twitter", id="domain_twitter", value="" + user_preferences.domain_twitter + "", placeholder="e.g. nitter.net")
+              else
+                input(type="text", name="domain_twitter", id="domain_twitter", placeholder="e.g. nitter.net")
+          .setting
+            label(for="domain_youtube") Replace YouTube links with Invidious (blank to disable): 
+              if(user_preferences.domain_youtube != '' && typeof(user_preferences.domain_youtube) != 'undefined')
+                input(type="text", name="domain_youtube", id="domain_youtube", value="" + user_preferences.domain_youtube + "", placeholder="e.g. invidious.site")
+              else
+                input(type="text", name="domain_youtube", id="domain_youtube", placeholder="e.g. invidious.site")
+          .setting
+            label(for="domain_instagram") Replace Instagram links with Bibliogram (blank to disable):
+              if(user_preferences.domain_instagram != '' && typeof(user_preferences.domain_instagram) != 'undefined')
+                input(type="text", name="domain_instagram", id="domain_instagram", value="" + user_preferences.domain_instagram + "", placeholder="e.g. bibliogram.art")
+              else
+                input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
           legend Display
           .setting
             label(for="theme") Theme: 
               select(id="theme", name="theme")
                 if(!user_preferences.theme || user_preferences.theme == '')
+                  option(value="auto") Auto
                   option(value="", selected="selected") White
                   option(value="dark") Dark
+                  option(value="sepia") Sepia
                 if(user_preferences.theme === 'dark')
+                  option(value="auto") Auto
                   option(value="") White
                   option(value="dark", selected="selected") Dark
+                  option(value="sepia") Sepia
+                if(user_preferences.theme === 'sepia')
+                  option(value="auto") Auto
+                  option(value="") White
+                  option(value="dark") Dark
+                  option(value="sepia", selected="selected") Sepia
+                if(user_preferences.theme === 'auto')
+                  option(value="auto", selected="selected") Auto
+                  option(value="") White
+                  option(value="dark") Dark
+                  option(value="sepia") Sepia
           .setting
             label(for="flairs") Show flairs: 
               if(!user_preferences.flairs || user_preferences.flairs == 'true')
@@ -26,12 +59,102 @@ html
               else
                 input(type="checkbox", name="flairs", id="flairs")
           .setting
+            label(for="highlight_controversial") Show a dagger (†) on comments voted controversial: 
+              if(!user_preferences.highlight_controversial || user_preferences.highlight_controversial == 'true')
+                input(type="checkbox", name="highlight_controversial", id="highlight_controversial", checked="checked")
+              else
+                input(type="checkbox", name="highlight_controversial", id="highlight_controversial")
+          .setting
             label(for="nsfw_enabled") Show NSFW content: 
               if (instance_config.nsfw_enabled === false && user_preferences.nsfw_enabled != 'true') || user_preferences.nsfw_enabled === 'false'
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled")
               else
                 input(type="checkbox", name="nsfw_enabled", id="nsfw_enabled", checked="checked")
+          .setting
+            label(for="post_media_max_height") Media size in posts: 
+              select(id="post_media_max_height", name="post_media_max_height")
+                -
+                  let max_heights_html = ''
+                  let user_key = user_preferences.post_media_max_height
+                  if(!user_key || user_key == '')
+                    user_key = 'medium'
+                  
+                  for(let key in instance_config.post_media_max_heights) {
+                    if(instance_config.post_media_max_heights.hasOwnProperty(key))
+                      max_heights_html += `<option value="${key}" ${(user_key == key ? "selected" : "")}>${key}</option>`
+                  }
+                != max_heights_html
+          .setting
+            label(for="collapse_child_comments") Collapse child comments automatically: 
+              if(user_preferences.collapse_child_comments == 'true')
+                input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments", checked="checked")
+              else
+                input(type="checkbox", name="collapse_child_comments", id="collapse_child_comments")
+          .setting
+            label(for="show_upvoted_percentage") Show upvote ratio percentage in posts: 
+              if(user_preferences.show_upvoted_percentage == 'true')
+                input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage", checked="checked")
+              else
+                input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage")
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
+          br
           input(type="submit", value="Save preferences")
           a(href="/resetprefs", class="btn") Reset preferences
+        .bottom-prefs
+          .setting
+            details
+              summary
+                span Show subscribed subreddits
+              if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
+                ul.subreddit-listing
+                  each subreddit in user_preferences.subbed_subreddits
+                    li
+                      a(href="/unsubscribe/" + subreddit + "/?b=/preferences", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                      a(href="/r/" + subreddit) #{subreddit}
+              else
+                small no subscribed subreddits
+          form(action="/export_prefs", method="POST", class="export-import-form")
+            if preferences_key
+              details(open)
+                summary
+                  span Export preferences
+                .setting
+                  small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                  br
+                  label(for="export_saved") Export saved posts: 
+                    input(type="checkbox", name="export_saved", id="export_saved")
+                  br
+                  input(type="submit", value="Export preferences")
+                  if preferences_key
+                    - var protocol = 'http'
+                    if instance_config.https_enabled === true
+                      - var protocol = 'https'
+                    p Visit this URL to import your preferences:
+                    a(href=`${protocol}://${instance_config.domain}/import_prefs/${preferences_key}`) #{protocol}://#{instance_config.domain}/import_prefs/#{preferences_key}
+            else
+              details
+                summary
+                  span Export preferences
+                .setting
+                  small By exporting your preferences you can transfer your subscribed subreddits and preferences to another device. Or you could create a bookmark if you tend to delete your cookies frequently.
+                  br
+                  small If you are exporting to a file, please save your preferences first!
+                  br
+                  label(for="export_saved") Export saved posts: 
+                    input(type="checkbox", name="export_saved", id="export_saved")
+                  br
+                  label(for="export_to_file") Export preferences to a JSON file: 
+                    input(type="checkbox", name="export_to_file", id="export_to_file")
+                  br
+                  input(type="submit", value="Export preferences")
+          form(action="/import_prefs", method="POST", class="export-import-form", enctype="multipart/form-data")
+            details
+              summary
+                span Import JSON preferences file
+              .setting
+                small All your current preferences and saved posts will be reseted and the settings from the JSON file will be used instead.
+                br
+                input(type="file", name="file", id="file")
+                br
+                input(type="submit", value="Import preferences")
     include includes/footer.pug

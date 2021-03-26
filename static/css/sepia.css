@@ -1,0 +1,235 @@
+:root {
+	--bodybg: #ccc9b8; /* #cac5ad; */
+	--bodytext: #53524b;
+	--endsbg: #992c09;
+	--headerbg: #bf360c;
+	--headertext: white;
+	--headerfaded: #ecc3b7;
+	--linkbg: #e2dfd7;
+	--linktext: #979692;
+	--shadow: #9e9e9e;
+	--buttonbg: #f2f0ea;
+	--buttontext: #53524b;
+	--infobarbg: #ebe6b6;
+	--oddbg: #e2dfd7;
+	--oddborder: #616161;
+ 	--evenbg: #f2f0ea;
+	--evenborder: #919191;
+	--quotebg: #e9e9e9;
+	--quoteborder: #bdbdbd;
+	/* Overrides */
+	--graytext: #616161;
+	/* Copied from default theme */
+	--linkcolor: #0645ad;
+	--lightlinkcolor: #406bb3;
+}
+/* Main page */
+body.sepia {
+	background: var(--bodybg);
+	color: var(--bodytext);
+}
+body.sepia nav {
+	background: var(--endsbg);
+	color: var(--headertext);
+}
+body.sepia .top-links {
+	padding-bottom: 4px;
+	background: var(--headerbg);
+}
+body.sepia .top-links a {
+	padding-left: 4px;
+	background: var(--headerbg);
+	color: var(--headerfaded);
+}
+body.sepia #sr-more-link {
+	margin-top: 4px;
+	background: var(--buttonbg);
+}
+body.sepia header {
+	margin-top: -8px;
+	background: var(--headerbg);
+	color: var(--headertext);
+}
+body.sepia header a {
+	color: var(--headertext);
+}
+body.sepia header .tabmenu li a {
+	background: none;
+	color: var(--headerfaded);
+	text-transform: uppercase;
+}
+body.sepia header .tabmenu li.active a {
+	color: var(--headertext);
+}
+body.sepia #sidebar {
+	width: calc(25% - 45px);
+}
+body.sepia #links {
+	max-width: calc(100% - 32px);
+	margin: 4px 16px;
+}
+body.sepia #links .link {
+	width: calc(100% - 8px);
+	margin: 6px 0;
+	padding: 16px 8px 16px 0;
+	background: var(--linkbg);
+	color: var(--linktext);
+	border-radius: 3px;
+	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia .flair,
+body.sepia #links .link .entry .title span.flair,
+body.sepia #post .info .title span.flair {
+	color: var(--bodytext);
+	background-color: var(--linkbg);
+}
+body.sepia .upvotes .arrow {
+	filter: brightness(90%);
+}
+body.sepia #links .link .entry .title a h2 {
+	padding-right: 4px;
+}
+body.sepia #links .link .entry .title span {
+	padding-left: 0;
+}
+body.sepia #user .upvotes,
+body.sepia #links .link .upvotes,
+body.sepia #links .link .entry .title span,
+body.sepia #links .link .entry .meta,
+body.sepia #links .link .entry .meta .links a {
+	color: var(--linktext);
+}
+body.sepia button,
+body.sepia select,
+body.sepia input,
+body.sepia input[type="submit"],
+body.sepia #search input[type="text"],
+body.sepia #sr-more-link,
+body.sepia .btn,
+body.sepia .view-more-links a {
+	margin-bottom: 0;
+	background: var(--buttonbg);
+	color: var(--buttontext);
+	border-radius: 3px;
+	border: none;
+	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia .view-more-links a {
+	margin-left: 16px;
+	color: var(--linkcolor);
+	font-weight: normal;
+}
+body.sepia #sr-more-link {
+	border-radius: 3px 0 0 3px;
+}
+body.sepia input[type="checkbox"] {
+	margin-top: 6px;
+}
+body.sepia footer {
+	margin-top: 16px;
+	padding: 8px 0 8px 20px;
+	background: var(--endsbg);
+	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia footer a {
+	color: var(--headerfaded);
+}
+/* Search */
+body.sepia #links.search {
+	width: calc(100% - 40px);
+}
+/* Comments */
+body.sepia #post header div a {
+	color: var(--headerfaded);
+}
+body.sepia #post .score {
+	color: var(--graytext);
+}
+body.sepia .score .arrow {
+	filter: brightness(70%);
+}
+body.sepia #post .submitted,
+body.sepia #post .title .domain {
+	color: var(--graytext);
+}
+body.sepia #post .usertext-body,
+body.sepia #post .crosspost {
+	background: var(--oddbg);
+	border-radius: 3px;
+	border: 1px solid var(--oddbg);	/* .crosspost disappears with border: none */
+	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia #post .crosspost {
+	padding: 0 16px 16px 0;
+}
+body.sepia .infobar {
+	background: var(--infobarbg);
+	border-radius: 3px;
+	box-shadow: 0 0 2px var(--shadow);
+}
+body.sepia .comment {
+	background: var(--oddbg);
+	border-left: 3px solid var(--oddborder);
+	border-radius: 3px 0 0 3px;
+	box-shadow: 1px 0 1px var(--shadow);
+}
+body.sepia .comment.even-depth {
+	background: var(--evenbg);
+	border-left: 3px solid var(--evenborder);
+	box-shadow: 1px 0 1px var(--shadow);
+}
+body.sepia .comments > .comment {
+	border: none;
+	border-radius: 0;
+}
+body.sepia .comment .comment {
+	margin: 8px 0;
+}
+body.sepia .comment details {
+	padding-top: 8px;
+}
+body.sepia .comment details:not([open]) {
+	padding-bottom: 8px;
+}
+body.sepia .comment .body blockquote {
+	background: var(--quotebg);
+	color: var(--bodytext);
+	border-left: 3px solid var(--quoteborder);
+	border-radius: 3px;
+	box-shadow: 0 0 1px var(--shadow);
+}
+body.sepia .md {
+	color: var(--bodytext);
+}
+body.sepia .md .md-spoiler-text:not(.revealed),
+body.sepia .md .md-spoiler-text:active:not(.revealed),
+body.sepia .md .md-spoiler-text:focus:not(.revealed),
+body.sepia .md .md-spoiler-text:hover:not(.revealed) {
+	background: var(--bodytext);
+	color: var(--bodytext);
+}
+body.sepia .md .md-spoiler-text:active:not(.revealed),
+body.sepia .md .md-spoiler-text:focus:not(.revealed),
+body.sepia .md .md-spoiler-text:hover:not(.revealed) {
+	background: none;
+}
+body.sepia .comments > form button {
+	margin: 12px 8px;
+	padding: 8px;
+	cursor: pointer;
+}
+body.sepia #post .usertext-body .poll {
+  border: 1px solid #ccc9b8;
+}
+@media only screen and (max-width: 600px) {
+	body.sepia #sidebar {
+		width: 100%;
+	}
+  body.sepia #links .link .entry details[open] .preview {
+    width: calc(100vw - 34px);
+    margin-left: 3px;
+  }
+  body.sepia #links .link .entry .selftext {
+    width: calc(100vw - 70px);
+  }
+}

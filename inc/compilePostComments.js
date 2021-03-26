@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment) => {
+  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences) => {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
@@ -10,6 +10,9 @@ module.exports = function() {
           else
             return `<a href="/u/${comment.author}" class="${classes}">${comment.author}</a>${submitter || ''}${moderator || ''}`
         }
+        
+        if(!user_preferences)
+          user_preferences = {}
 
         if(comments.author !== undefined && comments.body_html !== undefined) {
           let classlist = []
@@ -17,6 +20,7 @@ module.exports = function() {
           let moderator = false
           let submitter = false
           let edited_span = ''
+          let controversial_span = ''
 
           if(post_author === comments.author) {
             classlist.push('submitter')
@@ -34,11 +38,14 @@ module.exports = function() {
             ups = `${kFormatter(comments.ups)} points`
           }
           if(comments.edited) {
-            edited_span = `<span title="this comment is edited">*</span>`
+            edited_span = `<span title="last edited ${toUTCString(comments.edited)}">*</span>`
+          }
+          if(comments.controversiality > 0) {
+            controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
           }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
-              <details open>
+              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 ? '' : 'open'}>
                 <summary>
                   <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                   <p class="ups">${ups}</p>
@@ -48,9 +55,9 @@ module.exports = function() {
               <div class="meta">
                 <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                 <p>${comments.user_flair}</p>
-                <p class="ups">${ups}</p>
+                <p class="ups">${ups}${controversial_span}</p>
                 <p class="created" title="${toUTCString(comments.created)}">
-                   <a href="${comments.permalink}">${timeDifference(comments.created)}${edited_span}</a>
+                   <a href="${comments.permalink}#c">${timeDifference(comments.created)}${edited_span}</a>
                 </p>
                 <p class="stickied">${comments.stickied ? 'stickied comment' : ''}</p>
               </div>
@@ -71,10 +78,7 @@ module.exports = function() {
               } else {
                 if(!morechildren_ids) {
                   let load_comms_href = parent_id
-                  
-                  if(viewing_comment)
-                    load_comms_href = '../' + parent_id
-                  
+
                   comments_html = `
                     <div class="load-more-comments">
                       <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
@@ -92,8 +96,11 @@ module.exports = function() {
                 }
               }
             } else {
+              let link = comments.parent_id.split('_')[1]
               comments_html = `
-                <a href="${comments.id}/">continue this thread</a>
+                <div class="load-more-comments">
+                  <a href="${link}/#c">continue this thread</a>
+                </div>
               `
             }
           }
@@ -109,6 +116,7 @@ module.exports = function() {
               let submitter = false
               let ups = ''
               let edited_span = ''
+              let controversial_span = ''
 
               if(post_author === comment.author) {
                 classlist.push('submitter')
@@ -126,11 +134,14 @@ module.exports = function() {
                 ups = `${kFormatter(comment.ups)} points`
               }
               if(comment.edited) {
-                edited_span = `<span title="this comment is edited">*</span>`
+                edited_span = `<span title="last edited ${toUTCString(comments.edited)}">*</span>`
+              }
+              if(comment.controversiality > 0) {
+                controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
               }
               comments_html += `
                 <div class="comment ${comment.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comment.id}">
-                <details open>
+                <details ${user_preferences.collapse_child_comments === 'true' && comments.depth === 0 ? '' : 'open'}>
                   <summary>
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p class="ups">${ups}</p>
@@ -140,9 +151,9 @@ module.exports = function() {
                   <div class="meta">
                     <p class="author">${commentAuthor(comment, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                     <p>${comment.user_flair}</p>
-                    <p class="ups">${ups}</p>
+                    <p class="ups">${ups}${controversial_span}</p>
                     <p class="created" title="${toUTCString(comment.created)}">
-                      <a href="${comment.permalink}">${timeDifference(comment.created)}${edited_span}</a>
+                      <a href="${comment.permalink}#c">${timeDifference(comment.created)}${edited_span}</a>
                     </p>
                     <p class="stickied">${comment.stickied ? 'stickied comment' : ''}</p>
                   </div>
@@ -156,7 +167,7 @@ module.exports = function() {
                     if(comment.replies[j+1]) {
                       next_reply = comment.replies[j+1]
                     }
-                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment)
+                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment, user_preferences)
                   }
                 }
               }
@@ -165,9 +176,6 @@ module.exports = function() {
               if(comment.children.length > 0) {
                 let parent_id = comment.parent_id.split('_')[1]
                 let load_comms_href = parent_id
-                
-                if(viewing_comment)
-                  load_comms_href = '../' + parent_id
 
                 comments_html += `
                   <div class="load-more-comments">
@@ -175,9 +183,10 @@ module.exports = function() {
                   </div>
                 `
               } else {
-                comments_html += `
+                let link = comment.parent_id.split('_')[1]
+                comments_html = `
                   <div class="load-more-comments">
-                    <a href="${comment.id}">continue this thread</a>
+                    <a href="${link}/#c">continue this thread</a>
                   </div>
                 `
               }

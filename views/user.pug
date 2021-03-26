@@ -3,13 +3,24 @@ html
   head
     title overview for #{data.username}
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     if user === null
       h1 Error occured
       p #{JSON.stringify(error_data)}
     else
       #user
+        header
+          .bottom
+            a(href="/u/" + data.username + "")
+              h3.username user: #{data.username}
+            ul.tabmenu
+              li(class=!data.post_type || data.post_type == '' ? 'active' : '')
+                a(href="/u/" + data.username) overview
+              li(class=data.post_type === '/comments' ? 'active' : '')
+                a(href="/u/" + data.username + "/comments") comments
+              li(class=data.post_type === '/submitted' ? 'active' : '')
+                a(href="/u/" + data.username + "/submitted") submitted
         #links
           details
             summary
@@ -23,13 +34,13 @@ html
                 span sorted by: controversial
             ul
               li(class=!sortby || sortby == 'new' ? 'active' : '')
-                a(href="/u/" + data.username) new
+                a(href="/u/" + data.username + data.post_type) new
               li(class=sortby === 'hot' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=hot") hot
+                a(href="/u/" + data.username + data.post_type + "?sort=hot") hot
               li(class=sortby === 'top' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=top&t=" + past + "") top
+                a(href="/u/" + data.username + data.post_type + "?sort=top&t=" + past + "") top
               li(class=sortby === 'controversial' ? 'active' : '')
-                a(href="/u/" + data.username + "?sort=controversial&t=" + past + "") controversial
+                a(href="/u/" + data.username + data.post_type + "?sort=controversial&t=" + past + "") controversial
           if sortby === 'top' || sortby === 'controversial'
             details
               summary
@@ -58,6 +69,14 @@ html
                   a(href="?sort=" + sortby + "&t=year") past year
                 li(class=past === 'all' ? 'active' : '')
                   a(href="?sort=" + sortby + "&t=all") all time
+        .info
+          img(src=data.icon_img)
+          h1 #{data.username}
+          p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
+          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
+          br
+          p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
+          p verified: #{(data.verified) ? "yes" : "no" }
         .entries
           if !data.posts || data.posts.length <= 0
             h3 no posts/comments
@@ -125,14 +144,7 @@ html
           if data.before || data.after
             p view more:
           if data.before && !data.user_front
-            a(href="/u/" + data.username + "?before=" + data.before + "") ‹ prev
+            a(href="/u/" + data.username + data.post_type + "?before=" + data.before + "") ‹ prev
           if data.after
-            a(href="/u/" + data.username + "?after=" + data.after + "") next ›
-        .info
-          h1 #{data.username}
-          p(class="user-stat") <span>#{kFormatter(data.link_karma)}</span> post karma
-          p(class="user-stat") <span>#{kFormatter(data.comment_karma)}</span> comment karma
-          br
-          p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
-          p verified: #{(data.verified) ? "yes" : "no" }
+            a(href="/u/" + data.username + data.post_type + "?after=" + data.after + "") next ›
     include includes/footer.pug

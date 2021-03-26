@@ -36,11 +36,13 @@ module.exports = function(request, fs) {
     return url.replace(/&amp;/g, '&')
   }
 
-  this.teddifyUrl = (url) => {
+  this.teddifyUrl = (url, user_preferences) => {
     try {
       let u = new URL(url)
       if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
         url = url.replace(u.host, config.domain)
+        if(u.pathname.startsWith('/gallery/'))
+          url = url.replace('/gallery/', '/comments/')
       }
       if(u.host === 'i.redd.it' || u.host === 'v.redd.it') {
         let image_exts = ['png', 'jpg', 'jpeg']
@@ -53,6 +55,7 @@ module.exports = function(request, fs) {
       }
 
     } catch(e) { }
+    url = replacePrivacyDomains(url, user_preferences)
     return url
   }
 
@@ -60,7 +63,7 @@ module.exports = function(request, fs) {
       return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + 'k' : Math.sign(num)*Math.abs(num)
   }
 
-  this.timeDifference = (time) => {
+  this.timeDifference = (time, hide_suffix) => {
     time = parseInt(time) * 1000
     let ms_per_minute = 60 * 1000
     let ms_per_hour = ms_per_minute * 60
@@ -68,6 +71,10 @@ module.exports = function(request, fs) {
     let ms_per_month = ms_per_day * 30
     let ms_per_year = ms_per_day * 365
     let current = + new Date()
+    let suffix = 'ago'
+    
+    if(hide_suffix)
+      suffix = ''
 
     let elapsed = Math.abs(time - current)
     let r = ''
@@ -75,7 +82,7 @@ module.exports = function(request, fs) {
 
     if(elapsed < ms_per_minute) {
       e = Math.round(elapsed/1000)
-      r = `${e} seconds ago`
+      r = `${e} seconds ${suffix}`
       if(e === 1)
         r = 'just now'
       return r
@@ -83,52 +90,57 @@ module.exports = function(request, fs) {
 
     else if(elapsed < ms_per_hour) {
       e = Math.round(elapsed/ms_per_minute)
-      r = `${e} minutes ago`
+      r = `${e} minutes ${suffix}`
       if(r === 1)
-        r = 'a minute ago'
+        r = `a minute ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_day ) {
       e = Math.round(elapsed/ms_per_hour)
-      r = `${e} hours ago`
+      r = `${e} hours ${suffix}`
       if(e === 1)
-        r = 'an hour ago'
+        r = `an hour ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_month) {
       e = Math.round(elapsed/ms_per_day)
-      r = `${e} days ago`
+      r = `${e} days ${suffix}`
       if(e === 1)
-        r = '1 day ago'
+        r = `1 day ${suffix}`
       return r
     }
 
     else if(elapsed < ms_per_year) {
       e = Math.round(elapsed/ms_per_month)
-      r = `${e} months ago`
+      r = `${e} months ${suffix}`
       if(e === 1)
-        r = '1 month ago'
+        r = `1 month ${suffix}`
       return r
     }
 
     else {
       e = Math.round(elapsed/ms_per_year)
-      r = `${e} years ago`
+      r = `${e} years ${suffix}`
       if(e === 1)
-        r = '1 year ago'
+        r = `1 year ${suffix}`
       return r
     }
   }
 
   this.toUTCString = (time) => {
-    let d = new Date();
-    d.setTime(time*1000);
-    return d.toUTCString();
+    let d = new Date()
+    d.setTime(time*1000)
+    return d.toUTCString()
   }
 
-  this.unescape = (s) => {
+  
+
+  this.unescape = (s, user_preferences) => {
+    /* It would make much more sense to rename this function to something
+    * like "formatter".
+    */
     if(s) {
       var re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
       var unescaped = {
@@ -143,12 +155,42 @@ module.exports = function(request, fs) {
         '&quot;': '"',
         '&#34;': '"'
       }
-      return s.replace(re, (m) => {
+      let result = s.replace(re, (m) => {
         return unescaped[m]
       })
+      
+      result = replacePrivacyDomains(result, user_preferences)
+      
+      return result
     } else {
       return ''
     }
+  }
+
+  this.replacePrivacyDomains = (str, user_preferences) => {
+    let redditRegex = /([A-z.]+\.)?(reddit(\.com)|redd(\.it))/gm;
+    let youtubeRegex = /([A-z.]+\.)?youtu(be\.com|\.be)/gm;
+    let twitterRegex = /([A-z.]+\.)?twitter\.com/gm;
+    let instagramRegex = /([A-z.]+\.)?instagram.com/gm;
+    
+    str = str.replace(redditRegex, config.domain)
+    
+    if(typeof(user_preferences) == 'undefined')
+      return str
+    
+    if(typeof(user_preferences.domain_youtube) != 'undefined')
+        if(user_preferences.domain_youtube)
+          str = str.replace(youtubeRegex, user_preferences.domain_youtube)
+    
+    if(typeof(user_preferences.domain_twitter) != 'undefined')
+      if(user_preferences.domain_twitter)
+        str = str.replace(twitterRegex, user_preferences.domain_twitter)
+    
+    if(typeof(user_preferences.domain_instagram) != 'undefined')
+      if(user_preferences.domain_instagram)
+        str = str.replace(instagramRegex, user_preferences.domain_instagram)
+    
+    return str
   }
 
   this.deleteFiles = (files, callback) => {
@@ -167,6 +209,9 @@ module.exports = function(request, fs) {
   }
 
   this.isGif = (url) => {
+    if(url.startsWith('/r/'))
+      return false
+    
     try {
       url = new URL(url)
       let pathname = url.pathname

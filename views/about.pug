@@ -3,7 +3,7 @@ html
   head
     title about - teddit
     include includes/head.pug
-  body(class=""+ user_preferences.theme +"")
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
     .container
       .content
@@ -18,11 +18,8 @@ html
         a(href="/privacy") Privacy policy
         h2 Donating
         p(class="word-break") XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
-        p BTC: bc1qlcrmt2pvlh4eq69l3l4h6z5jg74z2m2q3pasan
-        h2 Contact
-        p orenom(at)tutanota.com
         .bottom
           a(href="https://en.wikipedia.org/wiki/Piratbyr%C3%A5n#Kopimi", target="_blank")
             img(src="kopimi.gif")
-          p.version v.0.1.1
+          p.version v.0.2.2
     include includes/footer.pug

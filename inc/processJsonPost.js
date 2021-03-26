@@ -24,27 +24,34 @@ module.exports = function(fetch) {
           over_18: post.over_18,
           permalink: teddifyUrl(post.permalink),
           title: post.title,
-          url: teddifyUrl(post.url),
+          url: teddifyUrl(post.url, user_preferences),
           ups: post.ups,
           id: post.id,
           domain: post.domain,
           contest_mode: post.contest_mode,
+          upvote_ratio: post.upvote_ratio,
           comments: null,
           has_media: false,
           media: null,
           images: null,
           crosspost: false,
           selftext: unescape(post.selftext_html),
+          poll_data: post.poll_data,
           link_flair: (user_preferences.flairs != 'false' ? await formatLinkFlair(post) : ''),
           user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
         }
 
-        let validEmbedDomains = ['gfycat.com', 'youtube.com']
+        let valid_embed_video_domains = ['gfycat.com']
         let has_gif = false
         let gif_to_mp4 = null
         let reddit_video = null
+        let embed_video = false
+        
+        if(post.media)
+          if(valid_embed_video_domains.includes(post.media.type))
+            embed_video = true
 
-        if(post.preview) {
+        if(post.preview && !embed_video) {
           if(post.preview.reddit_video_preview) {
             if(post.preview.reddit_video_preview.is_gif) {
               has_gif = true
@@ -89,6 +96,7 @@ module.exports = function(fetch) {
             ups: post.crosspost.ups,
             selftext: unescape(post.selftext_html),
             selftext_crosspost: unescape(post.crosspost.selftext_html),
+            poll_data: post.poll_data,
             is_crosspost: true,
             user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
           }
@@ -116,13 +124,18 @@ module.exports = function(fetch) {
           for(var i = 0; i < post.gallery_data.items.length; i++) {
             let id = post.gallery_data.items[i].media_id
             if(post.media_metadata[id]) {
-              let item = {
-                type: post.media_metadata[id].e,
-                source: await downloadAndSave(post.media_metadata[id].s.u),
-                thumbnail: await downloadAndSave(post.media_metadata[id].p[0].u),
-                large: await downloadAndSave(post.media_metadata[id].p[post.media_metadata[id].p.length - 1].u),
+              if(post.media_metadata[id].p[0]) {
+                let item = { source: null, thumbnail: null, large: null }
+                if(post.media_metadata[id].s && post.media_metadata[id].p[0].u) {
+                  item = {
+                    type: post.media_metadata[id].e,
+                    source: await downloadAndSave(post.media_metadata[id].s.u),
+                    thumbnail: await downloadAndSave(post.media_metadata[id].p[0].u),
+                    large: await downloadAndSave(post.media_metadata[id].p[post.media_metadata[id].p.length - 1].u),
+                  }
+                }
+                obj.gallery_items.push(item)
               }
-              obj.gallery_items.push(item)
             }
           }
         }
@@ -150,7 +163,8 @@ module.exports = function(fetch) {
               edited: comment.edited,
               replies: [],
               depth: 0,
-              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
+              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : ''),
+              controversiality: (user_preferences.highlight_controversial != 'false' ? comment.controversiality : '')
             }
           } else {
             obj = {
@@ -187,7 +201,7 @@ module.exports = function(fetch) {
     })
   }
 
-  this.finalizeJsonPost = async (processed_json, post_id, post_url, morechildren_ids, viewing_comment) => {
+  this.finalizeJsonPost = async (processed_json, post_id, post_url, morechildren_ids, viewing_comment, user_preferences) => {
     let comments_html = `<div class="comments">`
     let comments = processed_json.comments
     for(var i = 0; i < comments.length; i++) {
@@ -195,7 +209,7 @@ module.exports = function(fetch) {
       if(comments[i+1]) {
         next_comment = comments[i+1]
       }
-      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment)
+      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment, user_preferences)
     }
 
     comments_html += `</div>`
@@ -228,7 +242,8 @@ module.exports = function(fetch) {
           edited: reply.edited,
           replies: [],
           depth: depth,
-          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(reply) : '')
+          user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(reply) : ''),
+          controversiality: (user_preferences.highlight_controversial != 'false' ? reply.controversiality : '')
         }
       } else {
         obj = {
@@ -264,7 +279,8 @@ module.exports = function(fetch) {
                 distinguished: comment.edited,
                 replies: [],
                 depth: depth + 1,
-                user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : '')
+                user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : ''),
+                controversiality: (user_preferences.highlight_controversial != 'false' ? comment.controversiality : '')
               }
             } else {
               objct = {
