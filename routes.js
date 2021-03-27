@@ -11,6 +11,49 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let tedditApiSubreddit = require('./inc/teddit_api/handleSubreddit.js')();
   let tedditApiUser = require('./inc/teddit_api/handleUser.js')();
   let processSubredditsExplore = require('./inc/processSubredditsExplore.js')();
+  
+  app.all('*', (req, res, next) => {
+    if(config.rate_limiting.enabled) {
+      /**
+      * This route enforces request limits based on an IP address if
+      * config.rate_limiting.enabled is true. By default it's false.
+      */
+      
+      let ip = String(req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown')
+      
+      if(ip === 'unknown') {
+        next()
+      }
+      
+      if(ratelimit_counts[ip] == undefined) {
+        ratelimit_counts[ip] = 0
+      }
+
+      if(ratelimit_timestamps[ip] == undefined) {
+        ratelimit_timestamps[ip] = Date.now()
+      }
+      
+      let diff = Date.now() - ratelimit_timestamps[ip]
+      let credit = (diff / 60000) * config.rate_limiting.limit_after_limited
+      ratelimit_counts[ip] -= credit
+      
+      if(ratelimit_counts[ip] < 0) {
+        ratelimit_counts[ip] = 0
+      }
+
+      ratelimit_counts[ip]++
+      ratelimit_timestamps[ip] = Date.now()
+      
+      if(ratelimit_counts[ip] > config.rate_limiting.initial_limit) {
+        console.log(`RATE LIMITED IP ADDRESS: ${ip}`)
+        return res.send(`Hold your horses! You have hit the request limit. You should be able to refresh this page in a couple of seconds. If you think you are wrongfully limited, create an issue at https://codeberg.org/teddit/teddit. Rate limiting is highly experimental feature.`)
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
+  })
 
   app.get('/about', (req, res, next) => {
     return res.render('about', { user_preferences: req.cookies })
