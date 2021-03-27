@@ -7,6 +7,7 @@ module.exports = function() {
       return res.end(JSON.stringify(msg))
     }
    
+    console.log('Teddit API request - user')
     let _json = json // Keep the original json
     if(from === 'redis')
       json = JSON.parse(json)

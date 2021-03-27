@@ -6,7 +6,8 @@ module.exports = function() {
       let msg = { info: 'This instance do not support API requests. Please see https://codeberg.org/teddit/teddit#instances for instances that support API, or setup your own instance.' }
       return res.end(JSON.stringify(msg))
     }
-   
+    
+    console.log('Teddit API request - subreddit')
     let _json = json // Keep the original json
     if(from === 'redis')
       json = JSON.parse(json)
@@ -17,6 +18,7 @@ module.exports = function() {
       for(var i = 0; i < json.data.children.length; i++) {
         let link = json.data.children[i].data
         let thumbnail = ''
+        let post_image = ''
         let is_self_link = false
         let valid_reddit_self_domains = ['reddit.com']
 
@@ -42,6 +44,10 @@ module.exports = function() {
             if(link.preview.images[0].resolutions[0]) {
               let s = await downloadAndSave(link.preview.images[0].resolutions[0].url, 'thumb_')
               thumbnail = `${protocol}://${config.domain}${s}`
+              if(!isGif(link.url) && !link.post_hint.includes(':video')) {
+                s = await downloadAndSave(link.preview.images[0].source.url)
+                post_image = `${protocol}://${config.domain}${s}`
+              }
             }
           }
         }
@@ -62,6 +68,11 @@ module.exports = function() {
           enclosure = `<enclosure length="0" type="${mime}" url="${thumbnail}" />`
         }
         
+        let image = ''
+        if(post_image != '') {
+          image = `<image>${post_image}</image>`
+        }
+        
         let append_desc_html = `<br/><a href="${link.url}">[link]</a> <a href="${link.permalink}">[comments]</a>`
         
         items += `
@@ -74,6 +85,7 @@ module.exports = function() {
             <id>${link.id}</id>
             <thumbnail>${thumbnail}</thumbnail>
             ${enclosure}
+            ${image}
             <link>${link.permalink}</link>
             <url>${link.url}</url>
             <description><![CDATA[${unescape(link.selftext_html)}${append_desc_html}]]></description>
