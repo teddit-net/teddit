@@ -158,8 +158,8 @@ if(config.trust_proxy) {
   app.set('trust proxy', config.trust_proxy_address)
 }
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
+app.use(bodyParser.json({ limit: '10mb' }))
 app.use(express.static(`${__dirname}/static`))
 
 app.set('views', './views')
