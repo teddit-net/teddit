@@ -57,6 +57,9 @@ module.exports = function() {
         if(is_self_link)
           link.url = link.permalink
         
+        if(req.query.hasOwnProperty('full_thumbs'))
+          thumbnail = post_image
+        
         let enclosure = ''
         if(thumbnail != '') {
           let mime = ''
@@ -66,11 +69,6 @@ module.exports = function() {
           else
             mime = 'image/jpeg'
           enclosure = `<enclosure length="0" type="${mime}" url="${thumbnail}" />`
-        }
-        
-        let image = ''
-        if(post_image != '') {
-          image = `<image>${post_image}</image>`
         }
         
         let append_desc_html = `<br/><a href="${link.url}">[link]</a> <a href="${link.permalink}">[comments]</a>`
@@ -85,7 +83,6 @@ module.exports = function() {
             <id>${link.id}</id>
             <thumbnail>${thumbnail}</thumbnail>
             ${enclosure}
-            ${image}
             <link>${link.permalink}</link>
             <url>${link.url}</url>
             <description><![CDATA[${unescape(link.selftext_html)}${append_desc_html}]]></description>
