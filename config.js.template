@@ -55,6 +55,11 @@ const config = {
       new_page: 60
     },
   },
+  rate_limiting: {
+    enabled: false,
+    initial_limit: 100, // This is the amount of page loads one IP address can make in one minute without getting limited.
+    limit_after_limited: 30 // When an IP is limited, this is the amount of page loads the IP can make in one minute.
+  },
   valid_media_domains: ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'emoji.redditmedia.com', 'styles.redditmedia.com', 'www.redditstatic.com', 'thumbs.gfycat.com', 'i.ytimg.com'],
   valid_embed_video_domains: ['gfycat.com', 'youtube.com'],
   reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
