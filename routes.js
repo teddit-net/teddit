@@ -13,6 +13,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processSubredditsExplore = require('./inc/processSubredditsExplore.js')();
   
   app.all('*', (req, res, next) => {
+    if(!config.rate_limiting) {
+      return next()
+    }
+    
     if(config.rate_limiting.enabled) {
       /**
       * This route enforces request limits based on an IP address if
