@@ -80,7 +80,8 @@ html
                 li(class=past === 'all' ? 'active' : '')
                   a(href="?t=all") all time
           if json.links.length === 0
-            p nothing here
+            .reddit-error
+              p This subreddit either doesn't exist, or any posts weren't found.
           else
             each link in json.links
               .link

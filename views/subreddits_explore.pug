@@ -34,7 +34,8 @@ html
           input(type="submit", value="search")
       #links.sr.explore
         if json.links.length === 0
-          p nothing here
+          .reddit-error
+            p This subreddit either doesn't exist, or any posts weren't found.
         else
           .infobar.explore
             p click the <code>subscribe</code> or unsubscribe buttons to choose which subreddits appear on the home feed.

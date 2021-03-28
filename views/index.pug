@@ -13,6 +13,8 @@ html
         if http_status_code == "401" || http_status_code == "503"
           p This error is probably caused because Reddit itself is down or having server issues.
           p Checking <a href="https://www.redditstatus.com">https://www.redditstatus.com</a> might give some information.
+        if http_status_code == "404"
+          p The resource you were looking for was not found.
     else
       - var subreddit = ''
       if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
