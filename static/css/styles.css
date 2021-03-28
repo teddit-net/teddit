@@ -300,6 +300,12 @@ input[type="submit"]:hover,
   cursor: pointer;
   text-decoration: none;
 }
+.reddit-error {
+  text-align: center;
+  float: left;
+  width: 100%;
+  padding: 37px 0px 20px 0px;
+}
 footer {
   padding: 10px;
   margin: 2.5% 0 0;
