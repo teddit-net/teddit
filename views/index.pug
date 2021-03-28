@@ -9,6 +9,8 @@ html
       h2 error
       p #{JSON.stringify(http_status_code)}
       p #{JSON.stringify(http_statustext)}
+      if http_status_code == "401" || http_status_code == "503"
+        p This error is probably because Reddit itself is down.
     else
       - var subreddit = ''
       if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
