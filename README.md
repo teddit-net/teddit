@@ -58,6 +58,8 @@ docker-compose up
 
 Teddit should now be running at <http://localhost:8080>.
 
+Docker image is available at [https://hub.docker.com/r/teddit/teddit](https://hub.docker.com/r/teddit/teddit)
+
 ### Manual
 
 1. Install [Node.js](https://nodejs.org).
