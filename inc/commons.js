@@ -168,6 +168,9 @@ module.exports = function(request, fs) {
   }
 
   this.replacePrivacyDomains = (str, user_preferences) => {
+    if(typeof(str) == 'undefined' || !str)
+      return
+    
     let redditRegex = /([A-z.]+\.)?(reddit(\.com)|redd(\.it))/gm;
     let youtubeRegex = /([A-z.]+\.)?youtu(be\.com|\.be)/gm;
     let twitterRegex = /([A-z.]+\.)?twitter\.com/gm;
