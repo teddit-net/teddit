@@ -26,7 +26,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       let ip = String(req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'unknown')
       
       if(ip === 'unknown') {
-        next()
+        return next()
       }
       
       if(ratelimit_counts[ip] == undefined) {
@@ -52,10 +52,10 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         console.log(`RATE LIMITED IP ADDRESS: ${ip}`)
         return res.send(`Hold your horses! You have hit the request limit. You should be able to refresh this page in a couple of seconds. If you think you are wrongfully limited, create an issue at https://codeberg.org/teddit/teddit. Rate limiting is highly experimental feature.`)
       } else {
-        next()
+        return next()
       }
     } else {
-      next()
+      return next()
     }
   })
 
