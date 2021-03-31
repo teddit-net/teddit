@@ -1734,8 +1734,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
     req.on('end', () => {
       body = body.toString()
-      let json = body.split('Content-Type: application/json')[1].trim().split('--')[0]
       try {
+        let json = body.split('Content-Type: application/json')[1].trim().split('--')[0]
         let prefs = JSON.parse(json)
         resetPreferences(res)
         for(var setting in prefs) {
