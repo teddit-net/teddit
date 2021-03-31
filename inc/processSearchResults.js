@@ -27,8 +27,6 @@ module.exports = function() {
           
           for(var i = 0; i < posts_limit; i++) {
             let post = json.data.children[i].data
-            let post_id = post.permalink.split('/').slice(-2)[0] + '/'
-            
             let images = null
             let is_self_link = false
             let valid_reddit_self_domains = ['reddit.com']
