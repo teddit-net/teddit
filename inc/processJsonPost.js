@@ -124,17 +124,19 @@ module.exports = function(fetch) {
           for(var i = 0; i < post.gallery_data.items.length; i++) {
             let id = post.gallery_data.items[i].media_id
             if(post.media_metadata[id]) {
-              if(post.media_metadata[id].p[0]) {
-                let item = { source: null, thumbnail: null, large: null }
-                if(post.media_metadata[id].s && post.media_metadata[id].p[0].u) {
-                  item = {
-                    type: post.media_metadata[id].e,
-                    source: await downloadAndSave(post.media_metadata[id].s.u),
-                    thumbnail: await downloadAndSave(post.media_metadata[id].p[0].u),
-                    large: await downloadAndSave(post.media_metadata[id].p[post.media_metadata[id].p.length - 1].u),
+              if(post.media_metadata[id].p) {
+                if(post.media_metadata[id].p[0]) {
+                  let item = { source: null, thumbnail: null, large: null }
+                  if(post.media_metadata[id].s && post.media_metadata[id].p[0].u) {
+                    item = {
+                      type: post.media_metadata[id].e,
+                      source: await downloadAndSave(post.media_metadata[id].s.u),
+                      thumbnail: await downloadAndSave(post.media_metadata[id].p[0].u),
+                      large: await downloadAndSave(post.media_metadata[id].p[post.media_metadata[id].p.length - 1].u),
+                    }
                   }
+                  obj.gallery_items.push(item)
                 }
-                obj.gallery_items.push(item)
               }
             }
           }
