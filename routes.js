@@ -569,8 +569,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       sortby = 'hot'
     }
     
+    if(['apple-touch-icon.png', 'apple-touch-icon-precomposed.png', 'apple-touch-icon-120x120.png', 'apple-touch-icon-120x120-precomposed.png'].includes(sortby)) {
+      return res.sendStatus(404) // return 404 on shitty apple favicon stuff
+    }
+    
     if(!['new', 'rising', 'controversial', 'top', 'gilded', 'hot'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
+      console.log(`Got invalid sort.`, req.originalUrl)
       return res.redirect('/')
     }
     
@@ -1029,7 +1033,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     }
     
     if(!['new', 'rising', 'controversial', 'top', 'gilded', 'hot'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
+      console.log(`Got invalid sort.`, req.originalUrl)
       return res.redirect(`/r/${subreddit}`)
     }
     
@@ -1167,7 +1171,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     }
     
     if(!['confidence', 'top', 'new', 'controversial', 'old', 'qa', 'random'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
+      console.log(`Got invalid sort.`, req.originalUrl)
       return res.redirect('/')
     }
     
@@ -1361,7 +1365,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     }
     
     if(!['hot', 'new', 'controversial', 'top'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
+      console.log(`Got invalid sort.`, req.originalUrl)
       return res.redirect(`/u/${user}`)
     }
     
@@ -1521,7 +1525,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     }
     
     if(!['new', 'rising', 'controversial', 'top', 'gilded', 'hot'].includes(sortby)) {
-      console.error(`Got invalid sort.`, req.originalUrl)
+      console.log(`Got invalid sort.`, req.originalUrl)
       return res.redirect(`/u/${user}`)
     }
     
