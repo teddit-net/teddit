@@ -43,7 +43,7 @@ html
               span #{kFormatter(post.ups)}
               if user_preferences.show_upvoted_percentage === 'true'
                 - let downvoted = parseInt(post.ups * (1 - post.upvote_ratio))
-                span.ratio(title="~"+ downvoted +" downvoted") #{post.upvote_ratio  * 100}%
+                span.ratio(title="~"+ downvoted +" downvoted") #{(post.upvote_ratio  * 100).toFixed(0)}%
               div.arrow.down
             .title
               a(href="" + post.url + "", rel="noopener noreferrer")
