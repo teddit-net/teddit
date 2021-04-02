@@ -13,6 +13,56 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let processSubredditsExplore = require('./inc/processSubredditsExplore.js')();
   
   app.all('*', (req, res, next) => {
+    let themeOverride = req.query.theme
+    if(themeOverride) {
+      // Convert Dark to dark since the stylesheet has it lower case
+      themeOverride = themeOverride.toLowerCase()
+      // This override here will set it for the current request
+      req.cookies.theme = themeOverride
+      // this will set it for future requests
+      res.cookie('theme', themeOverride, { maxAge: 31536000, httpOnly: true })
+    } else if(!req.cookies.theme && req.cookies.theme !== '') {
+      req.cookies.theme = config.theme
+    }
+    
+    let flairsOverride = req.query.flairs
+    if(flairsOverride) {
+      req.cookies.flairs = flairsOverride
+      res.cookie('flairs', flairsOverride, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    let nsfwEnabledOverride = req.query.nsfw_enabled
+    if(nsfwEnabledOverride) {
+      req.cookies.nsfw_enabled = nsfwEnabledOverride
+      res.cookie('nsfw_enabled', nsfwEnabledOverride, { maxAge: 31536000, httpOnly: true })
+    }
+
+    let highlightControversialOverride = req.query.highlight_controversial
+    if(highlightControversialOverride) {
+      req.cookies.highlight_controversial = highlightControversialOverride
+      res.cookie('highlight_controversial', highlightControversialOverride, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    let postMediaMaxHeight = req.query.post_media_max_height
+    if(postMediaMaxHeight) {
+      if(config.post_media_max_heights.hasOwnProperty(postMediaMaxHeight) || !isNaN(postMediaMaxHeight)) {
+        req.cookies.post_media_max_height = postMediaMaxHeight
+        res.cookie('post_media_max_height', postMediaMaxHeight, { maxAge: 31536000, httpOnly: true })
+      }
+    }
+    
+    let collapseChildComments = req.query.collapse_child_comments
+    if(collapseChildComments) {
+      req.cookies.collapse_child_comments = collapseChildComments
+      res.cookie('collapse_child_comments', collapseChildComments, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    let showUpvotedPercentage = req.query.show_upvoted_percentage
+    if(showUpvotedPercentage) {
+      req.cookies.show_upvoted_percentage = showUpvotedPercentage
+      res.cookie('show_upvoted_percentage', showUpvotedPercentage, { maxAge: 31536000, httpOnly: true })
+    }
+    
     if(!config.rate_limiting) {
       return next()
     }
