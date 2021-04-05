@@ -55,7 +55,7 @@ module.exports = function(request, fs) {
       }
 
     } catch(e) { }
-    url = replacePrivacyDomains(url, user_preferences)
+    url = replaceDomains(url, user_preferences)
     return url
   }
 
@@ -159,7 +159,7 @@ module.exports = function(request, fs) {
         return unescaped[m]
       })
       
-      result = replacePrivacyDomains(result, user_preferences)
+      result = replaceDomains(result, user_preferences)
       
       return result
     } else {
@@ -167,9 +167,20 @@ module.exports = function(request, fs) {
     }
   }
 
-  this.replacePrivacyDomains = (str, user_preferences) => {
+  this.replaceDomains = (str, user_preferences) => {
     if(typeof(str) == 'undefined' || !str)
       return
+
+    if (config.domain_replacements) {
+      for (replacement of config.domain_replacements) {
+        str = str.replace(...replacement)
+      }
+    }
+
+    return this.replaceUserDomains(str, user_preferences)
+  }
+
+  this.replaceUserDomains = (str, user_preferences) => {
     
     let redditRegex = /([A-z.]+\.)?(reddit(\.com)|redd(\.it))/gm;
     let youtubeRegex = /([A-z.]+\.)?youtu(be\.com|\.be)/gm;

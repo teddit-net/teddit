@@ -91,7 +91,7 @@ module.exports = function() {
               title: data.title,
               ups: data.ups,
               upvote_ratio: data.upvote_ratio,
-              url: replacePrivacyDomains(data.url, user_preferences),
+              url: replaceDomains(data.url, user_preferences),
               stickied: data.stickied,
               is_self_link: is_self_link,
               subreddit_front: subreddit_front,
