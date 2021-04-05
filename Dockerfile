@@ -10,4 +10,6 @@ COPY . /teddit/
 RUN npm install --no-optional
 COPY config.js.template /teddit/config.js
 
+RUN find /teddit/static/ -type d -exec chmod -R 777 {} \;
+
 CMD npm start
