@@ -52,25 +52,6 @@ module.exports = function() {
           }
         }
         
-        if(link.preview && link.thumbnail !== 'self') {
-          if(!link.url.startsWith('/r/') && isGif(link.url)) {
-            images = {
-              thumb: await downloadAndSave(link.thumbnail, 'thumb_')
-            }
-          } else {
-            if(link.preview.images[0].resolutions[0]) {
-              let preview = null
-              if(!isGif(link.url) && !link.post_hint.includes(':video'))
-                preview = await downloadAndSave(link.preview.images[0].source.url)
-              images = {
-                thumb: await downloadAndSave(link.preview.images[0].resolutions[0].url, 'thumb_'),
-                preview: preview
-              }
-            }
-          }
-        }
-            
-        
         link.permalink = `${protocol}://${config.domain}${link.permalink}`
               
         if(is_self_link)
@@ -79,7 +60,7 @@ module.exports = function() {
         if(req.query.hasOwnProperty('full_thumbs')) {
           if(!post_image)
             post_image = thumbnail
-          
+            
           thumbnail = post_image
         }
         
