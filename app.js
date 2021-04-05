@@ -28,6 +28,10 @@ const redis = (() => {
     port: 6379
   }
   
+  if (config.redis_db) {
+    redisOptions.db = config.redis_db
+  }
+
   if (config.redis_host) {
     redisOptions.host = config.redis_host
   }
@@ -35,6 +39,10 @@ const redis = (() => {
   if (config.redis_port && config.redis_port > 0) {
     redisOptions.port = config.redis_port
   }  
+
+  if (config.redis_password) {
+    redisOptions.password = config.redis_password
+  }
 
   return r.createClient(redisOptions)
 })()
