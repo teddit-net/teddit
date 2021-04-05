@@ -7,7 +7,6 @@ global.ratelimit_counts = {}
 global.ratelimit_timestamps = {}
 
 const pug = require('pug')
-const path = require('path')
 const compression = require('compression')
 const express = require('express')
 const cookieParser = require('cookie-parser')
@@ -53,7 +52,12 @@ const fs = require('fs')
 const app = express()
 const request = require('postman-request')
 const commons = require('./inc/commons.js')(request, fs)
-const dlAndSave = require('./inc/downloadAndSave.js')(commons)
+const dlAndSave = require('./inc/downloadAndSave.js')(commons);
+
+['pics/thumbs', 'pics/flairs', 'pics/icons', 'vids']
+  .map(d => `./static/${d}`)
+  .filter(d => !fs.existsSync(d))
+  .forEach(d => fs.mkdirSync(d, { recursive: true }))
 
 if(!config.https_enabled && config.redirect_http_to_https) {
   console.error(`Cannot redirect HTTP=>HTTPS while "https_enabled" is false.`)
