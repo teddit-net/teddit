@@ -8,7 +8,9 @@ const config = {
   api_enabled: process.env.API_ENABLED !== 'true' || true, // Teddit API feature. Might increase loads significantly on your instance.
   video_enabled: process.env.VIDEO_ENABLED !== 'true' || true,
   redis_enabled: process.env.REDIS_ENABLED !== 'true' || true, // If disabled, does not cache Reddit API calls
+  redis_db: process.env.REDIS_DB,
   redis_host: process.env.REDIS_HOST || '127.0.0.1',
+  redis_password: process.env.REDIS_PASSWORD,
   redis_port: process.env.REDIS_PORT || 6379,
   ssl_port: process.env.SSL_PORT || 8088,
   nonssl_port: process.env.NONSSL_PORT || 8080,
