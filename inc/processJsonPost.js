@@ -76,13 +76,13 @@ module.exports = function(fetch) {
           }
         }
 
-        obj = await processPostMedia(obj, post, post.media, has_gif, reddit_video, gif_to_mp4)
+        obj = await processPostMedia(obj, post, post.media, has_gif, reddit_video, gif_to_mp4, user_preferences)
 
         if(post.crosspost_parent_list) {
           post.crosspost = post.crosspost_parent_list[0]
         }
         if(post.crosspost) {
-          obj = await processPostMedia(obj, post.crosspost, post.crosspost.media, has_gif, reddit_video, gif_to_mp4)
+          obj = await processPostMedia(obj, post.crosspost, post.crosspost.media, has_gif, reddit_video, gif_to_mp4, user_preferences)
           obj.crosspost = {
             author: post.crosspost.author,
             created: post.crosspost.created_utc,
