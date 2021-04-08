@@ -47,18 +47,52 @@ Community instances:
 See ```CHANGELOG.md```
 ## Installation
 
-### Docker
-
-Using [Docker and `docker-compose`](https://github.com/docker/compose):
+### Docker-compose method
 
 ```console
+wget https://codeberg.org/teddit/teddit/raw/branch/main/docker-compose.yml
 docker-compose build
 docker-compose up
 ```
 
 Teddit should now be running at <http://localhost:8080>.
 
-Docker image is available at [https://hub.docker.com/r/teddit/teddit](https://hub.docker.com/r/teddit/teddit)
+Docker image is available at [https://hub.docker.com/r/teddit/teddit](https://hub.docker.com/r/teddit/teddit).
+
+#### Environment Variables
+
+The following variables may be set to customize your deployment at runtime.
+
+| Variable                | Description                                                                                                                                                                  |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| domain                  | Defines URL for Teddit to use (i.e. teddit.domain.com). Defaults to **127.0.0.1**                                                                                            |
+| use_reddit_oauth        | *Boolean* If true, "reddit_app_id" must be set with your own Reddit app ID. If false, Teddit uses Reddit's public API. Defaults to **false**                                 |
+| cert_dir                | Defines location of certificates if using HTTPS (i.e. /home/teddit/le/live/teddit.net). No trailing slash.                                                                   |
+| theme                   | Automatically theme the user's browser experience. Options are *auto*, *dark*, *sepia*, or you can set *white* by setting the variable to empty ( '' ). Defaults to **auto** |
+| flairs_enabled          | Enables the rendering of user and link flairs on Teddit. Defaults to **true**                                                                                                |
+| highlight_controversial | Enables controversial comments to be indicated by a typographical dagger (†). Defaults to **true**                                                                           |
+| api_enabled             | Teddit API feature. Might increase loads significantly on your instance. Defaults to **true**                                                                                |
+| video_enabled           | Enables video playback within Teddit. Defaults to **true**                                                                                                                   |
+| redis_enabled           | Enables Redis caching. If disabled, does not allow for any caching of Reddit API calls. Defaults to **true**                                                                 |
+| redis_db                | Sets the redis DB name, if required                                                                                                                                          |
+| redis_host              | Sets the redis host location, if required. Defaults to **127.0.0.1**                                                                                                         |
+| redis_password          | Sets the redis password, if required                                                                                                                                         |
+| redis_port              | Sets the redis port, if required. Defaults to **6379**                                                                                                                       |
+| ssl_port                | Sets the SSL port Teddit listens on. Defaults to **8088**                                                                                                                    |
+| nonssl_port             | Sets the non-SSL port Teddit listens on. Defaults to **8080**                                                                                                                |
+| listen_address          | Sets the address Teddit listens for requests on. Defaults to **0.0.0.0**                                                                                                     |
+| https_enabled           | *Boolean* Sets whether or not to enable HTTPS for Teddit. Defaults to **false**                                                                                              |
+| redirect_http_to_https  | *Boolean* Sets whether to force redirection from HTTP to HTTPS. Defaults to **false**                                                                                        |
+| redirect_www            |                                                                                                                                                                              |
+| use_compression         |                                                                                                                                                                              |
+| use_view_cache          |                                                                                                                                                                              |
+| use_helmet              |                                                                                                                                                                              |
+| use_helmet_hsts         |                                                                                                                                                                              |
+| trust_proxy             |                                                                                                                                                                              |
+| trust_proxy_address     |                                                                                                                                                                              |
+| nsfw_enabled            |                                                                                                                                                                              |
+| post_comments_sort      |                                                                                                                                                                              |
+| reddit_app_id           |                                                                                                                                                                              |
 
 ### Manual
 
