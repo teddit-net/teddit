@@ -72,9 +72,9 @@ The following variables may be set to customize your deployment at runtime.
 | listen_address | Sets the address Teddit listens for requests on. Defaults to **0.0.0.0** |
 | https_enabled | *Boolean* Sets whether or not to enable HTTPS for Teddit. Defaults to **false** |
 | redirect_http_to_https | *Boolean* Sets whether to force redirection from HTTP to HTTPS. Defaults to **false** |
-| redirect_www | *Boolean* Defaults to **false** |
-| use_compression | *Boolean* Defaults to **true** |
-| use_view_cache | *Boolean* Defaults to **false** |
+| redirect_www | *Boolean* Redirects from www to non-www URL. For example, if true, Teddit will redirect https://www.teddit.com to https://teddit.com. Defaults to **false** |
+| use_compression | *Boolean* If set to true, Teddit will use the [https://github.com/expressjs/compression](Node.js compression middleware) to compress HTTP requests with deflate/gzip. Defaults to **true** |
+| use_view_cache | *Boolean* If this is set to true, view template compilation caching is enabled. Defaults to **false** |
 | use_helmet | *Boolean* Recommended to be true when using https. Defaults to **false** |
 | use_helmet_hsts | *Boolean* Recommended to be true when using https. Defaults to **false** |
 | trust_proxy | *Boolean* Enable trust_proxy if you are using a reverse proxy like nginx or traefik. Defaults to **false** |
