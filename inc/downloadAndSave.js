@@ -89,7 +89,7 @@ module.exports = function(tools) {
                               let temp_files = [temp_path, audio_path]
                               deleteFiles(temp_files, (error) => {
                                 if(error) {
-                                  console.log(`Error while deleting temporay files:`, error)
+                                  console.log(`Error while deleting temporary files:`, error)
                                 }
                               })
                               resolve(final_url)

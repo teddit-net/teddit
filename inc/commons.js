@@ -20,7 +20,7 @@ module.exports = function(request, fs) {
         if(!error) {
           resolve({ success: true })
         } else {
-          resolve({ success: false })
+          resolve({ success: false, error })
         }
       })
     }).catch((err) => {

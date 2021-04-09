@@ -1,6 +1,6 @@
 module.exports = function() {
   const config = require('../config')
-  this.processPostMedia = (obj, post, post_media, has_gif, reddit_video, gif_to_mp4) => {
+  this.processPostMedia = (obj, post, post_media, has_gif, reddit_video, gif_to_mp4, user_preferences) => {
     return new Promise(resolve => {
       (async () => {
         if(post_media || has_gif) {
@@ -24,7 +24,7 @@ module.exports = function() {
                   width: post_media.oembed.thumbnail_width,
                   thumbnail: await downloadAndSave(post_media.oembed.thumbnail_url, '', false, true),
                   author_name: post_media.oembed.author_name,
-                  author_url: post_media.oembed.author_url,
+                  author_url: replaceDomains(post_media.oembed.author_url, user_preferences),
                   title: post_media.oembed.title,
                   duration: null,
                   is_gif: null,
@@ -37,9 +37,8 @@ module.exports = function() {
                   let r = /iframe.*?src=\"(.*?)\"/;
                   let src = r.exec(str)[1]
                   let youtube_id = src.split('/embed/')[1].split('?')[0]
-                  // TODO: Invidious youtube URLs.
                   let youtube_url = `https://youtube.com/watch?v=${youtube_id}`
-                  obj.media.embed_src = youtube_url
+                  obj.media.embed_src = replaceDomains(youtube_url, user_preferences)
                 } catch(error) {
                   console.error(`Error while trying to get src link from embed youtube html.`, error)
                 }
@@ -67,7 +66,7 @@ module.exports = function() {
                     source: 'external',
                     height: post_media.oembed.height,
                     width: post_media.oembed.width,
-                    provider_url: post_media.oembed.provider_url,
+                    provider_url: replaceDomains(post_media.oembed.provider_url, user_preferences),
                     provider_name: post_media.oembed.provider_name,
                     title: post_media.oembed.title,
                     duration: null,
@@ -79,12 +78,12 @@ module.exports = function() {
                     let str = post_media.oembed.html
                     let r = /iframe.*?src=\"(.*?)\"/;
                     let src = r.exec(str)[1]
-                    obj.media.embed_src = cleanUrl(src)
+                    obj.media.embed_src = replaceDomains(cleanUrl(src), user_preferences)
                   } catch(error) {
                     //console.error(`Error while trying to get src link from embed html.`, error)
                   }
                   if(!obj.media.embed_src) {
-                    obj.media.embed_src = post_media.oembed.url
+                    obj.media.embed_src = replaceDomains(post_media.oembed.url, user_preferences)
                   }
                 }
               }
