@@ -45,7 +45,7 @@ module.exports = function() {
           }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
-              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 ? '' : 'open'}>
+              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 && comments.depth < 2 ? '' : 'open'}>
                 <summary>
                   <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                   <p class="ups">${ups}</p>
