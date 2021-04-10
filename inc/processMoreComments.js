@@ -51,4 +51,4 @@ module.exports = function() {
       })()
     })
   }
-}1
+}
