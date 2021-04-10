@@ -11,6 +11,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   let tedditApiSubreddit = require('./inc/teddit_api/handleSubreddit.js')();
   let tedditApiUser = require('./inc/teddit_api/handleUser.js')();
   let processSubredditsExplore = require('./inc/processSubredditsExplore.js')();
+  let processMoreComments = require('./inc/processMoreComments.js')();
   
   app.all('*', (req, res, next) => {
     let themeOverride = req.query.theme
@@ -1208,7 +1209,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let sortby = req.query.sort
     let comment_id = ''
     let viewing_comment = false
-    let more_comments_cursor = req.query.cursor
+    let comment_ids = req.query.comment_ids
     let context = parseInt(req.query.context)
     
     if(req.params.comment_id) {
@@ -1237,64 +1238,35 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got ${comments_url} key from redis.`);
         (async () => {
-          if(!more_comments_cursor) {
-            let processed_json = await processJsonPost(json, false, req.cookies)
-            let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment, req.cookies)
-            return res.render('post', {
-              post: finalized_json.post_data,
-              comments: finalized_json.comments,
-              viewing_comment: viewing_comment,
-              post_url: post_url,
-              subreddit: subreddit,
-              sortby: sortby,
-              user_preferences: req.cookies,
-              instance_nsfw_enabled: config.nsfw_enabled,
-              post_media_max_heights: config.post_media_max_heights,
-              redis_key: comments_key
-            })
-          } else {
-            let key = `morechildren:${post_url};1`
-            redis.get(key, (error, json) => {
-              if(error) {
-                console.error(`Error getting the ${key} key from redis.`, error)
-                return res.render('index', { json: null, user_preferences: req.cookies })
-              }
-              if(json) {
-                console.log(`Got ${key} key from redis.`);
-                redis.get(post_url, (error, post_json) => {
-                  if(error) {
-                    console.error(`Error getting the ${post_url} key from redis.`, error)
-                    return res.render('index', { json: null, user_preferences: req.cookies })
-                  }
-                  if(post_json) {
-                    redis.get(`morechildren_ids:${post_url}`, (error, morechildren_ids) => {
-                      (async () => {
-                        post_json = JSON.parse(post_json)
-                        json = JSON.parse(json)
-                        post_json[1].data.children = json
-                        let processed_json = await processJsonPost(post_json, true, req.cookies)
-                        let finalized_json = await finalizeJsonPost(processed_json, id, post_url, morechildren_ids)
-                        
-                        return res.render('post', {
-                          post: finalized_json.post_data,
-                          comments: finalized_json.comments,
-                          viewing_comment: false,
-                          post_url: post_url,
-                          subreddit: req.params.subreddit,
-                          sortby: sortby,
-                          more_comments_page: 1,
-                          user_preferences: req.cookies,
-                          instance_nsfw_enabled: config.nsfw_enabled,
-                          post_media_max_heights: config.post_media_max_heights,
-                          redis_key: comments_key
-                        })
-                      })()
-                    })
-                  }
-                })
-              }
-            })
+          let parsed = false
+          let more_comments = null
+          if(comment_ids) {
+            let key = `${post_url}:morechildren:comment_ids:${comment_ids}`
+            more_comments = await moreComments(fetch, redis, post_url, comment_ids, id)
+            
+            if(more_comments === false) {
+              return res.redirect(post_url)
+            } else {
+              json = JSON.parse(json)
+              json[1].data.children = more_comments
+              parsed = true
+            }
           }
+          
+          let processed_json = await processJsonPost(json, parsed, req.cookies)
+          let finalized_json = await finalizeJsonPost(processed_json, id, post_url, more_comments, viewing_comment, req.cookies)
+          return res.render('post', {
+            post: finalized_json.post_data,
+            comments: finalized_json.comments,
+            viewing_comment: viewing_comment,
+            post_url: post_url,
+            subreddit: subreddit,
+            sortby: sortby,
+            user_preferences: req.cookies,
+            instance_nsfw_enabled: config.nsfw_enabled,
+            post_media_max_heights: config.post_media_max_heights,
+            redis_key: comments_key
+          })
         })()
       } else {
         let url = ''
@@ -1315,8 +1287,20 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 } else {
                   console.log(`Fetched the JSON from reddit.com${comments_url}.`);
                   (async () => {
+                    let more_comments = null
+                    if(comment_ids) {
+                      let key = `${post_url}:morechildren:comment_ids:${comment_ids}`
+                      more_comments = await moreComments(fetch, redis, post_url, comment_ids, id)
+                      
+                      if(more_comments === false) {
+                        return res.redirect(post_url)
+                      } else {
+                        json[1].data.children = more_comments
+                      }
+                    }
+                    
                     let processed_json = await processJsonPost(json, true, req.cookies)
-                    let finalized_json = await finalizeJsonPost(processed_json, id, post_url, null, viewing_comment)
+                    let finalized_json = await finalizeJsonPost(processed_json, id, post_url, more_comments, viewing_comment)
                     return res.render('post', {
                       post: finalized_json.post_data,
                       comments: finalized_json.comments,
@@ -1801,82 +1785,21 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   })
 
   app.post('/r/:subreddit/comments/:id/:snippet', (req, res, next) => {
-    /* morechildren route */
-    let all_ids = req.body.all_ids
-    let post_url = req.body.url
+    /**
+    * This is the "morechildren" route. This route is called when the
+    * "load more comments" button at the bottom of some post is clicked.
+    */
+    if(!config.use_reddit_oauth)
+      return res.send(`This instance is using Reddit's public API (non-OAuth), and therefore this endpoint is not supported. In other words, this feature is only available if the instance is using Reddit OAuth API.`)
     
-    if(!all_ids || !post_url || !post_url.startsWith('/r/')) {
-      return res.render('index', { json: null, user_preferences: req.cookies })
-    } else {
-      let post_id = post_url.split('/')[4]
-      let ids_to_show = ''
-      all_ids = all_ids.split(',')
-      // TODO: paging
-      let page = 1
-      if(all_ids.length > 100) {
-        ids_to_show = all_ids.slice(0,100)
-        ids_to_show = ids_to_show.join()
-      }
-      
-      let key = `morechildren:${post_url};1`
-      redis.get(key, (error, json) => {
-        if(error) {
-          console.error(`Error getting the ${key} key from redis.`, error)
-          return res.render('index', { json: null, user_preferences: req.cookies })
-        }
-        if(json) {
-          console.log(`Redirecting to ${post_url} with cursor...`);
-          return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
-        } else {
-          if(!config.use_reddit_oauth)
-            return res.send(`This instance is using Reddit's public API (non-OAuth), and therefore this endpoint is not supported.`)
-          let url = `https://oauth.reddit.com/api/morechildren?api_type=json&children=${ids_to_show}&limit_children=false&link_id=t3_${post_id}`
-          fetch(encodeURI(url), redditApiGETHeaders())
-          .then(result => {
-            if(result.status === 200) {
-              result.json()
-              .then(json => {
-                if(json.json.data) {
-                  if(json.json.data.things) {
-                    let comments = json.json.data.things
-                    redis.setex(key, config.setexs.posts, JSON.stringify(comments), (error) => {
-                      if(error) {
-                        console.error(`Error setting the ${key} key to redis.`, error)
-                        return res.render('post', { post: null, user_preferences: req.cookies })
-                      } else {
-                        redis.setex(`morechildren_ids:${post_url}`, config.setexs.posts, JSON.stringify(all_ids))
-                        console.log(`Fetched the JSON from Reddit (endpoint "morechildren") with url: ${url}.`)
-                        console.log(`Redirecting to ${post_url} with cursor...`)
-                        return res.redirect(`${post_url}?cursor=${page}&page=${page}`)
-                      }
-                    })
-                  } else {
-                    return res.redirect(post_url)
-                  }
-                } else {
-                  return res.redirect(post_url)
-                }
-              })
-            } else {
-              console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)
-              console.error(config.reddit_api_error_text)
-              return res.render('index', {
-                json: null,
-                http_status_code: result.status,
-                user_preferences: req.cookies
-              })
-            }
-          }).catch(error => {
-            console.log(`Error fetching the JSON from Reddit (endpoint "morechildren") with url: ${url}.`, error)
-            return res.render('index', {
-              json: null,
-              http_status_code: result.status,
-              user_preferences: req.cookies
-            })
-          })
-        }
-      })
-    }
+    let subreddit = req.params.subreddit
+    let id = req.params.id
+    let snippet = encodeURIComponent(req.params.snippet)
+    let post_url = `/r/${subreddit}/comments/${id}/${snippet}/`
+    let page = req.query.page
+    let comment_ids = req.body.comment_ids
+    
+    return res.redirect(`${post_url}?comment_ids=${comment_ids}&page=1`)
   })
   
   function resetPreferences(res) {
