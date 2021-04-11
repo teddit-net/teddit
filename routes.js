@@ -943,6 +943,18 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     
     if(!page)
       page = 'index'
+      
+    function formatWikipagelisting(json, subreddit) {
+      let html = '<ul class="wikipagelisting">'
+      if(json.kind === 'wikipagelisting' && json.data) {
+        for(var i = 0; i < json.data.length; i++) {
+          let d = json.data[i]
+          html += `<li><a href="/r/${subreddit}/wiki/${d}">${d}</a></li>`
+        }
+      }
+      html += '</ul>'
+      return html
+    }
     
     let key = `${subreddit.toLowerCase()}:wiki:page:${page}`
     redis.get(key, (error, json) => {
@@ -953,11 +965,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       if(json) {
         console.log(`Got /r/${subreddit} wiki key from redis.`)
         json = JSON.parse(json)
-        return res.render('subreddit_wiki', {
-          content_html: unescape(json.data.content_html),
-          subreddit: subreddit,
-          user_preferences: req.cookies
-        })
+        if(page !== 'pages') {
+          return res.render('subreddit_wiki', {
+            content_html: unescape(json.data.content_html),
+            subreddit: subreddit,
+            user_preferences: req.cookies
+          })
+        } else {
+          return res.render('subreddit_wiki', {
+            content_html: formatWikipagelisting(json, subreddit),
+            subreddit: subreddit,
+            user_preferences: req.cookies
+          })
+        }
       } else {
         let url = ''
         if(config.use_reddit_oauth)
@@ -975,11 +995,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                   return res.render('subreddit', { json: null, user_preferences: req.cookies })
                 } else {
                   console.log(`Fetched the JSON from reddit.com/r/${subreddit}/wiki.`)
-                  return res.render('subreddit_wiki', {
-                    content_html: unescape(json.data.content_html),
-                    subreddit: subreddit,
-                    user_preferences: req.cookies
-                  })
+                  if(page !== 'pages') {
+                    return res.render('subreddit_wiki', {
+                      content_html: unescape(json.data.content_html),
+                      subreddit: subreddit,
+                      user_preferences: req.cookies
+                    })
+                  } else {
+                    return res.render('subreddit_wiki', {
+                      content_html: formatWikipagelisting(json, subreddit),
+                      subreddit: subreddit,
+                      user_preferences: req.cookies
+                    })
+                  }
                 }
               })
             })

@@ -1452,6 +1452,9 @@ code {
 .wiki-content .description h2 {
   color:#222
 }
+.wiki-content ul.wikipagelisting {
+  padding: 0px 0px 0px 30px;
+}
 .wiki-content .wikirevisionlisting .generic-table {
   width:100%
 }
