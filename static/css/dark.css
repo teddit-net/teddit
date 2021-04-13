@@ -140,6 +140,10 @@ body.dark #links .link .entry .selftext {
   background: #0a0a0a;
   border: 1px solid #404040;
 }
+body.dark #links .link .entry .meta .links .selftext a {
+  color: var(--darklinkcolor);
+  margin: 0;
+}
 body.dark #links .link .entry details .line {
   width: 16px;
   margin-top: 3px;
