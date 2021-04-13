@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences) => {
+  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences, last_known_depth) => {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
@@ -13,7 +13,7 @@ module.exports = function() {
         
         if(!user_preferences)
           user_preferences = {}
-
+          
         if(comments.author !== undefined && comments.body_html !== undefined) {
           let classlist = []
           let submitter_link = ''
@@ -45,7 +45,7 @@ module.exports = function() {
           }
           comments_html = `
             <div class="comment ${comments.depth % 2 === 0 ? 'even-depth' : 'odd-depth'}" id="${comments.id}">
-              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 ? '' : 'open'}>
+              <details ${user_preferences.collapse_child_comments === 'true' && comments.depth > 0 && comments.depth < 2 ? '' : 'open'}>
                 <summary>
                   <p class="author">${commentAuthor(comments, classlist, submitter && submitter_link, moderator && moderator_badge)}</p>
                   <p class="ups">${ups}</p>
@@ -68,31 +68,49 @@ module.exports = function() {
             if(comments.children.length > 0) {
               let parent_id = comments.parent_id.split('_')[1]
               if(post_id === parent_id && !morechildren_ids) {
+                let more_comments = []
+                if(comments.children.length > 100) {
+                  more_comments = comments.children.slice(0, 100)
+                } else {
+                  more_comments = comments.children
+                }
+                
                 comments_html = `
                   <form method="POST">
                     <button type="submit">load more comments (${comments.count})</button>
-                    <input type="hidden" name="url" id="url" value="${post_url}">
-                    <input type="hidden" name="all_ids" id="all_ids" value="${comments.children.join()}">
+                    <input type="hidden" name="comment_ids" id="comment_ids" value="${more_comments.join()}">
                   </form>
                 `
               } else {
+                let load_comms_href = parent_id
                 if(!morechildren_ids) {
-                  let load_comms_href = parent_id
-
                   comments_html = `
                     <div class="load-more-comments">
                       <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
                     </div>
                   `
                 } else {
-                  morechildren_ids = JSON.parse(morechildren_ids)
-                  comments_html = `
-                    <form method="POST">
-                      <button type="submit">load more comments (${morechildren_ids.length})</button>
-                      <input type="hidden" name="url" id="url" value="${post_url}">
-                      <input type="hidden" name="all_ids" id="all_ids" value='${morechildren_ids.join()}'>
-                    </form>
-                  `
+                  if(next_comment === false) {
+                    let more_comments = morechildren_ids[morechildren_ids.length - 1].data.children
+                    if(more_comments.length > 100) {
+                      more_comments = more_comments.slice(0, 100)
+                    } else {
+                      more_comments = more_comments
+                    }
+                    comments_html = `
+                      <form method="POST">
+                        <button type="submit">load more comments (${more_comments.length})</button>
+                        <input type="hidden" name="comment_ids" id="comment_ids" value="${more_comments.join()}">
+                      </form>
+                    `
+                  } else {
+                    comments_html = `
+                      <div class="load-more-comments">
+                        <a href="${load_comms_href}#c">load more comments (${comments.count})</a>
+                      </div>
+                    `
+                  }
+        
                 }
               }
             } else {
@@ -105,7 +123,21 @@ module.exports = function() {
             }
           }
         }
-
+      
+        if(morechildren_ids) {
+          if(next_comment.depth != undefined) {
+            if(next_comment.depth < last_known_depth) {
+              let times = last_known_depth - next_comment.depth
+              if(next_comment.depth == 0) {
+                times = last_known_depth
+              }
+              for(var i = 0; i < times; i++) {
+                comments_html += `</details></div>`
+              }
+            }
+          }
+        }
+        
         if(comments.replies) {
           for(var i = 0; i < comments.replies.length; i++) {
             let comment = comments.replies[i]
@@ -163,7 +195,7 @@ module.exports = function() {
               if(comment.replies) {
                 if(comment.replies.length) {
                   for(var j = 0; j < comment.replies.length; j++) {
-                    let next_reply
+                    let next_reply = false
                     if(comment.replies[j+1]) {
                       next_reply = comment.replies[j+1]
                     }
@@ -200,7 +232,7 @@ module.exports = function() {
             next_comment_parent_id = next_comment.parent_id.split('_')[1]
           }
         }
-
+        
         if((comments.replies || comments.author !== undefined) && next_comment_parent_id !== comments.id) {
           comments_html += `</details></div>`
         }

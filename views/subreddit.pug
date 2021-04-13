@@ -219,6 +219,17 @@ html
                     != unescape(subreddit_about.public_description_html, user_preferences)
                 .description
                   != unescape(subreddit_about.description_html, user_preferences)
+            if subreddit_about.moderators
+              if subreddit_about.moderators.kind === 'UserList'
+                if subreddit_about.moderators.data.children.length > 0
+                  .mod-list
+                    h4 Moderators
+                    ul
+                      each moderator in subreddit_about.moderators.data.children
+                        li
+                          a(href="/u/"+ moderator.name +"")
+                            p(title=""+ moderator.mod_permissions.join(', ') +"") #{moderator.name}
+                          span.flair #{moderator.author_flair_text}
           else
             if subreddit.includes('+')
               .content

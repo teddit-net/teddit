@@ -1149,6 +1149,17 @@ footer a {
 .subreddit-listing li {
   margin: 15px 0;
 }
+#sidebar .mod-list {
+  float: left;
+  width: auto;
+  margin-top: 25px;
+}
+#sidebar .mod-list ul {
+  padding: 7px 0px 0px 20px;
+}
+#sidebar .mod-list li a {
+  float: left;
+}
 #sidebar .content .description {
   margin-top: 38px;
 }
@@ -1451,6 +1462,9 @@ code {
 }
 .wiki-content .description h2 {
   color:#222
+}
+.wiki-content ul.wikipagelisting {
+  padding: 0px 0px 0px 30px;
 }
 .wiki-content .wikirevisionlisting .generic-table {
   width:100%

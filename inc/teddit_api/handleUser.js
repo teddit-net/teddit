@@ -56,7 +56,8 @@ module.exports = function() {
               mime = 'image/jpeg'
             enclosure = `<enclosure length="0" type="${mime}" url="${img}" />`
           }
-          let append_desc_html = `<br/><a href="${permalink}">[comments]</a>`
+          let append_desc_html = `submitted by <a href="${protocol}://${config.domain}/u/${user}>/u/${user}</a> to <a href="${protocol}://${config.domain}/r/${post.subreddit}/">r/${post.subreddit}</a>`
+          append_desc_html += `<br/><a href="${permalink}">[comments]</a>`
           t3_elements = `
             <description><![CDATA[${unescape(post.selftext_html)}${append_desc_html}]]></description>
             ${thumbnail}

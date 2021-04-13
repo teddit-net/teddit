@@ -76,13 +76,13 @@ module.exports = function(fetch) {
           }
         }
 
-        obj = await processPostMedia(obj, post, post.media, has_gif, reddit_video, gif_to_mp4, user_preferences)
+        obj = await processPostMedia(obj, post, post.media, has_gif, reddit_video, gif_to_mp4)
 
         if(post.crosspost_parent_list) {
           post.crosspost = post.crosspost_parent_list[0]
         }
         if(post.crosspost) {
-          obj = await processPostMedia(obj, post.crosspost, post.crosspost.media, has_gif, reddit_video, gif_to_mp4, user_preferences)
+          obj = await processPostMedia(obj, post.crosspost, post.crosspost.media, has_gif, reddit_video, gif_to_mp4)
           obj.crosspost = {
             author: post.crosspost.author,
             created: post.crosspost.created_utc,
@@ -164,7 +164,7 @@ module.exports = function(fetch) {
               score_hidden: comment.score_hidden,
               edited: comment.edited,
               replies: [],
-              depth: 0,
+              depth: comment.depth,
               user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(comment) : ''),
               controversiality: (user_preferences.highlight_controversial != 'false' ? comment.controversiality : '')
             }
@@ -206,12 +206,17 @@ module.exports = function(fetch) {
   this.finalizeJsonPost = async (processed_json, post_id, post_url, morechildren_ids, viewing_comment, user_preferences) => {
     let comments_html = `<div class="comments">`
     let comments = processed_json.comments
+    let last_known_depth = undefined
     for(var i = 0; i < comments.length; i++) {
-      let next_comment
+      let next_comment = false
       if(comments[i+1]) {
         next_comment = comments[i+1]
       }
-      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment, user_preferences)
+      if(comments[i].depth != undefined) {
+        last_known_depth = comments[i].depth
+      }
+      
+      comments_html += await compilePostCommentsHtml(comments[i], next_comment, post_id, post_url, morechildren_ids, processed_json.author, viewing_comment, user_preferences, last_known_depth)
     }
 
     comments_html += `</div>`
