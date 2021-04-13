@@ -64,6 +64,24 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       res.cookie('show_upvoted_percentage', showUpvotedPercentage, { maxAge: 31536000, httpOnly: true })
     }
     
+    let domainTwitter = req.query.domain_twitter
+    if(domainTwitter) {
+      req.cookies.domain_twitter = domainTwitter
+      res.cookie('domain_twitter', domainTwitter, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    let domainYoutube = req.query.domain_youtube
+    if(domainYoutube) {
+      req.cookies.domain_youtube = domainYoutube
+      res.cookie('domain_youtube', domainYoutube, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    let domainInstagram = req.query.domain_instagram
+    if(domainInstagram) {
+      req.cookies.domain_instagram = domainInstagram
+      res.cookie('domain_instagram', domainInstagram, { maxAge: 31536000, httpOnly: true })
+    }
+    
     if(!config.rate_limiting) {
       return next()
     }
