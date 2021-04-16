@@ -166,7 +166,7 @@ module.exports = function() {
                 ups = `${kFormatter(comment.ups)} points`
               }
               if(comment.edited) {
-                edited_span = `<span title="last edited ${toUTCString(comments.edited)}">*</span>`
+                edited_span = `<span title="last edited ${toUTCString(comment.edited)}">*</span>`
               }
               if(comment.controversiality > 0) {
                 controversial_span = `<span class="controversial" title="this comment is voted as controversial">†</span>`
