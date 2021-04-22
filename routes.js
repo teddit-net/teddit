@@ -925,7 +925,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 json.suggested_subreddits = {}
                 if(restrict_sr === 'off' && before == '' && after == '') {
                   let url = `https://reddit.com/subreddits/search.json?q=${q}&include_over_18=${nsfw}&limit=3`
-                  const response = await fetch(url)
+                  const response = await fetch(encodeURI(url))
                   const data = await response.json()
                   json.suggested_subreddits = data
                 }
