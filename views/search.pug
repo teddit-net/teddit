@@ -121,9 +121,9 @@ html
                         h2 #{suggested_subreddit.data.display_name_prefixed}: #{cleanTitle(suggested_subreddit.data.title)}
                     .sub-button
                       if subbed_to_this_subreddit
-                        a(href="/unsubscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "/search?q=" + q + "§nsfw=" + nsfw + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                        a(href="/unsubscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "/search?q=" + q + "§1nsfw=" + nsfw + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
                       else
-                        a(href="/subscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "/search?q=" + q + "§nsfw=" + nsfw + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
+                        a(href="/subscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "/search?q=" + q + "§1nsfw=" + nsfw + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
                     .description
                       p #{cleanTitle(suggested_subreddit.data.public_description)}
                     .meta
