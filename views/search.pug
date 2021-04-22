@@ -100,6 +100,40 @@ html
       if json.posts.length === 0 && !no_query
         p no results
       else
+        if json.suggested_subreddits
+          .suggested-subreddits
+            h3 suggested subreddits
+            each suggested_subreddit in json.suggested_subreddits
+              .link
+                .entry
+                  -
+                    let subbed_to_this_subreddit = false
+                    let subbed = []
+                    if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+                      subbed = user_preferences.subbed_subreddits
+                    for(let i = 0; i < subbed.length; i++) {
+                      if(subbed[i].toLowerCase() === suggested_subreddit.data.display_name.toLowerCase())
+                        subbed_to_this_subreddit = true
+                    }
+                  .content
+                    .title
+                      a(href="" + suggested_subreddit.data.url + "", rel="noopener noreferrer")
+                        h2 #{suggested_subreddit.data.display_name_prefixed}: #{cleanTitle(suggested_subreddit.data.title)}
+                    .sub-button
+                      if subbed_to_this_subreddit
+                        a(href="/unsubscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "?q=" + q + "§nsfw=" + nsfw + "", class="sub-to-subreddit gray", title="subscriptions are saved in your browser's cookies") unsubscribe
+                      else
+                        a(href="/subscribe/" + suggested_subreddit.data.display_name + "?b=/r/" + subreddit + "?q=" + q + "§nsfw=" + nsfw + "", class="sub-to-subreddit", title="subscriptions are saved in your browser's cookies") subscribe
+                    .description
+                      p #{cleanTitle(suggested_subreddit.data.public_description)}
+                    .meta
+                      p.subscribers #{kFormatter(suggested_subreddit.data.subscribers)} subscribers,
+                      p.submitted &nbsp; created
+                        span(title="" + toUTCString(suggested_subreddit.data.created) +  "") #{timeDifference(suggested_subreddit.data.created)}
+                      .links
+                        if suggested_subreddit.data.over_18
+                          span.tag.nsfw NSFW
+            a(href="/subreddits/search?q="+ q +"", class="btn") show more similar subreddits
         each link in json.posts
           .link
             .upvotes

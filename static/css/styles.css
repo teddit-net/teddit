@@ -1228,6 +1228,23 @@ a.sub-to-subreddit.gray {
   border-radius: 0;
   margin-bottom: 11px;
 }
+/* SUGGESTED SUBREDDITS ON SEARCH PAGES */
+.suggested-subreddits {
+  margin: 0px 0px 30px 1%;
+}
+.suggested-subreddits h3 {
+  border-bottom: 1px solid #7d7d7d;
+  max-width: 820px;
+  margin: 0px 0px 16px 10px;
+  padding: 0px 0px 5px 0px;
+  font-size: 0.9rem;
+}
+.suggested-subreddits .sub-button {
+  margin: 0px 0px 7px 0px;
+}
+.suggested-subreddits .description {
+  font-size: 0.8rem;
+}
 /* REDDIT STYLES */
 .md .md-spoiler-text {
   border-radius:2px;

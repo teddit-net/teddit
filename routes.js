@@ -916,28 +916,43 @@ module.exports = (app, redis, fetch, RedditAPI) => {
           if(result.status === 200) {
             result.json()
             .then(json => {
-              redis.setex(key, config.setexs.searches, JSON.stringify(json), (error) => {
-                if(error) {
-                  console.error('Error setting the searches key to redis.', error)
-                  return res.render('index', { json: null, user_preferences: req.cookies })
-                } else {
-                  console.log('Fetched search results from Reddit.');
-                  (async () => {
-                    let processed_json = await processSearchResults(json, true, after, before, req.cookies)
-                    return res.render('search', {
-                      no_query: false,
-                      json: processed_json,
-                      q: q,
-                      restrict_sr: restrict_sr,
-                      nsfw: nsfw,
-                      subreddit: subreddit,
-                      sortby: sortby,
-                      past: past,
-                      user_preferences: req.cookies
-                    })
-                  })()
+              (async () => {
+                /**
+                * Fetch suggested subreddits when the restrict_sr option is
+                * turned off ("limit my search to") and we are on the first search
+                * page (just like in Reddit).
+                */
+                json.suggested_subreddits = {}
+                if(restrict_sr === 'off' && before == '' && after == '') {
+                  let url = `https://reddit.com/subreddits/search.json?q=${q}&include_over_18=${nsfw}&limit=3`
+                  const response = await fetch(url)
+                  const data = await response.json()
+                  json.suggested_subreddits = data
                 }
-              })
+              
+                redis.setex(key, config.setexs.searches, JSON.stringify(json), (error) => {
+                  if(error) {
+                    console.error('Error setting the searches key to redis.', error)
+                    return res.render('index', { json: null, user_preferences: req.cookies })
+                  } else {
+                    console.log('Fetched search results from Reddit.');
+                    (async () => {
+                      let processed_json = await processSearchResults(json, true, after, before, req.cookies)
+                      return res.render('search', {
+                        no_query: false,
+                        json: processed_json,
+                        q: q,
+                        restrict_sr: restrict_sr,
+                        nsfw: nsfw,
+                        subreddit: subreddit,
+                        sortby: sortby,
+                        past: past,
+                        user_preferences: req.cookies
+                      })
+                    })()
+                  }
+                })
+              })()
             })
           } else {
             console.error(`Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`)

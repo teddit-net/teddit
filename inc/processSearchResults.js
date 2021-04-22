@@ -15,6 +15,15 @@ module.exports = function() {
           search_firstpage = true
         }
         
+        let suggested_subreddits = false        
+        if(json.suggested_subreddits) {
+          if(json.suggested_subreddits.data) {
+            if(json.suggested_subreddits.data.children.length > 0) {
+              suggested_subreddits = json.suggested_subreddits.data.children
+            }
+          }
+        }
+        
         if(json.data.children) {
           let view_more_posts = false
           let posts_limit = 25
@@ -90,7 +99,8 @@ module.exports = function() {
           search_firstpage: search_firstpage,
           before: before,
           after: after,
-          posts: posts
+          posts: posts,
+          suggested_subreddits: suggested_subreddits,
         }
 
         resolve(obj)
