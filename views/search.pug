@@ -131,6 +131,8 @@ html
                       p.submitted &nbsp; created
                         span(title="" + toUTCString(suggested_subreddit.data.created) +  "") #{timeDifference(suggested_subreddit.data.created)}
                       .links
+                        small
+                          a(href="/" + suggested_subreddit.data.display_name_prefixed + "/search?q=" + q + "&nsfw=" + nsfw + "&restrict_sr=on") search within #{suggested_subreddit.data.display_name_prefixed}
                         if suggested_subreddit.data.over_18
                           span.tag.nsfw NSFW
             a(href="/subreddits/search?q="+ q +"", class="btn") show more similar subreddits
