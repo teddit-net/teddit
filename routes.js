@@ -982,12 +982,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
   
-  app.get('/r/:subreddit/wiki/:page?', (req, res, next) => {
+  app.get('/r/:subreddit/wiki/:page?/:sub_page?', (req, res, next) => {
     let subreddit = req.params.subreddit
     let page = req.params.page
+    let sub_page = req.params.sub_page || ''
     
     if(!page)
       page = 'index'
+      
+    if(sub_page != '')
+      sub_page = `/${sub_page}`
       
     function formatWikipagelisting(json, subreddit) {
       let html = '<ul class="wikipagelisting">'
@@ -1001,7 +1005,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       return html
     }
     
-    let key = `${subreddit.toLowerCase()}:wiki:page:${page}`
+    let key = `${subreddit.toLowerCase()}:wiki:page:${page}:sub_page:${sub_page}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the ${subreddit} wiki key from redis.`, error)
@@ -1018,9 +1022,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       } else {
         let url = ''
         if(config.use_reddit_oauth)
-          url = `https://oauth.reddit.com/r/${subreddit}/wiki/${page}?api_type=json`
+          url = `https://oauth.reddit.com/r/${subreddit}/wiki/${page}${sub_page}?api_type=json`
         else
-          url = `https://reddit.com/r/${subreddit}/wiki/${page}.json?api_type=json`
+          url = `https://reddit.com/r/${subreddit}/wiki/${page}${sub_page}.json?api_type=json`
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
@@ -1060,13 +1064,19 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     })
   })
   
-  app.get('/r/:subreddit/w/:page?', (req, res, next) => {
+  app.get('/r/:subreddit/w/:page?/:sub_page?', (req, res, next) => {
     /* "w" is a shorturl for wikis for example https://old.reddit.com/r/privacytoolsIO/w/index */
     let subreddit = req.params.subreddit
     let page = req.params.page
+    let sub_page = req.params.sub_page || ''
+    
     if(!page)
       page = 'index'
-    return res.redirect(`/r/${subreddit}/wiki/${page}`)
+    
+    if(sub_page != '')
+      sub_page = `/${sub_page}`
+    
+    return res.redirect(`/r/${subreddit}/wiki/${page}${sub_page}`)
   })
   
   app.get('/r/random', (req, res, next) => {
