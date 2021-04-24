@@ -620,21 +620,33 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     return res.redirect(`/r/all/search?q=${q}&restrict_sr=${restrict_sr}&nsfw=${nsfw}&sort=${sortby}&t=${past}${d}`)
   })
 
-  app.get('/:sort?', (req, res, next) => {
+  app.get('/:sort?', async (req, res, next) => {
     let past = req.query.t
     let before = req.query.before
     let after = req.query.after
-    let sortby = req.params.sort
+    let sortby = req.params.sort || ''
     let api_req = req.query.api
     let api_type = req.query.type
     let api_target = req.query.target
+    
+    let proxyable = (sortby.includes('.jpg') || sortby.includes('.png') || sortby.includes('.jpeg')) ? true : false
+    if(proxyable) {
+      let params = new URLSearchParams(req.query).toString()
+      let image_url = `https://preview.redd.it/${sortby}?${params}`
+      let proxied_image = await downloadAndSave(image_url)
+      if(proxied_image) {
+        return res.redirect(proxied_image)
+      } else {
+        return res.redirect('/')
+      }
+    }
     
     let d = `&after=${after}`
     if(before) {
       d = `&before=${before}`
     }
     
-    if(!sortby) {
+    if(sortby == '') {
       sortby = 'hot'
     }
     
