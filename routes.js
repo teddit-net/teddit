@@ -82,6 +82,22 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       res.cookie('domain_instagram', domainInstagram, { maxAge: 31536000, httpOnly: true })
     }
     
+    const valid_reddit_starts = ['/https://old.reddit.com', '/https://reddit.com', '/https://www.reddit.com', '/old.reddit.com', '/reddit.com', '/www.reddit.com']
+    for(var i = 0; i < valid_reddit_starts.length; i++) {
+      if(req.url.startsWith(valid_reddit_starts[i])) {
+        req.url = req.url.substring(1)
+        const redditRegex = /([A-z.]+\.)?(reddit(\.com))/gm;
+        let teddified_url = req.url.replace(redditRegex, '')
+        if(teddified_url.includes('://')) {
+          teddified_url = teddified_url.split('://')[1]
+        }
+        if(teddified_url == '') {
+          teddified_url = '/'
+        }
+        return res.redirect(teddified_url)
+      }
+    }
+    
     if(!config.rate_limiting) {
       return next()
     }
