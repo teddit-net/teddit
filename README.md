@@ -1,3 +1,9 @@
+# THIS IS ONLY A MIRROR REPO!
+
+Main repository at Codeberg: https://codeberg.org/teddit/teddit
+
+Please submit issues and PRs on Codeberg.
+
 # teddit
 
 [teddit.net](https://teddit.net)
