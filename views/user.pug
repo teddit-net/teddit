@@ -144,7 +144,7 @@ html
           if data.before || data.after
             p view more:
           if data.before && !data.user_front
-            a(href="/u/" + data.username + data.post_type + "?before=" + data.before + "") ‹ prev
+            a(href="/u/" + data.username + data.post_type + (sortby === "new" ? "?" : "?sort=" + sortby + "&") + (!past ? "" : "t=" + past + "&") + "before=" + data.before + "") ‹ prev
           if data.after
-            a(href="/u/" + data.username + data.post_type + "?after=" + data.after + "") next ›
+            a(href="/u/" + data.username + data.post_type + (sortby === "new" ? "?" : "?sort=" + sortby + "&") + (!past ? "" : "t=" + past + "&") + "after=" + data.after + "") next ›
     include includes/footer.pug
