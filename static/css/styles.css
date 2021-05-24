@@ -1039,8 +1039,7 @@ footer a {
   margin-right: 8px;
   position: relative;
 }
-#user .entries .commententry .image a span {
-  position: absolute;
+#user .entries .link .image a span {
   bottom: 0;
   background: #0000005e;
   left: 0;
@@ -1050,7 +1049,7 @@ footer a {
   font-size: var(--sm-font);
   margin-bottom: 4px;
 }
-#user .entries .commententry .image img {
+#user .entries .link .image img {
   max-width: 80px;
 }
 #user .entries .commententry .title a {
