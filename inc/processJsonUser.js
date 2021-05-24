@@ -65,6 +65,7 @@ module.exports = function() {
               created: post.created_utc,
               ups: post.ups,
               url: replaceDomains(url, user_preferences),
+              domain: post.domain,
               thumbnail: await downloadAndSave(post.thumbnail),
               duration: duration,
               edited: post.edited,
