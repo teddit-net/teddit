@@ -77,39 +77,16 @@ html
           br
           p(title="" + toUTCString(data.created) + "") account created: #{toDateString(data.created)}
           p verified: #{(data.verified) ? "yes" : "no" }
-        .entries
+        #links.entries
           if !data.posts || data.posts.length <= 0
             h3 no posts/comments
           each post in data.posts
             if post.type === 't3'
-              .entry.t3
-                .upvotes
-                  .arrow
-                  span #{kFormatter(post.ups)}
-                  .arrow.down
-                .image
-                  if post.thumbnail !== 'self'
-                    a(href="" + post.permalink + "", rel="noopener noreferrer")
-                      img(src="" + post.thumbnail + "", alt="")
-                      if post.duration
-                        span #{secondsToMMSS(post.duration)}
-                  else
-                    a(href="" + post.permalink + "", rel="noopener noreferrer")
-                      .no-image no image
-                .title
-                  a(href="" + post.permalink + "", rel="noopener noreferrer") #{cleanTitle(post.title)}
-                  .meta
-                    p.submitted(title="" + toUTCString(post.created) + "") submitted #{timeDifference(post.created)}
-                      | by
-                      a(href="/u/" + data.username + "") #{data.username}
-                      | to
-                      != post.user_flair
-                      a(href="/r/" + post.subreddit + "", class="subreddit") #{post.subreddit}
-                    if post.over_18
-                      span.tag.nsfw NSFW
-                    a.comments(href="" + post.permalink + "") #{post.num_comments} comments
+              - 
+                var link = post;
+              include components/link.pug
             if post.type === 't1'
-              .entry
+              .commententry
                 .meta
                   .title
                     a(href="" + post.url + "", rel="noopener noreferrer") #{cleanTitle(post.link_title)}

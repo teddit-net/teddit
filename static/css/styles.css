@@ -566,6 +566,9 @@ footer a {
   overflow: hidden;
   background: var(--whitebg);
 }
+.commententry .comment {
+  padding-left: 0;
+}
 .comment details summary {
   float: left;
   font-size: 0.833rem;
@@ -924,14 +927,14 @@ footer a {
   width: 80%;
   min-height: 100vh;
 }
-#user .entries .entry {
+#user .entries .commententry {
   padding-left: 5px;
   padding-top: 10px;
   padding-bottom: 15px;
   float: left;
   width: 100%;
 }
-#user .entries .entry:first-child {
+#user .entries .commententry:first-child {
   padding-top: 0;
 }
 #user .info {
@@ -947,70 +950,70 @@ footer a {
   font-size: 1.1rem;
   overflow-wrap: anywhere;
 }
-#user .entries .entry .meta {
+#user .entries .commententry .meta {
   float: left;
 }
-#user .entries .entry .meta .title,
-#user .entries .entry .meta .author,
-#user .entries .entry .meta .subreddit,
-#user .entries .entry .meta .flair {
+#user .entries .commententry .meta .title,
+#user .entries .commententry .meta .author,
+#user .entries .commententry .meta .subreddit,
+#user .entries .commententry .meta .flair {
   float: left;
 }
-#user .entries .entry .meta a {
+#user .entries .commententry .meta a {
   margin-right: 5px;
   margin-left: 5px;
 }
-#user .entries .entry .title a {
+#user .entries .commententry .title a {
   margin-left: 0;
   font-size: 0.86rem;
 }
-#user .entries .entry .meta .author,#user .entries .entry .meta .subreddit {
+#user .entries .commententry .meta .author,#user .entries .commententry .meta .subreddit {
   font-size: 11px;
   margin-top: 3px;
 }
-#user .entries .entry .meta .author a {
+#user .entries .commententry .meta .author a {
   font-weight: bold;
 }
-#user .comment details {
+#user .commententry details {
   padding-top: 2px;
 }
-#user .comment details a.context,
-#user .comment details a.comments {
+#user .commententry details a.context,
+#user .commententry details a.comments {
   float: left;
 }
-#user .comment .meta p.ups,#user .comment .meta p.created {
+#user .commententry .meta p.ups,#user .commententry .meta p.created {
   font-size: var(--sm-font);
   padding-right: 5px;
 }
-#user .entries .entry .meta .created a {
+#user .entries .commententry .meta .created a {
   color: var(--graytext);
 }
-#user .entries .entry.t3 .title .meta {
+#user .entries .commententry.t3 .title .meta {
   float: left;
   width: 100%;
 }
-#user .entries .entry.t3 .title a {
+#user .entries .commententry.t3 .title a {
   margin-bottom: 3px;
 }
-#user .entries .entry.t3 .upvotes {
+#user .entries .commententry.t3 .upvotes {
   float: left;
   width: 60px;
 }
-#user .entries .entry.t3 .image {
+#user .entries .commententry.t3 .image {
   float: left;
   width: 80px;
 }
-#user .entries .entry.t3 .title {
+#user .entries .commententry.t3 .title {
   width: calc(100% - 200px);
   float: left;
 }
-#user .entries .entry .comment .meta .author {
+#user .entries .commententry .commententry .meta .author {
   margin-top: 0;
 }
-#user .comment .meta p {
+#user .commententry .meta p {
   padding-right: 0;
 }
-#user .comment .body {
+#user .commententry .body {
   padding-top: 4px;
   padding-bottom: 0;
 }
@@ -1018,26 +1021,25 @@ footer a {
   font-weight: bold;
   font-size: 1.1rem;
 }
-#user .comment details summary {
+#user .commententry details summary {
   font-size: var(--sm-font);
 }
-#user .comment details summary p {
+#user .commententry details summary p {
   margin-right: 5px;
   margin-left: 5px;
 }
-#user .comment details summary a {
+#user .commententry details summary a {
   margin-left: 5px;
 }
-#user .entries .entry .image,#user .entries .entry .upvotes,#user .entries .entry .title,#user .entries .entry .meta {
+#user .entries .commententry .image,#user .entries .commententry .upvotes,#user .entries .commententry .title,#user .entries .commententry .meta {
   float: left;
 }
-#user .entries .entry .image {
+#user .entries .commententry .image {
   margin-left: 0;
   margin-right: 8px;
   position: relative;
 }
-#user .entries .entry .image a span {
-  position: absolute;
+#user .entries .link .image a span {
   bottom: 0;
   background: #0000005e;
   left: 0;
@@ -1047,29 +1049,29 @@ footer a {
   font-size: var(--sm-font);
   margin-bottom: 4px;
 }
-#user .entries .entry .image img {
+#user .entries .link .image img {
   max-width: 80px;
 }
-#user .entries .entry .title a {
+#user .entries .commententry .title a {
   float: left;
 }
-#user .entries .entry .title .meta {
+#user .entries .commententry .title .meta {
   width: 100%;
 }
-#user .entries .entry .title .meta a {
+#user .entries .commententry .title .meta a {
   float: initial;
   font-weight: bold;
   font-size: var(--sm-font);
   margin-left: 5px;
 }
-#user .entries .entry .title .meta a.subreddit {
+#user .entries .commententry .title .meta a.subreddit {
   font-weight: unset;
 }
-#user .entries .entry .title .meta .submitted {
+#user .entries .commententry .title .meta .submitted {
   font-size: var(--sm-font);
   color: var(--graytext);
 }
-#user .entries .entry .meta .title {
+#user .entries .commententry .meta .title {
   margin-left: 20px;
 }
 #user #links {
@@ -1085,18 +1087,18 @@ footer a {
 #user #links details ul {
   margin-left: 20px;
 }
-#user .entries .entry a.comments, #user .entries .entry a.context {
+#user .entries .commententry a.comments, #user .entries .commententry a.context {
   color: gray;
   font-size: var(--sm-font);
   font-weight: bold;
 }
-#user .entries .entry .title .meta a.comments {
+#user .entries .commententry .title .meta a.comments {
   margin-left: 0;
 }
-#user .entries .entry a.comments.t1,#user .entries .entry a.context {
+#user .entries .commententry a.comments.t1,#user .entries .commententry a.context {
   margin-top: 0;
 }
-#user .entries .entry a.context {
+#user .entries .commententry a.context {
   margin-right: 10px;
 }
 /* FLAIR */

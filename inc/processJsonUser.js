@@ -1,5 +1,6 @@
 module.exports = function() {
   const config = require('../config');
+  const link = require('./components/link')
   this.processJsonUser = function(json, parsed, after, before, user_preferences, kind, post_type) {
     return new Promise(resolve => {
       (async () => {
@@ -49,31 +50,8 @@ module.exports = function() {
               continue
 
           if(type === 't3') {
-            let duration = null
-            if(post.media) {
-              if(post.is_video) {
-                if(post.media.reddit_video) {
-                  duration = post.media.reddit_video.duration
-                }
-              }
-            }
-
-            obj = {
-              type: type,
-              subreddit: post.subreddit,
-              title: post.title,
-              created: post.created_utc,
-              ups: post.ups,
-              url: replaceDomains(url, user_preferences),
-              thumbnail: await downloadAndSave(post.thumbnail),
-              duration: duration,
-              edited: post.edited,
-              selftext_html: unescape(post.selftext_html),
-              num_comments: post.num_comments,
-              over_18: post.over_18,
-              permalink: post.permalink,
-              user_flair: (user_preferences.flairs != 'false' ? await formatUserFlair(post) : '')
-            }
+            obj = await link.fromJson(post, user_preferences)
+            obj.type = 't3'
           }
           if(type === 't1') {
             obj = {
