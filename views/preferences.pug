@@ -96,6 +96,21 @@ html
                 input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage", checked="checked")
               else
                 input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage")
+          legend Media
+          .setting
+            label(for="videos_muted") Mute videos by default: 
+              -
+                let videos_muted = false
+                if(instance_config.videos_muted === true || user_preferences.videos_muted === 'true') {
+                  videos_muted = true
+                }
+                if(user_preferences.videos_muted === 'false') {
+                  videos_muted = false
+                }
+              if(videos_muted)
+                input(type="checkbox", name="videos_muted", id="videos_muted", checked="checked")
+              else
+                input(type="checkbox", name="videos_muted", id="videos_muted")
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
           br
           input(type="submit", value="Save preferences")

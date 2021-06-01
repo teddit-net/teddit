@@ -82,6 +82,16 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       res.cookie('domain_instagram', domainInstagram, { maxAge: 31536000, httpOnly: true })
     }
     
+    let videosMuted = req.query.videos_muted
+    if(videosMuted) {
+      req.cookies.videos_muted = videosMuted
+      res.cookie('videos_muted', videosMuted, { maxAge: 31536000, httpOnly: true })
+    }
+    
+    if(!config.rate_limiting) {
+      return next()
+    }
+    
     const valid_reddit_starts = ['/https://old.reddit.com', '/https://reddit.com', '/https://www.reddit.com', '/old.reddit.com', '/reddit.com', '/www.reddit.com']
     for(var i = 0; i < valid_reddit_starts.length; i++) {
       if(req.url.startsWith(valid_reddit_starts[i])) {
@@ -96,10 +106,6 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         }
         return res.redirect(teddified_url)
       }
-    }
-    
-    if(!config.rate_limiting) {
-      return next()
     }
     
     if(config.rate_limiting.enabled) {
@@ -153,11 +159,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
   })
 
   app.get('/resetprefs', (req, res, next) => {
-    res.clearCookie('theme')
-    res.clearCookie('flairs')
-    res.clearCookie('nsfw_enabled')
-    res.clearCookie('highlight_controversial')
-    res.clearCookie('subbed_subreddits')
+    resetPreferences(res)
     return res.redirect('/preferences')
   })
   
@@ -1347,6 +1349,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
             sortby: sortby,
             user_preferences: req.cookies,
             instance_nsfw_enabled: config.nsfw_enabled,
+            instance_videos_muted: config.videos_muted,
             post_media_max_heights: config.post_media_max_heights,
             redis_key: comments_key
           })
@@ -1393,6 +1396,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                       sortby: sortby,
                       user_preferences: req.cookies,
                       instance_nsfw_enabled: config.nsfw_enabled,
+                      instance_videos_muted: config.videos_muted,
                       post_media_max_heights: config.post_media_max_heights,
                       redis_key: comments_key
                     })
@@ -1773,6 +1777,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     let domain_twitter = req.body.domain_twitter
     let domain_youtube = req.body.domain_youtube
     let domain_instagram = req.body.domain_instagram
+    let videos_muted = req.body.videos_muted
 
     res.cookie('theme', theme, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
@@ -1808,6 +1813,12 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       show_upvoted_percentage = 'false'
     res.cookie('show_upvoted_percentage', show_upvoted_percentage, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
+    
+    if(videos_muted === 'on')
+      videos_muted = 'true'
+    else
+      videos_muted = 'false'
+    res.cookie('videos_muted', videos_muted, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     
     res.cookie('domain_twitter', domain_twitter, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
     res.cookie('domain_youtube', domain_youtube, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true })
@@ -1897,6 +1908,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     res.clearCookie('domain_twitter')
     res.clearCookie('domain_youtube')
     res.clearCookie('domain_instagram')
+    res.clearCookie('videos_muted')
   }
 }
+
 

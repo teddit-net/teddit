@@ -37,6 +37,14 @@ html
                     max-height: #{user_preferences.post_media_max_height}px;
                     max-width: 100%;
                 }
+          -
+            let video_muted = false
+            if(instance_videos_muted === true || user_preferences.videos_muted === 'true') {
+              video_muted = true
+            }
+            if(user_preferences.videos_muted === 'false') {
+              video_muted = false
+            }
           .info
             .score
               div.arrow
@@ -113,7 +121,7 @@ html
                     p #{post.media.embed_src}
                 else
                   .video
-                    video(controls="controls", autoplay="autoplay", loop="loop")
+                    video(controls="controls", autoplay="autoplay", loop="loop", muted=(video_muted ? true : false))
                       source(src="" + post.media.source + "", type="video/mp4")
                       |  Your browser does not support the video element.
                     a(href="" + post.media.source + "") [media]
@@ -168,7 +176,7 @@ html
                         p #{post.media.embed_src}
                 else
                   .video
-                    video(controls="controls", autoplay="autoplay", loop="loop")
+                    video(controls="controls", autoplay="autoplay", loop="loop", muted=(video_muted ? true : false))
                       source(src="" + post.media.source + "", type="video/mp4")
                       |  Your browser does not support the video element.
                     a(href="" + post.media.source + "") [media]
