@@ -29,7 +29,7 @@ Community instances:
 * [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
 * [https://teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)
 * [https://teddit.domain.glass](https://teddit.domain.glass)
-* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion)
+* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) (not working since 06/2021)
 * [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)
 
 ## Changelog
