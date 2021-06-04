@@ -26,10 +26,10 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "helmet": "^4.2.0",
+    "helmet": "^4.6.0",
     "minizlib": "^2.1.2",
     "node-fetch": "^2.6.1",
-    "postman-request": "^2.88.1-postman.27",
+    "postman-request": "^2.88.1-postman.30",
     "pug": "^3.0.2",
     "redis": "^3.1.2"
   },
