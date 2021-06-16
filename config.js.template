@@ -14,7 +14,7 @@ const config = {
   redis_port: process.env.REDIS_PORT || 6379,
   ssl_port: process.env.SSL_PORT || 8088,
   nonssl_port: process.env.NONSSL_PORT || 8080,
-  listen_address: process.env.LISTEN_ADDRESS || '0.0.0.0',
+  listen_address: process.env.LISTEN_ADDRESS || '0.0.0.0',  // '0.0.0.0' will accept connections only from IPv4 addresses. If you want to also accept IPv6 addresses use '::'.
   https_enabled: process.env.HTTPS_ENABLED === 'true' || false,
   redirect_http_to_https: process.env.REDIRECT_HTTP_TO_HTTPS === 'true' || false,
   redirect_www: process.env.REDIRECT_WWW === 'true' || false,
@@ -72,3 +72,4 @@ const config = {
 };
 
 module.exports = config;
+
