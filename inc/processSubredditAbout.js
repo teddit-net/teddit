@@ -47,6 +47,16 @@ module.exports = function() {
                         if(config.use_reddit_oauth) {
                           moderators_url = `https://oauth.reddit.com/r/${subreddit}/about/moderators`
                         }
+                        resolve(returnRelevantKeys(json))
+                        /*
+                        * The following code is commented out because Reddit doesn't
+                        * anymore support fetching moderators for subreddits
+                        * when not logged in.
+                        * This might change in the future though.
+                        * https://codeberg.org/teddit/teddit/issues/207
+                        */
+                        
+                        /*
                         fetch(encodeURI(moderators_url), redditApiGETHeaders())
                         .then(mod_result => {
                           if(mod_result.status === 200) {
@@ -72,6 +82,7 @@ module.exports = function() {
                           console.error('Error fetching moderators.', error)
                           resolve(returnRelevantKeys(json))
                         })
+                        */
                       }
                     })
                   })
