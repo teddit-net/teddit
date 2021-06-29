@@ -22,17 +22,19 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 Community instances:
 
-* [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
-* [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
-* [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
-* [https://teddit.namazso.eu](https://teddit.namazso.eu)
-* [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
-* [https://teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)
-* [https://teddit.domain.glass](https://teddit.domain.glass)
-* [https://snoo.ioens.is](https://snoo.ioens.is)
-* [https://teddit.httpjames.space](https://teddit.httpjames.space)
-* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) (not working since 06/2021)
-* [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)
+| Instance                                                                                              | Notes                     |
+|-------------------------------------------------------------------------------------------------------|---------------------------|
+| [teddit.ggc-project.de](https://teddit.ggc-project.de)                                                |                           |
+| [teddit.kavin.rocks](https://teddit.kavin.rocks)                                                      |                           |
+| [teddit.zaggy.nl](https://teddit.zaggy.nl)                                                            |                           |
+| [teddit.namazso.eu](https://teddit.namazso.eu)                                                        |                           |
+| [teddit.nautolan.racing](https://teddit.nautolan.racing)                                              |                           |
+| [teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)                                              |                           |
+| [teddit.domain.glass](https://teddit.domain.glass)                                                    |                           |
+| [snoo.ioens.is](https://snoo.ioens.is)                                                                |                           |
+| [teddit.httpjames.space](https://teddit.httpjames.space)                                              |                           |
+| [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | Not working since 06/2021 |
+| [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)     |                           |
 
 ## Changelog
 
