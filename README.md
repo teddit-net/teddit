@@ -20,21 +20,25 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 [https://teddit.net](https://teddit.net) - Official instance
 
+
+
+
+
 Community instances:
 
-| Instance                                                                                              | Notes                     |
-|-------------------------------------------------------------------------------------------------------|---------------------------|
-| [teddit.ggc-project.de](https://teddit.ggc-project.de)                                                |                           |
-| [teddit.kavin.rocks](https://teddit.kavin.rocks)                                                      |                           |
-| [teddit.zaggy.nl](https://teddit.zaggy.nl)                                                            |                           |
-| [teddit.namazso.eu](https://teddit.namazso.eu)                                                        |                           |
-| [teddit.nautolan.racing](https://teddit.nautolan.racing)                                              |                           |
-| [teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)                                              |                           |
-| [teddit.domain.glass](https://teddit.domain.glass)                                                    |                           |
-| [snoo.ioens.is](https://snoo.ioens.is)                                                                |                           |
-| [teddit.httpjames.space](https://teddit.httpjames.space)                                              |                           |
-| [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) |                           |
-| [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)     |                           |
+| Instance | Onion Link | Notes |
+|-|-|-|
+| [teddit.ggc-project.de](https://teddit.ggc-project.de) |  |  |
+| [teddit.kavin.rocks](https://teddit.kavin.rocks) | [teddit4w6cmzmj5kimhfc...onion](http://teddit4w6cmzmj5kimhfcavs7yo5s7alszvsi2khqutqtlaanpcftfyd.onion/) |  |
+| [teddit.zaggy.nl](https://teddit.zaggy.nl) |  |  |
+| [teddit.namazso.eu](https://teddit.namazso.eu) |  |  |
+| [teddit.nautolan.racing](https://teddit.nautolan.racing) |  |  |
+| [teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net) |  |  |
+| [teddit.domain.glass](https://teddit.domain.glass) |  |  |
+| [snoo.ioens.is](https://snoo.ioens.is) | [snoo.ioensistjs7wd746...onion](http://snoo.ioensistjs7wd746zluwixvojbbkxhr37lepdvwtdfeav673o64iflqd.onion/) |  |
+| [teddit.httpjames.space](https://teddit.httpjames.space) |  |  |
+| [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) |  |  |
+| [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) |  |  |
 
 ## Changelog
 
