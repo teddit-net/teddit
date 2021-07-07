@@ -20,10 +20,6 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 [https://teddit.net](https://teddit.net) - Official instance
 
-
-
-
-
 Community instances:
 
 | Instance | Onion Link | Notes |
