@@ -33,7 +33,7 @@ Community instances:
 | [teddit.domain.glass](https://teddit.domain.glass)                                                    |                           |
 | [snoo.ioens.is](https://snoo.ioens.is)                                                                |                           |
 | [teddit.httpjames.space](https://teddit.httpjames.space)                                              |                           |
-| [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | Not working since 06/2021 |
+| [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) |                           |
 | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)     |                           |
 
 ## Changelog
