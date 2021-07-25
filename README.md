@@ -44,7 +44,8 @@ See ```CHANGELOG.md```
 ### Docker-compose method
 
 ```console
-wget https://codeberg.org/teddit/teddit/raw/branch/main/docker-compose.yml
+git clone https://codeberg.org/teddit/teddit
+cd teddit
 docker-compose build
 docker-compose up
 ```
