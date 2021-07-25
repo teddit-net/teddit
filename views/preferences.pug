@@ -34,22 +34,22 @@ html
               select(id="theme", name="theme")
                 if(!user_preferences.theme || user_preferences.theme === 'auto')
                   option(value="auto", selected="selected") Auto
-                  option(value="") White
+                  option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
-                if(user_preferences.theme == '')
+                if(user_preferences.theme == 'white')
                   option(value="auto") Auto
-                  option(value="", selected="selected") White
+                  option(value="white", selected="selected") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                 if(user_preferences.theme === 'dark')
                   option(value="auto") Auto
-                  option(value="") White
+                  option(value="white") White
                   option(value="dark", selected="selected") Dark
                   option(value="sepia") Sepia
                 if(user_preferences.theme === 'sepia')
                   option(value="auto") Auto
-                  option(value="") White
+                  option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia", selected="selected") Sepia
           .setting
