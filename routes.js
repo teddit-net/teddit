@@ -696,15 +696,17 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       api_req = true
     else
       api_req = false
-     
-    let key = `/after:${after}:before:${before}:sort:${sortby}:past:${past}`
+      
+    let raw_json = (api_req && req.query.raw_json == '1' ? 1 : 0)
+    
+    let key = `/after:${after}:before:${before}:sort:${sortby}:past:${past}:raw_json:${raw_json}`
     
     let subbed_subreddits = req.cookies.subbed_subreddits
     let get_subbed_subreddits = false
     if(subbed_subreddits && Array.isArray(subbed_subreddits)) {
       get_subbed_subreddits = true
       subbed_subreddits = subbed_subreddits.join('+')
-      key = `${subbed_subreddits.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}`
+      key = `${subbed_subreddits.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}:raw_json:${raw_json}`
     }
     
     redis.get(key, (error, json) => {
@@ -732,14 +734,14 @@ module.exports = (app, redis, fetch, RedditAPI) => {
         let url = ''
         if(config.use_reddit_oauth) {
           if(get_subbed_subreddits)
-            url = `https://oauth.reddit.com/r/${subbed_subreddits}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+            url = `https://oauth.reddit.com/r/${subbed_subreddits}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
           else
-            url = `https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}`
+            url = `https://oauth.reddit.com/${sortby}?api_type=json&g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
         } else {
           if(get_subbed_subreddits)
-            url = `https://reddit.com/r/${subbed_subreddits}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+            url = `https://reddit.com/r/${subbed_subreddits}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
           else
-            url = `https://reddit.com/${sortby}.json?g=GLOBAL&t=${past}${d}`
+            url = `https://reddit.com/${sortby}.json?g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
         }
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
@@ -1158,6 +1160,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       api_req = true
     else
       api_req = false
+    
+    let raw_json = (api_req && req.query.raw_json == '1' ? 1 : 0)
       
     let d = `&after=${after}`
     if(before) {
@@ -1188,7 +1192,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
     }
     
-    let key = `${subreddit.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}`
+    let key = `${subreddit.toLowerCase()}:${after}:${before}:sort:${sortby}:past:${past}:raw_json:${raw_json}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the ${subreddit} key from redis.`, error)
@@ -1229,9 +1233,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       } else {
         let url = ''
         if(config.use_reddit_oauth)
-          url = `https://oauth.reddit.com/r/${subreddit}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+          url = `https://oauth.reddit.com/r/${subreddit}/${sortby}?api_type=json&count=25&g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
         else
-          url = `https://reddit.com/r/${subreddit}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}`
+          url = `https://reddit.com/r/${subreddit}/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${past}${d}&raw_json=${raw_json}`
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
@@ -1454,6 +1458,8 @@ module.exports = (app, redis, fetch, RedditAPI) => {
     else
       api_req = false
     
+    let raw_json = (api_req && req.query.raw_json == '1' ? 1 : 0)
+    
     if(!after) {
       after = ''
     }
@@ -1507,7 +1513,7 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       }
     }
     
-    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}:post_type:${post_type}`
+    let key = `${user}:${after}:${before}:sort:${sortby}:past:${past}:post_type:${post_type}:raw_json:${raw_json}`
     redis.get(key, (error, json) => {
       if(error) {
         console.error(`Error getting the user ${key} key from redis.`, error)
@@ -1531,9 +1537,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
       } else {
         let url = ''
         if(config.use_reddit_oauth)
-          url = `https://oauth.reddit.com/user/${user}/about`
+          url = `https://oauth.reddit.com/user/${user}/about?raw_json=${raw_json}`
         else
-          url = `https://reddit.com/user/${user}/about.json`
+          url = `https://reddit.com/user/${user}/about.json?raw_json=${raw_json}`
         fetch(encodeURI(url), redditApiGETHeaders())
         .then(result => {
           if(result.status === 200) {
@@ -1545,9 +1551,9 @@ module.exports = (app, redis, fetch, RedditAPI) => {
                 let endpoint = '/overview'
                 if(post_type !== '')
                   endpoint = post_type
-                url = `https://oauth.reddit.com/user/${user}${post_type}?limit=26${d}&sort=${sortby}&t=${past}`
+                url = `https://oauth.reddit.com/user/${user}${post_type}?limit=26${d}&sort=${sortby}&t=${past}&raw_json=${raw_json}`
               } else {
-                url = `https://reddit.com/user/${user}${post_type}.json?limit=26${d}&sort=${sortby}&t=${past}`
+                url = `https://reddit.com/user/${user}${post_type}.json?limit=26${d}&sort=${sortby}&t=${past}&raw_json=${raw_json}`
               }
               fetch(encodeURI(url), redditApiGETHeaders())
               .then(result => {
