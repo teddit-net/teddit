@@ -19,7 +19,8 @@ html
       if error
         if json.error_data.reason === "private"
           h2 This is a private subreddit.
-      p Error: #{JSON.stringify(json.error_data)}
+        if json.error_data
+          p Error: #{JSON.stringify(json.error_data)}
     else
       if show_nsfw_warning === true
         .nsfw-warning
