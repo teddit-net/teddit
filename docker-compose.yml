@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   redis:
-    image: redis:6.0.9-alpine3.12
+    image: redis:6.2.5-alpine
     command: redis-server
     environment:
       - REDIS_REPLICATION_MODE=master
