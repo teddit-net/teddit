@@ -1,5 +1,5 @@
 # Use LTS Node.js base image
-FROM node:14.16-alpine
+FROM node:14.17-alpine
 
 # Video support dependency
 RUN apk add ffmpeg
