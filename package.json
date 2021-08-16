@@ -27,6 +27,7 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "https-proxy-agent": "^5.0.0",
     "minizlib": "^2.1.2",
     "node-fetch": "^2.6.1",
     "postman-request": "^2.88.1-postman.30",
