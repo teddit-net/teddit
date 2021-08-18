@@ -24,6 +24,7 @@ const config = {
   use_helmet_hsts: process.env.USE_HELMET_HSTS === 'true' || false, // Recommended to be true when using https
   trust_proxy: process.env.TRUST_PROXY === 'true' || false, // Enable trust_proxy if you are using reverse proxy like nginx
   trust_proxy_address: process.env.TRUST_PROXY_ADDRESS || '127.0.0.1',
+  http_proxy: process.env.HTTP_PROXY,
   nsfw_enabled: process.env.NSFW_ENABLED !== 'true' || true, // Enable NSFW (over 18) content. If false, a warning is shown to the user before opening any NSFW post. When the NFSW content is disabled, NSFW posts are hidden from subreddits and from user page feeds. Note: Users can set this to true or false from their preferences.
   videos_muted: process.env.VIDEOS_MUTED !== 'true' || true, // Automatically mute all videos in posts
   post_comments_sort: process.env.POST_COMMENTS_SORT || 'confidence', // "confidence" is the default sorting in Reddit. Must be one of: confidence, top, new, controversial, old, random, qa, live.

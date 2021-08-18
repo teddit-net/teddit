@@ -85,6 +85,7 @@ The following variables may be set to customize your deployment at runtime.
 | use_helmet_hsts | *Boolean* Recommended to be true when using https. Defaults to **false** |
 | trust_proxy | *Boolean* Enable trust_proxy if you are using a reverse proxy like nginx or traefik. Defaults to **false** |
 | trust_proxy_address | Location of trust_proxy. Defaults to **127.0.0.1** |
+| http_proxy | Set http/https proxy to use for outgoing requests. See [https-proxy-agent](https://github.com/TooTallNate/node-https-proxy-agent) for details |
 | nsfw_enabled | *Boolean* Enable NSFW (over 18) content. If false, a warning is shown to the user before opening any NSFW post. When the NFSW content is disabled, NSFW posts are hidden from subreddits and from user page feeds. Note: Users can set this to true or false from their preferences. Defaults to **true** |
 | post_comments_sort | Defines default sort preference. Options are *confidence* (default sorting option in Reddit), *top*, *new*, *controversal*, *old*, *random*, *qa*, *live*. Defaults to **confidence** |
 | reddit_app_id | If "use_reddit_oauth" config key is set to true, you have to obtain your Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app. Default is **ABfYqdDc9qPh1w** |

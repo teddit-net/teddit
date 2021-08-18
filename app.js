@@ -45,9 +45,23 @@ const redis = (() => {
 
   return r.createClient(redisOptions)
 })()
+
+const nodeFetch = require('node-fetch')
+const fetch = config.http_proxy
+  ? (() => {
+      const agent = require('https-proxy-agent')(config.http_proxy)
+      return (url, options) => {
+        const instanceOptions = {
+          agent,
+          ...options
+        };
+        return nodeFetch(url, instanceOptions);
+      }
+    })()
+  : nodeFetch
+
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
-const fetch = require('node-fetch')
 const fs = require('fs')
 const app = express()
 const request = require('postman-request')
