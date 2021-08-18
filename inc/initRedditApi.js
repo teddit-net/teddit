@@ -73,12 +73,15 @@ module.exports = function(fetch) {
     })
   }
   this.redditApiGETHeaders = function() {
+    let cookies = '_options=%7B%22pref_quarantine_optin%22%3A%20true%7D'
+    
     if(!config.use_reddit_oauth)
-      return { method: 'GET' }
+      return { headers: { cookie: cookies }, method: 'GET' }
     
     return {
       headers: {
-        Authorization: `Bearer ${reddit_access_token}`
+        Authorization: `Bearer ${reddit_access_token}`,
+        cookie: cookies
       },
       method: 'GET'
     }
