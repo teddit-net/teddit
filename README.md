@@ -35,6 +35,8 @@ Community instances:
 | [teddit.httpjames.space](https://teddit.httpjames.space) |  |  |
 | [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) |  |  |
 | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) |  |  |
+| [teddit.alefvanoon.xyz](https://teddit.alefvanoon.xyz) |  |  |
+
 
 ## Changelog
 
