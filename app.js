@@ -153,6 +153,9 @@ redis.on('error', (error) => {
   }
 })
 
+const cacheControl = require('./cacheControl.js')
+cacheControl.removeCacheFiles()
+
 if(config.https_enabled) {
   https.listen(config.ssl_port, config.listen_address, () => console.log(`Teddit running on https://${config.domain}:${config.ssl_port}`))
 }
