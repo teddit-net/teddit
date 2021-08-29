@@ -38,9 +38,13 @@ Community instances:
 | [teddit.alefvanoon.xyz](https://teddit.alefvanoon.xyz) |  |  |
 | [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | I2P: [http://teddit.i2p](http://teddit.i2p) |
 
+<--
+Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
 
 See ```CHANGELOG.md```
+-->
+
 ## Installation
 
 ### Docker-compose method
