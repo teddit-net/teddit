@@ -16,7 +16,15 @@ module.exports.removeCacheFiles = function() {
     return new Promise((resolve, reject) => {
       let size = spawn('du', ['-sBM', './static/'])
       size.stdout.on('data', function (data) {
-        usage = parseInt(data)
+        data = data.toString()
+        let lines = data.split('\n')
+        if(lines) {
+          for(let i = lines.length; i >= 0; i--) {
+            if(lines[i] && lines[i].includes('./static/')) {
+              usage = parseInt(lines[i])
+            }
+          }
+        }
         resolve(usage)
       })
     })
@@ -28,10 +36,10 @@ module.exports.removeCacheFiles = function() {
       if(usage > limit) {
         const { exec } = require('child_process')
         exec(`cd ${pics} && ls -1btr -Iflairs -Iicons -Ithumbs -I.gitignore | head -50 | xargs rm -f --`)
-        exec(`cd ${flairs} && ls -1btr -I.gitignore | head -50 | xargs rm -f --`)
-        exec(`cd ${icons} && ls -1btr -I.gitignore | head -50 | xargs rm -f --`)
-        exec(`cd ${thumbs} && ls -1btr -I.gitignore | head -50 | xargs rm -f --`)
-        exec(`cd ${vids} && ls -1btr -I.gitignore | head -30 | xargs rm -f --`)
+        exec(`cd ${flairs} && ls -1btr -I.gitignore | head -6 | xargs rm -f --`)
+        exec(`cd ${icons} && ls -1btr -I.gitignore | head -6 | xargs rm -f --`)
+        exec(`cd ${thumbs} && ls -1btr -I.gitignore | head -80 | xargs rm -f --`)
+        exec(`cd ${vids} && ls -1btr -I.gitignore | head -2 | xargs rm -f --`)
       }
       resolve(1)
     })
