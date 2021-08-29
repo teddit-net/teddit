@@ -89,8 +89,13 @@ The following variables may be set to customize your deployment at runtime.
 | trust_proxy_address | Location of trust_proxy. Defaults to **127.0.0.1** |
 | http_proxy | Set http/https proxy to use for outgoing requests. See [https-proxy-agent](https://github.com/TooTallNate/node-https-proxy-agent) for details |
 | nsfw_enabled | *Boolean* Enable NSFW (over 18) content. If false, a warning is shown to the user before opening any NSFW post. When the NFSW content is disabled, NSFW posts are hidden from subreddits and from user page feeds. Note: Users can set this to true or false from their preferences. Defaults to **true** |
+| videos_muted | *Boolean* Automatically mute all videos in posts. Defaults to **true** |
 | post_comments_sort | Defines default sort preference. Options are *confidence* (default sorting option in Reddit), *top*, *new*, *controversal*, *old*, *random*, *qa*, *live*. Defaults to **confidence** |
 | reddit_app_id | If "use_reddit_oauth" config key is set to true, you have to obtain your Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app. Default is **ABfYqdDc9qPh1w** |
+| domain_replacements | Replacements for domains in outgoing links. Tuples with regular expressions to match, and replacement values. This is in addition to user-level configuration of privacyDomains. Defaults to **[]** |
+| cache_control | *Boolean* If true, teddit will automatically try to keep the size of the cache directory under ```config.cache_max_size```. Defaults to **true** |
+| cache_max_size | In Megabytes (MB), how much can we cache media files to the disk? Default is 3000 MB (~3 GB). Note: This is not perfectly exact limit. Defaults to **3000** |
+| cache_control_interval | How often the size of the cache directory is checked. Default is every 30 minutes. Defaults to **1000 * 60 * 30** |
 
 ### Manual
 
