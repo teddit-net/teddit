@@ -6,6 +6,8 @@ const processSubreddit = require('../inc/processJsonSubreddit.js')();
 const processAbout = require('../inc/processSubredditAbout.js')();
 const processSearches = require('../inc/processSearchResults.js')();
 const processPost = require('../inc/processJsonPost.js')();
+const processSubredditsExplore =
+  require('../inc/processSubredditsExplore.js')();
 
 subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
   let subreddit = req.params.subreddit;
@@ -786,5 +788,163 @@ subredditRoutes.post(
     return res.redirect(`${post_url}?comment_ids=${comment_ids}&page=1`);
   }
 );
+
+subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
+  let q = req.query.q;
+  let nsfw = req.query.nsfw;
+  let after = req.query.after;
+  let before = req.query.before;
+  let sortby = req.params.sort;
+  let searching = false;
+
+  if (!after) {
+    after = '';
+  }
+  if (!before) {
+    before = '';
+  }
+
+  let d = `&after=${after}`;
+  if (before) {
+    d = `&before=${before}`;
+  }
+
+  if (nsfw !== 'on') {
+    nsfw = 'off';
+  }
+
+  if (!sortby) {
+    sortby = '';
+  }
+
+  let key = `subreddits:sort:${sortby}${d}`;
+
+  if (sortby === 'search') {
+    if (typeof q == 'undefined' || q == '') return res.redirect('/subreddits');
+
+    key = `subreddits:search:q:${q}:nsfw:${nsfw}${d}`;
+    searching = true;
+  }
+
+  redis.get(key, (error, json) => {
+    if (error) {
+      console.error(`Error getting the subreddits key from redis.`, error);
+      return res.render('index', {
+        json: null,
+        user_preferences: req.cookies,
+      });
+    }
+    if (json) {
+      console.log(`Got subreddits key from redis.`);
+      (async () => {
+        let processed_json = await processJsonSubredditsExplore(
+          json,
+          'redis',
+          null,
+          req.cookies
+        );
+        if (!processed_json.error) {
+          return res.render('subreddits_explore', {
+            json: processed_json,
+            sortby: sortby,
+            after: after,
+            before: before,
+            q: q,
+            nsfw: nsfw,
+            searching: searching,
+            subreddits_front: !before && !after ? true : false,
+            user_preferences: req.cookies,
+            instance_nsfw_enabled: config.nsfw_enabled,
+          });
+        } else {
+          return res.render('subreddits_explore', {
+            json: null,
+            error: true,
+            data: processed_json,
+            user_preferences: req.cookies,
+          });
+        }
+      })();
+    } else {
+      let url = '';
+      if (config.use_reddit_oauth) {
+        if (!searching)
+          url = `https://oauth.reddit.com/subreddits/${sortby}?api_type=json&count=25&g=GLOBAL&t=${d}`;
+        else
+          url = `https://oauth.reddit.com/subreddits/search?api_type=json&q=${q}&include_over_18=${nsfw}${d}`;
+      } else {
+        if (!searching)
+          url = `https://reddit.com/subreddits/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${d}`;
+        else
+          url = `https://reddit.com/subreddits/search.json?api_type=json&q=${q}&include_over_18=${nsfw}${d}`;
+      }
+
+      fetch(encodeURI(url), redditApiGETHeaders())
+        .then((result) => {
+          if (result.status === 200) {
+            result.json().then((json) => {
+              let ex = config.setexs.subreddits_explore.front;
+              if (sortby === 'new')
+                ex = config.setexs.subreddits_explore.new_page;
+              redis.setex(key, ex, JSON.stringify(json), (error) => {
+                if (error) {
+                  console.error(
+                    `Error setting the subreddits key to redis.`,
+                    error
+                  );
+                  return res.render('subreddits_explore', {
+                    json: null,
+                    user_preferences: req.cookies,
+                  });
+                } else {
+                  console.log(`Fetched the JSON from reddit.com/subreddits.`);
+                  (async () => {
+                    let processed_json = await processJsonSubredditsExplore(
+                      json,
+                      'from_online',
+                      null,
+                      req.cookies
+                    );
+                    return res.render('subreddits_explore', {
+                      json: processed_json,
+                      sortby: sortby,
+                      after: after,
+                      before: before,
+                      q: q,
+                      nsfw: nsfw,
+                      searching: searching,
+                      subreddits_front: !before && !after ? true : false,
+                      user_preferences: req.cookies,
+                      instance_nsfw_enabled: config.nsfw_enabled,
+                    });
+                  })();
+                }
+              });
+            });
+          } else {
+            if (result.status === 404) {
+              console.log('404 – Subreddits not found');
+            } else {
+              console.error(
+                `Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`
+              );
+              console.error(config.reddit_api_error_text);
+            }
+            return res.render('index', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(
+            `Error fetching the JSON file from reddit.com/subreddits.`,
+            error
+          );
+        });
+    }
+  });
+});
 
 module.exports = subredditRoutes;
