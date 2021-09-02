@@ -1,4 +1,4 @@
-const config = '../config';
+const config = require('../config');
 const preferenceRoutes = require('express').Router();
 
 function resetPreferences(res) {
