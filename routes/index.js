@@ -1,3 +1,4 @@
+const homeRoute = require('./home');
 const overridingRoutes = require('./overides');
 const preferenceRoutes = require('./preferences');
 const saveRoutes = require('./save');
@@ -15,5 +16,6 @@ allRoutes.use(subredditRoutes);
 allRoutes.use(userRoutes);
 allRoutes.use(subscriptionRoutes);
 allRoutes.use(saveRoutes);
+allRoutes.use(homeRoute);
 
 module.exports = allRoutes;
