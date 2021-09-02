@@ -3,6 +3,15 @@ const { redis, fetch } = require('../app');
 const userRoutes = require('express').Router();
 
 const processUser = require('../inc/processJsonUser.js')();
+const processPost = require('../inc/processJsonPost.js')();
+const processAbout = require('../inc/processSubredditAbout.js')();
+const tedditApiUser = require('../inc/teddit_api/handleUser.js')();
+const processSearches = require('../inc/processSearchResults.js')();
+const processSubreddit = require('../inc/processJsonSubreddit.js')();
+const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
+const processMoreComments = require('../inc/processMoreComments.js')();
+const processSubredditsExplore =
+  require('../inc/processSubredditsExplore.js')();
 
 userRoutes.get('/user/:user/:kind?', (req, res, next) => {
   let kind = '';
