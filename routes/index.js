@@ -1,3 +1,4 @@
+const galleryRoute = require('./gallery');
 const homeRoute = require('./home');
 const overridingRoutes = require('./overides');
 const preferenceRoutes = require('./preferences');
@@ -19,5 +20,6 @@ allRoutes.use(subscriptionRoutes);
 allRoutes.use(saveRoutes);
 allRoutes.use(searchRoute);
 allRoutes.use(homeRoute);
+allRoutes.use(galleryRoute);
 
 module.exports = allRoutes;
