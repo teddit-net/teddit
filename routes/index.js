@@ -1,6 +1,7 @@
 const galleryRoute = require('./gallery');
 const homeRoute = require('./home');
 const overridingRoutes = require('./overides');
+const pollRoute = require('./poll');
 const preferenceRoutes = require('./preferences');
 const saveRoutes = require('./save');
 const searchRoute = require('./search');
@@ -21,5 +22,6 @@ allRoutes.use(saveRoutes);
 allRoutes.use(searchRoute);
 allRoutes.use(homeRoute);
 allRoutes.use(galleryRoute);
+allRoutes.use(pollRoute);
 
 module.exports = allRoutes;
