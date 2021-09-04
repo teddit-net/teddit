@@ -378,6 +378,18 @@ footer a {
   max-height: 80px;
   float: left;
   text-align: center;
+  position: relative;
+}
+#links .link .image .duration {
+  left: 0;
+  background: gray;
+  position: absolute;
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  bottom: 0px;
+  font-size: var(--sm-font);
+  width: 100%;
+  text-align: center;
 }
 #links .link .image img {
   width: auto;
@@ -1048,6 +1060,15 @@ footer a {
   color: white;
   font-size: var(--sm-font);
   margin-bottom: 4px;
+}
+#user .entries .link .image a span {
+  bottom: 0;
+  background: #0000005e;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: var(--sm-font);
 }
 #user .entries .link .image img {
   max-width: 80px;

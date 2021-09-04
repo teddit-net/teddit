@@ -9,12 +9,12 @@
         a(href="" + link.permalink + "")
           img(src="" + link.images.thumb + "", alt="")
           if link.duration
-            span #{secondsToMMSS(link.duration)}
+            span.duration #{secondsToMMSS(link.duration)}
       else
         a(href=""+ link.url +"", rel="noopener noreferrer")
           img(src="" + link.images.thumb + "", alt="")
           if link.duration
-            span #{secondsToMMSS(link.duration)}
+            span.duration #{secondsToMMSS(link.duration)}
     else
       a(href="" + link.permalink + "")
         .no-image no image
