@@ -1,4 +1,5 @@
 const config = require('../config');
+const { redis } = require('../app');
 const preferenceRoutes = require('express').Router();
 
 function resetPreferences(res) {
