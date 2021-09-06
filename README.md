@@ -37,6 +37,7 @@ Community instances:
 | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) |  |  |
 | [teddit.alefvanoon.xyz](https://teddit.alefvanoon.xyz) |  |  |
 | [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | I2P: [http://teddit.i2p](http://teddit.i2p) |
+| [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
