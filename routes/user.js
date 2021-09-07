@@ -2,7 +2,7 @@ const config = require('../config');
 const { redis, fetch } = require('../app');
 const userRoutes = require('express').Router();
 
-const processUser = require('../inc/processJsonUser.js')();
+const processJsonUser = require('../inc/processJsonUser.js');
 const processPost = require('../inc/processJsonPost.js')();
 const processAbout = require('../inc/processSubredditAbout.js')();
 const tedditApiUser = require('../inc/teddit_api/handleUser.js')();
