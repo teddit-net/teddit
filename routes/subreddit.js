@@ -2,7 +2,10 @@ const config = require('../config');
 const { redis, fetch, RedditAPI } = require('../app');
 const subredditRoutes = require('express').Router();
 
-const processPost = require('../inc/processJsonPost.js')();
+const {
+  processJsonPost,
+  finalizeJsonPost,
+} = require('../inc/processJsonPost.js');
 const processAbout = require('../inc/processSubredditAbout.js')();
 const tedditApiUser = require('../inc/teddit_api/handleUser.js')();
 const processSearches = require('../inc/processSearchResults.js')();
