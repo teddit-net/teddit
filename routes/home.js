@@ -2,7 +2,6 @@ const config = require('../config');
 const { redis, fetch } = require('../app');
 const homeRoute = require('express').Router();
 
-const tedditApiUser = require('../inc/teddit_api/handleUser.js')();
 const processSearches = require('../inc/processSearchResults.js')();
 const processSubreddit = require('../inc/processJsonSubreddit.js')();
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
