@@ -2,7 +2,7 @@ const config = require('../config');
 const { redis, fetch } = require('../app');
 const saveRoutes = require('express').Router();
 
-const processSubreddit = require('../inc/processJsonSubreddit.js')();
+const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
 const processSubredditsExplore =

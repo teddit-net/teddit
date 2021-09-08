@@ -4,7 +4,7 @@ const userRoutes = require('express').Router();
 
 const processJsonUser = require('../inc/processJsonUser.js');
 const tedditApiUser = require('../inc/teddit_api/handleUser.js')();
-const processSubreddit = require('../inc/processJsonSubreddit.js')();
+const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
 const processSubredditsExplore =
