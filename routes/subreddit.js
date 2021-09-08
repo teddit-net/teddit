@@ -7,7 +7,7 @@ const {
   finalizeJsonPost,
 } = require('../inc/processJsonPost.js');
 const processSubredditAbout = require('../inc/processSubredditAbout.js');
-const processSearches = require('../inc/processSearchResults.js')();
+const processSearchResults = require('../inc/processSearchResults.js');
 const processSubreddit = require('../inc/processJsonSubreddit.js')();
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
