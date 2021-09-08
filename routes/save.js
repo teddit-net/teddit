@@ -5,8 +5,6 @@ const saveRoutes = require('express').Router();
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
-const processSubredditsExplore =
-  require('../inc/processSubredditsExplore.js')();
 
 saveRoutes.get('/saved', (req, res, next) => {
   let saved = req.cookies.saved;

@@ -5,8 +5,6 @@ const homeRoute = require('express').Router();
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
-const processSubredditsExplore =
-  require('../inc/processSubredditsExplore.js')();
 
 homeRoute.get('/:sort?', async (req, res, next) => {
   let past = req.query.t;
