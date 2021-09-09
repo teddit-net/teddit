@@ -10,7 +10,7 @@ const processSubredditAbout = require('../inc/processSubredditAbout.js');
 const processSearchResults = require('../inc/processSearchResults.js');
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
-const processMoreComments = require('../inc/processMoreComments.js')();
+const processMoreComments = require('../inc/processMoreComments.js');
 const processJsonSubredditsExplore = require('../inc/processSubredditsExplore.js');
 
 subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
