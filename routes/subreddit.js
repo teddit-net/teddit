@@ -624,7 +624,7 @@ subredditRoutes.get(
           let more_comments = null;
           if (comment_ids) {
             let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
-            more_comments = await moreComments(
+            more_comments = processMoreComments(
               fetch,
               redis,
               post_url,
@@ -697,7 +697,7 @@ subredditRoutes.get(
                         let more_comments = null;
                         if (comment_ids) {
                           let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
-                          more_comments = await moreComments(
+                          more_comments = await processMoreComments(
                             fetch,
                             redis,
                             post_url,
