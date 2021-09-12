@@ -28,8 +28,14 @@ async function fromJson(data, user_preferences, subreddit_front) {
   result.domain = data.domain
   result.is_video = data.is_video
   result.media = data.media
-  result.duration = data.is_video ? data.media.reddit_video ? data.media.reddit_video.duration : void 0 : void 0
+  result.duration = null
   result.images = null
+  
+  if(data.is_video && data.media) {
+    if(data.media.reddit_video) {
+      result.duration = data.media.reddit_video.duration
+    }
+  }
 
   // Moderation attributes
   result.locked = data.locked
