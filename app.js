@@ -106,6 +106,13 @@ app.use(express.static(`${__dirname}/static`));
 app.set('views', './views');
 app.set('view engine', 'pug');
 
+if (config.redirect_http_to_https) {
+  app.use((req, res, next) => {
+    if (req.secure) next();
+    else res.redirect(`https://${req.headers.host}${req.url}`);
+  });
+}
+
 const redditAPI = require('./inc/initRedditApi.js')(fetch);
 
 /*
@@ -120,13 +127,6 @@ app.use('/', allRoutes);
 
 // The old routes
 //require('./routes')(app, redis, fetch, redditAPI);
-
-if (config.redirect_http_to_https) {
-  app.use((req, res, next) => {
-    if (req.secure) next();
-    else res.redirect(`https://${req.headers.host}${req.url}`);
-  });
-}
 
 const cacheControl = require('./cacheControl.js');
 cacheControl.removeCacheFiles();
