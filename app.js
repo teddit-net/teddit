@@ -49,7 +49,7 @@ let https = null;
 if (config.https_enabled) {
   const privateKey = fs.readFileSync(`${config.cert_dir}/privkey.pem`, 'utf8');
   const certificate = fs.readFileSync(`${config.cert_dir}/cert.pem`, 'utf8');
-  const ca = fs.readFileSync(`${config.cert_dir}/chain.pem`, 'utf8');
+  const ca = fs.readFileSync(`${config.cert_dir}/fullchain.pem`, 'utf8');
   const credentials = {
     key: privateKey,
     cert: certificate,
