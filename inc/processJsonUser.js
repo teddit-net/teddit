@@ -14,6 +14,38 @@ async function processJsonUser(
     json = JSON.parse(json);
   }
 
+  function validateJson(json) {
+    const empty = {
+      username: '',
+      icon_img: '',
+      created: '',
+      verified: '',
+      link_karma: '',
+      comment_karma: '',
+      view_more_posts: '',
+      user_front: '',
+      post_type:'',
+      before: '',
+      after: '',
+      posts: [],
+    };
+
+    if (!json.overview) {
+      return { error: true, data: empty };
+    }
+
+    if (!json.overview.data) {
+      return { error: true, data: empty };
+    }
+
+    return true;
+  }
+
+  const validJson = validateJson(json);
+  if (validJson.error) {
+    return validJson.data
+  }
+
   let about = json.about.data;
   let posts = [];
   let view_more_posts = false;
