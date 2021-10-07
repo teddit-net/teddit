@@ -93,9 +93,12 @@ module.exports = function() {
             if(!gif_to_mp4) {
               if(post.preview) {
                 if(post.preview.reddit_video_preview) {
-                  if(post.preview.reddit_video_preview.fallback_url) {
+                  const url = post.domain === 'i.imgur.com'
+                    ? replaceDomains(post.url_overridden_by_dest.replace(/\.gifv$/, '.mp4'))
+                    : post.preview.reddit_video_preview.fallback_url;
+                  if(url) {
                     obj.media = {
-                      source: await downloadAndSave(post.preview.reddit_video_preview.fallback_url),
+                      source: await downloadAndSave(url),
                       height: post.preview.reddit_video_preview.height,
                       width: post.preview.reddit_video_preview.width,
                       duration: post.preview.reddit_video_preview.duration,
