@@ -1,21 +1,23 @@
 version: "3.8"
 
 services:
-  redis:
-    image: redis:6.2.5-alpine
-    command: redis-server
-    environment:
-      - REDIS_REPLICATION_MODE=master
-    ports:
-      - "6379:6379"
-    networks:
-      - teddit_net
-  web:
+
+  teddit:
+    container_name: teddit
     build: .
     environment:
-      - REDIS_HOST=redis
+      - DOMAIN=teddit.pussthecat.org
+      - THEME=dark
+      - USE_HELMET=true
+      - USE_HELMET_HSTS=true
+      - TRUST_PROXY=true
+      - NSFW_ENABLED=false
+      - POST_COMMENTS_SORT=top
+      - CACHE_CONTROL=true
+      - CACHE_MAX_SIZE=10000
+      - REDIS_HOST=teddit-redis
     ports:
-      - 8080:8080
+      - "8080:8080"
     networks:
       - teddit_net
     healthcheck:
@@ -23,6 +25,16 @@ services:
       interval: 1m
       timeout: 3s
     depends_on:
-      - redis
+      - teddit-redis
+
+  teddit-redis:
+    container_name: teddit-redis
+    image: redis:6.2.5-alpine
+    command: redis-server
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - teddit_net
+
 networks:
   teddit_net:

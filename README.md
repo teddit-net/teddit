@@ -48,7 +48,48 @@ See ```CHANGELOG.md```
 
 ## Installation
 
-### Docker-compose method
+### Docker-compose method (production)
+
+```console
+version: "3.8"
+
+services:
+
+  teddit:
+    container_name: teddit
+    image: teddit/teddit:latest
+    environment:
+      - DOMAIN=teddit.net
+      - USE_HELMET=true
+      - USE_HELMET_HSTS=true
+      - TRUST_PROXY=true
+      - REDIS_HOST=teddit-redis
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - teddit_net
+    healthcheck:
+      test: ["CMD", "wget" ,"--no-verbose", "--tries=1", "--spider", "http://localhost:8080/about"]
+      interval: 1m
+      timeout: 3s
+    depends_on:
+      - teddit-redis
+
+  teddit-redis:
+    container_name: teddit-redis
+    image: redis:6.2.5-alpine
+    command: redis-server
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - teddit_net
+
+networks:
+  teddit_net:
+```
+
+
+### Docker-compose method (development)
 
 ```console
 git clone https://codeberg.org/teddit/teddit
