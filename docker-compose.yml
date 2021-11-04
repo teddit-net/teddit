@@ -1,3 +1,5 @@
+# This docker-compose file is made for development purpose and build from source, if you want to use teddit in production, the README contains a production-ready docker-compose setup.
+
 version: "3.8"
 
 services:
