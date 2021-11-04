@@ -88,6 +88,11 @@ networks:
   teddit_net:
 ```
 
+Note: This compose is made for a true "production" setup, and is made to be used to have teddit behind a reverse proxy, if you don't want that and prefer to directly access teddit via its port:
+
+- Change `ports: - "127.0.0.1:8080:8080"` to `ports: - "8080:8080"`
+- Remove `DOMAIN=teddit.net`, `USE_HELMET=true`, `USE_HELMET_HSTS=true`, `TRUST_PROXY=true`
+
 
 ### Docker-compose method (development)
 
