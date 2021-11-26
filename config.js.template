@@ -33,7 +33,7 @@ const config = {
     ? (JSON.parse(process.env.DOMAIN_REPLACEMENTS).map(([p, r]) => [new RegExp(p, 'gm'), r]))
     : [], // Replacements for domains in outgoing links. Tuples with regular expressions to match, and replacement values. This is in addition to user-level configuration of privacyDomains.
   cache_control: process.env.CACHE_CONTROL !== 'true' || true, // If true, teddit will automatically remove all cached static files. By default this is set to true.
-  cache_control_interval: process.env.CACHE_CONTROL_INTERVAL || 1000 * 60 * 60 * 24, // How often the cache directory for static files is emptied. Requires cache_control to be true. Default is every 24 hours.
+  cache_control_interval: process.env.CACHE_CONTROL_INTERVAL || 1000 * 60 * 60 * 24, // How often the cache directory for static files is emptied (in milliseconds). Requires cache_control to be true. Default is every 24 hours.
   post_media_max_heights: {
     /**
     * Sets the max-height value for images and videos in posts.

@@ -147,7 +147,7 @@ The following variables may be set to customize your deployment at runtime.
 | reddit_app_id | If "use_reddit_oauth" config key is set to true, you have to obtain your Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app. Default is **ABfYqdDc9qPh1w** |
 | domain_replacements | Replacements for domains in outgoing links. Tuples with regular expressions to match, and replacement values. This is in addition to user-level configuration of privacyDomains. Defaults to **[]** |
 | cache_control | *Boolean* If true, teddit will automatically remove all cached static files. Defaults to **true** |
-| cache_control_interval | How often the cache directory for static files is emptied. Default is every 24 hours. Requires cache_control to be true. Defaults to **1000 * 60 * 60 * 24** |
+| cache_control_interval | How often the cache directory for static files is emptied (in milliseconds). Default is every 24 hours. Requires cache_control to be true. Defaults to **1000 * 60 * 60 * 24** |
 
 ### Manual
 
