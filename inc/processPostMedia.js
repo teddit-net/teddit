@@ -93,9 +93,12 @@ module.exports = function() {
             if(!gif_to_mp4) {
               if(post.preview) {
                 if(post.preview.reddit_video_preview) {
-                  if(post.preview.reddit_video_preview.fallback_url) {
+                  const url = post.domain === 'i.imgur.com'
+                    ? replaceDomains(post.url_overridden_by_dest.replace(/\.gifv$/, '.mp4'))
+                    : post.preview.reddit_video_preview.fallback_url;
+                  if(url) {
                     obj.media = {
-                      source: await downloadAndSave(post.preview.reddit_video_preview.fallback_url),
+                      source: await downloadAndSave(url),
                       height: post.preview.reddit_video_preview.height,
                       width: post.preview.reddit_video_preview.width,
                       duration: post.preview.reddit_video_preview.duration,
@@ -127,12 +130,26 @@ module.exports = function() {
           */
           if(!post_media && !has_gif && !post.gallery_data && post.url != '') {
             try {
-              let u = new URL(post.url)
+              let url = replaceDomains(post.url)
+              const u = new URL(url)
               if(config.valid_media_domains.includes(u.hostname)) {
-                let ext = u.pathname.split('.')[1]
-                if(ext === 'jpg' || ext === 'png') {
+                const ext = u.pathname.split('.')[1]
+                if(['jpg', 'png', 'jpeg', 'gif'].includes(ext)) {
                   obj.images = {
-                    source: await downloadAndSave(post.url)
+                    source: await downloadAndSave(url)
+                  }
+                }
+                else if(['gifv', 'mp4'].includes(ext)) {
+                  if (obj.domain === 'i.imgur.com') {
+                    url = url.replace(/\.gifv$/, '.mp4');
+                  }
+                  obj.has_media = true
+                  obj.media = {
+                    source: await downloadAndSave(url)
+                  }
+                  if (post.preview && post.preview.images) {
+                    obj.media.height = post.preview.images[0].source.height;
+                    obj.media.width = post.preview.images[0].source.width;
                   }
                 }
               }
