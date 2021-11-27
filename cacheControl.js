@@ -5,7 +5,7 @@ module.exports.removeCacheFiles = function() {
       const fs = require('fs');
       const pics = './static/pics/';
       const vids = './static/vids/';
-      
+
       fs.rmdir(pics, { recursive: true, force: true }, () => {
         fs.rmdir(vids, { recursive: true, force: true }, () => {
         	['pics/thumbs', 'pics/flairs', 'pics/icons', 'vids'].map((d) => `./static/${d}`)
@@ -19,10 +19,14 @@ module.exports.removeCacheFiles = function() {
 
   if(config.cache_control) {
     deleteStatic();
-    
-    const interval_ms = config.cache_control_interval
+
+    const hours = config.cache_control_interval;
+    if (hours < 1 || isNaN(hours)) {
+      hours = 24;
+    }
+
     setInterval(() => {
       deleteStatic();
-    }, interval_ms);
+    }, 1000 * 60 * 60 * hours);
   }
 }
