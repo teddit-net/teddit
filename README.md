@@ -39,7 +39,7 @@ Community instances:
 | [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | |
 | [reddit.lol](https://reddit.lol) | [http://dawtyi5e2cfyfmoht...onion](http://dawtyi5e2cfyfmoht4izmczi42aa2zwh6wi34zwvc6rzf2acpxhrcrad.onion) | [http://vzeiwzi7ogwl3i...b32.i2p](vzeiwzi7ogwl3ijrfek4fbtwhvamxcpyqoc3s4vcgnhlp54s5clq.b32.i2p) | Operated by https://liberta.casa | |
 | [teddit.sethforprivacy.com](https://teddit.sethforprivacy.com/) | [qtpvyiaqhmwccx...onion/](http://qtpvyiaqhmwccxwzsqubd23xhmmrt75tdyw35kp43w4hvamsgl3x27ad.onion/) |  | For more similar hosted tools, see [blog.sethforprivacy.com](https://blog.sethforprivacy.com/about/#my-community-resources) |
-
+| [teddit.totaldarkness.net](https://teddit.totaldarkness.net) |  |  | |
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
