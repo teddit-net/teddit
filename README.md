@@ -36,7 +36,7 @@ Community instances:
 |  | [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) | Operated by [mdleom.com](https://mdleom.com/about/#Services) |
 | [teddit.alefvanoon.xyz](https://teddit.alefvanoon.xyz) |  |  | |
 | [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | [http://teddit.i2p](http://teddit.i2p) | |
-| [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | |
+| [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | Operated by [PussTheCat.org](https://pussthecat.org/) |
 | [reddit.lol](https://reddit.lol) | [http://dawtyi5e2cfyfmoht...onion](http://dawtyi5e2cfyfmoht4izmczi42aa2zwh6wi34zwvc6rzf2acpxhrcrad.onion) | [http://vzeiwzi7ogwl3i...b32.i2p](vzeiwzi7ogwl3ijrfek4fbtwhvamxcpyqoc3s4vcgnhlp54s5clq.b32.i2p) | Operated by https://liberta.casa | |
 | [teddit.sethforprivacy.com](https://teddit.sethforprivacy.com/) | [qtpvyiaqhmwccx...onion/](http://qtpvyiaqhmwccxwzsqubd23xhmmrt75tdyw35kp43w4hvamsgl3x27ad.onion/) |  | For more similar hosted tools, see [blog.sethforprivacy.com](https://blog.sethforprivacy.com/about/#my-community-resources) |
 | [teddit.totaldarkness.net](https://teddit.totaldarkness.net) |  |  | |
