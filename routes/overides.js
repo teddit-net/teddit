@@ -68,6 +68,10 @@ overridingRoutes.all('*', (req, res, next) => {
       maxAge: 31536000,
       httpOnly: true,
     });
+  } else if (!req.cookies.show_upvoted_percentage) {
+    if (config.show_upvoted_percentage) {
+      req.cookies.show_upvoted_percentage = 'true';
+    }
   }
 
   let domainTwitter = req.query.domain_twitter;
