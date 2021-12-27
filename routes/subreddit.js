@@ -373,6 +373,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
   let api_req = req.query.api;
   let api_type = req.query.type;
   let api_target = req.query.target;
+  let api_mode = req.query.mode;
 
   if (req.query.hasOwnProperty('api')) api_req = true;
   else api_req = false;
@@ -430,7 +431,8 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
             'redis',
             api_type,
             api_target,
-            subreddit
+            subreddit,
+            api_mode
           );
         } else {
           let processed_json = await processJsonSubreddit(
@@ -506,7 +508,8 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
                           'from_online',
                           api_type,
                           api_target,
-                          subreddit
+                          subreddit,
+                          api_mode
                         );
                       } else {
                         let processed_json = await processJsonSubreddit(

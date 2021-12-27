@@ -108,7 +108,8 @@ homeRoute.get('/:sort?', async (req, res, next) => {
             'redis',
             api_type,
             api_target,
-            '/'
+            '/',
+            'full'
           );
         } else {
           let processed_json = await processJsonSubreddit(
@@ -168,7 +169,8 @@ homeRoute.get('/:sort?', async (req, res, next) => {
                           'from_online',
                           api_type,
                           api_target,
-                          '/'
+                          '/',
+                          'full'
                         );
                       } else {
                         let processed_json = await processJsonSubreddit(

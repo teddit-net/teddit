@@ -9,7 +9,8 @@ module.exports = function () {
     from,
     api_type,
     api_target,
-    subreddit
+    subreddit,
+    mode
   ) => {
     if (!config.api_enabled) {
       res.setHeader('Content-Type', 'application/json');
@@ -182,6 +183,10 @@ module.exports = function () {
           }
         }
 
+        if (mode === 'light') {
+          processed_json.selftext_html = null;
+        }
+        
         return res.end(JSON.stringify(processed_json));
       }
     }
