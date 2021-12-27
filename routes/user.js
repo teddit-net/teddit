@@ -327,7 +327,8 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
             'redis',
             api_type,
             api_target,
-            subreddit
+            subreddit,
+            'full'
           );
         } else {
           let processed_json = await processJsonSubreddit(
@@ -397,7 +398,8 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
                           'from_online',
                           api_type,
                           api_target,
-                          subreddit
+                          subreddit,
+                          'full'
                         );
                       } else {
                         let processed_json = await processJsonSubreddit(
