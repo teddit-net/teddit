@@ -181,12 +181,12 @@ module.exports = function () {
               link.images.thumb = `${protocol}://${config.domain}${link.images.thumb}`;
             }
           }
+
+          if (mode === 'light') {
+            link.selftext_html = null;
+          }
         }
 
-        if (mode === 'light') {
-          processed_json.selftext_html = null;
-        }
-        
         return res.end(JSON.stringify(processed_json));
       }
     }
