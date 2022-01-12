@@ -52,7 +52,7 @@ See ```CHANGELOG.md```
 
 ### Docker-compose method (production)
 
-```console
+```docker
 version: "3.8"
 
 services:
@@ -98,7 +98,7 @@ Note: This compose is made for a true "production" setup, and is made to be used
 
 ### Docker-compose method (development)
 
-```console
+```bash
 git clone https://codeberg.org/teddit/teddit
 cd teddit
 docker-compose build
@@ -161,7 +161,7 @@ The following variables may be set to customize your deployment at runtime.
 
    It's needed if you want to support videos.
 
-   ```console
+   ```bash
    # Linux
    apt install redis-server ffmpeg
 
@@ -171,7 +171,7 @@ The following variables may be set to customize your deployment at runtime.
 
 1. Clone and set up the repository.
 
-   ```console
+   ```bash
    git clone https://codeberg.org/teddit/teddit
    cd teddit
    npm install --no-optional
