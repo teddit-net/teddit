@@ -123,6 +123,7 @@ The following variables may be set to customize your deployment at runtime.
 | flairs_enabled | Enables the rendering of user and link flairs on Teddit. Defaults to **true** |
 | highlight_controversial | Enables controversial comments to be indicated by a typographical dagger (†). Defaults to **true** |
 | api_enabled | Teddit API feature. Might increase loads significantly on your instance. Defaults to **true** |
+| api_force_https | Force HTTPS to Teddit API permalinks (see #285). Defaults to **false** |
 | video_enabled | Enables video playback within Teddit. Defaults to **true** |
 | redis_enabled | Enables Redis caching. If disabled, does not allow for any caching of Reddit API calls. Defaults to **true** |
 | redis_db | Sets the redis DB name, if required |
