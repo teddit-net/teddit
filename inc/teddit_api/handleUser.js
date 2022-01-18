@@ -23,7 +23,7 @@ module.exports = function () {
     let _json = json; // Keep the original json
     if (from === 'redis') json = JSON.parse(json);
 
-    let protocol = config.https_enabled ? 'https' : 'http';
+    let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
     let link = `${protocol}://${config.domain}/user/${user}`;
 
     if (api_type === 'rss') {

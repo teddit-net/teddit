@@ -25,7 +25,7 @@ module.exports = function () {
     if (from === 'redis') json = JSON.parse(json);
 
     if (api_type === 'rss') {
-      let protocol = config.https_enabled ? 'https' : 'http';
+      let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
       let items = '';
       for (var i = 0; i < json.data.children.length; i++) {
         let link = json.data.children[i].data;
@@ -149,7 +149,7 @@ module.exports = function () {
           req.cookies
         );
 
-        let protocol = config.https_enabled ? 'https' : 'http';
+        let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
         for (var i = 0; i < processed_json.links.length; i++) {
           let link = processed_json.links[i];
           let valid_reddit_self_domains = ['reddit.com'];

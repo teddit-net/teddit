@@ -6,6 +6,7 @@ const config = {
   flairs_enabled: !('FLAIRS_ENABLED' in process.env) || process.env.FLAIRS_ENABLED === 'true', // Enables the rendering of user and link flairs on teddit
   highlight_controversial: !('HIGHLIGHT_CONTROVERSIAL' in process.env) || process.env.HIGHLIGHT_CONTROVERSIAL === 'true', // Enables controversial comments to be indicated by a typographical dagger (†)
   api_enabled: !('API_ENABLED' in process.env) || process.env.API_ENABLED === 'true', // Teddit API feature. Might increase loads significantly on your instance.
+  api_force_https: process.env.API_FORCE_HTTPS === 'true' || false,
   video_enabled: !('VIDEO_ENABLED' in process.env) || process.env.VIDEO_ENABLED === 'true',
   redis_enabled: !('REDIS_ENABLED' in process.env) || process.env.REDIS_ENABLED === 'true', // If disabled, does not cache Reddit API calls
   redis_db: process.env.REDIS_DB,
