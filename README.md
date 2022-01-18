@@ -41,6 +41,7 @@ Community instances:
 | [teddit.sethforprivacy.com](https://teddit.sethforprivacy.com/) | [qtpvyiaqhmwccx...onion/](http://qtpvyiaqhmwccxwzsqubd23xhmmrt75tdyw35kp43w4hvamsgl3x27ad.onion/) |  | For more similar hosted tools, see [blog.sethforprivacy.com](https://blog.sethforprivacy.com/about/#my-community-resources) |
 | [teddit.totaldarkness.net](https://teddit.totaldarkness.net) |  |  | |
 | [teddit.adminforge.de](https://teddit.adminforge.de) |  | | Operated by https://adminforge.de |
+| [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
