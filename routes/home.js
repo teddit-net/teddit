@@ -32,6 +32,16 @@ homeRoute.get('/:sort?', async (req, res, next) => {
     }
   }
 
+  let is_comment =
+    sortby.length == 6 &&
+    sortby != "rising"
+      ? true
+      : false;
+  
+  if (is_comment) {
+    return res.redirect('/comments/' + sortby);
+  }
+
   let d = `&after=${after}`;
   if (before) {
     d = `&before=${before}`;
