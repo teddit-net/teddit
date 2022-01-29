@@ -182,27 +182,29 @@ module.exports = function(request, fs) {
 
   this.replaceUserDomains = (str, user_preferences) => {
     
-    let redditRegex = /([A-z.]+\.)?(reddit(\.com)|redd(\.it))/gm;
-    let youtubeRegex = /([A-z.]+\.)?youtu(be\.com|\.be)/gm;
-    let twitterRegex = /([A-z.]+\.)?twitter\.com/gm;
-    let instagramRegex = /([A-z.]+\.)?instagram.com/gm;
+    let redditRegex = /(?<=href=")(https?:\/\/)([A-z.]+\.)?(reddit(\.com)|redd(\.it))(?=.+")/gm;
+    let youtubeRegex = /(?<=href=")(https?:\/\/)([A-z.]+\.)?youtu(be\.com|\.be)(?=.+")/gm;
+    let twitterRegex = /(?<=href=")(https?:\/\/)(www\.)?twitter\.com(?=.+")/gm;
+    let instagramRegex = /(?<=href=")(https?:\/\/)(www+\.)?instagram.com(?=.+")/gm;
+
+    let protocol = config.https_enabled || config.api_force_https ? 'https://' : 'http://'
     
-    str = str.replace(redditRegex, config.domain)
+    str = str.replace(redditRegex, protocol + config.domain)
     
     if(typeof(user_preferences) == 'undefined')
       return str
     
     if(typeof(user_preferences.domain_youtube) != 'undefined')
-        if(user_preferences.domain_youtube)
-          str = str.replace(youtubeRegex, user_preferences.domain_youtube)
+      if(user_preferences.domain_youtube)
+        str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube)
     
     if(typeof(user_preferences.domain_twitter) != 'undefined')
       if(user_preferences.domain_twitter)
-        str = str.replace(twitterRegex, user_preferences.domain_twitter)
+        str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
     
     if(typeof(user_preferences.domain_instagram) != 'undefined')
       if(user_preferences.domain_instagram)
-        str = str.replace(instagramRegex, user_preferences.domain_instagram)
+        str = str.replace(instagramRegex, protocol + user_preferences.domain_instagram)
     
     return str
   }
