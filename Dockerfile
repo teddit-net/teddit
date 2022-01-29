@@ -1,8 +1,8 @@
-# Use LTS Node.js base image
-FROM node:14.17-alpine
+# Use LTS Node.js slim image
+FROM node:14.17-slim
 
 # Video support dependency
-RUN apk add ffmpeg
+RUN apt update && apt install -y ffmpeg
 
 # Install NPM dependencies and copy the project
 WORKDIR /teddit
