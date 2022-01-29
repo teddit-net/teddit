@@ -1,6 +1,6 @@
 {
   "name": "teddit",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A free and open source alternative Reddit front-end focused on privacy.",
   "homepage": "https://teddit.net",
   "bugs": {
