@@ -173,7 +173,7 @@ preferenceRoutes.post('/export_prefs', (req, res, next) => {
       'Content-disposition',
       'attachment; filename=teddit_prefs.json'
     );
-    res.setHeader('Content-type', 'preferenceRouteslication/json');
+    res.setHeader('Content-type', 'application/json');
     return res.send(export_data);
   }
 
