@@ -204,7 +204,7 @@ preferenceRoutes.post('/import_prefs', (req, res, next) => {
     body = body.toString();
     try {
       let json = body
-        .split('Content-Type: preferenceRouteslication/json')[1]
+        .split('Content-Type: application/json')[1]
         .trim()
         .split('--')[0];
       let prefs = JSON.parse(json);
