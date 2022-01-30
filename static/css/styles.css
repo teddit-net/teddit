@@ -749,6 +749,14 @@ footer a {
 #post .submitted span {
   margin-left: 5px;
 }
+#post .source-details {
+  float: left;
+  margin: 10px 0 10px 30px;
+}
+#post .source-details summary:hover {
+  color: var(--linkcolor);
+  text-decoration: underline;
+}
 #post .comments {
   float: left;
   width: 100%;
