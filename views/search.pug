@@ -140,8 +140,8 @@ html
           include components/link.pug
     if json.before || json.after
       .view-more-links
-        if json.before && !subreddit_front
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&before=" + json.before + "") ‹ prev
+        if json.before
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&before=" + json.before + "" + (sortby === "new" && sortby ? "&" : "&sort=" + sortby + "&") + (!past ? "" : "t=" + past)) ‹ prev
         if json.after
-          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&after=" + json.after + "") next ›
+          a(href="?q=" + q + "&restrict_sr=" + restrict_sr + "&nsfw=" + nsfw + "&after=" + json.after + "" + (sortby === "new" && sortby ? "&" : "&sort=" + sortby + "&") + (!past ? "" : "t=" + past)) next ›
     include includes/footer.pug

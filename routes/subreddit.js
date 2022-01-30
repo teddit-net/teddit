@@ -55,6 +55,11 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
   if (nsfw !== 'on') {
     nsfw = 'off';
   }
+  
+  let count = '&count=25';
+  if (after == '') {
+    count = '';
+  }
 
   let key = `search:${subreddit}:${q}:${restrict_sr}:${sortby}:${past}:${after}:${before}:${nsfw}`;
   redis.get(key, (error, json) => {
@@ -90,9 +95,9 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
     } else {
       let url = '';
       if (config.use_reddit_oauth)
-        url = `https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${d}`;
+        url = `https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}`;
       else
-        url = `https://reddit.com/r/${subreddit}/search.json?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${d}`;
+        url = `https://reddit.com/r/${subreddit}/search.json?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}`;
       fetch(encodeURI(url), redditApiGETHeaders())
         .then((result) => {
           if (result.status === 200) {
