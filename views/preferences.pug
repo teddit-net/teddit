@@ -98,7 +98,7 @@ html
                 input(type="checkbox", name="show_upvoted_percentage", id="show_upvoted_percentage")
           .setting
             label(for="show_upvotes") Show upvotes: 
-              if (user_preferences.show_upvotes == 'true')
+              if(!user_preferences.show_upvotes || user_preferences.show_upvotes == 'true')
                 input(type="checkbox", name="show_upvotes", id="show_upvotes", checked="checked")
               else
                 input(type="checkbox", name="show_upvotes", id="show_upvotes")
