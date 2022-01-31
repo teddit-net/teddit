@@ -46,6 +46,12 @@ html
               video_muted = false
             }
           .info
+            if user_preferences.show_upvotes === 'false'
+              style.
+                .comment .meta .ups, #post .score, #user .upvotes {
+                  display: none;
+                }
+              
             .score
               div.arrow
               span #{kFormatter(post.ups)}
