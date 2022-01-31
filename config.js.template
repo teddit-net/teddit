@@ -36,6 +36,7 @@ const config = {
   cache_control: !('CACHE_CONTROL' in process.env) || process.env.CACHE_CONTROL === 'true', // If true, teddit will automatically remove all cached static files. By default this is set to true.
   cache_control_interval: process.env.CACHE_CONTROL_INTERVAL || 24, // How often the cache directory for static files is emptied (in hours). Requires cache_control to be true. Default is every 24 hours.
   show_upvoted_percentage: !('SHOW_UPVOTED_PERCENTAGE' in process.env) || process.env.SHOW_UPVOTED_PERCENTAGE === 'true',
+  show_upvotes: !('SHOW_UPVOTES' in process.env) || process.env.SHOW_UPVOTES === 'true', // If true, teddit will show number of upvotes in posts and points in comments.
   post_media_max_heights: {
     /**
     * Sets the max-height value for images and videos in posts.

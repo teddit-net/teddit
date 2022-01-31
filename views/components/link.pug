@@ -1,4 +1,9 @@
 .link
+  if user_preferences.show_upvotes === 'false'
+        style.
+          .upvotes {
+            display: none;
+          }
   .upvotes
     .arrow
     span #{kFormatter(link.ups)}

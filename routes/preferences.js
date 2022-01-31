@@ -10,6 +10,7 @@ function resetPreferences(res) {
   res.clearCookie('post_media_max_height');
   res.clearCookie('collapse_child_comments');
   res.clearCookie('show_upvoted_percentage');
+  res.clearCookie('show_upvotes')
   res.clearCookie('subbed_subreddits');
   res.clearCookie('domain_twitter');
   res.clearCookie('domain_youtube');
@@ -82,6 +83,7 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   let post_media_max_height = req.body.post_media_max_height;
   let collapse_child_comments = req.body.collapse_child_comments;
   let show_upvoted_percentage = req.body.show_upvoted_percentage;
+  let show_upvotes = req.body.show_upvotes;
   let domain_twitter = req.body.domain_twitter;
   let domain_youtube = req.body.domain_youtube;
   let domain_instagram = req.body.domain_instagram;
@@ -132,6 +134,13 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   if (show_upvoted_percentage === 'on') show_upvoted_percentage = 'true';
   else show_upvoted_percentage = 'false';
   res.cookie('show_upvoted_percentage', show_upvoted_percentage, {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
+  if (show_upvotes === 'on') show_upvotes = 'true';
+  else show_upvotes = 'false';
+  res.cookie('show_upvotes', show_upvotes, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
