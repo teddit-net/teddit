@@ -2,7 +2,7 @@
 FROM node:14.17-slim
 
 # Video support dependency
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg wget
 
 # Install NPM dependencies and copy the project
 WORKDIR /teddit
