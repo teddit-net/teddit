@@ -25,7 +25,6 @@ Community instances:
 | Instance | Onion Link | I2P | Notes |
 |-|-|-|-|
 | [teddit.ggc-project.de](https://teddit.ggc-project.de) |  |  | |
-| [teddit.kavin.rocks](https://teddit.kavin.rocks) | [teddit4w6cmzmj5kimhfc...onion](http://teddit4w6cmzmj5kimhfcavs7yo5s7alszvsi2khqutqtlaanpcftfyd.onion/) |  | |
 | [teddit.zaggy.nl](https://teddit.zaggy.nl) |  |  | |
 | [teddit.namazso.eu](https://teddit.namazso.eu) |  |  | |
 | [teddit.nautolan.racing](https://teddit.nautolan.racing) |  |  | |
