@@ -39,8 +39,10 @@ module.exports = function(request, fs) {
   this.teddifyUrl = (url, user_preferences) => {
     try {
       let u = new URL(url)
+      let domain_replaced = false
       if(u.host === 'www.reddit.com' || u.host === 'reddit.com') {
         url = url.replace(u.host, config.domain)
+        domain_replaced = true
         if(u.pathname.startsWith('/gallery/'))
           url = url.replace('/gallery/', '/comments/')
       }
@@ -50,10 +52,15 @@ module.exports = function(request, fs) {
         let file_ext = getFileExtension(url)
         if(image_exts.includes(file_ext))
           url = url.replace(`${u.host}/`, `${config.domain}/pics/w:null_`)
+          domain_replaced = true
         if(video_exts.includes(file_ext) || !image_exts.includes(file_ext))
           url = url.replace(u.host, `${config.domain}/vids`) + '.mp4'
+          domain_replaced = true
       }
 
+      if(domain_replaced && !user_preferences.https_enabled) {
+        url = url.replace('https:', 'http:')
+      }
     } catch(e) { }
     url = replaceDomains(url, user_preferences)
     return url
