@@ -41,6 +41,7 @@ Community instances:
 | [teddit.totaldarkness.net](https://teddit.totaldarkness.net) |  |  | |
 | [teddit.adminforge.de](https://teddit.adminforge.de) |  | | Operated by https://adminforge.de |
 | [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
+| [teddit.froth.zone](https://teddit.froth.zone) |  | | |
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
