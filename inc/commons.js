@@ -58,7 +58,7 @@ module.exports = function(request, fs) {
           domain_replaced = true
       }
 
-      if(domain_replaced && !user_preferences.https_enabled) {
+      if(domain_replaced && !config.https_enabled) {
         url = url.replace('https:', 'http:')
       }
     } catch(e) { }
