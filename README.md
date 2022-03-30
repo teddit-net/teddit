@@ -42,7 +42,7 @@ Community instances:
 | [teddit.adminforge.de](https://teddit.adminforge.de) |  | | Operated by https://adminforge.de |
 | [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
 | [teddit.froth.zone](https://teddit.froth.zone) |  | | |
-| [rdt.trom.tf](https://teddit.froth.zone) |  | | Part of the https://trom.tf project |
+| [rdt.trom.tf](https://rdt.trom.tf) |  | | Part of the https://trom.tf project |
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
