@@ -18,15 +18,31 @@ homeRoute.get('/:sort?', async (req, res, next) => {
   let proxyable =
     sortby.includes('.jpg') ||
     sortby.includes('.png') ||
-    sortby.includes('.jpeg')
+    sortby.includes('.jpeg') ||
+    sortby.includes('.mp4') ||
+    sortby.includes('.gif') ||
+    sortby.includes('.gifv')
       ? true
       : false;
   if (proxyable) {
-    let params = new URLSearchParams(req.query).toString();
-    let image_url = `https://preview.redd.it/${sortby}?${params}`;
-    let proxied_image = await downloadAndSave(image_url);
-    if (proxied_image) {
-      return res.redirect(proxied_image);
+    let media_url = '';
+    const replacable_media_domains = ['i.redd.it', 'v.redd.it']
+    if (req.query.teddit_proxy) {
+      if (replacable_media_domains.includes(req.query.teddit_proxy)) {
+        let full_url = req.protocol + '://' + req.get('host') + req.originalUrl;
+        let u = new URL(full_url);
+        let filename = u.pathname || '';
+        let query = u.search || '';
+        media_url = `https://${req.query.teddit_proxy}${filename}${query}`;
+      }
+    } else {
+      let params = new URLSearchParams(req.query).toString();
+      media_url = `https://preview.redd.it/${sortby}?${params}`;
+    }
+
+    let proxied_media = await downloadAndSave(media_url);
+    if (proxied_media) {
+      return res.redirect(proxied_media);
     } else {
       return res.redirect('/');
     }
