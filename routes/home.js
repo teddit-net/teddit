@@ -38,6 +38,10 @@ homeRoute.get('/:sort?', async (req, res, next) => {
     } else {
       let params = new URLSearchParams(req.query).toString();
       media_url = `https://preview.redd.it/${sortby}?${params}`;
+      if (media_url.includes('teddit_proxy')) {
+        // if the URL includes teddit_proxy query param, remove everything after it
+        media_url = media_url.split('%3Fteddit_proxy')[0];
+      }
     }
 
     let proxied_media = await downloadAndSave(media_url);
