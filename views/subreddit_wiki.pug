@@ -2,6 +2,8 @@ doctype html
 html
   head
     title wiki /r/#{subreddit}
+    meta(property='og:title', content='wiki /r/' + subreddit)
+    include includes/meta_default.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug

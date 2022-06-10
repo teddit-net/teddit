@@ -3,8 +3,12 @@ html
   head
     if no_query
       title search teddit
+      meta(property='og:title', content='search - teddit')
     else
       title search results for #{q}
+      meta(property='og:title', content='search results for ' + q + ' - teddit')
+    include includes/meta_default.pug
+    include includes/meta_description.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug

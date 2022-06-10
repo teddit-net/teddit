@@ -2,6 +2,9 @@ doctype html
 html
   head
     title /r/#{subreddit}
+    meta(property='og:title', content='/r/' + subreddit)
+    meta(property='og:description', content='' + unescape(subreddit_about.public_description_html, user_preferences))
+    include includes/meta_default.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug

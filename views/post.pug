@@ -2,6 +2,7 @@ doctype html
 html
   head
     title #{cleanTitle(post.title)} : #{subreddit}
+    include includes/meta_post.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
