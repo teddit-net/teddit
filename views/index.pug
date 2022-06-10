@@ -2,6 +2,13 @@ doctype html
 html
   head
     title teddit
+    meta(property='og:title', content='frontpage : teddit')
+    meta(property='og:description', content='Teddit is a free and open source alternative Reddit front-end focused on privacy. Teddit doesn\'t require you to have JavaScript enabled in your browser.')
+    meta(property='og:image', content='/logo512.png')
+    meta(property='og:image:width', content='128')
+    meta(property='og:image:height', content='128')
+    meta(property='og:author_name', content='')
+    meta(name='twitter:card', content='summary')
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
