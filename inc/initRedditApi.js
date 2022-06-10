@@ -30,7 +30,7 @@ module.exports = function(fetch) {
       } else {
         console.error(`Something went wrong while trying to get an access token from reddit API. ${result.status} – ${result.statusText}`)
         console.error(reddit_api_error_text)
-        return res.render('index', { json: null, http_status_code: result.status })
+        return res.render('frontpage', { json: null, http_status_code: result.status })
       }
     }).catch(error => {
       console.log(`Error while obtaining a reddit API key.`, error)
@@ -66,7 +66,7 @@ module.exports = function(fetch) {
       } else {
         console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
         console.error(reddit_api_error_text)
-        return res.render('index', { json: null, http_status_code: result.status })
+        return res.render('frontpage', { json: null, http_status_code: result.status })
       }
     }).catch(error => {
       console.log(`Error while refreshing the reddit API key.`, error)

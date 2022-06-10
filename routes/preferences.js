@@ -42,7 +42,7 @@ preferenceRoutes.get('/import_prefs/:key', (req, res, next) => {
         `Error getting the preferences import key ${key} from redis.`,
         error
       );
-      return res.render('index', {
+      return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
       });

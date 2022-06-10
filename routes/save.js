@@ -214,7 +214,7 @@ saveRoutes.get(
           'Error getting the short URL for post key from redis.',
           error
         );
-        return res.render('index', {
+        return res.render('frontpage', {
           json: null,
           user_preferences: req.cookies,
         });
@@ -257,7 +257,7 @@ saveRoutes.get(
                         'Error setting the short URL for post key to redis.',
                         error
                       );
-                      return res.render('index', {
+                      return res.render('frontpage', {
                         json: null,
                         user_preferences: req.cookies,
                       });
@@ -287,7 +287,7 @@ saveRoutes.get(
                 `Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`
               );
               console.error(config.reddit_api_error_text);
-              return res.render('index', {
+              return res.render('frontpage', {
                 json: null,
                 http_status_code: result.status,
                 user_preferences: req.cookies,
