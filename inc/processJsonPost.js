@@ -155,7 +155,7 @@ async function processJsonPost(json, parsed, user_preferences) {
     images: null,
     crosspost: false,
     selftext: unescape(post.selftext_html),
-    selftext_preview: post.selftext.substr(0, 120),
+    selftext_preview: post.selftext.substr(0, 120).replace(/\n/g, ' '),
     poll_data: post.poll_data,
     link_flair:
       user_preferences.flairs != 'false' ? await formatLinkFlair(post) : '',
