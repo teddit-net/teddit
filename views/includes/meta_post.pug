@@ -1,5 +1,5 @@
 meta(property='og:title', content=cleanTitle(post.title) + ' : r/' + subreddit)
-meta(property='og:description', content='' + post.selftext)
+meta(property='og:description', content='' + post.selftext_preview)
 meta(property='og:author_name', content='u/' + post.author)
 if !post.has_media
   if post.gallery
