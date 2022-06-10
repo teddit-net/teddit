@@ -167,6 +167,7 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
     httpOnly: true,
   });
 
+  if (prefer_frontpage === 'on') prefer_frontpage = 'true';
   res.cookie('prefer_frontpage', prefer_frontpage, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
