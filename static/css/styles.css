@@ -1580,6 +1580,68 @@ code {
   padding:4px;
   margin:5px 0
 }
+
+/* HOMEPAGE SECTION */
+body.homepage.clean {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body.homepage.clean main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+body.homepage.clean h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  text-align: center;
+  width: 100%;
+}
+
+body.homepage.clean form {
+  width: 100vw;
+  max-width: 750px;
+  text-align: center;
+}
+
+body.homepage.clean input[name="q"] {
+  width: 90%;
+  padding: 0.4rem;
+  border: none;
+  color: white;
+  background: #555;
+  margin-bottom: 1rem;
+}
+
+body.homepage.clean .sublinks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 650px;
+}
+
+body.homepage.clean .sublinks a {
+  color: gray;
+  margin-right: 0.3rem;
+}
+
+@media only screen and (max-width: 768px) {
+  body.homepage.clean form, body.homepage.clean .sublinks {
+    width: 90%;
+    max-width: unset;
+  }
+}
+
 /* Fix spoiler texts not showing without JS */
 .md .md-spoiler-text:not(.revealed):active,.md .md-spoiler-text:not(.revealed):focus,.md .md-spoiler-text:not(.revealed):hover {
   color: black;
