@@ -2,15 +2,14 @@ doctype html
 html
   head
     title #{cleanTitle(post.title)} : #{subreddit}
-    meta(property='og:title', content=cleanTitle(post.title) + ' : ' + subreddit)
+    meta(property='og:title', content=cleanTitle(post.title) + ' : r/' + subreddit)
     meta(property='og:description', content='' + post.selftext)
     meta(property='og:author_name', content='u/' + post.author)
     if !post.has_media
       if post.gallery
         meta(property='twitter:card', content='summary_large_image')
         each item in post.gallery_items
-          meta(property='og:image', content='' + item.thumbnail)
-          meta(property='og:image:url', content='' + item.large)
+          meta(property='og:image', content='' + item.large)
       if post.images
         meta(property='twitter:card', content='summary_large_image')
         meta(property='og:image', content='' + post.images.source)
