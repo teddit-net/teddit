@@ -1,3 +1,5 @@
+const config = require('../config');
+
 const staticRoutes = require('express').Router();
 
 staticRoutes.get('/privacy', (req, res, next) => {
