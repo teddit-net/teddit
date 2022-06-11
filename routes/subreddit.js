@@ -600,7 +600,7 @@ subredditRoutes.get(
     let subreddit = req.params.subreddit;
     let id = req.params.id;
     let snippet = encodeURIComponent(req.params.snippet);
-    let sortby = req.query.sort;
+    let sortby = req.query.sort || req.cookies.default_comment_sort;
     let comment_id = '';
     let viewing_comment = false;
     let comment_ids = req.query.comment_ids;
