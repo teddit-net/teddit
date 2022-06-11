@@ -111,6 +111,17 @@ html
                 input(type="checkbox", name="prefer_frontpage", id="prefer_frontpage", checked="checked")
               else
                 input(type="checkbox", name="prefer_frontpage", id="prefer_frontpage")
+          .setting
+            label(for="default_comment_sort") Default comment sorting: 
+              select(id="default_comment_sort", name="default_comment_sort")
+                -
+                  let default_comment_sort_html = ''
+                  let user_default_sort = user_preferences.default_comment_sort || 'best'
+                  
+                  for(let key of comment_sort_values) {
+                    default_comment_sort_html += `<option value="${key}" ${(user_default_sort == key ? "selected" : "")}>${key == 'qa' ? 'Q&A' : key}</option>`
+                  }
+                != default_comment_sort_html
           legend Media
           .setting
             label(for="videos_muted") Mute videos by default: 

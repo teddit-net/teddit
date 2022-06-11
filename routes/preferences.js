@@ -18,12 +18,14 @@ function resetPreferences(res) {
   res.clearCookie('videos_muted');
   res.clearCookie('prefer_frontpage');
   res.clearCookie('show_large_gallery_images');
+  res.clearCookie('default_comment_sort');
 }
 
 preferenceRoutes.get('/preferences', (req, res, next) => {
   return res.render('preferences', {
     user_preferences: req.cookies,
     instance_config: config,
+    comment_sort_values: ['best', 'top', 'new', 'controversial', 'old', 'qa'],
   });
 });
 
@@ -93,6 +95,7 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   let videos_muted = req.body.videos_muted;
   let prefer_frontpage = req.body.prefer_frontpage;
   let show_large_gallery_images = req.body.show_large_gallery_images;
+  let default_comment_sort = req.body.default_comment_sort;
 
   res.cookie('theme', theme, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
@@ -178,6 +181,11 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
 
   if (show_large_gallery_images === 'on') show_large_gallery_images = 'true';
   res.cookie('show_large_gallery_images', show_large_gallery_images, {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
+  res.cookie('default_comment_sort', default_comment_sort, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
