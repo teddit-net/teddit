@@ -1581,7 +1581,7 @@ code {
   margin:5px 0
 }
 
-/* HOMEPAGE SECTION */
+/* "CLEANED HOMEPAGE" SECTION */
 body.homepage.clean {
   margin: 0;
   width: 100vw;
@@ -1633,6 +1633,10 @@ body.homepage.clean .sublinks {
 body.homepage.clean .sublinks a {
   color: gray;
   margin-right: 0.3rem;
+}
+
+.homepage.clean .top-links {
+  display: none;
 }
 
 @media only screen and (max-width: 768px) {
