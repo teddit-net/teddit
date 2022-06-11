@@ -13,6 +13,7 @@ saveRoutes.get('/saved', (req, res, next) => {
     return res.render('saved', {
       json: null,
       user_preferences: req.cookies,
+      instance_config: config,
     });
   }
 
@@ -38,6 +39,7 @@ saveRoutes.get('/saved', (req, res, next) => {
           return res.render('saved', {
             json: processed_json,
             user_preferences: req.cookies,
+            instance_config: config,
           });
         } else {
           return res.render('subreddit', {
@@ -45,6 +47,7 @@ saveRoutes.get('/saved', (req, res, next) => {
             error: true,
             data: processed_json,
             user_preferences: req.cookies,
+            instance_config: config,
           });
         }
       })();
@@ -217,6 +220,7 @@ saveRoutes.get(
         return res.render('frontpage', {
           json: null,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       }
       if (json) {
@@ -260,6 +264,7 @@ saveRoutes.get(
                       return res.render('frontpage', {
                         json: null,
                         user_preferences: req.cookies,
+                        instance_config: config,
                       });
                     } else {
                       console.log(
@@ -291,6 +296,7 @@ saveRoutes.get(
                 json: null,
                 http_status_code: result.status,
                 user_preferences: req.cookies,
+                instance_config: config,
               });
             }
           })

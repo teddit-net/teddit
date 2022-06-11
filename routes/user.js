@@ -94,6 +94,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -126,6 +127,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
             sortby: sortby,
             past: past,
             user_preferences: req.cookies,
+            instance_config: config,
           });
         }
       })();
@@ -166,6 +168,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
                             return res.render('frontpage', {
                               post: null,
                               user_preferences: req.cookies,
+                              instance_config: config,
                             });
                           } else {
                             (async () => {
@@ -196,6 +199,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
                                   sortby: sortby,
                                   past: past,
                                   user_preferences: req.cookies,
+                                  instance_config: config,
                                 });
                               }
                             })();
@@ -212,6 +216,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
                       json: null,
                       http_status_code: result.status,
                       user_preferences: req.cookies,
+                      instance_config: config,
                     });
                   }
                 })
@@ -224,6 +229,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
                     json: null,
                     http_status_code: result.status,
                     user_preferences: req.cookies,
+                    instance_config: config,
                   });
                 });
             });
@@ -241,6 +247,7 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
               http_status_code: result.status,
               http_statustext: result.statusText,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })
@@ -314,6 +321,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -350,6 +358,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
               redis_key: key,
               after: req.query.after,
               before: req.query.before,
+              instance_config: config,
             });
           } else {
             return res.render('subreddit', {
@@ -357,6 +366,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
               error: true,
               data: processed_json,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         }
@@ -384,6 +394,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
                     return res.render('subreddit', {
                       json: null,
                       user_preferences: req.cookies,
+                      instance_config: config,
                     });
                   } else {
                     console.log(
@@ -420,6 +431,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
                           redis_key: key,
                           after: req.query.after,
                           before: req.query.before,
+                          instance_config: config,
                         });
                       }
                     })();
@@ -440,6 +452,7 @@ userRoutes.get('/u/:user/m/:custom_feed/:sort?', (req, res, next) => {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })

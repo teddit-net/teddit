@@ -13,7 +13,7 @@ homeRoute.get('/', (req, res, next) => {
   ) {
     return res.render('homepage', {
       user_preferences: req.cookies,
-      internal_config: config,
+      instance_config: config,
     });
   }
 
@@ -139,6 +139,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -168,6 +169,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
             past: past,
             user_preferences: req.cookies,
             redis_key: key,
+            instance_config: config,
           });
         }
       })();
@@ -201,6 +203,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
                     return res.render('frontpage', {
                       json: null,
                       user_preferences: req.cookies,
+                      instance_config: config,
                     });
                   } else {
                     console.log('Fetched the frontpage from Reddit.');
@@ -229,6 +232,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
                           past: past,
                           user_preferences: req.cookies,
                           redis_key: key,
+                          instance_config: config,
                         });
                       }
                     })();
@@ -245,6 +249,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })

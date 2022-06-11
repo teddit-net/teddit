@@ -1595,6 +1595,7 @@ body.homepage.clean {
 body.homepage.clean main {
   flex-grow: 1;
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

@@ -77,7 +77,28 @@ const config = {
     ? JSON.parse(process.env.VALID_MEDIA_DOMAINS)
     : ['preview.redd.it', 'external-preview.redd.it', 'i.redd.it', 'v.redd.it', 'a.thumbs.redditmedia.com', 'b.thumbs.redditmedia.com', 'emoji.redditmedia.com', 'styles.redditmedia.com', 'www.redditstatic.com', 'thumbs.gfycat.com', 'i.ytimg.com', 'i.imgur.com'],
   valid_embed_video_domains: ['gfycat.com', 'youtube.com'],
-  reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`
+  reddit_api_error_text: `Seems like your instance is either blocked (e.g. due to API rate limiting), reddit is currently down, or your API key is expired and not renewd properly. This can also happen for other reasons.`,
+  /**
+   * Here you can configure the suggested subreddits which are visible in the
+   * cleaned homepage, and in the top bar.
+   * You should keep at least 'All', and 'Saved'.
+   */
+  suggested_subreddits: process.env.SUGGESTED_SUBREDDITS
+                        ? JSON.parse(process.env.SUGGESTED_SUBREDDITS)
+                        :
+                        ['Popular', 'All', 'Saved', 'AskReddit', 'pics', 'news',
+                        'worldnews', 'funny', 'tifu', 'videos', 'gaming', 'aww',
+                        'todayilearned', 'gifs', 'Art', 'explainlikeimfive',
+                        'movies', 'Jokes', 'TwoXChromosomes',
+                        'mildlyinteresting', 'LifeProTips', 'askscience',
+                        'IAmA', 'dataisbeautiful', 'books', 'science',
+                        'Showerthoughts', 'gadgets', 'Futurology',
+                        'nottheonion', 'history', 'sports', 'OldSchoolCool',
+                        'GetMotivated', 'DIY', 'photoshopbattles', 'nosleep',
+                        'Music', 'space', 'food', 'UpliftingNews', 'EarthPorn',
+                        'Documentaries', 'InternetIsBeautiful',
+                        'WritingPrompts', 'creepy', 'philosophy',
+                        'announcements', 'listentothis', 'blog'],
 };
 
 module.exports = config;

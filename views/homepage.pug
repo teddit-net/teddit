@@ -23,56 +23,11 @@ html
           a(href="/saved") Saved
           each subreddit in user_preferences.subbed_subreddits
             a(href="/r/" + subreddit) #{subreddit}
-        else
-          a(href="/r/popular") Popular
-          a(href="/r/all") All
-          a(href="/saved") Saved
-          a(href="/r/AskReddit") AskReddit
-          a(href="/r/pics") pics
-          a(href="/r/news") news
-          a(href="/r/worldnews") worldnews
-          a(href="/r/funny") funny
-          a(href="/r/tifu") tifu
-          a(href="/r/videos") videos
-          a(href="/r/gaming") gaming
-          a(href="/r/aww") aww
-          a(href="/r/todayilearned") todayilearned
-          a(href="/r/gifs") gifs
-          a(href="/r/Art") Art
-          a(href="/r/explainlikeimfive") explainlikeimfive
-          a(href="/r/movies") movies
-          a(href="/r/Jokes") Jokes
-          a(href="/r/TwoXChromosomes") TwoXChromosomes
-          a(href="/r/mildlyinteresting") mildlyinteresting
-          a(href="/r/LifeProTips") LifeProTips
-          a(href="/r/askscience") askscience
-          a(href="/r/IAmA") IAmA
-          a(href="/r/dataisbeautiful") dataisbeautiful
-          a(href="/r/books") books
-          a(href="/r/science") science
-          a(href="/r/Showerthoughts") Showerthoughts
-          a(href="/r/gadgets") gadgets
-          a(href="/r/Futurology") Futurology
-          a(href="/r/nottheonion") nottheonion
-          a(href="/r/history") history
-          a(href="/r/sports") sports
-          a(href="/r/OldSchoolCool") OldSchoolCool
-          a(href="/r/GetMotivated") GetMotivated
-          a(href="/r/DIY") DIY
-          a(href="/r/photoshopbattles") photoshopbattles
-          a(href="/r/nosleep") nosleep
-          a(href="/r/Music") Music
-          a(href="/r/space") space
-          a(href="/r/food") food
-          a(href="/r/UpliftingNews") UpliftingNews
-          a(href="/r/EarthPorn") EarthPorn
-          a(href="/r/Documentaries") Documentaries
-          a(href="/r/InternetIsBeautiful") InternetIsBeautiful
-          a(href="/r/WritingPrompts") WritingPrompts
-          a(href="/r/creepy") creepy
-          a(href="/r/philosophy") philosophy
-          a(href="/r/announcements") announcements
-          a(href="/r/listentothis") listentothis
-          a(href="/r/blog") blog
+        else if instance_config.suggested_subreddits && Array.isArray(instance_config.suggested_subreddits)
+          each subreddit in instance_config.suggested_subreddits
+            if subreddit.toLowerCase() === 'saved'
+              a(href="/saved") Saved
+            else
+              a(href="/r/" + subreddit) #{subreddit}
     include includes/footer.pug
     

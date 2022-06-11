@@ -14,6 +14,7 @@ searchRoute.get('/search', (req, res, next) => {
       sortby: undefined,
       past: undefined,
       user_preferences: req.cookies,
+      instance_config: config,
     });
   }
 

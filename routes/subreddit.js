@@ -28,6 +28,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
       sortby: undefined,
       past: undefined,
       user_preferences: req.cookies,
+      instance_config: config,
     });
   }
 
@@ -68,6 +69,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -90,6 +92,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
           sortby: sortby,
           past: past,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       })();
     } else {
@@ -129,6 +132,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
                       return res.render('frontpage', {
                         json: null,
                         user_preferences: req.cookies,
+                        instance_config: config,
                       });
                     } else {
                       console.log('Fetched search results from Reddit.');
@@ -150,6 +154,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
                           sortby: sortby,
                           past: past,
                           user_preferences: req.cookies,
+                          instance_config: config,
                         });
                       })();
                     }
@@ -166,6 +171,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })
@@ -209,6 +215,7 @@ subredditRoutes.get(
         return res.render('frontpage', {
           json: null,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       }
       if (json) {
@@ -221,6 +228,7 @@ subredditRoutes.get(
               : formatWikipagelisting(json, subreddit),
           subreddit: subreddit,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       } else {
         let url = '';
@@ -245,6 +253,7 @@ subredditRoutes.get(
                       return res.render('subreddit', {
                         json: null,
                         user_preferences: req.cookies,
+                        instance_config: config,
                       });
                     } else {
                       console.log(
@@ -257,6 +266,7 @@ subredditRoutes.get(
                             : formatWikipagelisting(json, subreddit),
                         subreddit: subreddit,
                         user_preferences: req.cookies,
+                        instance_config: config,
                       });
                     }
                   }
@@ -275,6 +285,7 @@ subredditRoutes.get(
                 json: null,
                 http_status_code: result.status,
                 user_preferences: req.cookies,
+                instance_config: config,
               });
             }
           })
@@ -328,6 +339,7 @@ subredditRoutes.get('/r/random', (req, res, next) => {
                   return res.render('subreddit', {
                     json: null,
                     user_preferences: req.cookies,
+                    instance_config: config,
                   });
                 } else {
                   console.log(
@@ -342,6 +354,7 @@ subredditRoutes.get('/r/random', (req, res, next) => {
             return res.render('frontpage', {
               json: null,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         });
@@ -358,6 +371,7 @@ subredditRoutes.get('/r/random', (req, res, next) => {
           json: null,
           http_status_code: result.status,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       }
     })
@@ -423,6 +437,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -465,6 +480,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
               redis_key: key,
               after: req.query.after,
               before: req.query.before,
+              instance_config: config,
             });
           } else {
             return res.render('subreddit', {
@@ -472,6 +488,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
               error: true,
               data: processed_json,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         }
@@ -499,6 +516,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
                     return res.render('subreddit', {
                       json: null,
                       user_preferences: req.cookies,
+                      instance_config: config,
                     });
                   } else {
                     console.log(
@@ -541,6 +559,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
                           redis_key: key,
                           after: req.query.after,
                           before: req.query.before,
+                          instance_config: config,
                         });
                       }
                     })();
@@ -561,6 +580,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })
@@ -623,6 +643,7 @@ subredditRoutes.get(
         return res.render('frontpage', {
           post: null,
           user_preferences: req.cookies,
+          instance_config: config,
         });
       }
       if (json) {
@@ -670,6 +691,7 @@ subredditRoutes.get(
             instance_videos_muted: config.videos_muted,
             post_media_max_heights: config.post_media_max_heights,
             redis_key: comments_key,
+            instance_config: config,
           });
         })();
       } else {
@@ -696,6 +718,7 @@ subredditRoutes.get(
                       return res.render('post', {
                         post: null,
                         user_preferences: req.cookies,
+                        instance_config: config,
                       });
                     } else {
                       console.log(
@@ -744,6 +767,7 @@ subredditRoutes.get(
                           instance_videos_muted: config.videos_muted,
                           post_media_max_heights: config.post_media_max_heights,
                           redis_key: comments_key,
+                          instance_config: config,
                         });
                       })();
                     }
@@ -764,6 +788,7 @@ subredditRoutes.get(
                 http_status_code: result.status,
                 http_statustext: result.statusText,
                 user_preferences: req.cookies,
+                instance_config: config,
               });
             }
           })
@@ -844,6 +869,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
@@ -867,6 +893,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
             subreddits_front: !before && !after ? true : false,
             user_preferences: req.cookies,
             instance_nsfw_enabled: config.nsfw_enabled,
+            instance_config: config,
           });
         } else {
           return res.render('subreddits_explore', {
@@ -874,6 +901,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
             error: true,
             data: processed_json,
             user_preferences: req.cookies,
+            instance_config: config,
           });
         }
       })();
@@ -907,6 +935,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
                   return res.render('subreddits_explore', {
                     json: null,
                     user_preferences: req.cookies,
+                    instance_config: config,
                   });
                 } else {
                   console.log(`Fetched the JSON from reddit.com/subreddits.`);
@@ -928,6 +957,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
                       subreddits_front: !before && !after ? true : false,
                       user_preferences: req.cookies,
                       instance_nsfw_enabled: config.nsfw_enabled,
+                      instance_config: config,
                     });
                   })();
                 }
@@ -946,6 +976,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
+              instance_config: config,
             });
           }
         })
