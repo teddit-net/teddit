@@ -5,8 +5,22 @@ const homeRoute = require('express').Router();
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
+const frontpagePath = config.clean_homepage ? '/frontpage' : '';
 
-homeRoute.get('/:sort?', async (req, res, next) => {
+if (config.clean_homepage) {
+  homeRoute.get('/', (req, res, next) => {
+    if (req.cookies.clean_homepage && req.cookies.clean_homepage == 'true') {
+      return res.redirect('/frontpage');
+    }
+
+    res.render('homepage', {
+      user_preferences: req.cookies,
+      internal_config: config,
+    });
+  });
+}
+
+homeRoute.get(`${frontpagePath}/:sort?`, async (req, res, next) => {
   let past = req.query.t;
   let before = req.query.before;
   let after = req.query.after;
@@ -122,7 +136,7 @@ homeRoute.get('/:sort?', async (req, res, next) => {
   redis.get(key, (error, json) => {
     if (error) {
       console.error('Error getting the frontpage key from redis.', error);
-      return res.render('index', {
+      return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
       });
@@ -148,7 +162,7 @@ homeRoute.get('/:sort?', async (req, res, next) => {
             null,
             req.cookies
           );
-          return res.render('index', {
+          return res.render('frontpage', {
             json: processed_json,
             sortby: sortby,
             past: past,
@@ -184,7 +198,7 @@ homeRoute.get('/:sort?', async (req, res, next) => {
                       'Error setting the frontpage key to redis.',
                       error
                     );
-                    return res.render('index', {
+                    return res.render('frontpage', {
                       json: null,
                       user_preferences: req.cookies,
                     });
@@ -209,7 +223,7 @@ homeRoute.get('/:sort?', async (req, res, next) => {
                           null,
                           req.cookies
                         );
-                        return res.render('index', {
+                        return res.render('frontpage', {
                           json: processed_json,
                           sortby: sortby,
                           past: past,
@@ -227,7 +241,7 @@ homeRoute.get('/:sort?', async (req, res, next) => {
               `Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`
             );
             console.error(config.reddit_api_error_text);
-            return res.render('index', {
+            return res.render('frontpage', {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,

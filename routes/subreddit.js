@@ -65,7 +65,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
   redis.get(key, (error, json) => {
     if (error) {
       console.error('Error getting the search key from redis.', error);
-      return res.render('index', {
+      return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
       });
@@ -126,7 +126,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
                         'Error setting the searches key to redis.',
                         error
                       );
-                      return res.render('index', {
+                      return res.render('frontpage', {
                         json: null,
                         user_preferences: req.cookies,
                       });
@@ -162,7 +162,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
               `Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`
             );
             console.error(config.reddit_api_error_text);
-            return res.render('index', {
+            return res.render('frontpage', {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
@@ -206,7 +206,7 @@ subredditRoutes.get(
           `Error getting the ${subreddit} wiki key from redis.`,
           error
         );
-        return res.render('index', {
+        return res.render('frontpage', {
           json: null,
           user_preferences: req.cookies,
         });
@@ -271,7 +271,7 @@ subredditRoutes.get(
                 );
                 console.error(config.reddit_api_error_text);
               }
-              return res.render('index', {
+              return res.render('frontpage', {
                 json: null,
                 http_status_code: result.status,
                 user_preferences: req.cookies,
@@ -339,7 +339,7 @@ subredditRoutes.get('/r/random', (req, res, next) => {
             );
           } else {
             console.error(`Fetching random subreddit failed.`, json);
-            return res.render('index', {
+            return res.render('frontpage', {
               json: null,
               user_preferences: req.cookies,
             });
@@ -354,7 +354,7 @@ subredditRoutes.get('/r/random', (req, res, next) => {
           );
           console.error(config.reddit_api_error_text);
         }
-        return res.render('index', {
+        return res.render('frontpage', {
           json: null,
           http_status_code: result.status,
           user_preferences: req.cookies,
@@ -420,7 +420,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
   redis.get(key, (error, json) => {
     if (error) {
       console.error(`Error getting the ${subreddit} key from redis.`, error);
-      return res.render('index', {
+      return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
       });
@@ -557,7 +557,7 @@ subredditRoutes.get('/r/:subreddit/:sort?', (req, res, next) => {
               );
               console.error(config.reddit_api_error_text);
             }
-            return res.render('index', {
+            return res.render('frontpage', {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
@@ -620,7 +620,7 @@ subredditRoutes.get(
           `Error getting the ${comments_url} key from redis.`,
           error
         );
-        return res.render('index', {
+        return res.render('frontpage', {
           post: null,
           user_preferences: req.cookies,
         });
@@ -759,7 +759,7 @@ subredditRoutes.get(
                 );
                 console.error(config.reddit_api_error_text);
               }
-              return res.render('index', {
+              return res.render('frontpage', {
                 json: null,
                 http_status_code: result.status,
                 http_statustext: result.statusText,
@@ -841,7 +841,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
   redis.get(key, (error, json) => {
     if (error) {
       console.error(`Error getting the subreddits key from redis.`, error);
-      return res.render('index', {
+      return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
       });
@@ -942,7 +942,7 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
               );
               console.error(config.reddit_api_error_text);
             }
-            return res.render('index', {
+            return res.render('frontpage', {
               json: null,
               http_status_code: result.status,
               user_preferences: req.cookies,
