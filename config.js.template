@@ -82,6 +82,13 @@ const config = {
    * Here you can configure the suggested subreddits which are visible in the
    * cleaned homepage, and in the top bar.
    * You should keep at least 'All', and 'Saved'.
+   *
+   * If you set your configs with an environment variables for example with
+   * docker-compose.yml, your suggested_subreddits config could be something
+   * like this (note the quotes):
+   * - SUGGESTED_SUBREDDITS=["Popular", "All", "Saved", "selfhosted", "linux", "datahoarder", "Monero"]
+   * or
+   * - 'SUGGESTED_SUBREDDITS=["Popular", "All", "Saved", "selfhosted", "linux", "datahoarder", "Monero"]'
    */
   suggested_subreddits: process.env.SUGGESTED_SUBREDDITS
                         ? JSON.parse(process.env.SUGGESTED_SUBREDDITS)
