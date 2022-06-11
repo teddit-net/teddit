@@ -278,6 +278,7 @@ async function processJsonPost(json, parsed, user_preferences) {
                       post.media_metadata[id].p.length - 1
                     ].u
                   ),
+                  caption: post.gallery_data.items[i].caption || false,
                 };
               }
               obj.gallery_items.push(item);
