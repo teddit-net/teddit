@@ -1647,6 +1647,36 @@ body.homepage.clean .sublinks a {
   }
 }
 
+/* Large gallery items */
+.gallery .item.large {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  position: relative;
+  margin-right: 0.3rem;
+}
+
+.gallery .item.large img {
+  max-height: 90vh;
+  position: relative;
+}
+
+.gallery .item.large .caption {
+  position: absolute;
+  width: calc(100% - 0.6rem);
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.3rem;
+  bottom: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .gallery .item.large img {
+    max-height: unset;
+    max-width: 100%;
+  }
+}
+
 /* Fix spoiler texts not showing without JS */
 .md .md-spoiler-text:not(.revealed):active,.md .md-spoiler-text:not(.revealed):focus,.md .md-spoiler-text:not(.revealed):hover {
   color: black;
