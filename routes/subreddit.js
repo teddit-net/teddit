@@ -611,6 +611,11 @@ subredditRoutes.get(
       viewing_comment = true;
     }
 
+    if (sortby === 'best') {
+      // in Reddit the sorting "best" is the label, but the actual key "confidence"
+      sortby = 'confidence';
+    }
+
     if (!sortby) {
       sortby = config.post_comments_sort;
     }
