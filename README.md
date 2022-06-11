@@ -151,6 +151,7 @@ The following variables may be set to customize your deployment at runtime.
 | domain_replacements | Replacements for domains in outgoing links. Tuples with regular expressions to match, and replacement values. This is in addition to user-level configuration of privacyDomains. Defaults to **[]** |
 | cache_control | *Boolean* If true, teddit will automatically remove all cached static files. Defaults to **true** |
 | cache_control_interval | How often the cache directory for static files is emptied (in hours). Default is every 24 hours. Requires cache_control to be true. Defaults to **24** |
+| suggested_subreddits | Array of suggested subreddits, which are displayed in the top bar (if the user doesn't have any subscriptions) and in the cleaned home page. Defaults to Reddit's default suggested subreddits. |
 
 ### Manual
 
