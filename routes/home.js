@@ -5,22 +5,22 @@ const homeRoute = require('express').Router();
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
 const processMoreComments = require('../inc/processMoreComments.js')();
-const frontpagePath = config.clean_homepage ? '/frontpage' : '';
 
-if (config.clean_homepage) {
-  homeRoute.get('/', (req, res, next) => {
-    if (req.cookies.clean_homepage && req.cookies.clean_homepage == 'true') {
-      return res.redirect('/frontpage');
-    }
-
-    res.render('homepage', {
+homeRoute.get('/', (req, res, next) => {
+  if (
+      (config.clean_homepage && req.cookies.prefer_frontpage !== 'true') ||
+      (!config.clean_homepage && req.cookies.prefer_frontpage == 'undefined')
+  ) {
+    return res.render('homepage', {
       user_preferences: req.cookies,
       internal_config: config,
     });
-  });
-}
+  }
 
-homeRoute.get(`${frontpagePath}/:sort?`, async (req, res, next) => {
+  next();
+});
+
+homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
   let past = req.query.t;
   let before = req.query.before;
   let after = req.query.after;
@@ -81,7 +81,7 @@ homeRoute.get(`${frontpagePath}/:sort?`, async (req, res, next) => {
     d = `&before=${before}`;
   }
 
-  if (sortby == '') {
+  if (sortby == '' || sortby == 'frontpage') {
     sortby = 'hot';
   }
 

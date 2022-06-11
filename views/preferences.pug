@@ -104,12 +104,11 @@ html
               if(!user_preferences.show_upvotes || user_preferences.show_upvotes == 'true')
                 input(type="checkbox", name="show_upvotes", id="show_upvotes", checked="checked")
               else
-                input(type="checkbox", name="show_upvotes", id="show_upvotes")
-          if instance_config.clean_homepage
+                input(type="checkbox", name="show_upvotes", id="show_upvotes")         
             .setting
               label(for="prefer_frontpage") Prefer reddit-style frontpage as homepage: 
-                if(user_preferences.prefer_frontpage == 'true')
-                  input(type="checkbox", name="prefer_frontpage", id="prefer_frontpage", checked="true")
+                if ((!instance_config.clean_homepage && !user_preferences.prefer_frontpage) || user_preferences.prefer_frontpage == 'true')
+                  input(type="checkbox", name="prefer_frontpage", id="prefer_frontpage", checked="checked")
                 else
                   input(type="checkbox", name="prefer_frontpage", id="prefer_frontpage")
           legend Media
