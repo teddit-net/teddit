@@ -1,3 +1,4 @@
+const config = require('../config');
 const searchRoute = require('express').Router();
 
 searchRoute.get('/search', (req, res, next) => {
