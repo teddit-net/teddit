@@ -23,8 +23,8 @@ html
           a(href="/saved") Saved
           each subreddit in user_preferences.subbed_subreddits
             a(href="/r/" + subreddit) #{subreddit}
-        else if internal_config.suggested_subreddits && Array.isArray(internal_config.suggested_subreddits)
-          each subreddit in internal_config.suggested_subreddits
+        else if instance_config.suggested_subreddits && Array.isArray(instance_config.suggested_subreddits)
+          each subreddit in instance_config.suggested_subreddits
             if subreddit.toLowerCase() === 'saved'
               a(href="/saved") Saved
             else

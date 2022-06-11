@@ -13,7 +13,7 @@ homeRoute.get('/', (req, res, next) => {
   ) {
     return res.render('homepage', {
       user_preferences: req.cookies,
-      internal_config: config,
+      instance_config: config,
     });
   }
 
