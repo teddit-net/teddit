@@ -17,6 +17,7 @@ function resetPreferences(res) {
   res.clearCookie('domain_instagram');
   res.clearCookie('videos_muted');
   res.clearCookie('prefer_frontpage');
+  res.clearCookie('show_large_gallery_images');
 }
 
 preferenceRoutes.get('/preferences', (req, res, next) => {
@@ -91,6 +92,7 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   let domain_instagram = req.body.domain_instagram;
   let videos_muted = req.body.videos_muted;
   let prefer_frontpage = req.body.prefer_frontpage;
+  let show_large_gallery_images = req.body.show_large_gallery_images;
 
   res.cookie('theme', theme, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
@@ -170,6 +172,12 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
 
   if (prefer_frontpage === 'on') prefer_frontpage = 'true';
   res.cookie('prefer_frontpage', prefer_frontpage, {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+
+  if (show_large_gallery_images === 'on') show_large_gallery_images = 'true';
+  res.cookie('show_large_gallery_images', show_large_gallery_images, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });

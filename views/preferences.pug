@@ -126,6 +126,12 @@ html
                 input(type="checkbox", name="videos_muted", id="videos_muted", checked="checked")
               else
                 input(type="checkbox", name="videos_muted", id="videos_muted")
+          .setting
+            label(for="show_large_gallery_images") Show large gallery images with captions: 
+            if (user_preferences.show_large_gallery_images == 'true')
+              input(type="checkbox", name="show_large_gallery_images", id="show_large_gallery_images", checked="checked")
+            else
+              input(type="checkbox", name="show_large_gallery_images", id="show_large_gallery_images")
           small(class="notice") Preferences are stored client-side using cookies without any personal information.
           br
           input(type="submit", value="Save preferences")
