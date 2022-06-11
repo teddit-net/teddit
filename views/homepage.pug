@@ -7,14 +7,15 @@ html
     include includes/meta_description.pug
     include includes/head.pug
   body(class="" + (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + " homepage clean")
+    include includes/topbar.pug
     main
       h1 teddit
-      form(action="/search" method="GET")
-        input(type="text" name="q")
-        input(type="hidden" name="restrict_sr" value="on")
-        input(type="hidden" name="nsfw" value="on")
-        input(type="hidden" name="sort" value="relevance")
-        input(type="hidden" name="t" value="all")
+      form(action="/search", method="GET")
+        input(type="text", name="q")
+        input(type="hidden", name="restrict_sr", value="on")
+        input(type="hidden", name="nsfw", value="on")
+        input(type="hidden", name="sort", value="relevance")
+        input(type="hidden", name="t", value="all")
       .sublinks
         if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
           a(href="/r/popular") Popular
