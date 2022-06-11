@@ -46,6 +46,7 @@ preferenceRoutes.get('/import_prefs/:key', (req, res, next) => {
       return res.render('frontpage', {
         json: null,
         user_preferences: req.cookies,
+        instance_config: config,
       });
     }
     if (json) {
