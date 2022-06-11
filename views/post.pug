@@ -137,12 +137,19 @@ html
               if post.gallery
                 .gallery
                   each item in post.gallery_items
-                    .item
-                      div
+                    if user_preferences.show_large_gallery_images == 'true'
+                      .item.large
                         a(href="" + item.large + "", target="_blank")
-                          img(src=""+ item.thumbnail +"", alt="")
-                      a(href="" + item.source + "", target="_blank", class="source-link")
-                        small source
+                          img(src="" + item.large + "", title="" + item.caption + "")
+                        if item.caption
+                          span.caption !{item.caption}
+                    else
+                      .item
+                        div
+                          a(href="" + item.large + "", target="_blank")
+                            img(src=""+ item.thumbnail +"", alt="")
+                        a(href="" + item.source + "", target="_blank", class="source-link")
+                          small source
               if post.images
                 .image
                   a(href="" + post.images.source + "")
