@@ -43,6 +43,8 @@ Community instances:
 | [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
 | [teddit.froth.zone](https://teddit.froth.zone) |  | | |
 | [rdt.trom.tf](https://rdt.trom.tf) |  | | Part of the https://trom.tf project |
+| [https://teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
+
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
