@@ -44,6 +44,7 @@ Community instances:
 | [teddit.froth.zone](https://teddit.froth.zone) |  | | |
 | [rdt.trom.tf](https://rdt.trom.tf) |  | | Part of the https://trom.tf project |
 | [https://teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
+| [https://i.opnxng.com](https://i.opnxng.com) |  |  | |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
