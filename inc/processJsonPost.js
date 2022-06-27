@@ -365,8 +365,7 @@ async function finalizeJsonPost(
   post_url,
   morechildren_ids,
   viewing_comment,
-  user_preferences,
-  req_url
+  user_preferences
 ) {
   let comments_html = `<div class="comments">`;
   let comments = processed_json.comments;
@@ -389,8 +388,7 @@ async function finalizeJsonPost(
       processed_json.author,
       viewing_comment,
       user_preferences,
-      last_known_depth,
-      req_url
+      last_known_depth
     );
   }
 

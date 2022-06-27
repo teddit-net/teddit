@@ -1,5 +1,5 @@
 module.exports = function() {
-  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences, last_known_depth, req_url) => {
+  this.compilePostCommentsHtml = (comments, next_comment, post_id, post_url, morechildren_ids, post_author, viewing_comment, user_preferences, last_known_depth) => {
     return new Promise((resolve, reject) => {
       (async () => {
         let comments_html
@@ -115,9 +115,7 @@ module.exports = function() {
               }
             } else {
               let link = comments.parent_id.split('_')[1]
-              if (req_url.slice(-1) === '/') {
-                link = '../' + link
-              }
+              link = post_url + link
               comments_html = `
                 <div class="load-more-comments">
                   <a href="${link}/#c">continue this thread</a>
@@ -202,7 +200,7 @@ module.exports = function() {
                     if(comment.replies[j+1]) {
                       next_reply = comment.replies[j+1]
                     }
-                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment, user_preferences, null, req_url)
+                    replies_html += await compilePostCommentsHtml(comment.replies[j], next_reply, post_id, post_url, null, post_author, viewing_comment, user_preferences)
                   }
                 }
               }
@@ -219,9 +217,7 @@ module.exports = function() {
                 `
               } else {
                 let link = comment.parent_id.split('_')[1] 
-                if (req_url.slice(-1) === '/') {
-                  link = '../' + link
-                }
+                link = post_url + link
                 comments_html = `
                   <div class="load-more-comments">
                     <a href="${link}/#c">continue this thread</a>
