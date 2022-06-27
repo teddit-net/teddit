@@ -682,7 +682,8 @@ subredditRoutes.get(
             post_url,
             more_comments,
             viewing_comment,
-            req.cookies
+            req.cookies,
+            req.url
           );
           return res.render('post', {
             post: finalized_json.post_data,
@@ -758,7 +759,9 @@ subredditRoutes.get(
                           id,
                           post_url,
                           more_comments,
-                          viewing_comment
+                          viewing_comment,
+                          req.cookies,
+                          req.url
                         );
                         return res.render('post', {
                           post: finalized_json.post_data,
