@@ -5,10 +5,14 @@ module.exports = function() {
         let comments_html
         function commentAuthor(comment, classlist, submitter, moderator) {
           let classes = classlist.join(' ')
-          if (comment.author === '[deleted]')
-            return `<span class="${classes}">[deleted]</span>`
-          else
+          if (comment.author === '[deleted]') {
+            var reveddit_url = "https://www.reveddit.com" + post_url.substr(post_url.indexOf('/r/')) + comments.id
+            return `<span class="${classes}"><a href="${reveddit_url}" style='color: red !important;'>[deleted]</a></span>`
+          }
+
+          else {
             return `<a href="/u/${comment.author}" class="${classes}">${comment.author}</a>${submitter || ''}${moderator || ''}`
+          }
         }
         
         if(!user_preferences)
