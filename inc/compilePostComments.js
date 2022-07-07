@@ -7,7 +7,7 @@ module.exports = function() {
           let classes = classlist.join(' ')
           if (comment.author === '[deleted]') {
             var reveddit_url = "https://www.reveddit.com" + post_url.substr(post_url.indexOf('/r/')) + comments.id
-            return `<span class="${classes}"><a href="${reveddit_url}" style='color: red !important;'>[deleted]</a></span>`
+            return `<span class="${classes}"><a href="${reveddit_url}" style='color: #cc6a6a !important;'>[deleted]</a></span>`
           }
 
           else {
