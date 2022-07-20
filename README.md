@@ -45,6 +45,7 @@ Community instances:
 | [https://teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
 | [https://i.opnxng.com](https://i.opnxng.com) |  |  | |
 | [https://teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
+| [https://teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
