@@ -46,6 +46,7 @@ Community instances:
 | [https://i.opnxng.com](https://i.opnxng.com) |  |  | |
 | [https://teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
 | [https://teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
+| [tedd.it](https://tedd.it) |  |  | |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
