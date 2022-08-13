@@ -42,11 +42,12 @@ Community instances:
 | [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
 | [teddit.froth.zone](https://teddit.froth.zone) |  | | |
 | [rdt.trom.tf](https://rdt.trom.tf) |  | | Part of the https://trom.tf project |
-| [https://teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
-| [https://i.opnxng.com](https://i.opnxng.com) |  |  | |
-| [https://teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
-| [https://teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
+| [teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
+| [i.opnxng.com](https://i.opnxng.com) |  |  | |
+| [teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
+| [teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
 | [tedd.it](https://tedd.it) |  |  | |
+| [teddit.privacytools.io](https://teddit.privacytools.io) |  |  | Part of [PrivacyTools.io](https://www.privacytools.io/) and hosted by [Privex](https://www.privex.io/) |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
