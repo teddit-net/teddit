@@ -49,6 +49,7 @@ Community instances:
 | [tedd.it](https://tedd.it) |  |  | |
 | [teddit.privacytools.io](https://teddit.privacytools.io) |  |  | Part of [PrivacyTools.io](https://www.privacytools.io/) and hosted by [Privex](https://www.privex.io/) |
 | [td.vern.cc](https://td.vern.cc) | [td.vernccvbvyi5qhfzyqen...onion](http://td.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion) | [td.vern.i2p](http://verncco2oaxjikammz4pi7umzp673cme6zuemx7yeeewspwrw3va.b32.i2p) | Operated by https://vern.cc |
+| [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
