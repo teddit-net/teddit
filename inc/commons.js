@@ -197,21 +197,21 @@ module.exports = function(request, fs) {
     let protocol = config.https_enabled || config.api_force_https ? 'https://' : 'http://'
 
     /**
-     * Special handling for reddit media domains in comments hrefs.
+     * Special handling for reddit media domains in comments hrefs or img srcs.
      * For example a comment might have a direct links to images in i.redd.it:
      * <a href="https://i.redd.it/hly9gyg9gjh81.png">Just refer to this </a>
-     * We want to rewrite these hrefs, but we also need to include the media
+     * We want to rewrite these hrefs, but we also need to include the domain
      * for our backend, so we know where to fetch the media from.
-     * That comment URL then becomes like this after rewriting, for example:
+     * That comment URL then becomes like this after rewriting it:
      * <a href="https://teddit.net/hly9gyg9gjh81.png?teddit_proxy=i.redd.it">Just refer to this </a>
      * And then in our backend, we check if we have a 'teddit_proxy' in the req
      * query, and proceed to proxy if it does.
      */
-    const replacable_media_domains = ['i.redd.it', 'v.redd.it', 'preview.redd.it']
+    const replacable_media_domains = ['i.redd.it', 'v.redd.it', 'external-preview.redd.it', 'preview.redd.it']
     replacable_media_domains.forEach((domain) => {
       if (str.includes(domain + "/")) {
-        const href_regex = new RegExp(`(?<=href=")(https?:\/\/)([A-z.]+\.)?(${domain})(.+?(?="))`, 'gm')
-        const hrefs = str.match(href_regex)
+        const regex = new RegExp(`(?<=(href|src)=")(https?:\/\/)([A-z.]+\.)?(${domain})(.+?(?="))`, 'gm')
+        const hrefs = str.match(regex)
         if (!hrefs) {
           return
         }
@@ -225,7 +225,7 @@ module.exports = function(request, fs) {
 
             // append the domain info to the query, for teddit backend
             let u = new URL(url)
-            if (u.query) {
+            if (u.search) {
               url += '&teddit_proxy=' + domain
             } else {
               url += '?teddit_proxy=' + domain

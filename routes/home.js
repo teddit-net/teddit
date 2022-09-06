@@ -40,13 +40,18 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
       : false;
   if (proxyable) {
     let media_url = '';
-    const replacable_media_domains = ['i.redd.it', 'v.redd.it']
+    const replacable_media_domains = ['i.redd.it', 'v.redd.it', 'external-preview.redd.it']
     if (req.query.teddit_proxy) {
       if (replacable_media_domains.includes(req.query.teddit_proxy)) {
         let full_url = req.protocol + '://' + req.get('host') + req.originalUrl;
         let u = new URL(full_url);
         let filename = u.pathname || '';
         let query = u.search || '';
+        if (query != '') {
+          let params = new URLSearchParams(query);
+          params.delete('teddit_proxy');
+          query = '?' + params.toString();
+        }
         media_url = `https://${req.query.teddit_proxy}${filename}${query}`;
       }
     } else {
