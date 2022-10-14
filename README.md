@@ -195,7 +195,8 @@ The following variables may be set to customize your deployment at runtime.
 
 Teddit should now be running at <http://localhost:8080>. 
 
-You also run teddit from a process manager like [pm2](https://www.npmjs.com/package/pm2):
+You can also run teddit from a process manager like [pm2](https://www.npmjs.com/package/pm2):
+
 ```
 ## To run:
 npm install pm2 -g
