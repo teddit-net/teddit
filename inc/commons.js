@@ -193,6 +193,7 @@ module.exports = function(request, fs) {
     let youtubeRegex = /(?<=href=")(https?:\/\/)([A-z.]+\.)?youtu(be\.com|\.be)(?=.+")/gm;
     let twitterRegex = /(?<=href=")(https?:\/\/)(www\.)?twitter\.com(?=.+")/gm;
     let instagramRegex = /(?<=href=")(https?:\/\/)(www+\.)?instagram.com(?=.+")/gm;
+    let quoraRegex = /(?<=href=")(https?:\/\/)([A-z.]+\.)?quora\.com(?=.+")/gm;
 
     let protocol = config.https_enabled || config.api_force_https ? 'https://' : 'http://'
 
@@ -259,6 +260,10 @@ module.exports = function(request, fs) {
     if(typeof(user_preferences.domain_instagram) != 'undefined')
       if(user_preferences.domain_instagram)
         str = str.replace(instagramRegex, protocol + user_preferences.domain_instagram)
+    
+    if(typeof(user_preferences.domain_quora) != 'undefined')
+      if(user_preferences.domain_quora)
+        str = str.replace(quoraRegex, protocol + user_preferences.domain_quora)
     
     return str
   }
