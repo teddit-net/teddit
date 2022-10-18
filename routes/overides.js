@@ -101,6 +101,15 @@ overridingRoutes.all('*', (req, res, next) => {
     });
   }
 
+  let domainQuora = req.query.domain_quora;
+  if (domainQuora) {
+    req.cookies.domain_quora = domainQuora;
+    res.cookie('domain_quora', domainQuora, {
+      maxAge: 31536000,
+      httpOnly: true,
+    });
+  }
+
   let videosMuted = req.query.videos_muted;
   if (videosMuted) {
     req.cookies.videos_muted = videosMuted;

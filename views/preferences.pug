@@ -31,6 +31,12 @@ html
                 input(type="text", name="domain_instagram", id="domain_instagram", value="" + user_preferences.domain_instagram + "", placeholder="e.g. bibliogram.art")
               else
                 input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
+          .setting
+            label(for="domain_quora") Replace Quora links with Quetre (blank to disable):
+              if(user_preferences.domain_quora != '' && typeof(user_preferences.domain_quora) != 'undefined')
+                input(type="text", name="domain_quora", id="domain_quora", value="" + user_preferences.domain_quora + "", placeholder="e.g. quetre.iket.me")
+              else
+                input(type="text", name="domain_quora", id="domain_quora", placeholder="e.g. quetre.iket.me")
           legend Display
           .setting
             label(for="theme") Theme: 
