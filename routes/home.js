@@ -40,7 +40,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
       : false;
   if (proxyable) {
     let media_url = '';
-    const replacable_media_domains = ['i.redd.it', 'v.redd.it', 'external-preview.redd.it']
+    const replacable_media_domains = ['i.redd.it', 'v.redd.it', 'external-preview.redd.it', 'preview.redd.it']
     if (req.query.teddit_proxy) {
       if (replacable_media_domains.includes(req.query.teddit_proxy)) {
         let full_url = req.protocol + '://' + req.get('host') + req.originalUrl;
