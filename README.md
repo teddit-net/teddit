@@ -193,4 +193,18 @@ The following variables may be set to customize your deployment at runtime.
    npm start
    ```
 
-Teddit should now be running at <http://localhost:8080>.
+Teddit should now be running at <http://localhost:8080>. 
+
+You can also run teddit from a process manager like [pm2](https://www.npmjs.com/package/pm2):
+
+```
+## To run:
+npm install pm2 -g
+pm2 start app.js 
+
+## To run on startup:
+pm2 startup
+pm2 save
+```
+
+See also the [pm2 instructions for running a project on startup](https://pm2.keymetrics.io/docs/usage/startup/), and in particular the section on waiting for your machine to connect to its network.
