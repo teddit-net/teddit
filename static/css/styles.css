@@ -280,9 +280,11 @@ header .tabmenu li.active a {
   color: white;
   padding: 16px;
 }
+input, select {
+  padding: 2px;
+}
 input[type="submit"],
 .btn {
-  padding: 3px;
   margin-top: 7px;
   margin-right: 10px;
   border-radius: 0;
