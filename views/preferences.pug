@@ -47,30 +47,36 @@ html
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme == 'white')
+                else if(user_preferences.theme == 'white')
                   option(value="auto") Auto
                   option(value="white", selected="selected") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'dark')
+                else if(user_preferences.theme === 'dark')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark", selected="selected") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'sepia')
+                else if(user_preferences.theme === 'sepia')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia", selected="selected") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'nord')
+                else if(user_preferences.theme === 'nord')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord", selected="selected") Nord
+                else
+                  option(value="auto") Auto
+                  option(value="white") White
+                  option(value="dark") Dark
+                  option(value="sepia") Sepia
+                  option(value="nord") Nord
           .setting
             label(for="flairs") Show flairs: 
               if(!user_preferences.flairs || user_preferences.flairs == 'true')
