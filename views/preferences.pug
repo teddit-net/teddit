@@ -37,6 +37,12 @@ html
                 input(type="text", name="domain_quora", id="domain_quora", value="" + user_preferences.domain_quora + "", placeholder="e.g. quetre.iket.me")
               else
                 input(type="text", name="domain_quora", id="domain_quora", placeholder="e.g. quetre.iket.me")
+          .setting
+            label(for="domain_imgur") Replace Imgur links with Rimgo (blank to disable): 
+              if(user_preferences.domain_imgur != '' && typeof(user_preferences.domain_imgur) != 'undefined')
+                input(type="text", name="domain_imgur", id="domain_imgur", value="" + user_preferences.domain_imgur + "", placeholder="e.g. rimgo.bcow.xyz")
+              else
+                input(type="text", name="domain_imgur", id="domain_imgur", placeholder="e.g. rimgo.bcow.xyz")
           legend Display
           .setting
             label(for="theme") Theme: 

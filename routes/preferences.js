@@ -16,6 +16,7 @@ function resetPreferences(res) {
   res.clearCookie('domain_youtube');
   res.clearCookie('domain_instagram');
   res.clearCookie('domain_quora');
+  res.clearCookie('domain_imgur');
   res.clearCookie('videos_muted');
   res.clearCookie('prefer_frontpage');
   res.clearCookie('show_large_gallery_images');
@@ -94,6 +95,7 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   let domain_youtube = req.body.domain_youtube;
   let domain_instagram = req.body.domain_instagram;
   let domain_quora = req.body.domain_quora;
+  let domain_imgur = req.body.domain_imgur;
   let videos_muted = req.body.videos_muted;
   let prefer_frontpage = req.body.prefer_frontpage;
   let show_large_gallery_images = req.body.show_large_gallery_images;
@@ -175,6 +177,10 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
     httpOnly: true,
   });
   res.cookie('domain_quora', domain_quora, {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  });
+  res.cookie('domain_imgur', domain_imgur, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
