@@ -200,7 +200,7 @@ module.exports = function(request, fs) {
      * source: https://github.com/libredirect/libredirect/blob/32c4a0211e3b721d46219c05cba93f1a42cf3773/src/config/config.json#L317
      * license: GNU GPL v3 License -> https://github.com/libredirect/libredirect/blob/32c4a0211e3b721d46219c05cba93f1a42cf3773/LICENSE
     */
-    let imgurRegex = /^https?:\/{2}([im]\.)?(stack\.)?imgur\.(com|io)/gm;
+    let imgurRegex = /(?<=href=")(https?:\/{2})([im]\.)?(stack\.)?imgur\.(com|io)(?=.+")/gm;
 
     let protocol = config.https_enabled || config.api_force_https ? 'https://' : 'http://'
 
