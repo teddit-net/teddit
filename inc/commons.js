@@ -194,6 +194,13 @@ module.exports = function(request, fs) {
     let twitterRegex = /(?<=href=")(https?:\/\/)(www\.)?twitter\.com(?=.+")/gm;
     let instagramRegex = /(?<=href=")(https?:\/\/)(www+\.)?instagram.com(?=.+")/gm;
     let quoraRegex = /(?<=href=")(https?:\/\/)([A-z.]+\.)?quora\.com(?=.+")/gm;
+    
+    /*
+     * regex pattern to replace imgur links (imgur.com, imgur.io, i.stack.imgur.com)
+     * source: https://github.com/libredirect/libredirect/blob/32c4a0211e3b721d46219c05cba93f1a42cf3773/src/config/config.json#L317
+     * license: GNU GPL v3 License -> https://github.com/libredirect/libredirect/blob/32c4a0211e3b721d46219c05cba93f1a42cf3773/LICENSE
+    */
+    let imgurRegex = /(?<=href=")(https?:\/{2})([im]\.)?(stack\.)?imgur\.(com|io)(?=.+")/gm;
 
     let protocol = config.https_enabled || config.api_force_https ? 'https://' : 'http://'
 
@@ -264,6 +271,10 @@ module.exports = function(request, fs) {
     if(typeof(user_preferences.domain_quora) != 'undefined')
       if(user_preferences.domain_quora)
         str = str.replace(quoraRegex, protocol + user_preferences.domain_quora)
+
+    if(typeof(user_preferences.domain_imgur) != 'undefined')
+      if(user_preferences.domain_imgur)
+        str = str.replace(imgurRegex, protocol + user_preferences.domain_imgur)
     
     return str
   }
