@@ -10,6 +10,7 @@ const processSubredditAbout = require('../inc/processSubredditAbout.js');
 const processSearchResults = require('../inc/processSearchResults.js');
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
+const tedditApiPost = require('../inc/teddit_api/handlePost.js')();
 const processMoreComments = require('../inc/processMoreComments.js');
 const processJsonSubredditsExplore = require('../inc/processSubredditsExplore.js');
 
@@ -605,6 +606,14 @@ subredditRoutes.get(
     let viewing_comment = false;
     let comment_ids = req.query.comment_ids;
     let context = parseInt(req.query.context);
+    let api_req = req.query.api;
+    let api_type = req.query.type;
+    let api_target = req.query.target;
+
+    if (req.query.hasOwnProperty('api')) api_req = true;
+    else api_req = false;
+
+    let raw_json = api_req && req.query.raw_json == '1' ? 1 : 0;
 
     if (req.params.comment_id) {
       comment_id = `${req.params.comment_id}/`;
@@ -637,7 +646,7 @@ subredditRoutes.get(
 
     let comments_url = `/r/${subreddit}/comments/${id}/${snippet}/${comment_id}`;
     let post_url = `/r/${subreddit}/comments/${id}/${snippet}/`;
-    let comments_key = `${comments_url}:sort:${sortby}`;
+    let comments_key = `${comments_url}:sort:${sortby}:raw_json:${raw_json}`;
 
     redis.get(comments_key, (error, json) => {
       if (error) {
@@ -654,57 +663,68 @@ subredditRoutes.get(
       if (json) {
         console.log(`Got ${comments_url} key from redis.`);
         (async () => {
-          let parsed = false;
-          let more_comments = null;
-          if (comment_ids) {
-            let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
-            more_comments = await processMoreComments(
-              fetch,
-              redis,
-              post_url,
-              comment_ids,
-              id
+          if (api_req) {
+            return handleTedditApiPost(
+              json,
+              req,
+              res,
+              'redis',
+              api_type,
+              api_target
             );
+          } else {
+            let parsed = false;
+            let more_comments = null;
+            if (comment_ids) {
+              let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
+              more_comments = await processMoreComments(
+                fetch,
+                redis,
+                post_url,
+                comment_ids,
+                id
+              );
 
-            if (more_comments === false) {
-              return res.redirect(post_url);
-            } else {
-              json = JSON.parse(json);
-              json[1].data.children = more_comments;
-              parsed = true;
+              if (more_comments === false) {
+                return res.redirect(post_url);
+              } else {
+                json = JSON.parse(json);
+                json[1].data.children = more_comments;
+                parsed = true;
+              }
             }
-          }
 
-          let processed_json = await processJsonPost(json, parsed, req.cookies);
-          let finalized_json = await finalizeJsonPost(
-            processed_json,
-            id,
-            post_url,
-            more_comments,
-            viewing_comment,
-            req.cookies
-          );
-          return res.render('post', {
-            post: finalized_json.post_data,
-            comments: finalized_json.comments,
-            viewing_comment: viewing_comment,
-            post_url: post_url,
-            subreddit: subreddit,
-            sortby: sortby,
-            user_preferences: req.cookies,
-            instance_nsfw_enabled: config.nsfw_enabled,
-            instance_videos_muted: config.videos_muted,
-            post_media_max_heights: config.post_media_max_heights,
-            redis_key: comments_key,
-            instance_config: config,
-          });
+            let processed_json = await processJsonPost(json, parsed, req.cookies);
+            let finalized_json = await finalizeJsonPost(
+              processed_json,
+              id,
+              post_url,
+              more_comments,
+              viewing_comment,
+              req.cookies
+            );
+            return res.render('post', {
+              post: finalized_json.post_data,
+              comments: finalized_json.comments,
+              viewing_comment: viewing_comment,
+              post_url: post_url,
+              subreddit: subreddit,
+              sortby: sortby,
+              user_preferences: req.cookies,
+              instance_nsfw_enabled: config.nsfw_enabled,
+              instance_videos_muted: config.videos_muted,
+              post_media_max_heights: config.post_media_max_heights,
+              redis_key: comments_key,
+              instance_config: config,
+            });
+          }
         })();
       } else {
         let url = '';
         if (config.use_reddit_oauth)
-          url = `https://oauth.reddit.com${comments_url}?api_type=json&sort=${sortby}&context=${context}`;
+          url = `https://oauth.reddit.com${comments_url}?api_type=json&sort=${sortby}&context=${context}&raw_json=${raw_json}`;
         else
-          url = `https://reddit.com${comments_url}.json?api_type=json&sort=${sortby}&context=${context}`;
+          url = `https://reddit.com${comments_url}.json?api_type=json&sort=${sortby}&context=${context}&raw_json=${raw_json}`;
 
         fetch(encodeURI(url), redditApiGETHeaders())
           .then((result) => {
@@ -730,51 +750,62 @@ subredditRoutes.get(
                         `Fetched the JSON from reddit.com${comments_url}.`
                       );
                       (async () => {
-                        let more_comments = null;
-                        if (comment_ids) {
-                          let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
-                          more_comments = await processMoreComments(
-                            fetch,
-                            redis,
-                            post_url,
-                            comment_ids,
-                            id
+                        if (api_req) {
+                          return handleTedditApiPost(
+                            json,
+                            req,
+                            res,
+                            'from_online',
+                            api_type,
+                            api_target
                           );
+                        } else {
+                          let more_comments = null;
+                          if (comment_ids) {
+                            let key = `${post_url}:morechildren:comment_ids:${comment_ids}`;
+                            more_comments = await processMoreComments(
+                              fetch,
+                              redis,
+                              post_url,
+                              comment_ids,
+                              id
+                            );
 
-                          if (more_comments === false) {
-                            return res.redirect(post_url);
-                          } else {
-                            json[1].data.children = more_comments;
+                            if (more_comments === false) {
+                              return res.redirect(post_url);
+                            } else {
+                              json[1].data.children = more_comments;
+                            }
                           }
-                        }
 
-                        let processed_json = await processJsonPost(
-                          json,
-                          true,
-                          req.cookies
-                        );
-                        let finalized_json = await finalizeJsonPost(
-                          processed_json,
-                          id,
-                          post_url,
-                          more_comments,
-                          viewing_comment,
-                          req.cookies
-                        );
-                        return res.render('post', {
-                          post: finalized_json.post_data,
-                          comments: finalized_json.comments,
-                          viewing_comment: viewing_comment,
-                          post_url: post_url,
-                          subreddit: subreddit,
-                          sortby: sortby,
-                          user_preferences: req.cookies,
-                          instance_nsfw_enabled: config.nsfw_enabled,
-                          instance_videos_muted: config.videos_muted,
-                          post_media_max_heights: config.post_media_max_heights,
-                          redis_key: comments_key,
-                          instance_config: config,
-                        });
+                          let processed_json = await processJsonPost(
+                            json,
+                            true,
+                            req.cookies
+                          );
+                          let finalized_json = await finalizeJsonPost(
+                            processed_json,
+                            id,
+                            post_url,
+                            more_comments,
+                            viewing_comment,
+                            req.cookies
+                          );
+                          return res.render('post', {
+                            post: finalized_json.post_data,
+                            comments: finalized_json.comments,
+                            viewing_comment: viewing_comment,
+                            post_url: post_url,
+                            subreddit: subreddit,
+                            sortby: sortby,
+                            user_preferences: req.cookies,
+                            instance_nsfw_enabled: config.nsfw_enabled,
+                            instance_videos_muted: config.videos_muted,
+                            post_media_max_heights: config.post_media_max_heights,
+                            redis_key: comments_key,
+                            instance_config: config,
+                          });
+                        }
                       })();
                     }
                   }
