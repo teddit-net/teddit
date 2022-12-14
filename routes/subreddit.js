@@ -6,7 +6,9 @@ const {
   processJsonPost,
   finalizeJsonPost,
 } = require('../inc/processJsonPost.js');
-const processSubredditAbout = require('../inc/processSubredditAbout.js');
+const {
+  processSubredditAbout
+} = require('../inc/processSubredditAbout.js');
 const processSearchResults = require('../inc/processSearchResults.js');
 const processJsonSubreddit = require('../inc/processJsonSubreddit.js');
 const tedditApiSubreddit = require('../inc/teddit_api/handleSubreddit.js')();
@@ -178,6 +180,111 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
         })
         .catch((error) => {
           console.error('Error fetching the frontpage JSON file.', error);
+        });
+    }
+  });
+});
+
+subredditRoutes.get('/r/:subreddit/about', (req, res, next) => {
+  let subreddit = req.params.subreddit;
+  let api_type = req.query.type;
+  let api_target = req.query.target;
+  let api_mode = req.query.mode;
+
+  if (!req.query.hasOwnProperty('api')) {
+    console.log(`This route is only available via the API.`, req.originalUrl);
+    return res.redirect(`/r/${subreddit}`);
+  }
+
+  let raw_json = req.query.raw_json == '1' ? 1 : 0;
+
+  let key = `about:${subreddit.toLowerCase()}:raw_json:${raw_json}`;
+  redis.get(key, (error, json) => {
+    if (error) {
+      console.error(`Error getting the about key from redis.`, error);
+      return res.render('frontpage', {
+        json: null,
+        user_preferences: req.cookies,
+        instance_config: config,
+      });
+    }
+    if (json) {
+      console.log(`Got about key from redis.`);
+      (async () => {
+        return handleTedditApiSubredditAbout(
+          json,
+          req,
+          res,
+          'redis',
+          api_type,
+          api_target
+        );
+      })();
+    } else {
+      let url = '';
+      if (config.use_reddit_oauth)
+        url = `https://oauth.reddit.com/r/${subreddit}/about.json?api_type=json&raw_json=${raw_json}`;
+      else
+        url = `https://reddit.com/r/${subreddit}/about.json?api_type=json&raw_json=${raw_json}`;
+      fetch(encodeURI(url), redditApiGETHeaders())
+        .then((result) => {
+          if (result.status === 200) {
+            result.json().then((json) => {
+              redis.setex(
+                key,
+                config.setexs.subreddit,
+                JSON.stringify(json),
+                (error) => {
+                  if (error) {
+                    console.error(
+                      `Error setting the about key to redis.`,
+                      error
+                    );
+                    return res.render('subreddit', {
+                      json: null,
+                      user_preferences: req.cookies,
+                      instance_config: config,
+                    });
+                  } else {
+                    console.log(
+                      `Fetched the JSON from reddit.com/r/${subreddit}/about.`
+                    );
+                    (async () => {
+                      return handleTedditApiSubredditAbout(
+                        json,
+                        req,
+                        res,
+                        'from_online',
+                        api_type,
+                        api_target
+                      );
+                    })();
+                  }
+                }
+              );
+            });
+          } else {
+            if (result.status === 404) {
+              console.log('404 – Subreddit not found');
+            } else {
+              console.error(
+                `Something went wrong while fetching data from Reddit. ${result.status} – ${result.statusText}`
+              );
+              console.error(config.reddit_api_error_text);
+            }
+            return res.render('frontpage', {
+              json: null,
+              http_status_code: result.status,
+              user_preferences: req.cookies,
+              instance_config: config,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(
+            `Error fetching the JSON file from reddit.com/r/${subreddit}/about.`,
+            error
+          );
         });
     }
   });

@@ -1,4 +1,5 @@
 const processJsonSubreddit = require('../processJsonSubreddit');
+const { processJsonSubredditAbout } = require('../processSubredditAbout');
 
 module.exports = function () {
   const config = require('../../config');
@@ -189,6 +190,39 @@ module.exports = function () {
 
         return res.end(JSON.stringify(processed_json));
       }
+    }
+  };
+  this.handleTedditApiSubredditAbout = async (
+    json,
+    req,
+    res,
+    from,
+    api_type,
+    api_target
+  ) => {
+    if (!config.api_enabled) {
+      res.setHeader('Content-Type', 'application/json');
+      let msg = {
+        info: 'This instance do not support API requests. Please see https://codeberg.org/teddit/teddit#instances for instances that support API, or setup your own instance.',
+      };
+      return res.end(JSON.stringify(msg));
+    }
+
+    console.log('Teddit API request - subreddit about');
+    let _json = json; // Keep the original json
+    if (from === 'redis') json = JSON.parse(json);
+
+    res.setHeader('Content-Type', 'application/json');
+
+    if (api_target === 'reddit') {
+      return res.end(JSON.stringify(json));
+    } else {
+      let subreddit_about = await processJsonSubredditAbout(
+        json,
+        true
+      );
+
+      return res.end(JSON.stringify(subreddit_about));
     }
   };
 };
