@@ -30,93 +30,10 @@ module.exports = function () {
     if (api_type === 'rss') {
       let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
       let items = '';
+
       for (var i = 0; i < json.data.children.length; i++) {
-        let link = json.data.children[i].data;
-        let thumbnail = '';
-        let post_image = '';
-        let is_self_link = false;
-        let valid_reddit_self_domains = ['reddit.com'];
-
-        if (link.domain) {
-          let tld = link.domain.split('self.');
-          if (tld.length > 1) {
-            if (!tld[1].includes('.')) {
-              is_self_link = true;
-              link.url = teddifyUrl(link.url);
-            }
-          }
-          if (
-            config.valid_media_domains.includes(link.domain) ||
-            valid_reddit_self_domains.includes(link.domain)
-          ) {
-            is_self_link = true;
-            link.url = teddifyUrl(link.url);
-          }
-        }
-
-        if (link.preview && link.thumbnail !== 'self') {
-          if (!link.url.startsWith('/r/') && isGif(link.url)) {
-            let s = await downloadAndSave(link.thumbnail, 'thumb_');
-            thumbnail = `${protocol}://${config.domain}${s}`;
-          } else {
-            if (link.preview.images[0].resolutions[0]) {
-              let s = await downloadAndSave(
-                link.preview.images[0].resolutions[0].url,
-                'thumb_'
-              );
-              thumbnail = `${protocol}://${config.domain}${s}`;
-              if (!isGif(link.url) && !link.post_hint.includes(':video')) {
-                s = await downloadAndSave(link.preview.images[0].source.url);
-                post_image = `${protocol}://${config.domain}${s}`;
-              }
-            }
-          }
-        }
-
-        link.permalink = `${protocol}://${config.domain}${link.permalink}`;
-
-        if (is_self_link) link.url = link.permalink;
-
-        if (req.query.hasOwnProperty('full_thumbs')) {
-          if (!post_image) post_image = thumbnail;
-
-          thumbnail = post_image;
-        }
-
-        let enclosure = '';
-        if (thumbnail != '') {
-          let mime = '';
-          let ext = thumbnail.split('.').pop();
-          if (ext === 'png') mime = 'image/png';
-          else mime = 'image/jpeg';
-          enclosure = `<enclosure length="0" type="${mime}" url="${thumbnail}" />`;
-        }
-
-        let append_desc_html = `<br/><a href="${link.url}">[link]</a> <a href="${link.permalink}">[comments]</a>`;
-
-        items += `
-          <item>
-            <title>${link.title}</title>
-            <author>${link.author}</author>
-            <created>${link.created}</created>
-            <pubDate>${new Date(
-              link.created_utc * 1000
-            ).toGMTString()}</pubDate>
-            <domain>${link.domain}</domain>
-            <id>${link.id}</id>
-            <thumbnail>${thumbnail}</thumbnail>
-            ${enclosure}
-            <link>${link.permalink}</link>
-            <url>${link.url}</url>
-            <description><![CDATA[${unescape(
-              link.selftext_html
-            )}${append_desc_html}]]></description>
-            <num_comments>${link.num_comments}</num_comments>
-            <ups>${link.ups}</ups>
-            <stickied>${link.stickied}</stickied>
-            <is_self_link>${is_self_link}</is_self_link>
-          </item>
-        `;
+        let post = json.data.children[i].data;
+        items += await getPostItem(post, req, protocol);
       }
 
       let r_subreddit = '/r/' + subreddit;
@@ -152,43 +69,7 @@ module.exports = function () {
           req.cookies
         );
 
-        let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
-        for (var i = 0; i < processed_json.links.length; i++) {
-          let link = processed_json.links[i];
-          let valid_reddit_self_domains = ['reddit.com'];
-          let is_self_link = false;
-
-          if (link.domain) {
-            let tld = link.domain.split('self.');
-            if (tld.length > 1) {
-              if (!tld[1].includes('.')) {
-                is_self_link = true;
-                link.url = teddifyUrl(link.url);
-              }
-            }
-            if (
-              config.valid_media_domains.includes(link.domain) ||
-              valid_reddit_self_domains.includes(link.domain)
-            ) {
-              is_self_link = true;
-              link.url = teddifyUrl(link.url);
-            }
-          }
-
-          link.permalink = `${protocol}://${config.domain}${link.permalink}`;
-
-          if (is_self_link) link.url = link.permalink;
-
-          if (link.images) {
-            if (link.images.thumb !== 'self') {
-              link.images.thumb = `${protocol}://${config.domain}${link.images.thumb}`;
-            }
-          }
-
-          if (mode === 'light') {
-            link.selftext_html = null;
-          }
-        }
+        await processJsonPostList(processed_json.links, mode);
 
         return res.end(JSON.stringify(processed_json));
       }
