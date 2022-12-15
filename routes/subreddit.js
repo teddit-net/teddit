@@ -250,10 +250,8 @@ subredditRoutes.get('/r/:subreddit/about', (req, res, next) => {
       (async () => {
         return handleTedditApiSubredditAbout(
           json,
-          req,
           res,
           'redis',
-          api_type,
           api_target
         );
       })();
@@ -289,10 +287,8 @@ subredditRoutes.get('/r/:subreddit/about', (req, res, next) => {
                     (async () => {
                       return handleTedditApiSubredditAbout(
                         json,
-                        req,
                         res,
                         'from_online',
-                        api_type,
                         api_target
                       );
                     })();

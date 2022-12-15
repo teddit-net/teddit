@@ -77,10 +77,8 @@ module.exports = function () {
   };
   this.handleTedditApiSubredditAbout = async (
     json,
-    req,
     res,
     from,
-    api_type,
     api_target
   ) => {
     if (!config.api_enabled) {
@@ -92,7 +90,6 @@ module.exports = function () {
     }
 
     console.log('Teddit API request - subreddit about');
-    let _json = json; // Keep the original json
     if (from === 'redis') json = JSON.parse(json);
 
     res.setHeader('Content-Type', 'application/json');
@@ -128,7 +125,6 @@ module.exports = function () {
     }
 
     console.log('Teddit API request - subreddit search');
-    let _json = json; // Keep the original json
     if (from === 'redis') json = JSON.parse(json);
 
     if (api_type === 'rss') {
@@ -147,7 +143,7 @@ module.exports = function () {
       let xml_output = `<?xml version="1.0" encoding="UTF-8"?>
         <rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
           <channel>
-            <atom:link href="${link}&api&amp;type=rss" rel="self" type="application/rss+xml" />
+            <atom:link href="${link}&amp;api&amp;type=rss" rel="self" type="application/rss+xml" />
             <title>${title}</title>
             <link>${link}</link>
             <description>Results for: ${query} - ${r_subreddit}</description>

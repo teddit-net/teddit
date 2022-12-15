@@ -19,7 +19,6 @@ module.exports = function () {
     }
 
     console.log('Teddit API request - post');
-    let _json = json; // Keep the original json
     if (from === 'redis') json = JSON.parse(json);
 
     if (api_type === 'rss') {
