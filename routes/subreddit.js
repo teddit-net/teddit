@@ -1010,6 +1010,14 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
   let before = req.query.before;
   let sortby = req.params.sort;
   let searching = false;
+  let api_req = req.query.api;
+  let api_type = req.query.type;
+  let api_target = req.query.target;
+
+  if (req.query.hasOwnProperty('api')) api_req = true;
+  else api_req = false;
+
+  let raw_json = api_req && req.query.raw_json == '1' ? 1 : 0;
 
   if (!after) {
     after = '';
@@ -1031,12 +1039,12 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
     sortby = '';
   }
 
-  let key = `subreddits:sort:${sortby}${d}`;
+  let key = `subreddits:sort:${sortby}${d}:raw_json:${raw_json}`;
 
   if (sortby === 'search') {
     if (typeof q == 'undefined' || q == '') return res.redirect('/subreddits');
 
-    key = `subreddits:search:q:${q}:nsfw:${nsfw}${d}`;
+    key = `subreddits:search:q:${q}:nsfw:${nsfw}${d}:raw_json:${raw_json}`;
     searching = true;
   }
 
@@ -1052,48 +1060,60 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
     if (json) {
       console.log(`Got subreddits key from redis.`);
       (async () => {
-        let processed_json = await processJsonSubredditsExplore(
-          json,
-          'redis',
-          null,
-          req.cookies
-        );
-        if (!processed_json.error) {
-          return res.render('subreddits_explore', {
-            json: processed_json,
-            sortby: sortby,
-            after: after,
-            before: before,
-            q: q,
-            nsfw: nsfw,
-            searching: searching,
-            subreddits_front: !before && !after ? true : false,
-            user_preferences: req.cookies,
-            instance_nsfw_enabled: config.nsfw_enabled,
-            instance_config: config,
-          });
+        if (api_req) {
+          return handleTedditApiSubredditsExplore(
+            json,
+            req,
+            res,
+            'redis',
+            api_type,
+            api_target,
+            q
+          );
         } else {
-          return res.render('subreddits_explore', {
-            json: null,
-            error: true,
-            data: processed_json,
-            user_preferences: req.cookies,
-            instance_config: config,
-          });
+          let processed_json = await processJsonSubredditsExplore(
+            json,
+            'redis',
+            null,
+            req.cookies
+          );
+          if (!processed_json.error) {
+            return res.render('subreddits_explore', {
+              json: processed_json,
+              sortby: sortby,
+              after: after,
+              before: before,
+              q: q,
+              nsfw: nsfw,
+              searching: searching,
+              subreddits_front: !before && !after ? true : false,
+              user_preferences: req.cookies,
+              instance_nsfw_enabled: config.nsfw_enabled,
+              instance_config: config,
+            });
+          } else {
+            return res.render('subreddits_explore', {
+              json: null,
+              error: true,
+              data: processed_json,
+              user_preferences: req.cookies,
+              instance_config: config,
+            });
+          }
         }
       })();
     } else {
       let url = '';
       if (config.use_reddit_oauth) {
         if (!searching)
-          url = `https://oauth.reddit.com/subreddits/${sortby}?api_type=json&count=25&g=GLOBAL&t=${d}`;
+          url = `https://oauth.reddit.com/subreddits/${sortby}?api_type=json&count=25&g=GLOBAL&t=${d}&raw_json=${raw_json}`;
         else
-          url = `https://oauth.reddit.com/subreddits/search?api_type=json&q=${q}&include_over_18=${nsfw}${d}`;
+          url = `https://oauth.reddit.com/subreddits/search?api_type=json&q=${q}&include_over_18=${nsfw}${d}&raw_json=${raw_json}`;
       } else {
         if (!searching)
-          url = `https://reddit.com/subreddits/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${d}`;
+          url = `https://reddit.com/subreddits/${sortby}.json?api_type=json&count=25&g=GLOBAL&t=${d}&raw_json=${raw_json}`;
         else
-          url = `https://reddit.com/subreddits/search.json?api_type=json&q=${q}&include_over_18=${nsfw}${d}`;
+          url = `https://reddit.com/subreddits/search.json?api_type=json&q=${q}&include_over_18=${nsfw}${d}&raw_json=${raw_json}`;
       }
 
       fetch(encodeURI(url), redditApiGETHeaders())
@@ -1117,25 +1137,37 @@ subredditRoutes.get('/subreddits/:sort?', (req, res, next) => {
                 } else {
                   console.log(`Fetched the JSON from reddit.com/subreddits.`);
                   (async () => {
-                    let processed_json = await processJsonSubredditsExplore(
-                      json,
-                      'from_online',
-                      null,
-                      req.cookies
-                    );
-                    return res.render('subreddits_explore', {
-                      json: processed_json,
-                      sortby: sortby,
-                      after: after,
-                      before: before,
-                      q: q,
-                      nsfw: nsfw,
-                      searching: searching,
-                      subreddits_front: !before && !after ? true : false,
-                      user_preferences: req.cookies,
-                      instance_nsfw_enabled: config.nsfw_enabled,
-                      instance_config: config,
-                    });
+                    if (api_req) {
+                      return handleTedditApiSubredditsExplore(
+                        json,
+                        req,
+                        res,
+                        'from_online',
+                        api_type,
+                        api_target,
+                        q
+                      );
+                    } else {
+                      let processed_json = await processJsonSubredditsExplore(
+                        json,
+                        'from_online',
+                        null,
+                        req.cookies
+                      );
+                      return res.render('subreddits_explore', {
+                        json: processed_json,
+                        sortby: sortby,
+                        after: after,
+                        before: before,
+                        q: q,
+                        nsfw: nsfw,
+                        searching: searching,
+                        subreddits_front: !before && !after ? true : false,
+                        user_preferences: req.cookies,
+                        instance_nsfw_enabled: config.nsfw_enabled,
+                        instance_config: config,
+                      });
+                    }
                   })();
                 }
               });
