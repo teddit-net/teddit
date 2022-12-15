@@ -19,6 +19,15 @@ const processJsonSubredditsExplore = require('../inc/processSubredditsExplore.js
 subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
   let subreddit = req.params.subreddit;
   let q = req.query.q;
+  let api_req = req.query.api;
+  let api_type = req.query.type;
+  let api_target = req.query.target;
+  let api_mode = req.query.mode;
+
+  if (req.query.hasOwnProperty('api')) api_req = true;
+  else api_req = false;
+
+  let raw_json = api_req && req.query.raw_json == '1' ? 1 : 0;
 
   if (typeof q === 'undefined') {
     return res.render('search', {
@@ -65,7 +74,7 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
     count = '';
   }
 
-  let key = `search:${subreddit}:${q}:${restrict_sr}:${sortby}:${past}:${after}:${before}:${nsfw}`;
+  let key = `search:${subreddit}:${q}:${restrict_sr}:${sortby}:${past}:${after}:${before}:${nsfw}:raw_json:${raw_json}`;
   redis.get(key, (error, json) => {
     if (error) {
       console.error('Error getting the search key from redis.', error);
@@ -78,32 +87,46 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
     if (json) {
       console.log('Got search key from redis.');
       (async () => {
-        let processed_json = await processSearchResults(
-          json,
-          false,
-          after,
-          before,
-          req.cookies
-        );
-        return res.render('search', {
-          json: processed_json,
-          no_query: false,
-          q: q,
-          restrict_sr: restrict_sr,
-          nsfw: nsfw,
-          subreddit: subreddit,
-          sortby: sortby,
-          past: past,
-          user_preferences: req.cookies,
-          instance_config: config,
-        });
+        if (api_req) {
+          return handleTedditApiSubredditSearch(
+            json,
+            req,
+            res,
+            'redis',
+            api_type,
+            api_target,
+            subreddit,
+            q,
+            api_mode
+          );
+        } else {
+          let processed_json = await processSearchResults(
+            json,
+            false,
+            after,
+            before,
+            req.cookies
+          );
+          return res.render('search', {
+            json: processed_json,
+            no_query: false,
+            q: q,
+            restrict_sr: restrict_sr,
+            nsfw: nsfw,
+            subreddit: subreddit,
+            sortby: sortby,
+            past: past,
+            user_preferences: req.cookies,
+            instance_config: config,
+          });
+        }
       })();
     } else {
       let url = '';
       if (config.use_reddit_oauth)
-        url = `https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}`;
+        url = `https://oauth.reddit.com/r/${subreddit}/search?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}&raw_json=${raw_json}`;
       else
-        url = `https://reddit.com/r/${subreddit}/search.json?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}`;
+        url = `https://reddit.com/r/${subreddit}/search.json?api_type=json&q=${q}&restrict_sr=${restrict_sr}&include_over_18=${nsfw}&sort=${sortby}&t=${past}${count}${d}&raw_json=${raw_json}`;
       fetch(encodeURI(url), redditApiGETHeaders())
         .then((result) => {
           if (result.status === 200) {
@@ -140,25 +163,39 @@ subredditRoutes.get('/r/:subreddit/search', (req, res, next) => {
                     } else {
                       console.log('Fetched search results from Reddit.');
                       (async () => {
-                        let processed_json = await processSearchResults(
-                          json,
-                          true,
-                          after,
-                          before,
-                          req.cookies
-                        );
-                        return res.render('search', {
-                          no_query: false,
-                          json: processed_json,
-                          q: q,
-                          restrict_sr: restrict_sr,
-                          nsfw: nsfw,
-                          subreddit: subreddit,
-                          sortby: sortby,
-                          past: past,
-                          user_preferences: req.cookies,
-                          instance_config: config,
-                        });
+                        if (api_req) {
+                          return handleTedditApiSubredditSearch(
+                            json,
+                            req,
+                            res,
+                            'from_online',
+                            api_type,
+                            api_target,
+                            subreddit,
+                            q,
+                            api_mode
+                          );
+                        } else {
+                          let processed_json = await processSearchResults(
+                            json,
+                            true,
+                            after,
+                            before,
+                            req.cookies
+                          );
+                          return res.render('search', {
+                            no_query: false,
+                            json: processed_json,
+                            q: q,
+                            restrict_sr: restrict_sr,
+                            nsfw: nsfw,
+                            subreddit: subreddit,
+                            sortby: sortby,
+                            past: past,
+                            user_preferences: req.cookies,
+                            instance_config: config,
+                          });
+                        }
                       })();
                     }
                   }

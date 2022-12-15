@@ -400,8 +400,50 @@ async function finalizeJsonPost(
   return { post_data: post_data, comments: comments_html };
 }
 
-async function getPostItem(post_json, req) {
+async function processJsonPostList(posts, mode) {
   let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
+
+  for (var i = 0; i < posts.length; i++) {
+    let link = posts[i];
+    let valid_reddit_self_domains = ['reddit.com'];
+    let is_self_link = false;
+
+    if (link.domain) {
+      let tld = link.domain.split('self.');
+      if (tld.length > 1) {
+        if (!tld[1].includes('.')) {
+          is_self_link = true;
+          link.url = teddifyUrl(link.url);
+        }
+      }
+      if (
+        config.valid_media_domains.includes(link.domain) ||
+        valid_reddit_self_domains.includes(link.domain)
+      ) {
+        is_self_link = true;
+        link.url = teddifyUrl(link.url);
+      }
+    }
+
+    link.permalink = `${protocol}://${config.domain}${link.permalink}`;
+
+    if (is_self_link) link.url = link.permalink;
+
+    if (link.images) {
+      if (link.images.thumb !== 'self') {
+        link.images.thumb = `${protocol}://${config.domain}${link.images.thumb}`;
+      }
+    }
+
+    if (mode === 'light') {
+      link.selftext_html = null;
+    }
+  }
+
+  return posts;
+}
+
+async function getPostItem(post_json, req, protocol) {
   let thumbnail = '';
   let post_image = '';
   let is_self_link = false;
@@ -493,5 +535,6 @@ module.exports = {
   processReplies,
   processJsonPost,
   finalizeJsonPost,
+  processJsonPostList,
   getPostItem
 };

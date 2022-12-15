@@ -29,7 +29,7 @@ module.exports = function () {
       let post = json[0].data.children[0].data;
       let comments = json[1].data.children;
 
-      items += await getPostItem(post, req);
+      items += await getPostItem(post, req, protocol);
 
       for (var i = 0; i < comments.length; i++) {
         let comment = comments[i].data;
