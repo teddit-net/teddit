@@ -85,7 +85,7 @@
     "url": "https://tedd.it"
   },
   {
-    "url": "https://wiki.privacytools.io",
+    "url": "https://teddit.privacytools.io",
     "onion": "http://jnuonmf2n36sfdmyksqqqyab3w63cq4kx24olyjleh5z6zzfvyt7uqqd.onion",
     "notes": "Part of: https://www.privacytools.io"
   },
@@ -109,5 +109,9 @@
     "url":"https://teddit.manasiwibi.com/",
     "onion":"http://24fympskbrdgbf4afuvhqwwl2tv3y2vwxg5t2ktozd4j5b3fob5ntzyd.onion/",
     "notes":"Operated by https://manasiwibi.com/"
+  },
+  {
+    "url": "https://teddit.hostux.net",
+    "notes": "Managed by https://hostux.net"
   }
 ]

@@ -84,6 +84,7 @@ nav .nav-item.left a {
 }
 nav .nav-item.left img {
   width: 20px;
+  height: 20px;
   vertical-align: bottom;
   margin: 0 7px 0 0;
 }
@@ -280,9 +281,11 @@ header .tabmenu li.active a {
   color: white;
   padding: 16px;
 }
+input, select {
+  padding: 2px;
+}
 input[type="submit"],
 .btn {
-  padding: 3px;
   margin-top: 7px;
   margin-right: 10px;
   border-radius: 0;

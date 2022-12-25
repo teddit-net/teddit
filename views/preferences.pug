@@ -26,11 +26,23 @@ html
               else
                 input(type="text", name="domain_youtube", id="domain_youtube", placeholder="e.g. invidious.site")
           .setting
-            label(for="domain_instagram") Replace Instagram links with Bibliogram (blank to disable):
+            label(for="domain_instagram") Replace Instagram links with Bibliogram (blank to disable): 
               if(user_preferences.domain_instagram != '' && typeof(user_preferences.domain_instagram) != 'undefined')
                 input(type="text", name="domain_instagram", id="domain_instagram", value="" + user_preferences.domain_instagram + "", placeholder="e.g. bibliogram.art")
               else
                 input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
+          .setting
+            label(for="domain_quora") Replace Quora links with Quetre (blank to disable): 
+              if(user_preferences.domain_quora != '' && typeof(user_preferences.domain_quora) != 'undefined')
+                input(type="text", name="domain_quora", id="domain_quora", value="" + user_preferences.domain_quora + "", placeholder="e.g. quetre.iket.me")
+              else
+                input(type="text", name="domain_quora", id="domain_quora", placeholder="e.g. quetre.iket.me")
+          .setting
+            label(for="domain_imgur") Replace Imgur links with Rimgo (blank to disable): 
+              if(user_preferences.domain_imgur != '' && typeof(user_preferences.domain_imgur) != 'undefined')
+                input(type="text", name="domain_imgur", id="domain_imgur", value="" + user_preferences.domain_imgur + "", placeholder="e.g. rimgo.bcow.xyz")
+              else
+                input(type="text", name="domain_imgur", id="domain_imgur", placeholder="e.g. rimgo.bcow.xyz")
           legend Display
           .setting
             label(for="theme") Theme: 
@@ -41,30 +53,36 @@ html
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme == 'white')
+                else if(user_preferences.theme == 'white')
                   option(value="auto") Auto
                   option(value="white", selected="selected") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'dark')
+                else if(user_preferences.theme === 'dark')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark", selected="selected") Dark
                   option(value="sepia") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'sepia')
+                else if(user_preferences.theme === 'sepia')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia", selected="selected") Sepia
                   option(value="nord") Nord
-                if(user_preferences.theme === 'nord')
+                else if(user_preferences.theme === 'nord')
                   option(value="auto") Auto
                   option(value="white") White
                   option(value="dark") Dark
                   option(value="sepia") Sepia
                   option(value="nord", selected="selected") Nord
+                else
+                  option(value="auto") Auto
+                  option(value="white") White
+                  option(value="dark") Dark
+                  option(value="sepia") Sepia
+                  option(value="nord") Nord
           .setting
             label(for="flairs") Show flairs: 
               if(!user_preferences.flairs || user_preferences.flairs == 'true')
