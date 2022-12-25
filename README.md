@@ -201,11 +201,15 @@ You can also run teddit from a process manager like [pm2](https://www.npmjs.com/
 ```
 ## To run:
 npm install pm2 -g
-pm2 start app.js 
+pm2 start app.js --name teddit 
 
 ## To run on startup:
 pm2 startup
-pm2 save
+pm2 save ## if using systemd, see below.
+
+## To restart or stop
+pm2 restart teddit 
+pm2 stop teddit
 ```
 
-See also the [pm2 instructions for running a project on startup](https://pm2.keymetrics.io/docs/usage/startup/), and in particular the section on waiting for your machine to connect to its network.
+See also the [pm2 instructions for running a project on startup](https://pm2.keymetrics.io/docs/usage/startup/). In particular, if using systemd, see the section on how to modify the systemd init file so that it runs after your system connects to the network.
