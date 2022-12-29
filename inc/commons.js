@@ -261,8 +261,14 @@ module.exports = function(request, fs) {
         str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube)
     
     if(typeof(user_preferences.domain_twitter) != 'undefined')
-      if(user_preferences.domain_twitter)
-        str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
+      if(user_preferences.domain_twitter){
+      if (twitterRegex.test(str)){
+            str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
+      }
+      else {
+          str = str.replace('https://twitter.com',protocol + user_preferences.domain_twitter)
+      }
+      }
     
     if(typeof(user_preferences.domain_instagram) != 'undefined')
       if(user_preferences.domain_instagram)
