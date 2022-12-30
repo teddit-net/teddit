@@ -30,7 +30,7 @@
     "helmet": "^6.0.1",
     "https-proxy-agent": "^5.0.1",
     "minizlib": "^2.1.2",
-    "node-fetch": "^2.6.5",
+    "node-fetch": "^3.3.0",
     "postman-request": "^2.88.1-postman.31",
     "pug": "^3.0.2",
     "redis": "^4.5.1"
