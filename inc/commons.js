@@ -258,37 +258,44 @@ module.exports = function(request, fs) {
     
     if(typeof(user_preferences.domain_youtube) != 'undefined')
       if(user_preferences.domain_youtube){
-        if (youtubeRegex.test(str)){
-          str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube) 
-        } else {
+        if (!youtubeRegex.test(str)){
           youtubeRegex = /(https?:\/\/)([A-z.]+\.)?youtu(be\.com|\.be)(?=.+)/gm;
-          str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube)
         }
+        str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube);
       }
     
     if(typeof(user_preferences.domain_twitter) != 'undefined')
       if(user_preferences.domain_twitter){
-      if (twitterRegex.test(str)){
-            str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
-      }
-      else {
+      if (!twitterRegex.test(str)){
           twitterRegex = /(https?:\/\/)(www\.)?twitter\.com(?=.)/gm;
-          str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
-      }
+        }
+        str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
       }
     
-    if(typeof(user_preferences.domain_instagram) != 'undefined')
-      if(user_preferences.domain_instagram)
-        str = str.replace(instagramRegex, protocol + user_preferences.domain_instagram)
-    
-    if(typeof(user_preferences.domain_quora) != 'undefined')
-      if(user_preferences.domain_quora)
+    if(typeof(user_preferences.domain_instagram) != 'undefined'){
+      if(user_preferences.domain_instagram){
+        if (!instagramRegex.test(str)){
+          instagramRegex = /(https?:\/\/)(www+\.)?instagram.com(?=.)/gm;
+        }
+        str = str.replace(instagramRegex, protocol + user_preferences.domain_instagram);
+      }
+    }
+    if(typeof(user_preferences.domain_quora) != 'undefined'){
+      if(user_preferences.domain_quora){
+        if (!quoraRegex.test(str)){
+          quoraRegex = /(https?:\/\/)([A-z.]+\.)?quora\.com(?=.)/gm;
+        }
         str = str.replace(quoraRegex, protocol + user_preferences.domain_quora)
-
-    if(typeof(user_preferences.domain_imgur) != 'undefined')
-      if(user_preferences.domain_imgur)
+      }
+    } 
+    if(typeof(user_preferences.domain_imgur) != 'undefined'){
+      if(user_preferences.domain_imgur){
+        if (!imgurRegex.test(str)){
+          imgurRegex = /(https?:\/{2})([im]\.)?(stack\.)?imgur\.(com|io)(?=.)/gm;
+        }
         str = str.replace(imgurRegex, protocol + user_preferences.domain_imgur)
-    
+      }
+    }
     return str
   }
 
