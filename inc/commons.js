@@ -257,8 +257,14 @@ module.exports = function(request, fs) {
       return str
     
     if(typeof(user_preferences.domain_youtube) != 'undefined')
-      if(user_preferences.domain_youtube)
-        str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube)
+      if(user_preferences.domain_youtube){
+        if (youtubeRegex.test(str)){
+          str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube) 
+        } else {
+          youtubeRegex = /(https?:\/\/)([A-z.]+\.)?youtu(be\.com|\.be)(?=.+)/gm;
+          str = str.replace(youtubeRegex, protocol + user_preferences.domain_youtube)
+        }
+      }
     
     if(typeof(user_preferences.domain_twitter) != 'undefined')
       if(user_preferences.domain_twitter){
@@ -266,7 +272,8 @@ module.exports = function(request, fs) {
             str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
       }
       else {
-          str = str.replace('https://twitter.com',protocol + user_preferences.domain_twitter)
+          twitterRegex = /(https?:\/\/)(www\.)?twitter\.com(?=.)/gm;
+          str = str.replace(twitterRegex, protocol + user_preferences.domain_twitter)
       }
       }
     
