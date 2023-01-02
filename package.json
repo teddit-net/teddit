@@ -27,13 +27,13 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
-    "helmet": "^6.0.1",
-    "https-proxy-agent": "^5.0.1",
+    "helmet": "^4.6.0",
+    "https-proxy-agent": "^5.0.0",
     "minizlib": "^2.1.2",
-    "node-fetch": "^3.3.0",
-    "postman-request": "^2.88.1-postman.31",
+    "node-fetch": "^2.6.5",
+    "postman-request": "^2.88.1-postman.30",
     "pug": "^3.0.2",
-    "redis": "^4.5.1"
+    "redis": "^3.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
