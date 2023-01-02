@@ -73,7 +73,7 @@ module.exports = function(fetch) {
     })
   }
   this.redditApiGETHeaders = function() {
-    let cookies = '_options=%7B%22pref_quarantine_optin%22%3A%20true%7D'
+    let cookies = `edgebucket=; _options={%22pref_gated_sr_optin%22:true,%22pref_quarantine_optin%22:true}`
     
     if(!config.use_reddit_oauth)
       return { headers: { cookie: cookies }, method: 'GET' }

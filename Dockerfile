@@ -12,4 +12,6 @@ COPY config.js.template ./config.js
 
 RUN find ./static/ -type d -exec chmod -R 777 {} \;
 
+EXPOSE 8080
+
 CMD npm start

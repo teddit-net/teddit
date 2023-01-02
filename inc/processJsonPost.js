@@ -1,5 +1,6 @@
 const compilePostComments = require('./compilePostComments.js')();
 const procPostMedia = require('./processPostMedia.js')();
+const config = require('../config');
 
 async function processReplies(data, post_id, depth, user_preferences) {
   let return_replies = [];
@@ -399,8 +400,141 @@ async function finalizeJsonPost(
   return { post_data: post_data, comments: comments_html };
 }
 
+async function processJsonPostList(posts, mode) {
+  let protocol = config.https_enabled || config.api_force_https ? 'https' : 'http';
+
+  for (var i = 0; i < posts.length; i++) {
+    let link = posts[i];
+    let valid_reddit_self_domains = ['reddit.com'];
+    let is_self_link = false;
+
+    if (link.domain) {
+      let tld = link.domain.split('self.');
+      if (tld.length > 1) {
+        if (!tld[1].includes('.')) {
+          is_self_link = true;
+          link.url = teddifyUrl(link.url);
+        }
+      }
+      if (
+        config.valid_media_domains.includes(link.domain) ||
+        valid_reddit_self_domains.includes(link.domain)
+      ) {
+        is_self_link = true;
+        link.url = teddifyUrl(link.url);
+      }
+    }
+
+    link.permalink = `${protocol}://${config.domain}${link.permalink}`;
+
+    if (is_self_link) link.url = link.permalink;
+
+    if (link.images) {
+      if (link.images.thumb !== 'self') {
+        link.images.thumb = `${protocol}://${config.domain}${link.images.thumb}`;
+      }
+    }
+
+    if (mode === 'light') {
+      link.selftext_html = null;
+    }
+  }
+
+  return posts;
+}
+
+async function getPostItem(post_json, req, protocol) {
+  let thumbnail = '';
+  let post_image = '';
+  let is_self_link = false;
+  let valid_reddit_self_domains = ['reddit.com'];
+
+  if (post_json.domain) {
+    let tld = post_json.domain.split('self.');
+    if (tld.length > 1) {
+      if (!tld[1].includes('.')) {
+        is_self_link = true;
+        post_json.url = teddifyUrl(post_json.url);
+      }
+    }
+    if (
+      config.valid_media_domains.includes(post_json.domain) ||
+      valid_reddit_self_domains.includes(post_json.domain)
+    ) {
+      is_self_link = true;
+      post_json.url = teddifyUrl(post_json.url);
+    }
+  }
+
+  if (post_json.preview && post_json.thumbnail !== 'self') {
+    if (!post_json.url.startsWith('/r/') && isGif(post_json.url)) {
+      let s = await downloadAndSave(post_json.thumbnail, 'thumb_');
+      thumbnail = `${protocol}://${config.domain}${s}`;
+    } else {
+      if (post_json.preview.images[0].resolutions[0]) {
+        let s = await downloadAndSave(
+          post_json.preview.images[0].resolutions[0].url,
+          'thumb_'
+        );
+        thumbnail = `${protocol}://${config.domain}${s}`;
+        if (!isGif(post_json.url) && !post_json.post_hint.includes(':video')) {
+          s = await downloadAndSave(post_json.preview.images[0].source.url);
+          post_image = `${protocol}://${config.domain}${s}`;
+        }
+      }
+    }
+  }
+
+  post_json.permalink = `${protocol}://${config.domain}${post_json.permalink}`;
+
+  if (is_self_link) post_json.url = post_json.permalink;
+
+  if (req.query.hasOwnProperty('full_thumbs')) {
+    if (!post_image) post_image = thumbnail;
+
+    thumbnail = post_image;
+  }
+
+  let enclosure = '';
+  if (thumbnail != '') {
+    let mime = '';
+    let ext = thumbnail.split('.').pop();
+    if (ext === 'png') mime = 'image/png';
+    else mime = 'image/jpeg';
+    enclosure = `<enclosure length="0" type="${mime}" url="${thumbnail}" />`;
+  }
+
+  let append_desc_html = `<br/><a href="${post_json.url}">[link]</a> <a href="${post_json.permalink}">[comments]</a>`;
+
+  return `
+    <item>
+      <title>${post_json.title}</title>
+      <author>${post_json.author}</author>
+      <created>${post_json.created}</created>
+      <pubDate>${new Date(
+        post_json.created_utc * 1000
+      ).toGMTString()}</pubDate>
+      <domain>${post_json.domain}</domain>
+      <id>${post_json.id}</id>
+      <thumbnail>${thumbnail}</thumbnail>
+      ${enclosure}
+      <link>${post_json.permalink}</link>
+      <url>${post_json.url}</url>
+      <description><![CDATA[${unescape(
+        post_json.selftext_html
+      )}${append_desc_html}]]></description>
+      <num_comments>${post_json.num_comments}</num_comments>
+      <ups>${post_json.ups}</ups>
+      <stickied>${post_json.stickied}</stickied>
+      <is_self_link>${is_self_link}</is_self_link>
+    </item>
+  `;
+}
+
 module.exports = {
   processReplies,
   processJsonPost,
   finalizeJsonPost,
+  processJsonPostList,
+  getPostItem
 };

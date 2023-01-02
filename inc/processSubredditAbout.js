@@ -64,4 +64,15 @@ async function processSubredditAbout(subreddit, redis, fetch, RedditAPI) {
   }
 }
 
-module.exports = processSubredditAbout;
+async function processJsonSubredditAbout(json, parsed) {
+  if (!parsed) {
+    json = JSON.parse(json);
+  }
+
+  return returnRelevantKeys(json);
+}
+
+module.exports = {
+  processSubredditAbout,
+  processJsonSubredditAbout
+};
