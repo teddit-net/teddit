@@ -213,3 +213,7 @@ pm2 stop teddit
 ```
 
 See also the [pm2 instructions for running a project on startup](https://pm2.keymetrics.io/docs/usage/startup/). In particular, if using systemd, see the section on how to modify the systemd init file so that it runs after your system connects to the network.
+
+## Legal
+
+Teddit does not host any content. All content on Teddit is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content should be reported to Reddit.
