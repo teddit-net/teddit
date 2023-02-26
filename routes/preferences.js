@@ -186,12 +186,14 @@ preferenceRoutes.post('/saveprefs', (req, res, next) => {
   });
 
   if (prefer_frontpage === 'on') prefer_frontpage = 'true';
+  else prefer_frontpage = 'false';
   res.cookie('prefer_frontpage', prefer_frontpage, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
 
   if (show_large_gallery_images === 'on') show_large_gallery_images = 'true';
+  else show_large_gallery_images = 'false';
   res.cookie('show_large_gallery_images', show_large_gallery_images, {
     maxAge: 365 * 24 * 60 * 60 * 1000,
     httpOnly: true,
