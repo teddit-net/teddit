@@ -20,7 +20,7 @@ html
               else
                 input(type="text", name="domain_twitter", id="domain_twitter", placeholder="e.g. nitter.net")
           .setting
-            label(for="domain_youtube") Replace YouTube links with Invidious (blank to disable): 
+            label(for="domain_youtube") Replace YouTube links with Invidious/Piped (blank to disable): 
               if(user_preferences.domain_youtube != '' && typeof(user_preferences.domain_youtube) != 'undefined')
                 input(type="text", name="domain_youtube", id="domain_youtube", value="" + user_preferences.domain_youtube + "", placeholder="e.g. invidious.site")
               else
