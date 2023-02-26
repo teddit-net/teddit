@@ -72,7 +72,7 @@ homeRoute.get([`/:sort?`, '/frontpage'], async (req, res, next) => {
   }
 
   let is_comment =
-    sortby.length == 6 &&
+    (sortby.length == 6 || sortby.length == 7) &&
     sortby != "rising"
       ? true
       : false;
