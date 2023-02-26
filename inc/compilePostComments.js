@@ -210,7 +210,7 @@ module.exports = function() {
               }
               comments_html += replies_html + '</details></div>'
             } else {
-              if(comment.children.length > 0) {
+              if(comment.children.length > 0) {
                 let parent_id = comment.parent_id.split('_')[1]
                 let load_comms_href = parent_id
 

@@ -20,7 +20,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -34,5 +35,7 @@
     "pug": "^3.0.2",
     "redis": "^3.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
