@@ -215,4 +215,4 @@ See also the [pm2 instructions for running a project on startup](https://pm2.key
 
 ## Legal
 
-Teddit does not host any content. All content on Teddit is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content should be reported to Reddit.
+Teddit does not host any content. All content shown on any Teddit instances is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content shown on any Teddit instances need to be reported to Reddit, not the instance host's internet provider or domain provider.
