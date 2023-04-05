@@ -50,7 +50,6 @@ Community instances:
 | [td.vern.cc](https://td.vern.cc) | [td.vernccvbvyi5qhfzyqen...onion](http://td.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion) | [td.vern.i2p](http://verncco2oaxjikammz4pi7umzp673cme6zuemx7yeeewspwrw3va.b32.i2p) | Operated by https://vern.cc |
 | [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
 | [teddit.artemislena.eu](https://teddit.artemislena.eu) | [teddit.lpoaj7z2zkajuhgnlltp...onion](http://teddit.lpoaj7z2zkajuhgnlltpeqh3zyq7wk2iyeggqaduhgxhyajtdt2j7wad.onion) | | Operated by https://artemislena.eu |
-| [teddit.manasiwibi.com](https://teddit.manasiwibi.com) | [24fympskb....onion](http://24fympskbrdgbf4afuvhqwwl2tv3y2vwxg5t2ktozd4j5b3fob5ntzyd.onion/) | | Operated by https://manasiwibi.com/ |
 | [teddit.hostux.net](https://teddit.hostux.net) |  |  | Operated by https://hostux.net |
 
 <!--
@@ -216,4 +215,4 @@ See also the [pm2 instructions for running a project on startup](https://pm2.key
 
 ## Legal
 
-Teddit does not host any content. All content on Teddit is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content should be reported to Reddit.
+Teddit does not host any content. All content shown on any Teddit instances is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content shown on any Teddit instances need to be reported to Reddit, not the instance host's internet provider or domain provider.
