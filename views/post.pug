@@ -87,6 +87,7 @@ html
                   a(href="/unsave/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
                 else
                   a(href="/save/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
+                a(href=("https://www.reddit.com" + back_url) target="_blank" title="Open in Reddit (new tab)" style="margin-left: 10px") [R↗]
           if post.crosspost.is_crosspost === true
             .crosspost
               .title
