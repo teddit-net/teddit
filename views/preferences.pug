@@ -26,12 +26,6 @@ html
               else
                 input(type="text", name="domain_youtube", id="domain_youtube", placeholder="e.g. invidious.site")
           .setting
-            label(for="domain_instagram") Replace Instagram links with Bibliogram (blank to disable): 
-              if(user_preferences.domain_instagram != '' && typeof(user_preferences.domain_instagram) != 'undefined')
-                input(type="text", name="domain_instagram", id="domain_instagram", value="" + user_preferences.domain_instagram + "", placeholder="e.g. bibliogram.art")
-              else
-                input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
-          .setting
             label(for="domain_quora") Replace Quora links with <a href="https://codeberg.org/zyachel/quetre">Quetre</a> (blank to disable): 
               if(user_preferences.domain_quora != '' && typeof(user_preferences.domain_quora) != 'undefined')
                 input(type="text", name="domain_quora", id="domain_quora", value="" + user_preferences.domain_quora + "", placeholder="e.g. quetre.iket.me")
