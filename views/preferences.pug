@@ -14,13 +14,13 @@ html
         form(action="/saveprefs", method="POST")
           legend Privacy
           .setting
-            label(for="domain_twitter") Replace Twitter links with Nitter (blank to disable): 
+            label(for="domain_twitter") Replace Twitter links with <a href="https://github.com/zedeus/nitter">Nitter</a> (blank to disable): 
               if(user_preferences.domain_twitter != '' && typeof(user_preferences.domain_twitter) != 'undefined')
                 input(type="text", name="domain_twitter", id="domain_twitter", value="" + user_preferences.domain_twitter + "", placeholder="e.g. nitter.net")
               else
                 input(type="text", name="domain_twitter", id="domain_twitter", placeholder="e.g. nitter.net")
           .setting
-            label(for="domain_youtube") Replace YouTube links with Invidious/Piped (blank to disable): 
+            label(for="domain_youtube") Replace YouTube links with <a href="https://github.com/iv-org/invidious">Invidious</a>/<a href="https://github.com/TeamPiped/Piped">Piped</a> (blank to disable): 
               if(user_preferences.domain_youtube != '' && typeof(user_preferences.domain_youtube) != 'undefined')
                 input(type="text", name="domain_youtube", id="domain_youtube", value="" + user_preferences.domain_youtube + "", placeholder="e.g. invidious.site")
               else
@@ -32,13 +32,13 @@ html
               else
                 input(type="text", name="domain_instagram", id="domain_instagram", placeholder="e.g. bibliogram.art")
           .setting
-            label(for="domain_quora") Replace Quora links with Quetre (blank to disable): 
+            label(for="domain_quora") Replace Quora links with <a href="https://codeberg.org/zyachel/quetre">Quetre</a> (blank to disable): 
               if(user_preferences.domain_quora != '' && typeof(user_preferences.domain_quora) != 'undefined')
                 input(type="text", name="domain_quora", id="domain_quora", value="" + user_preferences.domain_quora + "", placeholder="e.g. quetre.iket.me")
               else
                 input(type="text", name="domain_quora", id="domain_quora", placeholder="e.g. quetre.iket.me")
           .setting
-            label(for="domain_imgur") Replace Imgur links with Rimgo (blank to disable): 
+            label(for="domain_imgur") Replace Imgur links with <a href="https://codeberg.org/video-prize-ranch/rimgo">Rimgo</a> (blank to disable): 
               if(user_preferences.domain_imgur != '' && typeof(user_preferences.domain_imgur) != 'undefined')
                 input(type="text", name="domain_imgur", id="domain_imgur", value="" + user_preferences.domain_imgur + "", placeholder="e.g. rimgo.bcow.xyz")
               else
@@ -112,7 +112,7 @@ html
                   
                   for(let key in instance_config.post_media_max_heights) {
                     if(instance_config.post_media_max_heights.hasOwnProperty(key))
-                      max_heights_html += `<option value="${key}" ${(user_key == key ? "selected" : "")}>${key}</option>`
+                      max_heights_html += ``
                   }
                 != max_heights_html
           .setting
