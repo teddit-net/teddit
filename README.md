@@ -51,6 +51,8 @@ Community instances:
 | [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
 | [teddit.artemislena.eu](https://teddit.artemislena.eu) | [teddit.lpoaj7z2zkajuhgnlltp...onion](http://teddit.lpoaj7z2zkajuhgnlltpeqh3zyq7wk2iyeggqaduhgxhyajtdt2j7wad.onion) | | Operated by https://artemislena.eu |
 | [teddit.hostux.net](https://teddit.hostux.net) |  |  | Operated by https://hostux.net |
+| [teddit.no-logs.com](https://teddit.no-logs.com/) |  |  | Operated by https://no-logs.com |
+
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
