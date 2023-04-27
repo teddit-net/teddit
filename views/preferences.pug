@@ -106,7 +106,7 @@ html
                   
                   for(let key in instance_config.post_media_max_heights) {
                     if(instance_config.post_media_max_heights.hasOwnProperty(key))
-                      max_heights_html += ``
+                      max_heights_html += `<option value="${key}" ${(user_key == key ? "selected" : "")}>${key}</option>`
                   }
                 != max_heights_html
           .setting
