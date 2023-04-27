@@ -1,5 +1,5 @@
 # Use LTS Node.js slim image
-FROM node:14.17-slim
+FROM node:slim
 
 # Video support dependency
 RUN apt-get update && apt-get install -y ffmpeg wget
