@@ -108,5 +108,10 @@
   {
     "url": "https://teddit.hostux.net",
     "notes": "Managed by https://hostux.net"
+  },
+  {
+    "url": "https://teddit.projectsegfau.lt",
+    "onion": "http://teddit.pjsfkvpxlinjamtawaksbnnaqs2fc2mtvmozrzckxh7f3kis6yea25ad.onion",
+    "notes": "Maintained by Project Segfault Team (https://projectsegfau.lt/team)"
   }
 ]
