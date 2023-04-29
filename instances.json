@@ -108,5 +108,9 @@
   {
     "url": "https://teddit.hostux.net",
     "notes": "Managed by https://hostux.net"
+  },
+  {
+    "url": "https://teddit.no-logs.com/",
+    "notes": "Managed by https://no-logs.com"
   }
 ]
