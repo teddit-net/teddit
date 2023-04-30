@@ -31,6 +31,7 @@ Community instances:
 | [teddit.domain.glass](https://teddit.domain.glass) |  |  | |
 | [snoo.ioens.is](https://snoo.ioens.is) | [snoo.ioensistjs7wd746...onion](http://snoo.ioensistjs7wd746zluwixvojbbkxhr37lepdvwtdfeav673o64iflqd.onion/) |  | |
 | [teddit.httpjames.space](https://teddit.httpjames.space) |  |  | |
+| [teddit.xbdm.fun](https://teddit.xbdm.fun) |  |  | |
 |  | [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) | Operated by [mdleom.com](https://mdleom.com/about/#Services) |
 | [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](http://tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | [http://teddit.i2p](http://teddit.i2p) | |
 | [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | Operated by [PussTheCat.org](https://pussthecat.org/) |
