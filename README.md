@@ -31,6 +31,7 @@ Community instances:
 | [teddit.domain.glass](https://teddit.domain.glass) |  |  | |
 | [snoo.ioens.is](https://snoo.ioens.is) | [snoo.ioensistjs7wd746...onion](http://snoo.ioensistjs7wd746zluwixvojbbkxhr37lepdvwtdfeav673o64iflqd.onion/) |  | |
 | [teddit.httpjames.space](https://teddit.httpjames.space) |  |  | |
+| [teddit.xbdm.fun](https://teddit.xbdm.fun) |  |  | |
 |  | [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) | Operated by [mdleom.com](https://mdleom.com/about/#Services) |
 | [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](http://tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | [http://teddit.i2p](http://teddit.i2p) | |
 | [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | Operated by [PussTheCat.org](https://pussthecat.org/) |
@@ -52,7 +53,7 @@ Community instances:
 | [teddit.artemislena.eu](https://teddit.artemislena.eu) | [teddit.lpoaj7z2zkajuhgnlltp...onion](http://teddit.lpoaj7z2zkajuhgnlltpeqh3zyq7wk2iyeggqaduhgxhyajtdt2j7wad.onion) | | Operated by https://artemislena.eu |
 | [teddit.hostux.net](https://teddit.hostux.net) |  |  | Operated by https://hostux.net |
 | [teddit.no-logs.com](https://teddit.no-logs.com/) |  |  | Operated by https://no-logs.com |
-
+| [teddit.projectsegfau.lt](https://teddit.projectsegfau.lt) | [teddit.pjsfkvpxlinjamta...onion](http://teddit.pjsfkvpxlinjamtawaksbnnaqs2fc2mtvmozrzckxh7f3kis6yea25ad.onion) |  | Maintained by Project Segfault Team (https://projectsegfau.lt/team) |
 
 <!--
 Remove the Changelog section, because the CHANGELOG.md is not updated anymore
@@ -170,7 +171,7 @@ The following variables may be set to customize your deployment at runtime.
 
 1. (Optional) Install [redis-server](https://redis.io).
 
-   Highly recommended – it works as a cache for Reddit API calls.
+   Highly recommended – it works as a cache for Reddit API calls.
 
 1. (Optional) Install [ffmpeg](https://ffmpeg.org).
 
