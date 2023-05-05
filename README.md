@@ -52,6 +52,7 @@ Community instances:
 | [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
 | [teddit.artemislena.eu](https://teddit.artemislena.eu) | [teddit.lpoaj7z2zkajuhgnlltp...onion](http://teddit.lpoaj7z2zkajuhgnlltpeqh3zyq7wk2iyeggqaduhgxhyajtdt2j7wad.onion) | | Operated by https://artemislena.eu |
 | [teddit.hostux.net](https://teddit.hostux.net) |  |  | Operated by https://hostux.net |
+| [teddit.no-logs.com](https://teddit.no-logs.com/) |  |  | Operated by https://no-logs.com |
 | [teddit.projectsegfau.lt](https://teddit.projectsegfau.lt) | [teddit.pjsfkvpxlinjamta...onion](http://teddit.pjsfkvpxlinjamtawaksbnnaqs2fc2mtvmozrzckxh7f3kis6yea25ad.onion) |  | Maintained by Project Segfault Team (https://projectsegfau.lt/team) |
 
 <!--
@@ -170,7 +171,7 @@ The following variables may be set to customize your deployment at runtime.
 
 1. (Optional) Install [redis-server](https://redis.io).
 
-   Highly recommended – it works as a cache for Reddit API calls.
+   Highly recommended – it works as a cache for Reddit API calls.
 
 1. (Optional) Install [ffmpeg](https://ffmpeg.org).
 
