@@ -26,7 +26,6 @@ Community instances:
 |-|-|-|-|
 | [teddit.ggc-project.de](https://teddit.ggc-project.de) |  |  | |
 | [teddit.zaggy.nl](https://teddit.zaggy.nl) |  |  | |
-| [teddit.namazso.eu](https://teddit.namazso.eu) |  |  | |
 | [teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net) |  |  | |
 | [teddit.domain.glass](https://teddit.domain.glass) |  |  | |
 | [snoo.ioens.is](https://snoo.ioens.is) | [snoo.ioensistjs7wd746...onion](http://snoo.ioensistjs7wd746zluwixvojbbkxhr37lepdvwtdfeav673o64iflqd.onion/) |  | |
