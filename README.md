@@ -1,5 +1,14 @@
 # teddit
 
+## teddit is no more actively maintained!
+
+[Due to Reddit's API changes](https://en.wikipedia.org/wiki/2023_Reddit_API_controversy), this project is no more actively maintained.
+Feel free to fork the project if you like, or contribute to other alternative Reddit front-ends, such as Libreddit, which are trying to come up with circumventions.
+
+This project is still maintained, but just not actively. You can create PRs, but don't expect them to be merged right away.
+
+---
+
 [teddit.net](https://teddit.net)
 
 A free and open source alternative Reddit front-end focused on privacy.
