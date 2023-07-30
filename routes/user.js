@@ -206,6 +206,15 @@ userRoutes.get('/u/:user/:kind?', (req, res, next) => {
                           }
                         }
                       );
+                    }).catch(error => {
+                      console.error(`Something went wrong while fetching data from Reddit API: invalid or non-JSON data was returned.`);
+                      return res.render('frontpage', {
+                        json: null,
+                        http_status_code: 500,
+                        http_statustext: "Invalid response from Reddit",
+                        user_preferences: req.cookies,
+                        instance_config: config,
+                      });
                     });
                   } else {
                     console.error(
