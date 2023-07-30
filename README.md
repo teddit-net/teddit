@@ -36,7 +36,6 @@ Community instances:
 | [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | Operated by [PussTheCat.org](https://pussthecat.org/) |
 | [reddit.lol](https://reddit.lol) | [http://dawtyi5e2cfyfmoht...onion](http://dawtyi5e2cfyfmoht4izmczi42aa2zwh6wi34zwvc6rzf2acpxhrcrad.onion) | [http://vzeiwzi7ogwl3i...b32.i2p](http://vzeiwzi7ogwl3ijrfek4fbtwhvamxcpyqoc3s4vcgnhlp54s5clq.b32.i2p) | Operated by https://liberta.casa | |
 | [teddit.sethforprivacy.com](https://teddit.sethforprivacy.com/) | [qtpvyiaqhmwccx...onion/](http://qtpvyiaqhmwccxwzsqubd23xhmmrt75tdyw35kp43w4hvamsgl3x27ad.onion/) |  | For more similar hosted tools, see [blog.sethforprivacy.com](https://blog.sethforprivacy.com/about/#my-community-resources) |
-| [teddit.totaldarkness.net](https://teddit.totaldarkness.net) |  |  | |
 | [teddit.adminforge.de](https://teddit.adminforge.de) |  | | Operated by https://adminforge.de |
 | [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
 | [teddit.froth.zone](https://teddit.froth.zone) |  | | |
@@ -45,7 +44,6 @@ Community instances:
 | [i.opnxng.com](https://i.opnxng.com) |  |  | |
 | [teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
 | [teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
-| [tedd.it](https://tedd.it) |  |  | |
 | [teddit.privacytools.io](https://teddit.privacytools.io) | [jnuonmf2n36sfdmyksqq....onion](http://jnuonmf2n36sfdmyksqqqyab3w63cq4kx24olyjleh5z6zzfvyt7uqqd.onion)  |  | Part of [PrivacyTools.io](https://www.privacytools.io/) and hosted by [Privex](https://www.privex.io/) |
 | [td.vern.cc](https://td.vern.cc) | [td.vernccvbvyi5qhfzyqen...onion](http://td.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion) | [td.vern.i2p](http://verncco2oaxjikammz4pi7umzp673cme6zuemx7yeeewspwrw3va.b32.i2p) | Operated by https://vern.cc |
 | [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
