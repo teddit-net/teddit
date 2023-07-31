@@ -1,8 +1,8 @@
-# Use LTS Node.js base image
-FROM node:14.16-alpine
+# Use LTS Node.js slim image
+FROM node:slim
 
 # Video support dependency
-RUN apk add ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg wget
 
 # Install NPM dependencies and copy the project
 WORKDIR /teddit
@@ -11,5 +11,7 @@ RUN npm install --no-optional
 COPY config.js.template ./config.js
 
 RUN find ./static/ -type d -exec chmod -R 777 {} \;
+
+EXPOSE 8080
 
 CMD npm start

@@ -6,6 +6,15 @@ Please submit issues and PRs on Codeberg.
 
 # teddit
 
+## teddit is no more actively maintained!
+
+[Due to Reddit's API changes](https://en.wikipedia.org/wiki/2023_Reddit_API_controversy), this project is no more actively maintained.
+Feel free to fork the project if you like, or contribute to other alternative Reddit front-ends, such as Libreddit, which are trying to come up with circumventions.
+
+This project is still maintained, but just not actively. You can create PRs, but don't expect them to be merged right away.
+
+---
+
 [teddit.net](https://teddit.net)
 
 A free and open source alternative Reddit front-end focused on privacy.
@@ -28,25 +37,96 @@ XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91
 
 Community instances:
 
-* [https://teddit.ggc-project.de](https://teddit.ggc-project.de)
-* [https://teddit.kavin.rocks](https://teddit.kavin.rocks)
-* [https://teddit.zaggy.nl](https://teddit.zaggy.nl)
-* [https://teddit.namazso.eu](https://teddit.namazso.eu)
-* [https://teddit.nautolan.racing](https://teddit.nautolan.racing)
-* [https://teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net)
-* [https://teddit.domain.glass](https://teddit.domain.glass)
-* [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion)
-* [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p)
+| Instance | Onion Link | I2P | Notes |
+|-|-|-|-|
+| [teddit.ggc-project.de](https://teddit.ggc-project.de) |  |  | |
+| [teddit.zaggy.nl](https://teddit.zaggy.nl) |  |  | |
+| [teddit.tinfoil-hat.net](https://teddit.tinfoil-hat.net) |  |  | |
+| [teddit.domain.glass](https://teddit.domain.glass) |  |  | |
+| [snoo.ioens.is](https://snoo.ioens.is) | [snoo.ioensistjs7wd746...onion](http://snoo.ioensistjs7wd746zluwixvojbbkxhr37lepdvwtdfeav673o64iflqd.onion/) |  | |
+| [teddit.httpjames.space](https://teddit.httpjames.space) |  |  | |
+| [teddit.xbdm.fun](https://teddit.xbdm.fun) |  |  | |
+|  | [ibarajztopxnuhabfu7f...onion](http://ibarajztopxnuhabfu7fg6gbudynxofbnmvis3ltj6lfx47b6fhrd5qd.onion) | [xugoqcf2pftm76vbznx4...i2p](http://xugoqcf2pftm76vbznx4xuhrzyb5b6zwpizpnw2hysexjdn5l2tq.b32.i2p) | Operated by [mdleom.com](https://mdleom.com/about/#Services) |
+| [incogsnoo.com](https://incogsnoo.com) | [tedditfyn6idalzso5wam....onion](http://tedditfyn6idalzso5wam5qd3kdtxoljjhbrbbx34q2xkcisvshuytad.onion/) | [http://teddit.i2p](http://teddit.i2p) | |
+| [teddit.pussthecat.org](https://teddit.pussthecat.org) |  |  | Operated by [PussTheCat.org](https://pussthecat.org/) |
+| [reddit.lol](https://reddit.lol) | [http://dawtyi5e2cfyfmoht...onion](http://dawtyi5e2cfyfmoht4izmczi42aa2zwh6wi34zwvc6rzf2acpxhrcrad.onion) | [http://vzeiwzi7ogwl3i...b32.i2p](http://vzeiwzi7ogwl3ijrfek4fbtwhvamxcpyqoc3s4vcgnhlp54s5clq.b32.i2p) | Operated by https://liberta.casa | |
+| [teddit.sethforprivacy.com](https://teddit.sethforprivacy.com/) | [qtpvyiaqhmwccx...onion/](http://qtpvyiaqhmwccxwzsqubd23xhmmrt75tdyw35kp43w4hvamsgl3x27ad.onion/) |  | For more similar hosted tools, see [blog.sethforprivacy.com](https://blog.sethforprivacy.com/about/#my-community-resources) |
+| [teddit.adminforge.de](https://teddit.adminforge.de) |  | | Operated by https://adminforge.de |
+| [teddit.bus-hit.me](https://teddit.bus-hit.me) |  | | Operated by https://bus-hit.me |
+| [teddit.froth.zone](https://teddit.froth.zone) |  | | |
+| [rdt.trom.tf](https://rdt.trom.tf) |  | | Part of the https://trom.tf project |
+| [teddit.encrypted-data.xyz](https://teddit.encrypted-data.xyz) |  |  | |
+| [i.opnxng.com](https://i.opnxng.com) |  |  | |
+| [teddit.tokhmi.xyz](https://teddit.tokhmi.xyz) |  |  | |
+| [teddit.garudalinux.org](https://teddit.garudalinux.org) |  |  | Managed by https://garudalinux.org |
+| [teddit.privacytools.io](https://teddit.privacytools.io) | [jnuonmf2n36sfdmyksqq....onion](http://jnuonmf2n36sfdmyksqqqyab3w63cq4kx24olyjleh5z6zzfvyt7uqqd.onion)  |  | Part of [PrivacyTools.io](https://www.privacytools.io/) and hosted by [Privex](https://www.privex.io/) |
+| [td.vern.cc](https://td.vern.cc) | [td.vernccvbvyi5qhfzyqen...onion](http://td.vernccvbvyi5qhfzyqengccj7lkove6bjot2xhh5kajhwvidqafczrad.onion) | [td.vern.i2p](http://verncco2oaxjikammz4pi7umzp673cme6zuemx7yeeewspwrw3va.b32.i2p) | Operated by https://vern.cc |
+| [teddit.rawbit.ninja](https://teddit.rawbit.ninja) | [yqu4yj5lju7bmlwpzpml...onion](http://yqu4yj5lju7bmlwpzpmltb5gsu6cw7nnbcxxx4iqemwa56nxjiggf4qd.onion) | | Operated by https://rawbit.ninja |
+| [teddit.artemislena.eu](https://teddit.artemislena.eu) | [teddit.lpoaj7z2zkajuhgnlltp...onion](http://teddit.lpoaj7z2zkajuhgnlltpeqh3zyq7wk2iyeggqaduhgxhyajtdt2j7wad.onion) | | Operated by https://artemislena.eu |
+| [teddit.hostux.net](https://teddit.hostux.net) |  |  | Operated by https://hostux.net |
+| [teddit.no-logs.com](https://teddit.no-logs.com/) |  |  | Operated by https://no-logs.com |
+| [teddit.projectsegfau.lt](https://teddit.projectsegfau.lt) | [teddit.pjsfkvpxlinjamta...onion](http://teddit.pjsfkvpxlinjamtawaksbnnaqs2fc2mtvmozrzckxh7f3kis6yea25ad.onion) |  | Maintained by Project Segfault Team (https://projectsegfau.lt/team) |
 
+<!--
+Remove the Changelog section, because the CHANGELOG.md is not updated anymore
 ## Changelog
 
 See ```CHANGELOG.md```
+-->
+
 ## Installation
 
-### Docker-compose method
+### Docker-compose method (production)
 
-```console
-wget https://codeberg.org/teddit/teddit/raw/branch/main/docker-compose.yml
+```docker
+version: "3.8"
+
+services:
+
+  teddit:
+    container_name: teddit
+    image: teddit/teddit:latest
+    environment:
+      - DOMAIN=teddit.net
+      - USE_HELMET=true
+      - USE_HELMET_HSTS=true
+      - TRUST_PROXY=true
+      - REDIS_HOST=teddit-redis
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - teddit_net
+    healthcheck:
+      test: ["CMD", "wget" ,"--no-verbose", "--tries=1", "--spider", "http://localhost:8080/about"]
+      interval: 1m
+      timeout: 3s
+    depends_on:
+      - teddit-redis
+
+  teddit-redis:
+    container_name: teddit-redis
+    image: redis:6.2.5-alpine
+    command: redis-server
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - teddit_net
+
+networks:
+  teddit_net:
+```
+
+Note: This compose is made for a true "production" setup, and is made to be used to have teddit behind a reverse proxy, if you don't want that and prefer to directly access teddit via its port:
+
+- Change `ports: - "127.0.0.1:8080:8080"` to `ports: - "8080:8080"`
+- Remove `DOMAIN=teddit.net`, `USE_HELMET=true`, `USE_HELMET_HSTS=true`, `TRUST_PROXY=true`
+
+
+### Docker-compose method (development)
+
+```bash
+git clone https://codeberg.org/teddit/teddit
+cd teddit
 docker-compose build
 docker-compose up
 ```
@@ -68,6 +148,7 @@ The following variables may be set to customize your deployment at runtime.
 | flairs_enabled | Enables the rendering of user and link flairs on Teddit. Defaults to **true** |
 | highlight_controversial | Enables controversial comments to be indicated by a typographical dagger (†). Defaults to **true** |
 | api_enabled | Teddit API feature. Might increase loads significantly on your instance. Defaults to **true** |
+| api_force_https | Force HTTPS to Teddit API permalinks (see #285). Defaults to **false** |
 | video_enabled | Enables video playback within Teddit. Defaults to **true** |
 | redis_enabled | Enables Redis caching. If disabled, does not allow for any caching of Reddit API calls. Defaults to **true** |
 | redis_db | Sets the redis DB name, if required |
@@ -86,9 +167,15 @@ The following variables may be set to customize your deployment at runtime.
 | use_helmet_hsts | *Boolean* Recommended to be true when using https. Defaults to **false** |
 | trust_proxy | *Boolean* Enable trust_proxy if you are using a reverse proxy like nginx or traefik. Defaults to **false** |
 | trust_proxy_address | Location of trust_proxy. Defaults to **127.0.0.1** |
+| http_proxy | Set http/https proxy to use for outgoing requests. See [https-proxy-agent](https://github.com/TooTallNate/node-https-proxy-agent) for details |
 | nsfw_enabled | *Boolean* Enable NSFW (over 18) content. If false, a warning is shown to the user before opening any NSFW post. When the NFSW content is disabled, NSFW posts are hidden from subreddits and from user page feeds. Note: Users can set this to true or false from their preferences. Defaults to **true** |
+| videos_muted | *Boolean* Automatically mute all videos in posts. Defaults to **true** |
 | post_comments_sort | Defines default sort preference. Options are *confidence* (default sorting option in Reddit), *top*, *new*, *controversal*, *old*, *random*, *qa*, *live*. Defaults to **confidence** |
 | reddit_app_id | If "use_reddit_oauth" config key is set to true, you have to obtain your Reddit app ID. For testing purposes it's okay to use this project's default app ID. Create your Reddit app here: https://old.reddit.com/prefs/apps/. Make sure to create an "installed app" type of app. Default is **ABfYqdDc9qPh1w** |
+| domain_replacements | Replacements for domains in outgoing links. Tuples with regular expressions to match, and replacement values. This is in addition to user-level configuration of privacyDomains. Defaults to **[]** |
+| cache_control | *Boolean* If true, teddit will automatically remove all cached static files. Defaults to **true** |
+| cache_control_interval | How often the cache directory for static files is emptied (in hours). Default is every 24 hours. Requires cache_control to be true. Defaults to **24** |
+| suggested_subreddits | Array of suggested subreddits, which are displayed in the top bar (if the user doesn't have any subscriptions) and in the cleaned home page. Defaults to Reddit's default suggested subreddits. |
 
 ### Manual
 
@@ -96,13 +183,13 @@ The following variables may be set to customize your deployment at runtime.
 
 1. (Optional) Install [redis-server](https://redis.io).
 
-   Highly recommended – it works as a cache for Reddit API calls.
+   Highly recommended – it works as a cache for Reddit API calls.
 
 1. (Optional) Install [ffmpeg](https://ffmpeg.org).
 
    It's needed if you want to support videos.
 
-   ```console
+   ```bash
    # Linux
    apt install redis-server ffmpeg
 
@@ -112,7 +199,7 @@ The following variables may be set to customize your deployment at runtime.
 
 1. Clone and set up the repository.
 
-   ```console
+   ```bash
    git clone https://codeberg.org/teddit/teddit
    cd teddit
    npm install --no-optional
@@ -121,4 +208,26 @@ The following variables may be set to customize your deployment at runtime.
    npm start
    ```
 
-Teddit should now be running at <http://localhost:8080>.
+Teddit should now be running at <http://localhost:8080>. 
+
+You can also run teddit from a process manager like [pm2](https://www.npmjs.com/package/pm2):
+
+```
+## To run:
+npm install pm2 -g
+pm2 start app.js --name teddit 
+
+## To run on startup:
+pm2 startup
+pm2 save ## if using systemd, see below.
+
+## To restart or stop
+pm2 restart teddit 
+pm2 stop teddit
+```
+
+See also the [pm2 instructions for running a project on startup](https://pm2.keymetrics.io/docs/usage/startup/). In particular, if using systemd, see the section on how to modify the systemd init file so that it runs after your system connects to the network.
+
+## Legal
+
+Teddit does not host any content. All content shown on any Teddit instances is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content shown on any Teddit instances need to be reported to Reddit, not the instance host's internet provider or domain provider.

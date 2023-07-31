@@ -30,7 +30,7 @@ module.exports = function(fetch) {
       } else {
         console.error(`Something went wrong while trying to get an access token from reddit API. ${result.status} – ${result.statusText}`)
         console.error(reddit_api_error_text)
-        return res.render('index', { json: null, http_status_code: result.status })
+        return res.render('frontpage', { json: null, http_status_code: result.status, instance_config: config })
       }
     }).catch(error => {
       console.log(`Error while obtaining a reddit API key.`, error)
@@ -66,19 +66,22 @@ module.exports = function(fetch) {
       } else {
         console.error(`Something went wrong while fetching data from reddit API. ${result.status} – ${result.statusText}`)
         console.error(reddit_api_error_text)
-        return res.render('index', { json: null, http_status_code: result.status })
+        return res.render('frontpage', { json: null, http_status_code: result.status, instance_config: config })
       }
     }).catch(error => {
       console.log(`Error while refreshing the reddit API key.`, error)
     })
   }
   this.redditApiGETHeaders = function() {
+    let cookies = `edgebucket=; _options={%22pref_gated_sr_optin%22:true,%22pref_quarantine_optin%22:true}`
+    
     if(!config.use_reddit_oauth)
-      return { method: 'GET' }
+      return { headers: { cookie: cookies }, method: 'GET' }
     
     return {
       headers: {
-        Authorization: `Bearer ${reddit_access_token}`
+        Authorization: `Bearer ${reddit_access_token}`,
+        cookie: cookies
       },
       method: 'GET'
     }

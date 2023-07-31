@@ -1,0 +1,43 @@
+meta(property='og:title', content=cleanTitle(post.title) + ' : r/' + subreddit)
+meta(property='og:description', content='' + post.selftext_preview)
+meta(property='og:author_name', content='u/' + post.author)
+if !post.has_media
+  if post.gallery
+    meta(property='twitter:card', content='summary_large_image')
+    meta(property='og:type', content='image')
+    each item in post.gallery_items
+      meta(property='og:image', content='' + item.large)
+  else
+    if post.images
+      meta(property='twitter:card', content='summary_large_image')
+      meta(property='og:type', content='image')
+      meta(property='og:image', content='' + post.images.source)
+      meta(property='og:image:url', content='' + post.images.source)
+    else
+      include meta_logo.pug
+else
+  if post.media
+    if post.media.not_hosted_in_reddit
+      if post.media.source === 'YouTube'
+        meta(property='twitter:card', content='player')
+        meta(property='og:type', content='video')
+        meta(property='og:video', content='' + post.media.embed_src)
+      else
+        if post.media.source === 'external'
+          if post.images
+            meta(name='twitter:card', content='summary_large_image')
+            meta(property='og:type', content='image')
+            meta(property='og:image', content='' + post.images.source)
+            meta(property='og:image:src', content='' + post.images.source)
+        else
+          meta(name='twitter:card', content='summary_large_image')
+          meta(property='og:type', content='image')
+          meta(property='og:image', content='' + post.media.source)
+          meta(property='og:image:url', content='' + post.media.source)
+    else
+      meta(property='twitter:card', content='player')
+      meta(property='og:type', content='video')
+      meta(property='og:video', content='' + post.media.source)
+      meta(property='og:video:type', content='video/mp4')
+  else
+    include meta_logo.pug

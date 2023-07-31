@@ -2,6 +2,7 @@ doctype html
 html
   head
     title #{cleanTitle(post.title)} : #{subreddit}
+    include includes/meta_post.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
@@ -37,7 +38,21 @@ html
                     max-height: #{user_preferences.post_media_max_height}px;
                     max-width: 100%;
                 }
+          -
+            let video_muted = false
+            if(instance_videos_muted === true || user_preferences.videos_muted === 'true') {
+              video_muted = true
+            }
+            if(user_preferences.videos_muted === 'false') {
+              video_muted = false
+            }
           .info
+            if user_preferences.show_upvotes === 'false'
+              style.
+                .comment .meta .ups, #post .score, #user .upvotes {
+                  display: none;
+                }
+              
             .score
               div.arrow
               span #{kFormatter(post.ups)}
@@ -72,6 +87,7 @@ html
                   a(href="/unsave/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
                 else
                   a(href="/save/" + post.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
+                a(href=("https://www.reddit.com" + back_url) target="_blank" title="Open in Reddit (new tab)" style="margin-left: 10px") [R↗]
           if post.crosspost.is_crosspost === true
             .crosspost
               .title
@@ -113,7 +129,7 @@ html
                     p #{post.media.embed_src}
                 else
                   .video
-                    video(controls="controls", autoplay="autoplay", loop="loop")
+                    video(controls="controls", autoplay="autoplay", loop="loop", muted=(video_muted ? true : false))
                       source(src="" + post.media.source + "", type="video/mp4")
                       |  Your browser does not support the video element.
                     a(href="" + post.media.source + "") [media]
@@ -122,12 +138,19 @@ html
               if post.gallery
                 .gallery
                   each item in post.gallery_items
-                    .item
-                      div
+                    if user_preferences.show_large_gallery_images == 'true'
+                      .item.large
                         a(href="" + item.large + "", target="_blank")
-                          img(src=""+ item.thumbnail +"", alt="")
-                      a(href="" + item.source + "", target="_blank", class="source-link")
-                        small source
+                          img(src="" + item.large + "", title="" + item.caption + "")
+                        if item.caption
+                          span.caption !{item.caption}
+                    else
+                      .item
+                        div
+                          a(href="" + item.large + "", target="_blank")
+                            img(src=""+ item.thumbnail +"", alt="")
+                        a(href="" + item.source + "", target="_blank", class="source-link")
+                          small source
               if post.images
                 .image
                   a(href="" + post.images.source + "")
@@ -155,10 +178,11 @@ html
                           a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
                             img(src="" + post.images.source + "", alt="")
                         if !post.media.embed_src.startsWith("https://twitter.com")
-                          p
-                            | source:
-                            a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
-                              p(class="source-url") #{post.media.embed_src}
+                          details(class="source-details")
+                            summary Source
+                            p
+                              a(href="" + post.media.embed_src + "", target="_blank", rel="noopener noreferrer")
+                                p(class="source-url") #{post.media.embed_src}
                     else
                       .video
                         a(href="" + post.media.source + "")
@@ -168,7 +192,7 @@ html
                         p #{post.media.embed_src}
                 else
                   .video
-                    video(controls="controls", autoplay="autoplay", loop="loop")
+                    video(controls="controls", autoplay="autoplay", loop="loop", muted=(video_muted ? true : false))
                       source(src="" + post.media.source + "", type="video/mp4")
                       |  Your browser does not support the video element.
                     a(href="" + post.media.source + "") [media]

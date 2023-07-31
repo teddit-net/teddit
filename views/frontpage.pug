@@ -1,0 +1,92 @@
+doctype html
+html
+  head
+    title teddit
+    meta(property='og:title', content='frontpage : teddit')
+    include includes/meta_default.pug
+    include includes/meta_description.pug
+    include includes/head.pug
+  body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
+    include includes/topbar.pug
+    if json === null
+      .reddit-error
+        h2 Error
+        p #{JSON.stringify(http_status_code)}
+        p #{JSON.stringify(http_statustext)}
+        if http_status_code == "401" || http_status_code == "503"
+          p This error is probably caused because Reddit itself is down or having server issues.
+          p Checking <a href="https://www.redditstatus.com">https://www.redditstatus.com</a> might give some information.
+        if http_status_code == "404"
+          p The resource you were looking for was not found.
+    else
+      - var subreddit = ''
+      if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+        - subreddit = '/r/' + user_preferences.subbed_subreddits.join('+')
+      header
+        a(href="/", class="main")
+          h1 teddit
+        .bottom
+          ul.tabmenu
+            li(class=!sortby || sortby == 'hot' ? 'active' : '')
+              a(href="" + subreddit +  "/") hot
+            li(class=sortby === 'new' ? 'active' : '')
+              a(href="" + subreddit +  "/new") new
+            li(class=sortby === 'rising' ? 'active' : '')
+              a(href="" + subreddit +  "/rising") rising
+            li(class=sortby === 'controversial' ? 'active' : '')
+              a(href="" + subreddit +  "/controversial") controversial
+            li(class=sortby === 'top' ? 'active' : '')
+              a(href="" + subreddit +  "/top") top
+      if !before && !after && sortby === 'hot'
+        #intro
+          h1 Welcome to teddit
+          h2 the alternative, privacy respecting, front page of internet.
+
+      #links.sr
+        if sortby === 'top' || sortby === 'controversial'
+          details
+            summary
+              if past === 'hour'
+                span links from: past hour
+              if past === 'day'
+                span links from: past 24 hours
+              if past === 'week'
+                span links from: past week
+              if past === 'month'
+                span links from: past month
+              if past === 'year'
+                span links from: past year
+              if past === 'all'
+                span links from: all time
+            ul
+              li(class=past === 'hour' ? 'active' : '')
+                a(href="?t=hour") past hour
+              li(class=past === 'day' ? 'active' : '')
+                a(href="?t=day") past 24 hours
+              li(class=past === 'week' ? 'active' : '')
+                a(href="?t=week") past week
+              li(class=past === 'month' ? 'active' : '')
+                a(href="?t=month") past month
+              li(class=past === 'year' ? 'active' : '')
+                a(href="?t=year") past year
+              li(class=past === 'all' ? 'active' : '')
+                a(href="?t=all") all time
+        each link in json.links
+          include components/link.pug
+        if json.info.before || json.info.after
+          .view-more-links
+            - var subreddit = 'all'
+              if(user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits))
+                - subreddit = user_preferences.subbed_subreddits.join('+')
+            if json.info.after
+              a(href="/r/" + subreddit + "/" + sortby + "?t=" + (past ? past : '') + "&after=" + json.info.after + "") next ›
+      #search
+        form(action="/r/all/search", method="GET")
+          div
+            label(for="q") search
+              input(type="text", name="q", id="q", placeholder="search")
+          div
+            label(for="nsfw") include NSFW results
+              input(type="checkbox", name="nsfw", id="nsfw", checked="checked")
+          input(type="submit", value="search")
+    include includes/footer.pug

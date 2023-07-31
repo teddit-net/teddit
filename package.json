@@ -1,6 +1,6 @@
 {
   "name": "teddit",
-  "version": "0.3.1",
+  "version": "0.4.9",
   "description": "A free and open source alternative Reddit front-end focused on privacy.",
   "homepage": "https://teddit.net",
   "bugs": {
@@ -20,18 +20,22 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
-    "express": "^4.17.1",
-    "helmet": "^4.2.0",
+    "express": "^4.18.2",
+    "helmet": "^4.6.0",
+    "https-proxy-agent": "^5.0.0",
     "minizlib": "^2.1.2",
-    "node-fetch": "^2.6.1",
-    "postman-request": "^2.88.1-postman.27",
+    "node-fetch": "^2.6.5",
+    "postman-request": "^2.88.1-postman.30",
     "pug": "^3.0.2",
-    "redis": "^3.0.2"
+    "redis": "^3.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

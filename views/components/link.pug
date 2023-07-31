@@ -1,0 +1,100 @@
+.link
+  if user_preferences.show_upvotes === 'false'
+        style.
+          .upvotes {
+            display: none;
+          }
+  .upvotes
+    .arrow
+    span #{kFormatter(link.ups)}
+    .arrow.down
+  .image
+    if link.images
+      if link.is_self_link
+        a(href="" + link.permalink + "")
+          img(src="" + link.images.thumb + "", alt="")
+          if link.duration
+            span.duration #{secondsToMMSS(link.duration)}
+      else
+        a(href=""+ link.url +"", rel="noopener noreferrer")
+          img(src="" + link.images.thumb + "", alt="")
+          if link.duration
+            span.duration #{secondsToMMSS(link.duration)}
+    else
+      a(href="" + link.permalink + "")
+        .no-image no image
+  .entry
+    .title
+      if link.is_self_link
+        a(href="" + link.permalink + "")
+          h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+        != link.link_flair
+        span (#{link.domain})
+      else
+        a(href="" + link.url + "", rel="noopener noreferrer")
+          h2(class="" + (link.stickied ? 'green' : '') + "") #{cleanTitle(link.title)}
+        != link.link_flair
+        span (#{link.domain})
+    .meta
+      p.submitted submitted
+        span(title="" + toUTCString(link.created) +  "") #{timeDifference(link.created)} by
+        if link.author === '[deleted]'
+          span(class="deleted") [deleted]
+        else
+          a(href="/u/" + link.author + "")
+            | #{link.author}
+        != link.user_flair
+      p.to to
+         a(href="/r/" + link.subreddit + "")
+          | #{link.subreddit}
+      if link.stickied
+        span(class="green") stickied
+      .links
+        if link.over_18
+          span.tag.nsfw NSFW
+        if link.selftext_html
+          details
+            summary
+              .line
+              .line
+              .line
+            .selftext
+              != unescape(link.selftext_html, user_preferences)
+        if (link.images && link.images.preview)
+          style.
+            details.preview-container img {
+              width: 100% !important;
+              height: auto !important;
+              max-width: none !important;
+              max-height: none !important;
+              opacity: 0;
+            }
+            details.preview-container[open][data-url="#{link.images.preview}"] .preview {
+              width: 100%;
+              height: auto;
+              background-image: url('#{link.images.preview}');
+              background-repeat: no-repeat;
+              background-size: contain;
+            }
+          details.preview-container(data-url="" + link.images.preview + "")
+            summary
+              span &#9654;
+            .preview
+              img(src=""+ link.images.thumb +"", alt="")
+        a(href="" + link.permalink + "", class="comments") #{link.num_comments} comments
+        -
+          let back_url = "/r/" + subreddit + "/" + sortby + "§2t="+ (past ? past : '') +""
+          if(before && !subreddit_front)
+            back_url = "/r/" + subreddit + "/" + sortby + "§2t="+ (past ? past : '') +"§1before=" + before + ""
+          if(after)
+            back_url = "/r/" + subreddit + "/" + sortby + "§2t=" + (past ? past : '') + "§1after=" + after + ""
+        - let saved_post = false
+        if user_preferences.saved
+          each post_id in user_preferences.saved
+            if post_id === link.id
+              - saved_post = true
+        if saved_post
+          a(href="/unsave/" + link.id + "/?rk=" + redis_key + "&b=" + back_url + "") unsave
+        else
+          a(href="/save/" + link.id + "/?rk=" + redis_key + "&b=" + back_url + "") save
+        a(href=("https://www.reddit.com" + link.permalink) target="_blank" title="Open in Reddit (new tab)") [R↗]

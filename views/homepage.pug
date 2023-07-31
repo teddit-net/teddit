@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title teddit
+    meta(property='og:title', content='home : teddit')
+    include includes/meta_default.pug
+    include includes/meta_description.pug
+    include includes/head.pug
+  body(class="" + (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + " homepage clean")
+    include includes/topbar.pug
+    main
+      h1 teddit
+      form(action="/search", method="GET")
+        input(type="text", name="q")
+        input(type="hidden", name="restrict_sr", value="on")
+        input(type="hidden", name="nsfw", value="on")
+        input(type="hidden", name="sort", value="relevance")
+        input(type="hidden", name="t", value="all")
+      .sublinks
+        if user_preferences.subbed_subreddits && Array.isArray(user_preferences.subbed_subreddits)
+          a(href="/r/popular") Popular
+          a(href="/r/all") All
+          a(href="/saved") Saved
+          each subreddit in user_preferences.subbed_subreddits
+            a(href="/r/" + subreddit) #{subreddit}
+        else if instance_config.suggested_subreddits && Array.isArray(instance_config.suggested_subreddits)
+          each subreddit in instance_config.suggested_subreddits
+            if subreddit.toLowerCase() === 'saved'
+              a(href="/saved") Saved
+            else
+              a(href="/r/" + subreddit) #{subreddit}
+    include includes/footer.pug
+    

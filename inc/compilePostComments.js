@@ -5,10 +5,14 @@ module.exports = function() {
         let comments_html
         function commentAuthor(comment, classlist, submitter, moderator) {
           let classes = classlist.join(' ')
-          if (comment.author === '[deleted]')
-            return `<span class="${classes}">[deleted]</span>`
-          else
+          if (comment.author === '[deleted]') {
+            var reveddit_url = "https://www.reveddit.com" + post_url.substr(post_url.indexOf('/r/')) + comments.id
+            return `<span class="${classes}"><a href="${reveddit_url}" style='color: #cc6a6a !important;'>[deleted]</a></span>`
+          }
+
+          else {
             return `<a href="/u/${comment.author}" class="${classes}">${comment.author}</a>${submitter || ''}${moderator || ''}`
+          }
         }
         
         if(!user_preferences)
@@ -115,6 +119,7 @@ module.exports = function() {
               }
             } else {
               let link = comments.parent_id.split('_')[1]
+              link = post_url + link
               comments_html = `
                 <div class="load-more-comments">
                   <a href="${link}/#c">continue this thread</a>
@@ -205,7 +210,7 @@ module.exports = function() {
               }
               comments_html += replies_html + '</details></div>'
             } else {
-              if(comment.children.length > 0) {
+              if(comment.children.length > 0) {
                 let parent_id = comment.parent_id.split('_')[1]
                 let load_comms_href = parent_id
 
@@ -215,7 +220,8 @@ module.exports = function() {
                   </div>
                 `
               } else {
-                let link = comment.parent_id.split('_')[1]
+                let link = comment.parent_id.split('_')[1] 
+                link = post_url + link
                 comments_html = `
                   <div class="load-more-comments">
                     <a href="${link}/#c">continue this thread</a>

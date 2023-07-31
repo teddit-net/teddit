@@ -2,6 +2,9 @@ doctype html
 html
   head
     title privacy policy - teddit
+    meta(property='og:title', content='privacy policy - teddit')
+    include includes/meta_default.pug
+    include includes/meta_description.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug

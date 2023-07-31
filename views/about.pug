@@ -2,6 +2,9 @@ doctype html
 html
   head
     title about - teddit
+    meta(property='og:title', content='about - teddit')
+    include includes/meta_default.pug
+    include includes/meta_description.pug
     include includes/head.pug
   body(class=""+ (user_preferences.theme === 'auto' ? 'dark' : user_preferences.theme) + "")
     include includes/topbar.pug
@@ -18,8 +21,10 @@ html
         a(href="/privacy") Privacy policy
         h2 Donating
         p(class="word-break") XMR: 832ogRwuoSs2JGYg7wJTqshidK7dErgNdfpenQ9dzMghNXQTJRby1xGbqC3gW3GAifRM9E84J91VdMZRjoSJ32nkAZnaCEj
+        h2 Legal
+        p Teddit does not host any content. All content shown on any Teddit instances is from Reddit™. Reddit is a trademark of Reddit Inc. Teddit is not affiliated with Reddit Inc. Any issues with content shown on any Teddit instances need to be reported to Reddit, not the instance host's internet provider or domain provider.
         .bottom
           a(href="https://en.wikipedia.org/wiki/Piratbyr%C3%A5n#Kopimi", target="_blank")
             img(src="kopimi.gif")
-          p.version v.0.3.1
+          p.version v.0.4.9
     include includes/footer.pug

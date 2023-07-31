@@ -1,0 +1,211 @@
+:root {
+    --darkbg: #2E3440;
+    --darkbglight: #434C5E;
+    --darklinkcolor: #599bff;
+}
+
+body.nord {
+	background: var(--darkbg);
+	color: #ECEFF4;
+}
+body.nord nav {
+	background: #3E4450;
+}
+body.nord .top-links a {
+	background: var(--darkbg);
+	color: #bfbfbf;
+}
+body.nord header {
+	background: var(--darkbglight);
+	color: #f1f1f1;
+}
+body.nord #post header div a {
+	color: var(--darklinkcolor);
+	text-decoration: none;
+}
+body.nord a {
+	color: #f5f5f5;
+}
+body.nord a:hover, body.nord a:focus {
+	color: #88C0D0;
+	text-decoration: underline;
+}
+body.nord #post header div a:hover,
+body.nord #post header div a:focus {
+	text-decoration: underline;
+}
+body.nord input[type="submit"]:hover,
+body.nord input[type="submit"]:focus,
+body.nord .btn:hover,
+body.nord .btn:focus {
+	background: #ECEFF4;
+	color: #2E3440;
+	text-decoration: none;
+}
+body.nord form legend {
+	border-bottom: 1px solid #353535;
+}
+body.nord #post .title a {
+	color: var(--darklinkcolor);
+}
+body.nord #post .submitted {
+	color: #a5a5a5;
+}
+body.nord #post .usertext-body {
+	background: #2A2935;
+	border: 1px solid #404040;
+}
+body.nord .infobar {
+	background-color: #d2d2d2;
+	color: #2f2f2f;
+}
+body.nord .infobar.blue {
+	background: #c7e3f9;
+	border: 1px solid #4b78a4;
+}
+body.nord .infobar a {
+	color: #0356d4;
+}
+body.nord header .tabmenu li a {
+	background: #3e3e3e;
+}
+body.nord header .tabmenu li a:hover, body.nord header .tabmenu li a:focus {
+	text-decoration: underline;
+	color: #ECEFF4;
+}
+body.nord #search {
+	color: #d2d2d2;
+}
+body.nord .md {
+	color: #dadada;
+}
+body.nord .md blockquote, body.nord .md del {
+	color: #777777;
+}
+body.nord .md code, body.nord .md pre {
+	background: #2E3440;
+	color: #cacaca;
+}
+body.nord .comment .body blockquote {
+	background: #2E3440;
+	color: #afafaf;
+	border-color: #464646;
+}
+body.nord .even-depth {
+	background: var(--darkbg);
+}
+body.nord .odd-depth {
+	background: var(--darkbglight);
+}
+
+body.nord .comment .comment {
+	border-left: 1px solid #545454;
+}
+
+body.nord .comment .meta .created a {
+	color: #7b7b7b;
+}
+body.nord .comment details summary {
+	color: #868686;
+}
+body.nord .comment details summary::-webkit-details-marker,
+body.nord .comment details summary::marker {
+	color: #868686;
+}
+body.nord #links .link .entry .title a h2 {
+	color: #f0f0f0;
+}
+body.nord #links .link .entry .title a:visited h2 {
+	color: #8FBCBB;
+}
+body.nord #links .link .image .no-image,
+body.nord #user .entry .image .no-image {
+	filter: opacity(0.5);
+}
+body.nord #user .comment {
+	width: 100%;
+	background: var(--darkbg);
+}
+body.nord #links .link .upvotes {
+	color: #D08770;
+}
+body.nord .upvotes .arrow,
+body.nord .score .arrow {
+	filter: opacity(0.5);
+}
+body.nord #links .link .entry .meta a {
+	color: #81A1C1;
+}
+#links .link .entry .meta {
+  color: #D8DEE9 !important;
+}
+#links .link .entry .title span {
+  color: #5E81AC !important;
+}
+body.nord #links .link .entry .selftext {
+  background: #2A2935;
+  border: 1px solid #404040;
+}
+body.nord #links .link .entry .meta .links .selftext a {
+  color: var(--darklinkcolor);
+  margin: 0;
+}
+body.nord #links .link .entry details .line {
+  width: 16px;
+  margin-top: 3px;
+  background: #4C566A;
+  border: 1px solid #81A1C1;
+}
+body.nord .content .bottom img {
+	filter: invert(1);
+}
+body.nord .container .content {
+	border: 1px solid #434C5E;
+}
+body.nord input[type="submit"],
+body.nord .btn {
+	background: #2E3440;
+	color: #ECEFF4;
+}
+body.nord #post .crosspost {
+	background: var(--darkbg);
+}
+body.nord .view-more-links a {
+	background: #2E3440;
+	color: #cacaca;
+}
+body.nord .md .md-spoiler-text:not(.revealed):active,
+body.nord .md .md-spoiler-text:not(.revealed):focus,
+body.nord .md .md-spoiler-text:not(.revealed):hover {
+	background: #cacaca;
+	color: #2E3440;
+}
+body.nord .comment .body a,
+body.nord .usertext-body a {
+	color: #3d99fb;
+}
+body.nord header .tabmenu li.active a {
+  background: #acacac;
+  color: #151515;
+}
+body.nord #search form input[type="text"] {
+  background: #2E3440;
+  color: #ECEFF4;
+}
+body.nord footer {
+  background: #2f2f2f;
+}
+body.nord footer a {
+  color: #999;
+}
+body.nord .flair {
+  color: #eaeaea !important;
+  background-color: #404040 !important;
+}
+body.nord #sr-more-link {
+  color: #ECEFF4;
+  background: #2E3440;
+}
+body.nord #post .usertext-body .poll {
+  border: 1px solid #404040;
+}
